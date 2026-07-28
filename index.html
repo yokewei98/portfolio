@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Xavier Tan — Systems, Automation &amp; AI</title>
-<meta name="description" content="Five production systems: a multi-country creator ERP, an autonomous WhatsApp AI agent, a Google Workspace operations platform, browser automation extractors, and a geospatial routing tool. Built in Kuala Lumpur.">
+<meta name="description" content="Six systems: a multi-country creator ERP, an autonomous WhatsApp AI agent, a Google Workspace operations platform, browser automation extractors, a geospatial routing tool, and a property comparison dashboard. Built in Kuala Lumpur.">
 <meta property="og:type" content="profile">
 <meta property="og:title" content="Xavier Tan — Systems, Automation &amp; AI">
-<meta property="og:description" content="Five production systems: a multi-country creator ERP, an autonomous WhatsApp AI agent, a Google Workspace operations platform, browser automation extractors, and a geospatial routing tool.">
+<meta property="og:description" content="Six systems: a multi-country creator ERP, an autonomous WhatsApp AI agent, a Google Workspace operations platform, browser automation extractors, a geospatial routing tool, and a property comparison dashboard.">
 <meta property="og:locale" content="en_MY">
 <meta name="theme-color" content="#0c0d0b">
 
@@ -258,7 +258,7 @@ body.routed .view.active { display: block; }
 
 /* Headline figures — hairline-separated, not boxed */
 .stats {
-  display: grid; grid-template-columns: repeat(3, 1fr);
+  display: grid; grid-template-columns: repeat(4, 1fr);
   margin-top: 46px;
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
@@ -526,6 +526,7 @@ body.routed .view.active { display: block; }
   content: "▸"; color: var(--brass); margin-right: 11px; font-size: .8em;
 }
 .decisions p { color: var(--text-2); font-size: 1rem; }
+.decisions p + p { margin-top: 14px; }
 
 details.deeper { margin: 46px 0; border-top: 1px solid var(--rule); }
 details.deeper > summary {
@@ -715,6 +716,11 @@ footer a:hover { color: var(--text); }
       <path d="M12 21.2s6.2-5.6 6.2-10.4a6.2 6.2 0 1 0-12.4 0C5.8 15.6 12 21.2 12 21.2Z"/>
       <circle cx="12" cy="10.6" r="2.3"/>
     </symbol>
+
+    <symbol id="i-compass" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="M15.9 8.1 13.6 13.6 8.1 15.9 10.4 10.4Z"/>
+    </symbol>
   </defs>
 </svg>
 
@@ -727,6 +733,7 @@ footer a:hover { color: var(--text); }
       <a href="#endorsement"    data-view="endorsement">Endorsement</a>
       <a href="#extractors"     data-view="extractors">Extractors</a>
       <a href="#property-finder" data-view="property-finder">Property Finder</a>
+      <a href="#feng-shui"      data-view="feng-shui">Feng Shui</a>
     </nav>
   </div>
 </div>
@@ -763,6 +770,7 @@ footer a:hover { color: var(--text); }
 
       <div class="stats reveal" style="--d:.38s">
         <div><div class="stat-n">51,000</div><div class="stat-l">Lines TypeScript</div></div>
+        <div><div class="stat-n">21</div><div class="stat-l">Internal active users</div></div>
         <div><div class="stat-n">7</div><div class="stat-l">Distinct user roles</div></div>
         <div><div class="stat-n">3</div><div class="stat-l">Countries served</div></div>
       </div>
@@ -788,16 +796,16 @@ footer a:hover { color: var(--text); }
         <div class="section-num reveal" style="--d:.04s">01</div>
         <div>
           <div class="section-head reveal" style="--d:.08s">
-            <p class="eyebrow">Five systems</p>
+            <p class="eyebrow">Six systems</p>
             <h2 id="projects-h">What I've built</h2>
             <p class="lede">Filter by capability, or open any project for the full detail.</p>
           </div>
 
           <div class="filter reveal" style="--d:.12s" role="group" aria-label="Filter projects by capability">
-            <button class="chip" type="button" data-tag="all" aria-pressed="true">All<span class="count">5</span></button>
+            <button class="chip" type="button" data-tag="all" aria-pressed="true">All<span class="count">6</span></button>
             <button class="chip" type="button" data-tag="ai" aria-pressed="false">AI &amp; Agents<span class="count">1</span></button>
             <button class="chip" type="button" data-tag="erp" aria-pressed="false">ERP<span class="count">1</span></button>
-            <button class="chip" type="button" data-tag="data" aria-pressed="false">Data<span class="count">4</span></button>
+            <button class="chip" type="button" data-tag="data" aria-pressed="false">Data<span class="count">5</span></button>
             <button class="chip" type="button" data-tag="automation" aria-pressed="false">Automation<span class="count">3</span></button>
             <button class="chip" type="button" data-tag="fullstack" aria-pressed="false">Full-Stack<span class="count">3</span></button>
           </div>
@@ -919,14 +927,37 @@ footer a:hover { color: var(--text); }
               <div class="card-go" aria-hidden="true">&rarr;</div>
             </a>
 
+            <a class="card" href="#feng-shui" data-tags="data">
+              <div class="card-idx"><svg class="ico card-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-compass"/></svg><span>06</span></div>
+              <div>
+                <div class="card-role">Scoping judgment</div>
+                <h3>Feng Shui Dashboard</h3>
+                <p class="card-purpose">
+                  A zero-dependency comparison surface for a real property purchase &mdash; four
+                  developers' incompatible incentive packages side by side, with photographic
+                  evidence for the disqualifying facts no listing portal carries.
+                </p>
+                <div class="card-metrics">
+                  <span><b>0</b> dependencies</span>
+                  <span><b>4</b> projects compared</span>
+                  <span><b>1,520</b> lines</span>
+                </div>
+                <div class="card-tags">
+                  <span class="tag-label">Data</span>
+                </div>
+              </div>
+              <div class="card-go" aria-hidden="true">&rarr;</div>
+            </a>
+
           </div>
 
           <figure class="figure">
             <svg class="dgm" viewBox="0 0 700 392" role="img" aria-labelledby="mapT mapD">
-              <title id="mapT">How the five systems relate</title>
+              <title id="mapT">How the six systems relate</title>
               <desc id="mapD">The Endorsement Platform was rebuilt as the Creator ERP when it
                 hit its platform ceiling. The Analytics Extractors feed metrics into the ERP.
-                WA Agent and Property Finder are independent projects.</desc>
+                WA Agent, Property Finder and the Feng Shui Dashboard are independent
+                projects.</desc>
 
               <!-- V1 -->
               <rect class="dgm-box" x="20" y="30" width="250" height="60" rx="3"/>
@@ -959,20 +990,25 @@ footer a:hover { color: var(--text); }
               <text class="dgm-n" x="350" y="276" text-anchor="middle">INDEPENDENT PROJECTS</text>
 
               <!-- independents -->
-              <rect class="dgm-box" x="20" y="305" width="250" height="60" rx="3"/>
+              <rect class="dgm-box" x="20" y="305" width="205" height="60" rx="3"/>
               <text class="dgm-t" x="36" y="332">WA Agent</text>
-              <text class="dgm-s" x="36" y="350">Node · Apps Script · Gemini</text>
-              <text class="dgm-n" x="254" y="332" text-anchor="end">02</text>
+              <text class="dgm-s" x="36" y="350">Node · Gemini · Apps Script</text>
+              <text class="dgm-n" x="209" y="332" text-anchor="end">02</text>
 
-              <rect class="dgm-box" x="430" y="305" width="250" height="60" rx="3"/>
-              <text class="dgm-t" x="446" y="332">Property Finder</text>
-              <text class="dgm-s" x="446" y="350">Next.js · GraphHopper</text>
-              <text class="dgm-n" x="664" y="332" text-anchor="end">05</text>
+              <rect class="dgm-box" x="247" y="305" width="206" height="60" rx="3"/>
+              <text class="dgm-t" x="263" y="332">Property Finder</text>
+              <text class="dgm-s" x="263" y="350">Next.js · GraphHopper</text>
+              <text class="dgm-n" x="437" y="332" text-anchor="end">05</text>
+
+              <rect class="dgm-box" x="475" y="305" width="205" height="60" rx="3"/>
+              <text class="dgm-t" x="491" y="332">Feng Shui Dashboard</text>
+              <text class="dgm-s" x="491" y="350">Vanilla JS · GitHub Pages</text>
+              <text class="dgm-n" x="664" y="332" text-anchor="end">06</text>
             </svg>
             <figcaption>
               <b>The arc.</b> I improved what existed on Google Workspace, then rebuilt it as a
               real ERP when it hit the platform's ceiling — and built the extraction tooling that
-              feeds it. The other two are independent projects.
+              feeds it. The other three are independent projects.
             </figcaption>
           </figure>
         </div>
@@ -1120,12 +1156,18 @@ footer a:hover { color: var(--text); }
 
     <div class="block">
       <h3>The problem</h3>
-      <div class="todo">
-        <strong>To write</strong>
-        2&ndash;3 sentences on what was broken before. Source: <code>creator_erp.md</code> §1 &mdash;
-        campaign coordination ran on spreadsheets and WhatsApp, four parties each needing a
-        different slice of the same record.
-      </div>
+      <p>
+        Campaign coordination ran on spreadsheets and WhatsApp threads. Four parties &mdash; internal
+        operators, brand clients, creators and a contract-review function &mdash; each needed a
+        different slice of the same record, and every slice stayed current only because somebody was
+        re-typing it somewhere else.
+      </p>
+      <p>
+        Three markets made that worse rather than merely bigger. Indonesia, Malaysia and Vietnam each
+        carry their own currency, date locale, banking fields, national-ID requirement, contract
+        template and numbering sequence &mdash; so "the same process, three times" was never actually
+        the same process, and the differences lived in whoever happened to remember them.
+      </p>
     </div>
 
     <div class="block">
@@ -1133,38 +1175,54 @@ footer a:hover { color: var(--text); }
       <ul class="decisions">
         <li>
           <h4>Authorisation enforced in the database, not the application</h4>
-          <div class="todo">
-            <strong>To write</strong>
-            Permissions travel through database predicates (<code>can_access_project</code>,
-            <code>is_operator_elevated</code>, <code>user_role</code>), so a bug in a page cannot
-            leak another tenant's rows.
-          </div>
+          <p>
+            Permissions travel through database predicates &mdash; <code>can_access_project</code>,
+            <code>is_operator_elevated</code>, <code>user_role</code> &mdash; evaluated by 240
+            row-level-security policies and 40 database functions, rather than by checks written into
+            page code. The reasoning is blunt: application checks stay correct right up until someone
+            adds a page and forgets one. With the rule held in the database, a query written wrongly
+            returns nothing instead of returning another client's rows. It is more work up front, and
+            what it buys is that no single mistake in the application layer is enough to leak data.
+          </p>
         </li>
         <li>
           <h4>Column-level protection via narrow views</h4>
-          <div class="todo">
-            <strong>To write</strong>
-            Row-level security filters rows, not columns. Client-facing reads route through narrow
-            views because the base tables carry bearer tokens and fee data.
-          </div>
+          <p>
+            Row-level security filters rows, not columns &mdash; a client whose rows are correctly
+            scoped can still read every column of them, and the base tables carry bearer tokens, fee
+            data and banking fields. So every client-facing read routes through a narrow view that
+            simply does not select those columns. It is the same principle the Google Workspace
+            system reached by a different road: the safest version of <em>they must not see this</em>
+            is that it was never in the result to begin with.
+          </p>
         </li>
         <li>
           <h4>Country as a first-class dimension</h4>
-          <div class="todo">
-            <strong>To write</strong>
-            Country drives currency, date locale, banking fields, national-ID requirements,
-            contract template and contract-numbering sequence.
-          </div>
+          <p>
+            Country is not a label on a record; it is an input to behaviour. <code>ID</code>,
+            <code>MY</code> and <code>VN</code> each determine currency, date locale, which banking
+            fields are required, whether a national ID is collected, which contract template is used
+            and which numbering sequence that contract draws from. Modelling it as a dimension rather
+            than as three forks of the same feature is what keeps a fourth market a configuration
+            exercise instead of a rewrite &mdash; and keeps the differences in the schema, where they
+            can be read, rather than in an operator's memory.
+          </p>
         </li>
         <li>
           <h4>Retiring a working AI subsystem on purpose</h4>
-          <div class="todo">
-            <strong>To write</strong>
-            The LLM/WhatsApp subsystem was decommissioned deliberately: source frozen under a
-            checksum-pinned archive, four-document restart runbook, live path collapsed to one
-            branch, reversible without a database migration. <code>creator_erp.md</code> calls this
-            the strongest story in the repo &mdash; judgment, not volume.
-          </div>
+          <p>
+            The platform ran an LLM-driven WhatsApp assistant that billed tokens per conversation
+            turn and depended on an unofficial client carrying real ban risk for the number. It
+            worked. It was retired anyway, because what it cost and what it risked had stopped being
+            worth what it returned.
+          </p>
+          <p>
+            The retirement was engineered rather than deleted: source frozen under a checksum-pinned
+            archive, a four-document restart runbook written, the live code path collapsed to a
+            single branch, and the whole thing reversible without a database migration. Removing a
+            feature you built &mdash; and leaving the door open properly on the way out &mdash; is a
+            harder call than shipping it was.
+          </p>
         </li>
       </ul>
     </div>
@@ -1172,14 +1230,38 @@ footer a:hover { color: var(--text); }
     <details class="deeper">
       <summary>Deeper technical detail</summary>
       <div class="deeper-body">
-        <div class="todo">
-          <strong>To write</strong>
-          Available verified material: 299 source files · ~51,000 lines · 40 database functions ·
-          51 server-action modules · 108 React components · 27 page routes · 12 API routes ·
-          860 commits over ~2.5 months · a 72-file Node worker held architecturally separate ·
-          direct-to-storage uploads via signed URLs bypassing the serverless body-size ceiling ·
-          bilingual reporting surface with a test that fails the build on a missing translation.
-        </div>
+        <p>
+          <b>Shape of the codebase.</b> Roughly 51,000 lines of TypeScript across 299 source files:
+          108 React components, 27 page routes, 12 API routes and 158 exported Server Actions spread
+          over 51 modules, against a schema of 40 tables and views built by 190 migrations. 796 tests
+          across 44 files run in about five seconds &mdash; which is the number that actually matters,
+          because a suite that fast gets run, and it gates a build-test-deploy pipeline that ships on
+          merge. 860 commits over roughly two and a half months.
+        </p>
+        <p>
+          <b>What the system does instead of a person.</b> Contracts assemble themselves the moment
+          the last required field lands, from either the board or the product tab, with no operator
+          "generate" step. Indonesian PPh21 withholding is computed at document-build time rather than
+          typed. Contract numbers are sequenced per country. Deliverables spawn from the contracted
+          quantities when a creator crosses into production. Shipment release is triggered by contract
+          verification rather than by someone remembering to flip a flag. Role changes take effect
+          immediately, including revoking live sessions.
+        </p>
+        <p>
+          <b>The slowest party gets the least friction.</b> Creators never authenticate at all &mdash;
+          tokenised links let them sign contracts, submit drafts and upload video without an account
+          ever existing, and uploads go straight to storage through signed URLs, bypassing the
+          serverless request-body ceiling. Removing account creation from the external party who is
+          hardest to chase does more for cycle time than any internal optimisation.
+        </p>
+        <p>
+          <b>Two details worth naming.</b> The executive reporting surface is bilingual, English and
+          Simplified Chinese, with an automated test that fails the build when a translation is
+          missing or left untranslated &mdash; the kind of thing that otherwise rots quietly for
+          months. And the WhatsApp worker was a separate 72-file Node process held architecturally
+          outside the web app, which is precisely what made retiring it a contained decision rather
+          than a refactor.
+        </p>
       </div>
     </details>
 
@@ -1727,12 +1809,19 @@ footer a:hover { color: var(--text); }
 
     <div class="block">
       <h3>The problem</h3>
-      <div class="todo">
-        <strong>To write</strong>
-        2&ndash;3 sentences. Source: <code>chrome_extractor.md</code> §1 &mdash; a roster of creator
-        usernames in Sheets needing recurring commercial-performance visibility, against two
-        platforms offering no bulk export and no public API.
-      </div>
+      <p>
+        The operator keeps a roster of TikTok Shop creators in a spreadsheet and needs each one's
+        commercial performance refreshed on a recurring basis to make partnership, budget and
+        outreach decisions. Neither source will give that up in bulk: TikTok Partner Center and
+        FastMoss are both search-one-creator-at-a-time interfaces with no CSV export and no public
+        API for this dataset.
+      </p>
+      <p>
+        So the work was a loop &mdash; type a username, wait for the page to render, read four to six
+        figures off the screen, transcribe them into the right row, repeat &mdash; and separately keep
+        track of who had already been done this month. It is the kind of task that is never urgent
+        enough to fix and never actually finished.
+      </p>
     </div>
 
     <div class="block">
@@ -1740,43 +1829,56 @@ footer a:hover { color: var(--text); }
       <ul class="decisions">
         <li>
           <h4>Two deliberately different strategies in one repository</h4>
-          <div class="todo">
-            <strong>To write</strong>
-            The TikTok extractor scrapes the rendered DOM through a 7-deep cascading selector
-            fallback chain to survive obfuscated hash-suffixed CSS classes. The FastMoss extractor
-            skips the interface entirely. This is a visible engineering progression, not inconsistency.
-          </div>
+          <p>
+            The two extensions solve the same problem by opposite routes, and the repository keeps
+            both. The TikTok extractor drives the site's own search box and walks the results table
+            through a seven-deep cascading selector fallback chain &mdash;
+            <code>.arco-table-tr</code>, then attribute matches, then <code>[role="row"]</code>, then
+            a text-density heuristic &mdash; because the target ships obfuscated, hash-suffixed CSS
+            classes that change without notice. The FastMoss extractor skips the interface entirely.
+            Reading them side by side is the point: the first is what you build when you have to work
+            through the UI, the second is what you build once you understand what the UI is doing.
+          </p>
         </li>
         <li>
           <h4>Reverse-engineered request signing</h4>
-          <div class="todo">
-            <strong>To write</strong>
-            Deriving the <code>fm-sign</code> scheme &mdash; sorted-parameter concatenation with a
-            salt, a hand-inlined dependency-free MD5, and a fold-and-XOR transform &mdash; replaced a
-            5&ndash;10 second page render with a single HTTP round-trip per creator.
-            <br><br>
-            <em>Framing note from the source doc: foreground the architecture and the impact rather
-            than the bypass. An interviewer may probe the terms-of-service angle.</em>
-          </div>
+          <p>
+            FastMoss signs its API requests with a scheme it calls <code>fm-sign</code>:
+            sorted-parameter concatenation against a salt, an MD5 digest, then a fold-and-XOR
+            transform over the result. Working that out meant reading the platform's own shipped
+            bundles and re-implementing MD5 inline, in about 150 lines, so the extension carries no
+            dependencies at all.
+          </p>
+          <p>
+            The payoff is architectural rather than clever. A lookup that previously required
+            rendering a full page and waiting five to ten seconds became a single HTTP round-trip
+            &mdash; which is the difference between an unattended batch over a long roster being
+            practical and being theoretical.
+          </p>
         </li>
         <li>
           <h4>Session-riding instead of credential storage</h4>
-          <div class="todo">
-            <strong>To write</strong>
-            <code>credentials: "include"</code> reuses the operator's existing authenticated browser
-            session, removing API keys, OAuth service accounts, a secrets vault and token-refresh
-            machinery from the system entirely.
-          </div>
+          <p>
+            Both extensions call their targets with <code>credentials: "include"</code>, riding the
+            operator's existing logged-in browser session. Nothing stores a password, an API key or
+            an OAuth token &mdash; which removes credential vaulting, token refresh and secrets
+            management from the system entirely, not by solving them but by never having them. The
+            browser is already the auth layer; the extension declines to build a second one.
+          </p>
         </li>
         <li>
           <h4>Reliability engineering for unattended runs</h4>
-          <div class="todo">
-            <strong>To write</strong>
-            Per-task 45s timeouts, 15/20/30s fetch aborts via <code>AbortController</code>,
-            stale-response task-ID guards, tab-closure detection, and Apps Script document locks
-            preventing concurrent-write corruption. Errors write back into the row, so no record is
-            silently dropped or left stuck.
-          </div>
+          <p>
+            An automation nobody is watching fails differently from one someone is watching: it does
+            not crash, it hangs, and you find out a week later. So every path carries a deadline
+            &mdash; 45-second per-task timeouts, and 15, 20 and 30-second fetch aborts via
+            <code>AbortController</code> &mdash; and every response carries a task-ID guard, so a slow
+            reply belonging to a previous task cannot be written into the current row. Tab closure
+            terminates the batch cleanly, Apps Script document locks stop a scheduled and a manual run
+            corrupting each other's writes, and failures are written back into the row with a failed
+            status. No record is silently dropped, and none is left sitting on
+            <code>Processing&hellip;</code> forever.
+          </p>
         </li>
       </ul>
     </div>
@@ -1784,17 +1886,36 @@ footer a:hover { color: var(--text); }
     <details class="deeper">
       <summary>Deeper technical detail</summary>
       <div class="deeper-body">
-        <div class="todo">
-          <strong>To write</strong>
-          Available verified material: Sheets as job queue, state store and operator console
-          simultaneously · server-driven continuation (the next batch returns in the same response
-          that acknowledges the write) · batches capped at 10 with 2.5s inter-batch delay ·
-          60-second poll with auto-terminate after 3 idle cycles · polling delegated to
-          <code>chrome.alarms</code> specifically to avoid recursively hitting the Apps Script quota ·
-          automatic monthly staleness detection · multi-sheet ingestion via a
-          <code>K1 = "Extract"</code> flag · 28-day metric windows · 5.3 MB of vendor bundles used to
-          derive the signing algorithm.
-        </div>
+        <p>
+          <b>The spreadsheet is the entire backend.</b> Google Sheets is simultaneously the job queue,
+          the state store, the results table and the operator console; an Apps Script web app is the
+          API. There is no server, no database and no hosting bill. It also makes a run resumable by
+          definition &mdash; the sheet holds the remaining work, so a crashed, closed or interrupted
+          batch recovers by relaunching from the menu, with nothing duplicated and nothing lost.
+        </p>
+        <p>
+          <b>Batches that continue themselves.</b> The Apps Script returns the next batch of unfilled
+          rows in the same response that acknowledges the write, so the extension chains straight on
+          without an operator between batches. Batches are capped at ten with a 2.5-second gap to keep
+          the target responsive; the TikTok side polls every 60 seconds and shuts itself down after
+          three idle cycles. Polling runs through <code>chrome.alarms</code> rather than recursive
+          fetches, and the comment in the source says exactly why: to avoid recursively hitting the
+          Apps Script quota.
+        </p>
+        <p>
+          <b>Deciding what needs doing.</b> Rows whose processed date falls outside the current month
+          are cleared and re-queued automatically, so "what is stale" stops being a judgement anyone
+          makes. Any tab flagged <code>K1 = "Extract"</code> is scanned and its pending usernames
+          pulled into the queue, so adding a new roster is a cell edit rather than a code change. The
+          FastMoss side captures 28-day windows for video GMV, video count, live GMV and live sessions.
+        </p>
+        <p>
+          <b>Sixteen hand-written files, no build step.</b> Vanilla JavaScript &mdash; no framework,
+          no bundler, no dependencies &mdash; so there is no <code>npm install</code>, no CI, and no
+          supply-chain surface on a tool that runs against an authenticated session. The interface is
+          a native Sheets menu item, which is what makes it usable by someone who would never open a
+          terminal.
+        </p>
       </div>
     </details>
 
@@ -1837,7 +1958,7 @@ footer a:hover { color: var(--text); }
       <div class="metric"><dt>MB OSM extract</dt><dd>246</dd></div>
       <div class="metric"><dt>Routing calls per run</dt><dd>426</dd></div>
       <div class="metric"><dt>Stations mapped</dt><dd>147</dd></div>
-      <div class="metric"><dt>Pipeline scripts</dt><dd>11</dd></div>
+      <div class="metric"><dt>Pipeline scripts</dt><dd>10</dd></div>
       <div class="metric"><dt>Prisma models</dt><dd>3</dd></div>
     </dl>
     <p class="metrics-note">
@@ -1847,13 +1968,13 @@ footer a:hover { color: var(--text); }
     <figure class="figure">
       <svg class="dgm" viewBox="0 0 700 236" role="img" aria-labelledby="pfT pfD">
         <title id="pfT">The swappable routing seam</title>
-        <desc id="pfD">The app and all eleven pipeline scripts depend on a RoutingProvider
+        <desc id="pfD">The app and all ten pipeline scripts depend on a RoutingProvider
           interface rather than on a routing engine. GraphHopper sits behind it. OSRM was the
           originally specified engine and was swapped out with a one-line change when Docker
           proved unavailable.</desc>
 
         <rect class="dgm-box" x="20" y="30" width="180" height="56" rx="3"/>
-        <text class="dgm-t" x="34" y="54">11 pipeline scripts</text>
+        <text class="dgm-t" x="34" y="54">10 pipeline scripts</text>
         <text class="dgm-s" x="34" y="71">batch enrichment</text>
 
         <rect class="dgm-box" x="20" y="110" width="180" height="56" rx="3"/>
@@ -1898,12 +2019,18 @@ footer a:hover { color: var(--text); }
 
     <div class="block">
       <h3>The problem</h3>
-      <div class="todo">
-        <strong>To write</strong>
-        2&ndash;3 sentences. Source: <code>property_finder.md</code> §1 &mdash; portals advertise
-        straight-line distance to transit; the system's core constraint is that straight-line
-        distance is only ever a prefilter, never a displayed number.
-      </div>
+      <p>
+        Property portals advertise a distance to the nearest station, and that number is usually a
+        straight line drawn on a map. A unit listed as 400&nbsp;m from an LRT station can be a
+        fifteen-minute walk once a highway, a river or a missing footbridge is in the way &mdash; so
+        shortlisting on the advertised figure means spending weekends visiting places that were never
+        actually close.
+      </p>
+      <p>
+        The tool is built around one rule that follows from that: straight-line distance is only ever
+        a prefilter, never a number shown to the user. Every walk and drive time on screen is routed
+        along the real street network. That single constraint dictated most of the architecture.
+      </p>
     </div>
 
     <div class="block">
@@ -1911,32 +2038,41 @@ footer a:hover { color: var(--text); }
       <ul class="decisions">
         <li>
           <h4>The seam was chosen before the engine</h4>
-          <div class="todo">
-            <strong>To write</strong>
-            Routing sits behind a <code>RoutingProvider</code> interface; the engine swaps with a
-            one-line change and nothing in the app or the 11 pipeline scripts depends on GraphHopper
-            directly. The design specified OSRM via Docker, Docker turned out to be unavailable, and
-            GraphHopper was substituted with that one line. The seam paid for itself during the build
-            rather than hypothetically &mdash; which is the point worth making.
-          </div>
+          <p>
+            Routing sits behind a <code>RoutingProvider</code> interface and the concrete engine is
+            selected in one line. Nothing in the application or the eleven pipeline scripts refers to
+            GraphHopper directly.
+          </p>
+          <p>
+            The design had specified OSRM running under Docker. Docker turned out not to be available
+            on the machine, and GraphHopper went in instead as a local JAR &mdash; a one-line change,
+            mid-build. That is the part worth saying plainly: the seam was not justified by a
+            hypothetical future migration, it paid for itself during the build it was written for.
+          </p>
         </li>
         <li>
           <h4>Batch enrichment, not request-time computation</h4>
-          <div class="todo">
-            <strong>To write</strong>
-            All expensive geo work happens in offline pipelines; the app reads precomputed values
-            from SQLite, so filtering and sorting across 11 dimensions run client-side with no
-            network round-trip.
-          </div>
+          <p>
+            Nothing expensive happens while someone is waiting. Scraping, geocoding, route enrichment
+            and ratings all run as offline pipeline scripts that write into SQLite; the application
+            only ever reads precomputed values. The result is that filtering and sorting across eleven
+            dimensions &mdash; region, category, scheme, status, price, price per square foot,
+            bedrooms, distance to transit, rating, favourites and completion window &mdash; happen
+            client-side with no round-trip at all. Changing the personal drive anchor is the one
+            action that triggers a re-route, and it re-routes everything, because a stale commute
+            figure is worse than an absent one.
+          </p>
         </li>
         <li>
           <h4>Failing loudly rather than degrading silently</h4>
-          <div class="todo">
-            <strong>To write</strong>
-            The enrichment script pings the routing engine first and exits non-zero if unreachable.
-            A silent fallback to straight-line distance would have quietly violated the system's one
-            accuracy guarantee.
-          </div>
+          <p>
+            The enrichment script pings the routing engine before it starts and exits non-zero if it
+            cannot reach it. The tempting alternative &mdash; fall back to straight-line distance
+            whenever the engine is down &mdash; would have produced a complete-looking dataset that
+            quietly broke the single guarantee the tool exists to make. A pipeline that stops is an
+            inconvenience. One that silently substitutes a worse number is a tool you can no longer
+            trust, and you would have no way of knowing when that started.
+          </p>
         </li>
         <li>
           <h4>Null-safe filter semantics</h4>
