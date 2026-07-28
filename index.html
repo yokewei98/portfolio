@@ -1,0 +1,1963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xavier Tan — Systems, Automation &amp; AI</title>
+<meta name="description" content="Five production systems: a multi-country creator ERP, an autonomous WhatsApp AI agent, a Google Workspace operations platform, browser automation extractors, and a geospatial routing tool. Built in Kuala Lumpur.">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Xavier Tan — Systems, Automation &amp; AI">
+<meta property="og:description" content="Five production systems: a multi-country creator ERP, an autonomous WhatsApp AI agent, a Google Workspace operations platform, browser automation extractors, and a geospatial routing tool.">
+<meta property="og:locale" content="en_MY">
+<meta name="theme-color" content="#0c0d0b">
+
+<style>
+/* ══════════════════════════════════════════════════════════════
+   A TECHNICAL DOSSIER
+   Warm ink, brass rule, serif voice, monospace evidence.
+   Two typefaces, both resident on the machine — the file has to
+   open from an email attachment on a plane.
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  /* Warm near-black — not the blue-grey every dark UI defaults to */
+  --ink:      #0c0d0b;
+  --ink-2:    #121410;
+  --ink-3:    #171a15;
+  --rule:     #23261e;
+  --rule-lt:  #343829;
+
+  --text:     #eae8e0;
+  --text-2:   #b8b5a8;
+  --muted:    #8d8a78;
+
+  /* One accent. Brass — archival, not startup. */
+  --brass:    #d9a441;
+  --brass-dk: #9d7526;
+  --brass-bg: rgba(217,164,65,.07);
+  --brass-br: rgba(217,164,65,.26);
+
+  /* Editorial margin notes read cool so they never compete with brass */
+  --note:     #86a0b8;
+  --note-bg:  rgba(134,160,184,.055);
+  --note-br:  rgba(134,160,184,.28);
+
+  /* Reading text is sans: on a dark ground, serifs thin out and get harder
+     to scan. Serif is kept for display sizes only, where it reads cleanly
+     and still carries the editorial tone. All three stacks are resident
+     locally — the file must open offline. */
+  --sans:  "Segoe UI Variable Text", "Segoe UI", -apple-system, BlinkMacSystemFont,
+           "SF Pro Text", system-ui, "Helvetica Neue", sans-serif;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua",
+           Charter, Georgia, "Times New Roman", serif;
+  --mono:  ui-monospace, "Cascadia Mono", "SF Mono", SFMono-Regular,
+           "Segoe UI Mono", Menlo, Consolas, monospace;
+
+  --measure: 63ch;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 16.5px;
+  line-height: 1.68;
+  /* Deliberately NOT -webkit-font-smoothing: antialiased — it strips weight
+     from light-on-dark text, which is the opposite of what's needed here. */
+  text-rendering: optimizeLegibility;
+  position: relative;
+}
+
+/* Grain. Inline SVG turbulence — costs one data URI, zero requests.
+   Keeps large flat areas from looking like dead pixels. */
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 3;
+  opacity: .04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+/* Warm bloom at the top of the page — atmosphere, not decoration */
+body::after {
+  content: "";
+  position: fixed; inset: 0 0 auto 0; height: 60vh;
+  pointer-events: none; z-index: 0;
+  background: radial-gradient(120% 100% at 22% -18%, rgba(217,164,65,.09), transparent 62%);
+}
+
+/* ─── primitives ─────────────────────────────────────────────── */
+a { color: inherit; text-decoration: none; }
+
+:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 3px;
+}
+
+h1, h2, h3 {
+  font-family: var(--serif);
+  font-weight: 600; line-height: 1.14; letter-spacing: -0.015em;
+}
+h1 { font-size: clamp(2.4rem, 7vw, 4rem); }
+h2 { font-size: clamp(1.5rem, 4vw, 2.1rem); }
+h3 { font-size: 1.15rem; }
+
+p { max-width: var(--measure); }
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+
+/* Monospace is the voice of measured fact — labels, figures, chrome */
+.tag-label, .eyebrow, .metric dt, .stack li, .chip, .card-idx,
+.masthead, .pager, .back, .filter-status, .metric dd {
+  font-family: var(--mono);
+}
+
+.eyebrow {
+  font-size: .6875rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--muted);
+  font-weight: 500;
+}
+.eyebrow .num { color: var(--brass); }
+
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  background: var(--brass); color: var(--ink);
+  padding: 12px 20px; font-family: var(--mono); font-size: .8125rem; font-weight: 600;
+}
+.skip:focus { left: 0; }
+
+/* ─── masthead ───────────────────────────────────────────────── */
+.masthead {
+  position: sticky; top: 0; z-index: 4;
+  background: rgba(12,13,11,.86);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--rule);
+}
+.masthead .wrap {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px; height: 54px;
+  font-size: .6875rem; text-transform: uppercase; letter-spacing: .1em;
+  color: var(--muted);
+}
+.masthead a:hover { color: var(--text); }
+.masthead .mh-name { color: var(--text-2); }
+.masthead .mh-right { display: flex; gap: 22px; align-items: center; }
+.masthead .mh-dim { color: var(--rule-lt); }
+
+/* ─── view routing ───────────────────────────────────────────── */
+.view { display: block; }
+body.routed .view { display: none; }
+body.routed .view.active { display: block; }
+
+/* Staggered entrance. Re-armed on every route change. */
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.view.in .reveal {
+  animation: rise .62s cubic-bezier(.22,.68,.28,1) backwards;
+  animation-delay: var(--d, 0s);
+}
+@media (prefers-reduced-motion: reduce) {
+  .view.in .reveal { animation: none; }
+  * { transition: none !important; }
+}
+
+/* ═══ OVERVIEW ═══════════════════════════════════════════════ */
+.hero { padding: clamp(64px, 13vw, 132px) 0 clamp(48px, 8vw, 84px); }
+
+.hero-top {
+  display: grid; grid-template-columns: 1fr 296px;
+  gap: 52px; align-items: end;
+}
+.portrait { position: relative; }
+.portrait img {
+  width: 100%; height: auto; display: block;
+  /* The backdrop is pure #000 against a #0c0d0b page, so an un-masked photo
+     reads as a pasted rectangle. Two masks intersected — vertical fade plus
+     softened sides — dissolve every edge. Browsers without mask-composite
+     still get the vertical fade, which is the important one. */
+  -webkit-mask-image:
+    linear-gradient(to bottom, #000 55%, rgba(0,0,0,.3) 82%, transparent 100%),
+    linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, #000 55%, rgba(0,0,0,.3) 82%, transparent 100%),
+    linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%);
+  mask-composite: intersect;
+}
+@media (max-width: 860px) {
+  .hero-top { grid-template-columns: 1fr; gap: 30px; align-items: start; }
+  .portrait { max-width: 220px; order: -1; }
+}
+
+.hero h1 {
+  margin: 18px 0 0;
+  /* Optical: big serif wants slightly tighter leading */
+  line-height: 1.02;
+  letter-spacing: -0.028em;
+}
+
+.hero-position {
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 2.8vw, 1.7rem);
+  line-height: 1.48;
+  margin-top: 26px;
+  max-width: 28ch;
+  color: var(--text);
+  /* was italic — a large italic serif block was the worst offender for
+     readability on this background */
+}
+.hero-position em { font-style: normal; color: var(--brass); }
+
+.hero-meta {
+  margin-top: 30px; padding-top: 20px;
+  border-top: 1px solid var(--rule);
+  display: flex; flex-wrap: wrap; gap: 6px 26px;
+  font-family: var(--mono); font-size: .8125rem;
+  color: var(--muted);
+  max-width: 46ch;
+}
+.hero-meta a { color: var(--brass); }
+.hero-meta a:hover { color: var(--text); }
+
+/* Headline figures — hairline-separated, not boxed */
+.stats {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  margin-top: 46px;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.stats > div {
+  padding: 22px 20px 20px 0;
+  border-right: 1px solid var(--rule);
+}
+.stats > div:last-child { border-right: 0; }
+.stats > div + div { padding-left: 20px; }
+.stat-n {
+  font-family: var(--mono);
+  font-size: clamp(1.5rem, 3.6vw, 2.1rem);
+  font-weight: 500;
+  color: var(--brass);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+.stat-l {
+  font-family: var(--mono);
+  font-size: .625rem; text-transform: uppercase; letter-spacing: .085em;
+  color: var(--muted); margin-top: 10px; line-height: 1.4;
+}
+
+/* ─── section scaffolding (numbered, asymmetric) ─────────────── */
+.section { padding: clamp(56px, 9vw, 104px) 0 0; }
+.section-grid { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0 32px; }
+/* Grid items default to min-width:auto and refuse to shrink below their
+   content — which lets a wide diagram drag the whole track past the
+   viewport. This is what keeps the scroll box contained. */
+.section-grid > * { min-width: 0; }
+.section-num {
+  font-family: var(--mono); font-size: .6875rem;
+  letter-spacing: .085em; color: var(--rule-lt);
+  padding-top: .55rem;
+}
+.section-head { margin-bottom: 40px; }
+.section-head h2 { margin-top: 12px; }
+.section-head .lede {
+  color: var(--text-2); margin-top: 14px; font-size: 1.0625rem;
+}
+
+/* ─── capability filter ──────────────────────────────────────── */
+.filter { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 8px; }
+.chip {
+  font: inherit; font-family: var(--mono);
+  font-size: .75rem; letter-spacing: .04em;
+  background: none; border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--muted); cursor: pointer;
+  padding: 8px 18px 8px 0; margin-right: 8px;
+  transition: color .16s, border-color .16s;
+}
+.chip:hover { color: var(--text); }
+.chip .count { color: var(--rule-lt); margin-left: 5px; }
+.chip[aria-pressed="true"] { color: var(--brass); border-bottom-color: var(--brass); }
+.chip[aria-pressed="true"] .count { color: var(--brass-dk); }
+
+.filter-status {
+  font-size: .75rem; color: var(--muted);
+  min-height: 1.4em; margin-bottom: 28px;
+}
+
+/* ─── project index ──────────────────────────────────────────── */
+.cards { border-top: 1px solid var(--rule); }
+
+.card {
+  display: grid; grid-template-columns: 3.2rem 1fr auto;
+  gap: 0 22px; align-items: start;
+  padding: 30px 0 32px;
+  border-bottom: 1px solid var(--rule);
+  transition: background .2s;
+  position: relative;
+}
+.card::before {
+  content: ""; position: absolute; left: -32px; right: -32px; top: 0; bottom: 0;
+  background: linear-gradient(90deg, var(--brass-bg), transparent 55%);
+  opacity: 0; transition: opacity .22s; pointer-events: none;
+}
+.card:hover::before, .card:focus-visible::before { opacity: 1; }
+.card[hidden] { display: none; }
+
+.card-idx {
+  font-size: .75rem; color: var(--rule-lt);
+  padding-top: .3rem; letter-spacing: .06em;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
+}
+.card:hover .card-idx { color: var(--brass-dk); }
+
+.card h3 { font-size: 1.45rem; letter-spacing: -0.02em; }
+.card-role {
+  font-family: var(--mono); font-size: .625rem;
+  text-transform: uppercase; letter-spacing: .1em;
+  color: var(--brass-dk); margin-bottom: 9px;
+}
+.card-purpose { color: var(--text-2); margin-top: 10px; font-size: 1rem; max-width: 58ch; }
+
+.card-metrics {
+  display: flex; flex-wrap: wrap; gap: 4px 26px;
+  margin-top: 16px;
+  font-family: var(--mono); font-size: .75rem; color: var(--muted);
+}
+.card-metrics b {
+  color: var(--brass); font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.card-tags { display: flex; flex-wrap: wrap; gap: 5px 8px; margin-top: 16px; }
+.tag-label {
+  font-size: .625rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--rule-lt); border-radius: 2px;
+  padding: 3px 8px;
+}
+.card-go {
+  font-family: var(--mono); font-size: 1.1rem; color: var(--rule-lt);
+  padding-top: .3rem; transition: color .2s, transform .2s;
+}
+.card:hover .card-go { color: var(--brass); transform: translateX(4px); }
+
+/* ═══ PROJECT VIEW ═══════════════════════════════════════════ */
+.back {
+  display: inline-block; font-size: .6875rem;
+  text-transform: uppercase; letter-spacing: .1em;
+  color: var(--muted); margin-bottom: 40px;
+}
+.back:hover { color: var(--brass); }
+
+.proj-head { padding-top: clamp(44px, 7vw, 72px); }
+.proj-head h1 {
+  font-size: clamp(2.1rem, 5.6vw, 3.3rem);
+  margin-top: 14px; line-height: 1.04;
+}
+.proj-purpose {
+  font-size: 1.2rem; color: var(--text-2);
+  margin-top: 22px; max-width: 56ch; line-height: 1.62;
+}
+.proj-tags { display: flex; flex-wrap: wrap; gap: 5px 8px; margin-top: 24px; }
+
+.stack { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 8px; margin-top: 26px; }
+.stack li {
+  font-size: .7rem; color: var(--text-2);
+  background: var(--ink-2); border: 1px solid var(--rule);
+  border-radius: 2px; padding: 5px 9px;
+}
+
+/* Verified figures — a rule-bound data band, the argument of the page */
+.metrics {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  margin: 46px 0 14px;
+  border-top: 1px solid var(--brass-br);
+  border-bottom: 1px solid var(--brass-br);
+}
+.metrics > div {
+  padding: 26px 16px 24px 0;
+  border-right: 1px solid var(--rule);
+}
+.metrics > div:last-child { border-right: 0; }
+.metrics > div + div { padding-left: 16px; }
+/* Source order is dt-then-dd, as the spec requires. Reversed here so the
+   figure reads above its label. */
+.metric { display: flex; flex-direction: column-reverse; }
+.metric dd {
+  font-size: clamp(1.5rem, 3.4vw, 2rem);
+  font-weight: 500; color: var(--brass);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.035em; line-height: 1;
+}
+.metric dt {
+  font-size: .625rem; text-transform: uppercase; letter-spacing: .085em;
+  color: var(--muted); margin-top: 11px; line-height: 1.4;
+}
+.metrics-note {
+  font-size: .875rem; color: var(--muted);
+  font-style: italic; margin-bottom: 46px; max-width: 62ch;
+}
+
+/* ─── figure slot ────────────────────────────────────────────── */
+.shot { margin: 46px 0; }
+.shot img { width: 100%; height: auto; display: block; border: 1px solid var(--rule); }
+.shot figcaption {
+  font-family: var(--mono); font-size: .7rem; color: var(--muted);
+  margin-top: 12px; letter-spacing: .04em;
+}
+.shot-empty {
+  border: 1px solid var(--rule-lt);
+  background:
+    repeating-linear-gradient(-45deg, transparent 0 9px, rgba(255,255,255,.014) 9px 18px),
+    var(--ink-2);
+  padding: 62px 24px; text-align: center;
+}
+.shot-empty .eyebrow { color: var(--brass-dk); }
+.shot-empty p {
+  font-size: .9375rem; color: var(--muted);
+  margin: 12px auto 0; max-width: 46ch;
+}
+
+/* ─── icons ──────────────────────────────────────────────────── */
+.ico {
+  display: block;
+  stroke: currentColor; fill: none;
+  stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round;
+  flex: none;
+}
+.card-ico { width: 30px; height: 30px; color: var(--brass-dk); transition: color .2s; }
+.card:hover .card-ico { color: var(--brass); }
+.proj-ico {
+  width: 38px; height: 38px; color: var(--brass);
+  display: block; margin-bottom: 18px;
+}
+
+/* ─── diagrams ───────────────────────────────────────────────── */
+/* Rendered from the architecture sketches in the source docs.
+   Colours ride CSS vars so print inversion is automatic. */
+.figure { margin: 50px 0; }
+.dgm { width: 100%; height: auto; display: block; }
+.dgm-box  { fill: var(--ink-2);   stroke: var(--rule-lt);  stroke-width: 1; }
+.dgm-box-a{ fill: var(--brass-bg);stroke: var(--brass-br); stroke-width: 1; }
+.dgm-ln   { stroke: var(--rule-lt); stroke-width: 1.2; fill: none; }
+.dgm-ln-a { stroke: var(--brass);   stroke-width: 1.3; fill: none; }
+.dgm-dash { stroke-dasharray: 4 4; }
+.dgm-t { fill: var(--text);   font-family: var(--mono); font-size: 11.5px; }
+.dgm-s { fill: var(--muted);  font-family: var(--mono); font-size: 9px;  letter-spacing: .05em; }
+.dgm-a { fill: var(--brass);  font-family: var(--mono); font-size: 9px;  letter-spacing: .05em; }
+.dgm-n { fill: var(--rule-lt);font-family: var(--mono); font-size: 9px;  letter-spacing: .08em; }
+.mk    { fill: none; stroke: var(--rule-lt); stroke-width: 1.3; }
+.mk-a  { fill: none; stroke: var(--brass);   stroke-width: 1.3; }
+.figure figcaption {
+  font-family: var(--mono); font-size: .7rem; color: var(--muted);
+  margin-top: 15px; letter-spacing: .04em; line-height: 1.6; max-width: 62ch;
+}
+.figure figcaption b { color: var(--text-2); font-weight: 500; }
+
+/* Below ~640px a 700-unit viewBox would scale 9px labels to ~4px.
+   Scroll the diagram instead of shrinking it into illegibility. */
+@media (max-width: 640px) {
+  .figure {
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    margin-left: -20px; margin-right: -20px; padding: 0 20px;
+  }
+  .dgm { min-width: 580px; }
+  .figure figcaption { min-width: 0; }
+}
+
+/* ─── prose blocks ───────────────────────────────────────────── */
+.block { margin: 46px 0; }
+.block > h3 {
+  font-family: var(--mono); font-size: .6875rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: .1em;
+  color: var(--muted);
+  padding-bottom: 12px; margin-bottom: 22px;
+  border-bottom: 1px solid var(--rule);
+}
+.block p { color: var(--text-2); }
+.block p + p { margin-top: 15px; }
+
+.decisions { list-style: none; }
+.decisions > li { padding: 0 0 30px; }
+.decisions > li + li { padding-top: 30px; border-top: 1px solid var(--rule); }
+.decisions h4 {
+  font-family: var(--serif); font-size: 1.1875rem; font-weight: 600;
+  letter-spacing: -0.015em; margin-bottom: 12px;
+}
+.decisions h4::before {
+  content: "▸"; color: var(--brass); margin-right: 11px; font-size: .8em;
+}
+.decisions p { color: var(--text-2); font-size: 1rem; }
+
+details.deeper { margin: 46px 0; border-top: 1px solid var(--rule); }
+details.deeper > summary {
+  cursor: pointer; list-style: none;
+  font-family: var(--mono); font-size: .6875rem;
+  text-transform: uppercase; letter-spacing: .1em;
+  color: var(--muted); padding: 20px 0;
+  display: flex; align-items: center; gap: 12px;
+  transition: color .16s;
+}
+details.deeper > summary::-webkit-details-marker { display: none; }
+details.deeper > summary:hover { color: var(--brass); }
+details.deeper > summary::before {
+  content: "+"; color: var(--brass); font-size: 1.1em; line-height: 1;
+}
+details.deeper[open] > summary::before { content: "−"; }
+details.deeper .deeper-body { padding-bottom: 26px; }
+
+.pager {
+  display: flex; justify-content: space-between; gap: 20px;
+  border-top: 1px solid var(--rule);
+  margin-top: 68px; padding: 24px 0 0;
+  font-size: .6875rem; text-transform: uppercase; letter-spacing: .1em;
+  color: var(--muted);
+}
+.pager a:hover { color: var(--brass); }
+.pager .spacer { flex: 1; }
+
+/* ─── skills ─────────────────────────────────────────────────── */
+.tiers { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--rule); }
+.tier { padding: 34px 34px 34px 0; }
+.tier + .tier { border-left: 1px solid var(--rule); padding-left: 34px; }
+.tier-2 { background: linear-gradient(180deg, var(--brass-bg), transparent 60%); }
+.tier h3 { margin: 12px 0 8px; font-size: 1.3rem; }
+.tier .tier-why { font-size: .9375rem; color: var(--muted); margin-bottom: 26px; }
+.tier ul { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+.tier li { font-size: .9375rem; line-height: 1.6; }
+.tier li b {
+  display: block; font-family: var(--mono); font-size: .75rem;
+  letter-spacing: .05em; color: var(--text); font-weight: 500; margin-bottom: 5px;
+}
+.tier li span { color: var(--muted); }
+
+/* ─── editorial notes (placeholders) ─────────────────────────── */
+.todo {
+  border-left: 2px solid var(--note-br);
+  background: var(--note-bg);
+  padding: 15px 20px;
+  color: #b3c6d5;
+  font-size: .9rem; line-height: 1.62;
+  max-width: var(--measure);
+  font-family: var(--sans);
+}
+.todo strong {
+  font-family: var(--mono); font-size: .6875rem;
+  text-transform: uppercase; letter-spacing: .085em;
+  color: var(--note); display: block; margin-bottom: 7px; font-weight: 500;
+}
+.todo code {
+  font-family: var(--mono); font-size: .82em;
+  background: rgba(134,160,184,.11); padding: 1px 5px; border-radius: 2px;
+}
+.todo em { color: #bccdd9; }
+.todo + .todo { margin-top: 12px; }
+
+/* ─── footer ─────────────────────────────────────────────────── */
+footer {
+  margin-top: clamp(72px, 11vw, 128px);
+  border-top: 1px solid var(--rule);
+  padding: 34px 0 72px;
+  font-family: var(--mono); font-size: .75rem; color: var(--muted);
+}
+footer .foot-row { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+footer a { color: var(--brass); }
+footer a:hover { color: var(--text); }
+
+/* ─── responsive ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .metrics { grid-template-columns: repeat(3, 1fr); }
+  .metrics > div:nth-child(3) { border-right: 0; }
+  .tiers { grid-template-columns: 1fr; }
+  .tier { padding: 30px 0; }
+  .tier + .tier { border-left: 0; border-top: 1px solid var(--rule); padding-left: 0; }
+}
+@media (max-width: 680px) {
+  body { font-size: 16px; }
+  .wrap { padding: 0 20px; }
+  .section-grid { grid-template-columns: 1fr; gap: 0; }
+  .section-num { padding: 0 0 10px; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .stats > div:nth-child(2) { border-right: 0; }
+  .stats > div:nth-child(3) { border-top: 1px solid var(--rule); }
+  .stats > div:nth-child(4) { border-top: 1px solid var(--rule); }
+  .stats > div:nth-child(odd) { padding-left: 0; }
+  .stats > div:nth-child(even) { padding-left: 20px; }
+  .metrics { grid-template-columns: repeat(2, 1fr); }
+  .metrics > div { border-right: 1px solid var(--rule); }
+  .metrics > div:nth-child(even) { border-right: 0; }
+  .metrics > div:nth-child(n+3) { border-top: 1px solid var(--rule); }
+  .metrics > div:nth-child(odd) { padding-left: 0; }
+  /* Drop the index number but keep the icon — it's the only visual
+     anchor in the list at this width. */
+  .card { grid-template-columns: 2.3rem 1fr; gap: 0 14px; }
+  .card-idx span { display: none; }
+  .card-ico { width: 26px; height: 26px; }
+  .card-go { display: none; }
+  .card::before { left: -20px; right: -20px; }
+  .masthead .mh-right .mh-hide { display: none; }
+}
+
+/* ─── print: the whole dossier, on paper ─────────────────────── */
+@media print {
+  :root {
+    --ink: #fff; --ink-2: #fff; --ink-3: #fff;
+    --rule: #ccc; --rule-lt: #999;
+    --text: #000; --text-2: #1a1a1a; --muted: #555;
+    --brass: #7a5a12; --brass-dk: #7a5a12;
+    --brass-bg: transparent; --brass-br: #b09550;
+    --note-bg: transparent;
+  }
+  @page { margin: 16mm; }
+  body { background: #fff; color: #000; font-size: 10.5pt; line-height: 1.55; }
+  body::before, body::after { display: none; }
+
+  .masthead { position: static; border-bottom: 1px solid #ccc; backdrop-filter: none; background: none; }
+  body.routed .view, body.routed .view.active { display: block !important; }
+  .view.in .reveal { animation: none; }
+
+  .filter, .filter-status, .back, .pager, .skip, .card-go,
+  .shot-empty, .todo, .cards, .masthead .mh-right { display: none !important; }
+
+  details.deeper { border-top: 1px solid #ccc; }
+  details.deeper > summary { display: none; }
+  details.deeper .deeper-body { display: block; padding-bottom: 0; }
+
+  .view + .view { page-break-before: always; }
+  h1, h2, h3, h4 { page-break-after: avoid; }
+  .metrics, .decisions > li, .shot, .tier, .figure { page-break-inside: avoid; }
+  /* Diagrams carry real content — they print. Reset the mobile scroll box. */
+  .figure { overflow: visible; margin-left: 0; margin-right: 0; padding: 0; }
+  .dgm { min-width: 0; max-width: 100%; }
+  .tier-2 { background: none; }
+  .hero { padding-top: 8pt; }
+  footer { page-break-before: avoid; }
+}
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- Icon sprite + diagram arrowheads. Defined once, referenced by <use>. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <marker id="ah" viewBox="0 0 8 8" refX="6.6" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M.6 1.2 L6.4 4 L.6 6.8" class="mk"/>
+    </marker>
+    <marker id="aha" viewBox="0 0 8 8" refX="6.6" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M.6 1.2 L6.4 4 L.6 6.8" class="mk-a"/>
+    </marker>
+
+    <symbol id="i-erp" viewBox="0 0 24 24">
+      <ellipse cx="11" cy="5.4" rx="7" ry="2.6"/>
+      <path d="M4 5.4v5.8c0 1.44 3.13 2.6 7 2.6 1.2 0 2.34-.11 3.33-.31"/>
+      <path d="M4 11.2V17c0 1.44 3.13 2.6 7 2.6h.4"/>
+      <path d="M17.5 12.6c1.9.7 2.9 1.3 2.9 1.3v3.3c0 1.7-1.5 2.9-2.9 3.4-1.4-.5-2.9-1.7-2.9-3.4v-3.3s1-.6 2.9-1.3Z"/>
+    </symbol>
+
+    <symbol id="i-agent" viewBox="0 0 24 24">
+      <path d="M20.5 11.6a7.9 7.9 0 0 1-8 7.9H7.2L3.5 22v-5.6a7.9 7.9 0 1 1 17-4.8Z"/>
+      <circle cx="8.4" cy="11.4" r="1"/>
+      <circle cx="12" cy="11.4" r="1"/>
+      <circle cx="15.6" cy="11.4" r="1"/>
+    </symbol>
+
+    <symbol id="i-sheet" viewBox="0 0 24 24">
+      <rect x="3" y="4" width="18" height="16" rx="1.6"/>
+      <path d="M3 9h18M9.5 9v11M15.5 9v11"/>
+    </symbol>
+
+    <symbol id="i-extract" viewBox="0 0 24 24">
+      <rect x="3" y="4.5" width="18" height="15" rx="1.6"/>
+      <path d="M3 9h18"/>
+      <circle cx="6" cy="6.75" r=".55" fill="currentColor" stroke="none"/>
+      <path d="M12 11.6v5.2m-2.4-2.4L12 16.8l2.4-2.4"/>
+    </symbol>
+
+    <symbol id="i-map" viewBox="0 0 24 24">
+      <path d="M12 21.2s6.2-5.6 6.2-10.4a6.2 6.2 0 1 0-12.4 0C5.8 15.6 12 21.2 12 21.2Z"/>
+      <circle cx="12" cy="10.6" r="2.3"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="masthead">
+  <div class="wrap">
+    <a href="#" class="mh-name">Xavier Tan</a>
+    <div class="mh-right">
+      <span class="mh-hide">Kuala Lumpur</span>
+      <span class="mh-dim mh-hide">/</span>
+      <a href="mailto:xaviertan0121@gmail.com">Contact</a>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ═══════════════ VIEW · OVERVIEW ═══════════════ -->
+<section class="view active" id="view-home" aria-label="Overview">
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="hero-top">
+        <div class="hero-copy">
+          <p class="eyebrow reveal" style="--d:.02s">Systems &middot; Automation &middot; AI &nbsp;<span class="num">//</span>&nbsp; Kuala Lumpur</p>
+          <h1 class="reveal" style="--d:.08s">Xavier Tan</h1>
+
+          <p class="hero-position reveal" style="--d:.16s">
+            I build the systems and data layer that make operations run &mdash;
+            and I understand the operation because <em>I've worked in it</em>.
+          </p>
+
+          <div class="hero-meta reveal" style="--d:.24s">
+            <span>Kuala Lumpur, Malaysia</span>
+            <a href="mailto:xaviertan0121@gmail.com">xaviertan0121@gmail.com</a>
+          </div>
+
+          <div class="reveal" style="--d:.3s; margin-top:22px">
+            <div class="todo">
+              <strong>To supply</strong>
+              GitHub / LinkedIn URLs, and whether to show a phone number.
+              Handoff §10 left these open &mdash; remove this note once decided.
+            </div>
+          </div>
+        </div>
+
+        <figure class="portrait reveal" style="--d:.2s">
+          <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAkGBggGBQkIBwgKCQkKDRYODQwMDRoTFBAWHxwhIB8cHh4jJzIqIyUvJR4eKzssLzM1ODg4ISo9QTw2QTI3ODX/2wBDAQkKCg0LDRkODhk1JB4kNTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTX/wAARCAK9AggDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDw2iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKWkoAKKKKAFpKKKAFpKKKACiiigAooooAKKKKACiiigBaSlpKACiiigApaSigBaSlpKACilooASiiigBaSlpKACiiigAooooAKKKKACiiigAooooAWiiigBKKWkoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKWkoAKKWkoAKKKKAClpKWgApKKWgBKKKKAClpKKACiiigBaKKSgAooooAKKKKACiiigBaSiigAooooAKKKKAClpKKAClpKKACiiloASiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigApaKKAEooooAKKKKACiiigAooooAKKKKAFpKWkoAKKKKACilpKAFpKWkoAWkoooAKKKKACiiigAooooAKKKKACiiigAooooAWkoooAKKKKACiiigAooooAKKKKAClpKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAClpKKACiiigAooooAKKKKACiiigAooooAKKWigBKKKKACiiigAooooAWkoooAKKKKACiiigAoopaAEoopyIXOB+dADaKllCmTEY+UcA+vvSeXgHPPoaAI6KcENOeBo/vDGeaAI6Kdt96cIfl3F1A/WgCOinlPTOB1zTT14oASiiigAooooAKKKKAFpKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAopaSgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAopaSgApaSigAopaSgApRSUo6jHWgBQhLYPFWFMccWRlnJ4HYL3J9zUTHjapzk5Jp6JsBLAFeMmkMMmVtqLgHqAOakfERKhVaQcE5yB9PX60hunEZiGFQ9eOvvUJYL0/WgBxDhidwGf7vFGwZyST6c0w5I4BA96UAleuP1oAcoXOTjHuTUqRI2VKKT6hyMe/NNjhARiwGe25wP06mrsHmyHBa1TZ0yoYH257UAVBGiygBC4XqQ3X9KCk0yN2Uc7cYq80LyI/CxshHRen0HTFUWWdRl2IBJ9AKQyuy54EbZ+uaZgjtVtU3SZVsErnCjmmNDJjOC4PQg9adxWK1FKw56YFJTEFFFFABRS0lABRRS0AJRS0UAJRS0lABRRRQAUUUUAFFFFABRRRQAUtJRQAUUUUAFFFFAC0lLSUAFLSUUAFFLRQAlFLRQAlFLRQAlFFFABRRS0AFFFFABSUtFACUUtFABRRRQAlLRRQAlLRSUAFSwoD8zHCjvjNRVLuG0Jz1yaAHLz6AtyT6ClklyAAMKP4f6n3phbaD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snhZ1x/Srs+iCVF7tnr0l+kakFhk1m3l5HJxGwLN0ANcB/avjLXrn/RdFltxH99pSEX9a3dIS8Z2fUowkw+X5TxWNS6WoQWpoTBhGWLZz1JOSKxrpVlfkcDvWjqN2sKgLjArAu75VDMzYrKKNzK8SXSWunyMOOCa8sJJJJ6mum8V6sbgmMMSGNczXrYeHLE8nFT5p2XQSlpKWug5RKKKKAFooooASilpKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAWkoooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAoopaACloooAKKKAM9KAO58Ka59o0wWjt+/txgf7S9vy6V2ui6qZSsFwQw7Fq5P4S+E49cudQvLoMIII/JjYdRI38Q+gH61qSQyaRqslpdLtmhbacdD6MPYjmvMxFJJ6HqYereNmdxMlnt8zyY2deQSo4PrSW3iuzVTFJcRKP7svSsOKSZoB39KxNR8LXt9ITFH8rH73pXPTdnqzqtY9AHi3S7MZWeyjLehBqpP4hgnb5Jy6t3HAOfSuGT4Y3jIJHlUHtzW5pfhq6sl/wBL2uy8AjsK1nPTRhFtvY622vR5QBbjrj1zVDVNRitomlXGfY4qq7tCmAOB3rm9bvSqks+AOgNc694EktSvqXiASyHPAFcxqusPJna2FFQXt3vlO3nOelZs6yTxSrGpdghYgeg5P6V206SRzVartoZlzObiYuc47VFRS16CVjy27u7EpaKKYhKKWigApKWkoAWkoooAKKKKACiiigBaSiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiloAKSlpKACiiigAooooAKKKKACiiigApaSloAWihVLHABJ9qmS1kbqNo96Q0m9iEAscCpQuBgVN5IRcCnLGCKls1ULHuHwahij8AIUHzy3EjOfU5x/ICtTxd4TGvRJcW5Ed9AuEJ4Ei/3T/Q1g/Be5J8MzW5BxFcEg/WvRGGRmsZalJuL0PLtJ1X7PcGw1BGikiOwhxgqfQ10lnq9qj+WZVJzgVZ8TeFrfXIjMCIbxBiOcDqP7rDuP5dq8t1SO70S5MWohrZjwrnJjf6N/Q81xyo66HbGsmtT1hdVthIQJFIPUZqO61S1AxuAJ6V44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" width="520" height="701"
+               alt="Xavier Tan, photographed against a dark backdrop in a burgundy three-piece suit.">
+        </figure>
+      </div>
+
+      <div class="stats reveal" style="--d:.38s">
+        <div><div class="stat-n">51,000</div><div class="stat-l">Lines TypeScript</div></div>
+        <div><div class="stat-n">240</div><div class="stat-l">RLS policies</div></div>
+        <div><div class="stat-n">796</div><div class="stat-l">Tests passing</div></div>
+        <div><div class="stat-n">3</div><div class="stat-l">Countries served</div></div>
+      </div>
+
+      <div class="reveal" style="--d:.46s; margin-top:34px">
+        <div class="todo">
+          <strong>To write &mdash; the honest shape</strong>
+          Handoff §4.1: name the profile plainly &mdash; self-taught, AI-assisted development,
+          shipped production systems. State it as method; don't apologise for it. Two target
+          employers name Claude Code as a requirement, so this is an asset. 2&ndash;4 sentences.
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" aria-labelledby="projects-h">
+    <div class="wrap">
+      <div class="section-grid">
+        <div class="section-num reveal" style="--d:.04s">01</div>
+        <div>
+          <div class="section-head reveal" style="--d:.08s">
+            <p class="eyebrow">Five systems</p>
+            <h2 id="projects-h">What I've built</h2>
+            <p class="lede">Filter by capability, or open any project for the full detail.</p>
+          </div>
+
+          <div class="filter reveal" style="--d:.12s" role="group" aria-label="Filter projects by capability">
+            <button class="chip" type="button" data-tag="all" aria-pressed="true">All<span class="count">5</span></button>
+            <button class="chip" type="button" data-tag="ai" aria-pressed="false">AI &amp; Agents<span class="count">1</span></button>
+            <button class="chip" type="button" data-tag="erp" aria-pressed="false">ERP<span class="count">2</span></button>
+            <button class="chip" type="button" data-tag="data" aria-pressed="false">Data<span class="count">4</span></button>
+            <button class="chip" type="button" data-tag="automation" aria-pressed="false">Automation<span class="count">3</span></button>
+            <button class="chip" type="button" data-tag="fullstack" aria-pressed="false">Full-Stack<span class="count">3</span></button>
+          </div>
+          <p class="filter-status" role="status" aria-live="polite"></p>
+
+          <div class="cards reveal" style="--d:.18s">
+
+            <a class="card" href="#creator-erp" data-tags="erp fullstack data">
+              <div class="card-idx"><svg class="ico card-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-erp"/></svg><span>01</span></div>
+              <div>
+                <div class="card-role">Flagship</div>
+                <h3>Creator ERP</h3>
+                <p class="card-purpose">
+                  Multi-country influencer-marketing ERP replacing spreadsheet-and-WhatsApp campaign
+                  coordination with one system of record across Indonesia, Malaysia and Vietnam.
+                </p>
+                <div class="card-metrics">
+                  <span><b>240</b> RLS policies</span>
+                  <span><b>796</b> tests</span>
+                  <span><b>40</b> tables</span>
+                </div>
+                <div class="card-tags">
+                  <span class="tag-label">ERP</span>
+                  <span class="tag-label">Full-Stack</span>
+                  <span class="tag-label">Data</span>
+                </div>
+              </div>
+              <div class="card-go" aria-hidden="true">&rarr;</div>
+            </a>
+
+            <a class="card" href="#wa-agent" data-tags="ai automation fullstack">
+              <div class="card-idx"><svg class="ico card-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-agent"/></svg><span>02</span></div>
+              <div>
+                <div class="card-role">AI &amp; agents</div>
+                <h3>WA Agent</h3>
+                <p class="card-purpose">
+                  Self-hosted, multi-tenant WhatsApp AI sales and support assistant. Answers
+                  trilingually from an operator-controlled knowledge base and captures structured leads.
+                </p>
+                <div class="card-metrics">
+                  <span><b>253</b> TS files</span>
+                  <span><b>706</b> tests</span>
+                  <span><b>3</b> agent modes</span>
+                </div>
+                <div class="card-tags">
+                  <span class="tag-label">AI &amp; Agents</span>
+                  <span class="tag-label">Automation</span>
+                  <span class="tag-label">Full-Stack</span>
+                </div>
+              </div>
+              <div class="card-go" aria-hidden="true">&rarr;</div>
+            </a>
+
+            <a class="card" href="#endorsement" data-tags="automation erp data">
+              <div class="card-idx"><svg class="ico card-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sheet"/></svg><span>03</span></div>
+              <div>
+                <div class="card-role">The V1 &rarr; V2 arc</div>
+                <h3>Endorsement Platform</h3>
+                <p class="card-purpose">
+                  The system the ERP replaced. A five-layer operations platform built entirely on
+                  Google Apps Script and Sheets &mdash; and the reason I know when spreadsheets stop
+                  being enough.
+                </p>
+                <div class="card-metrics">
+                  <span><b>12</b>-stage pipeline</span>
+                  <span><b>49</b> campaigns</span>
+                  <span><b>48</b> client portals</span>
+                </div>
+                <div class="card-tags">
+                  <span class="tag-label">Automation</span>
+                  <span class="tag-label">ERP</span>
+                  <span class="tag-label">Data</span>
+                </div>
+              </div>
+              <div class="card-go" aria-hidden="true">&rarr;</div>
+            </a>
+
+            <a class="card" href="#extractors" data-tags="data automation">
+              <div class="card-idx"><svg class="ico card-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-extract"/></svg><span>04</span></div>
+              <div>
+                <div class="card-role">Technical depth</div>
+                <h3>Creator Analytics Extractors</h3>
+                <p class="card-purpose">
+                  Two Chrome extensions solving the same extraction problem by deliberately different
+                  routes &mdash; DOM scraping with fallback chains, and a reverse-engineered signed API.
+                </p>
+                <div class="card-metrics">
+                  <span><b>2</b> extensions</span>
+                  <span><b>7</b>-deep fallback chain</span>
+                  <span><b>127</b> bundles analysed</span>
+                </div>
+                <div class="card-tags">
+                  <span class="tag-label">Data</span>
+                  <span class="tag-label">Automation</span>
+                </div>
+              </div>
+              <div class="card-go" aria-hidden="true">&rarr;</div>
+            </a>
+
+            <a class="card" href="#property-finder" data-tags="fullstack data">
+              <div class="card-idx"><svg class="ico card-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-map"/></svg><span>05</span></div>
+              <div>
+                <div class="card-role">Engineering judgment</div>
+                <h3>Property Finder</h3>
+                <p class="card-purpose">
+                  Geospatial property search that routes walk and drive times along the real street
+                  network instead of trusting portal-advertised distances. Personal project &mdash;
+                  single-user and local-only by design.
+                </p>
+                <div class="card-metrics">
+                  <span><b>246</b> MB OSM extract</span>
+                  <span><b>426</b> routing calls</span>
+                  <span><b>147</b> stations</span>
+                </div>
+                <div class="card-tags">
+                  <span class="tag-label">Full-Stack</span>
+                  <span class="tag-label">Data</span>
+                </div>
+              </div>
+              <div class="card-go" aria-hidden="true">&rarr;</div>
+            </a>
+
+          </div>
+
+          <figure class="figure">
+            <svg class="dgm" viewBox="0 0 700 392" role="img" aria-labelledby="mapT mapD">
+              <title id="mapT">How the five systems relate</title>
+              <desc id="mapD">The Endorsement Platform was rebuilt as the Creator ERP when it
+                hit its platform ceiling. The Analytics Extractors feed metrics into the ERP.
+                WA Agent and Property Finder are independent projects.</desc>
+
+              <!-- V1 -->
+              <rect class="dgm-box" x="20" y="30" width="250" height="60" rx="3"/>
+              <text class="dgm-t" x="36" y="57">Endorsement Platform</text>
+              <text class="dgm-s" x="36" y="75">Apps Script · Sheets · 5 layers</text>
+              <text class="dgm-n" x="254" y="57" text-anchor="end">03</text>
+
+              <!-- V2 -->
+              <rect class="dgm-box-a" x="430" y="30" width="250" height="60" rx="3"/>
+              <text class="dgm-t" x="446" y="57">Creator ERP</text>
+              <text class="dgm-s" x="446" y="75">Next.js · Supabase · 3 countries</text>
+              <text class="dgm-n" x="664" y="57" text-anchor="end">01</text>
+
+              <!-- the arc -->
+              <line class="dgm-ln-a" x1="272" y1="60" x2="422" y2="60" marker-end="url(#aha)"/>
+              <text class="dgm-a" x="347" y="45" text-anchor="middle">HIT ITS CEILING</text>
+              <text class="dgm-s" x="347" y="79" text-anchor="middle">rebuilt as an ERP</text>
+
+              <!-- extractors -->
+              <rect class="dgm-box" x="430" y="175" width="250" height="60" rx="3"/>
+              <text class="dgm-t" x="446" y="202">Analytics Extractors</text>
+              <text class="dgm-s" x="446" y="220">Chrome MV3 · signed API</text>
+              <text class="dgm-n" x="664" y="202" text-anchor="end">04</text>
+              <line class="dgm-ln" x1="555" y1="172" x2="555" y2="94" marker-end="url(#ah)"/>
+              <text class="dgm-s" x="566" y="137">feeds creator metrics</text>
+
+              <!-- divider -->
+              <line class="dgm-ln dgm-dash" x1="20"  y1="272" x2="238" y2="272"/>
+              <line class="dgm-ln dgm-dash" x1="462" y1="272" x2="680" y2="272"/>
+              <text class="dgm-n" x="350" y="276" text-anchor="middle">INDEPENDENT PROJECTS</text>
+
+              <!-- independents -->
+              <rect class="dgm-box" x="20" y="305" width="250" height="60" rx="3"/>
+              <text class="dgm-t" x="36" y="332">WA Agent</text>
+              <text class="dgm-s" x="36" y="350">Node · Apps Script · Gemini</text>
+              <text class="dgm-n" x="254" y="332" text-anchor="end">02</text>
+
+              <rect class="dgm-box" x="430" y="305" width="250" height="60" rx="3"/>
+              <text class="dgm-t" x="446" y="332">Property Finder</text>
+              <text class="dgm-s" x="446" y="350">Next.js · GraphHopper</text>
+              <text class="dgm-n" x="664" y="332" text-anchor="end">05</text>
+            </svg>
+            <figcaption>
+              <b>The arc.</b> I improved what existed on Google Workspace, then rebuilt it as a
+              real ERP when it hit the platform's ceiling — and built the extraction tooling that
+              feeds it. The other two are independent projects.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="skills-h">
+    <div class="wrap">
+      <div class="section-grid">
+        <div class="section-num">02</div>
+        <div>
+          <div class="section-head">
+            <p class="eyebrow">Skills</p>
+            <h2 id="skills-h">Two tiers</h2>
+            <p class="lede">Tier 1 is what job ads ask for. Tier 2 is what I bring beyond it.</p>
+          </div>
+
+          <div class="tiers">
+            <div class="tier">
+              <p class="eyebrow">Tier 1 &mdash; the entry door</p>
+              <h3>Requirement-matching</h3>
+              <p class="tier-why">The skills SME and e-commerce roles actually list.</p>
+              <ul>
+                <li><b>Sheets &amp; Excel</b><span>Advanced formulas, cross-sheet logic, pivot tables, complex multi-sheet models. Certified &mdash; Google Cloud.</span></li>
+                <li><b>Google Apps Script</b><span>Production automation: scheduled jobs, external API calls, document generation, checkpoint/resume pipelines.</span></li>
+                <li><b>Notion</b><span>Workspace architecture, database design, linked relations, operational documentation.</span></li>
+                <li><b>Lark / Feishu</b><span>Operational workflow deployment. Common across TikTok-ecosystem and regional SEA businesses.</span></li>
+              </ul>
+            </div>
+
+            <div class="tier tier-2">
+              <p class="eyebrow" style="color:var(--brass-dk)">Tier 2 &mdash; the differentiator</p>
+              <h3>The upgrade capability</h3>
+              <p class="tier-why">The path from spreadsheets that work to a system that scales.</p>
+              <ul>
+                <li><b>Full-stack build</b><span>Next.js, React, TypeScript, Supabase/PostgreSQL. Multi-tenant applications with row-level security and role-based portals.</span></li>
+                <li><b>Scraping &amp; API integration</b><span>Manifest V3 extensions, reverse-engineered request signing, bulk extraction pipelines.</span></li>
+                <li><b>BI &amp; reporting</b><span>Operational and commercial reporting that stakeholders act on.</span></li>
+                <li><b>AI tooling</b><span>Claude Code, LLM APIs, MCP, agent workflows.</span></li>
+                <li><b>Deployment &amp; hosting</b><span>Vercel production deployment, self-hosted Node workers, local databases and routing engines.</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="todo" style="margin-top:26px">
+            <strong>To confirm</strong>
+            Whether to add the "proven arc" line from <code>background.md</code>:
+            <em>"I can improve the spreadsheets you have today, and I am the person who can rebuild
+            them as a real system when you outgrow them — because I have done exactly that before."</em>
+            It's the strongest single sentence in the source material.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</section>
+
+
+<!-- ═══════════════ VIEW · CREATOR ERP ═══════════════ -->
+<section class="view" id="view-creator-erp" aria-label="Creator ERP">
+  <div class="wrap">
+    <div class="proj-head">
+      <a class="back reveal" style="--d:.02s" href="#">&larr; All projects</a>
+      <svg class="ico proj-ico reveal" style="--d:.04s" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-erp"/></svg>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">01</span> &nbsp;&middot;&nbsp; Flagship</p>
+      <h1 class="reveal" style="--d:.1s" tabindex="-1">Creator ERP</h1>
+      <p class="proj-purpose reveal" style="--d:.16s">
+        A multi-country influencer-marketing operations platform spanning the full commercial
+        lifecycle &mdash; sourcing creators, brand approval, contracting, sample logistics, content
+        review, performance reporting and verification.
+      </p>
+      <div class="proj-tags reveal" style="--d:.2s">
+        <span class="tag-label">ERP &amp; Business Systems</span>
+        <span class="tag-label">Full-Stack</span>
+        <span class="tag-label">Data &amp; Integration</span>
+      </div>
+      <ul class="stack reveal" style="--d:.24s">
+        <li>Next.js 16</li><li>React 19</li><li>TypeScript</li>
+        <li>Supabase / PostgreSQL</li><li>Tailwind v4</li><li>Vitest</li><li>Vercel</li>
+      </ul>
+    </div>
+
+    <dl class="metrics reveal" style="--d:.3s">
+      <div class="metric"><dt>RLS policies</dt><dd>240</dd></div>
+      <div class="metric"><dt>Tests in ~5s</dt><dd>796</dd></div>
+      <div class="metric"><dt>SQL migrations</dt><dd>190</dd></div>
+      <div class="metric"><dt>Server Actions</dt><dd>158</dd></div>
+      <div class="metric"><dt>Tables &amp; views</dt><dd>40</dd></div>
+    </dl>
+    <p class="metrics-note">
+      Measured directly from the repository &mdash; file counts, migration counts, a live test run,
+      and the generated database type definitions.
+    </p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 342" role="img" aria-labelledby="erpT erpD">
+        <title id="erpT">Defence-in-depth authorisation</title>
+        <desc id="erpD">Four portals read through narrow views, which sit above 240 row-level
+          security policies, which sit above the base tables. Authorisation is enforced at the
+          data layer rather than in application code.</desc>
+
+        <rect class="dgm-box" x="20"  y="20" width="150" height="52" rx="3"/>
+        <text class="dgm-t" x="34"  y="44">Operators</text>
+        <text class="dgm-s" x="34"  y="61">internal, elevated</text>
+
+        <rect class="dgm-box" x="190" y="20" width="150" height="52" rx="3"/>
+        <text class="dgm-t" x="204" y="44">Brand clients</text>
+        <text class="dgm-s" x="204" y="61">scoped view</text>
+
+        <rect class="dgm-box" x="360" y="20" width="150" height="52" rx="3"/>
+        <text class="dgm-t" x="374" y="44">Creators</text>
+        <text class="dgm-s" x="374" y="61">tokenised, no login</text>
+
+        <rect class="dgm-box" x="530" y="20" width="150" height="52" rx="3"/>
+        <text class="dgm-t" x="544" y="44">Contract review</text>
+        <text class="dgm-s" x="544" y="61">approval only</text>
+
+        <!-- collector bus -->
+        <line class="dgm-ln" x1="95"  y1="72" x2="95"  y2="110"/>
+        <line class="dgm-ln" x1="265" y1="72" x2="265" y2="110"/>
+        <line class="dgm-ln" x1="435" y1="72" x2="435" y2="110"/>
+        <line class="dgm-ln" x1="605" y1="72" x2="605" y2="110"/>
+        <line class="dgm-ln" x1="95"  y1="110" x2="605" y2="110"/>
+        <line class="dgm-ln-a" x1="350" y1="110" x2="350" y2="141" marker-end="url(#aha)"/>
+        <text class="dgm-a" x="360" y="131">EVERY READ</text>
+
+        <!-- the stack -->
+        <rect class="dgm-box" x="140" y="145" width="420" height="56" rx="3"/>
+        <text class="dgm-t" x="156" y="169">Narrow views</text>
+        <text class="dgm-s" x="156" y="186">withheld columns structurally absent</text>
+        <line class="dgm-ln" x1="560" y1="173" x2="574" y2="173"/>
+        <text class="dgm-n" x="580" y="176">COLUMN-LEVEL</text>
+
+        <rect class="dgm-box-a" x="140" y="205" width="420" height="56" rx="3"/>
+        <text class="dgm-t" x="156" y="229">240 row-level security policies</text>
+        <text class="dgm-s" x="156" y="246">+ 40 database functions</text>
+        <line class="dgm-ln-a" x1="560" y1="233" x2="574" y2="233"/>
+        <text class="dgm-a" x="580" y="236">ROW-LEVEL</text>
+
+        <rect class="dgm-box" x="140" y="265" width="420" height="56" rx="3"/>
+        <text class="dgm-t" x="156" y="289">40 tables &amp; views</text>
+        <text class="dgm-s" x="156" y="306">bearer tokens · fee data · banking fields</text>
+        <line class="dgm-ln" x1="560" y1="293" x2="574" y2="293"/>
+        <text class="dgm-n" x="580" y="296">STORAGE</text>
+      </svg>
+      <figcaption>
+        <b>Why two layers, not one.</b> Row-level security filters rows, not columns — so a client
+        whose rows are correctly scoped could still read a fee column. Routing client-facing reads
+        through narrow views removes those columns from the result entirely.
+      </figcaption>
+    </figure>
+
+    <figure class="shot">
+      <div class="shot-empty">
+        <p class="eyebrow">Figure 01 &mdash; awaiting capture</p>
+        <p>Redacted ERP interface, ideally showing portal separation or the schema.
+        No creator names, banking fields or fee columns visible.</p>
+      </div>
+    </figure>
+
+    <div class="block">
+      <h3>The problem</h3>
+      <div class="todo">
+        <strong>To write</strong>
+        2&ndash;3 sentences on what was broken before. Source: <code>creator_erp.md</code> §1 &mdash;
+        campaign coordination ran on spreadsheets and WhatsApp, four parties each needing a
+        different slice of the same record.
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Key decisions</h3>
+      <ul class="decisions">
+        <li>
+          <h4>Authorisation enforced in the database, not the application</h4>
+          <div class="todo">
+            <strong>To write</strong>
+            Permissions travel through database predicates (<code>can_access_project</code>,
+            <code>is_operator_elevated</code>, <code>user_role</code>), so a bug in a page cannot
+            leak another tenant's rows.
+          </div>
+        </li>
+        <li>
+          <h4>Column-level protection via narrow views</h4>
+          <div class="todo">
+            <strong>To write</strong>
+            Row-level security filters rows, not columns. Client-facing reads route through narrow
+            views because the base tables carry bearer tokens and fee data.
+          </div>
+        </li>
+        <li>
+          <h4>Country as a first-class dimension</h4>
+          <div class="todo">
+            <strong>To write</strong>
+            Country drives currency, date locale, banking fields, national-ID requirements,
+            contract template and contract-numbering sequence.
+          </div>
+        </li>
+        <li>
+          <h4>Retiring a working AI subsystem on purpose</h4>
+          <div class="todo">
+            <strong>To write</strong>
+            The LLM/WhatsApp subsystem was decommissioned deliberately: source frozen under a
+            checksum-pinned archive, four-document restart runbook, live path collapsed to one
+            branch, reversible without a database migration. <code>creator_erp.md</code> calls this
+            the strongest story in the repo &mdash; judgment, not volume.
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <details class="deeper">
+      <summary>Deeper technical detail</summary>
+      <div class="deeper-body">
+        <div class="todo">
+          <strong>To write</strong>
+          Available verified material: 299 source files · ~51,000 lines · 40 database functions ·
+          51 server-action modules · 108 React components · 27 page routes · 12 API routes ·
+          860 commits over ~2.5 months · a 72-file Node worker held architecturally separate ·
+          direct-to-storage uploads via signed URLs bypassing the serverless body-size ceiling ·
+          bilingual reporting surface with a test that fails the build on a missing translation.
+        </div>
+      </div>
+    </details>
+
+    <nav class="pager" aria-label="Project navigation">
+      <span class="spacer"></span>
+      <a href="#wa-agent">WA Agent &rarr;</a>
+    </nav>
+  </div>
+</section>
+
+
+<!-- ═══════════════ VIEW · WA AGENT ═══════════════ -->
+<section class="view" id="view-wa-agent" aria-label="WA Agent">
+  <div class="wrap">
+    <div class="proj-head">
+      <a class="back reveal" style="--d:.02s" href="#">&larr; All projects</a>
+      <svg class="ico proj-ico reveal" style="--d:.04s" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-agent"/></svg>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">02</span> &nbsp;&middot;&nbsp; AI &amp; agents</p>
+      <h1 class="reveal" style="--d:.1s" tabindex="-1">WA Agent</h1>
+      <p class="proj-purpose reveal" style="--d:.16s">
+        A self-hosted, business-agnostic WhatsApp AI sales and support assistant. It answers
+        enquiries in the customer's own language strictly from an operator-controlled catalogue,
+        and steers each conversation toward a captured lead.
+      </p>
+      <div class="proj-tags reveal" style="--d:.2s">
+        <span class="tag-label">AI &amp; Agents</span>
+        <span class="tag-label">Automation</span>
+        <span class="tag-label">Full-Stack</span>
+      </div>
+      <ul class="stack reveal" style="--d:.24s">
+        <li>Node.js 20</li><li>TypeScript</li><li>Baileys v7</li><li>Express 5</li>
+        <li>better-sqlite3</li><li>Google Apps Script</li><li>Gemini 2.5 Flash</li>
+        <li>Cloudflare Tunnel</li>
+      </ul>
+    </div>
+
+    <dl class="metrics reveal" style="--d:.3s">
+      <div class="metric"><dt>TypeScript files</dt><dd>253</dd></div>
+      <div class="metric"><dt>Lines of source</dt><dd>44,300</dd></div>
+      <div class="metric"><dt>Test cases</dt><dd>706</dd></div>
+      <div class="metric"><dt>Sheet-tab schema</dt><dd>16</dd></div>
+      <div class="metric"><dt>Agent modes</dt><dd>3</dd></div>
+    </dl>
+    <p class="metrics-note">
+      Read directly from source &mdash; line and file counts from the working tree, test counts from
+      test declarations, settings from the schema contract.
+    </p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 288" role="img" aria-labelledby="waT waD">
+        <title id="waT">Three-tier architecture</title>
+        <desc id="waD">WhatsApp connects to a local Baileys relay, which webhooks an Apps Script
+          brain, which calls Gemini and reads and writes a Google Sheet. The reply returns in the
+          same HTTP response. The relay holds no LLM key, no database credentials and no business
+          logic.</desc>
+
+        <rect class="dgm-box" x="20"  y="36" width="100" height="56" rx="3"/>
+        <text class="dgm-t" x="34"  y="60">WhatsApp</text>
+        <text class="dgm-s" x="34"  y="77">inbound</text>
+
+        <rect class="dgm-box" x="155" y="36" width="175" height="56" rx="3"/>
+        <text class="dgm-t" x="169" y="60">Baileys relay</text>
+        <text class="dgm-s" x="169" y="77">local · Node 20 · SQLite</text>
+
+        <rect class="dgm-box-a" x="390" y="36" width="175" height="56" rx="3"/>
+        <text class="dgm-t" x="404" y="60">Apps Script brain</text>
+        <text class="dgm-s" x="404" y="77">routing · prompts · leads</text>
+
+        <rect class="dgm-box" x="600" y="36" width="80" height="56" rx="3"/>
+        <text class="dgm-t" x="612" y="60">Gemini</text>
+        <text class="dgm-s" x="612" y="77">2.5 Flash</text>
+
+        <line class="dgm-ln"   x1="122" y1="64" x2="153" y2="64" marker-start="url(#ah)" marker-end="url(#ah)"/>
+        <line class="dgm-ln-a" x1="332" y1="64" x2="386" y2="64" marker-end="url(#aha)"/>
+        <text class="dgm-a" x="359" y="28" text-anchor="middle">WEBHOOK</text>
+        <line class="dgm-ln"   x1="567" y1="64" x2="596" y2="64" marker-end="url(#ah)"/>
+
+        <!-- reply travels back inside the same response -->
+        <path class="dgm-ln-a" d="M470 94 L470 118 L245 118 L245 96" marker-end="url(#aha)"/>
+        <text class="dgm-a" x="357" y="134" text-anchor="middle">REPLY IN THE SAME RESPONSE</text>
+
+        <text class="dgm-n" x="242" y="160" text-anchor="middle">NO LLM KEY · NO DB CREDENTIALS</text>
+        <text class="dgm-n" x="242" y="174" text-anchor="middle">NO BUSINESS LOGIC</text>
+
+        <line class="dgm-ln" x1="540" y1="94" x2="540" y2="191" marker-end="url(#ah)"/>
+        <rect class="dgm-box" x="455" y="195" width="175" height="56" rx="3"/>
+        <text class="dgm-t" x="469" y="219">Google Sheet</text>
+        <text class="dgm-s" x="469" y="236">16 tabs · database + CMS</text>
+      </svg>
+      <figcaption>
+        <b>The business is data, not code.</b> Persona, catalogue, fact base and the definition of
+        a lead all live in the Sheet — so onboarding a new client is composition, not development.
+        The relay is deliberately ignorant: it can be compromised without exposing a key or a record.
+      </figcaption>
+    </figure>
+
+    <figure class="shot">
+      <div class="shot-empty">
+        <p class="eyebrow">Figure 02 &mdash; awaiting capture</p>
+        <p>Options: the 16-tab Sheet schema acting as admin panel, or a redacted trilingual
+        conversation showing lead capture. No customer numbers or names.</p>
+      </div>
+    </figure>
+
+    <div class="block">
+      <h3>The problem</h3>
+      <div class="todo">
+        <strong>To write</strong>
+        2&ndash;3 sentences. Source: <code>wa_agent</code> §1 &mdash; ad enquiries arrive on WhatsApp
+        and go unanswered, get answered slowly, or get answered inconsistently, and the lead data
+        never reaches a system of record.
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Key decisions</h3>
+      <ul class="decisions">
+        <li>
+          <h4>The business is data, not code</h4>
+          <div class="todo">
+            <strong>To write</strong>
+            Persona, catalogue, fact base and the definition of a lead all live in a Google Sheet.
+            Onboarding a new client &mdash; or an entirely new industry &mdash; is composition from six
+            documented building blocks, not development. The engine ships neutral.
+          </div>
+        </li>
+        <li>
+          <h4>A transport layer that knows nothing</h4>
+          <div class="todo">
+            <strong>To write</strong>
+            Three-tier split. The local Baileys relay holds no LLM key, no database credentials and
+            no business logic; all reasoning lives in Apps Script.
+          </div>
+        </li>
+        <li>
+          <h4>Burst debouncing as both cost and quality control</h4>
+          <div class="todo">
+            <strong>To write</strong>
+            A 10-second per-contact debounce collapses a rapid-fire message burst into one webhook
+            and one model call &mdash; cheaper, and the agent answers the whole thought rather than
+            a fragment.
+          </div>
+        </li>
+        <li>
+          <h4>Refusing to invent answers</h4>
+          <div class="todo">
+            <strong>To write</strong>
+            When asked something not on file the engine declines, logs a knowledge-gap row and
+            alerts the control group &mdash; turning "what do customers keep asking that we haven't
+            documented" into a queue rather than a research project.
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <details class="deeper">
+      <summary>Deeper technical detail</summary>
+      <div class="deeper-body">
+        <div class="todo">
+          <strong>To write</strong>
+          Available verified material: 73 test files · ~12,100 lines of test code · trilingual
+          CN/EN/MY · SQLite-backed retry queue with exponential backoff · message deduplication ·
+          5-minute self-sent echo suppression · broadcast compliance (3-day per-contact cooldown,
+          30-second spacing, 10:00&ndash;20:00 window, explicit preview confirmation) · automated
+          opt-out handling · daily 09:00 Drive backup with 30-day retention · 5-minute health checks ·
+          10-minute stale-heartbeat alerting · live-header reads so the engine adopts a client's
+          existing spreadsheet layout with no migration.
+        </div>
+        <div class="todo">
+          <strong>Excluded by content rule</strong>
+          The 736 / 2,008 identity-mapping records. Its own doc flags them as runtime session data,
+          not an audited customer count.
+        </div>
+      </div>
+    </details>
+
+    <nav class="pager" aria-label="Project navigation">
+      <a href="#creator-erp">&larr; Creator ERP</a>
+      <a href="#endorsement">Endorsement Platform &rarr;</a>
+    </nav>
+  </div>
+</section>
+
+
+<!-- ═══════════════ VIEW · ENDORSEMENT ═══════════════ -->
+<section class="view" id="view-endorsement" aria-label="Endorsement Platform">
+  <div class="wrap">
+    <div class="proj-head">
+      <a class="back reveal" style="--d:.02s" href="#">&larr; All projects</a>
+      <svg class="ico proj-ico reveal" style="--d:.04s" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sheet"/></svg>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">03</span> &nbsp;&middot;&nbsp; The V1 &rarr; V2 arc</p>
+      <h1 class="reveal" style="--d:.1s" tabindex="-1">Endorsement Platform</h1>
+      <p class="proj-purpose reveal" style="--d:.16s">
+        A five-layer influencer-marketing operations platform built entirely on Google Workspace
+        &mdash; coordinating creators, brand clients, an internal account team and a warehouse, where
+        each party needs a different slice of the same record.
+      </p>
+      <div class="proj-tags reveal" style="--d:.2s">
+        <span class="tag-label">Automation</span>
+        <span class="tag-label">ERP &amp; Business Systems</span>
+        <span class="tag-label">Data &amp; Integration</span>
+      </div>
+      <ul class="stack reveal" style="--d:.24s">
+        <li>Google Apps Script (V8)</li><li>Google Sheets</li><li>Docs API</li>
+        <li>Drive API</li><li>LockService</li><li>Time-based triggers</li>
+      </ul>
+    </div>
+
+    <dl class="metrics reveal" style="--d:.3s">
+      <div class="metric"><dt>Pipeline stages</dt><dd>12</dd></div>
+      <div class="metric"><dt>Concurrent campaigns</dt><dd>49</dd></div>
+      <div class="metric"><dt>Client portals</dt><dd>48</dd></div>
+      <div class="metric"><dt>Linked layers</dt><dd>5</dd></div>
+      <div class="metric"><dt>Contract merge fields</dt><dd>15</dd></div>
+    </dl>
+    <p class="metrics-note">Every figure countable in the code or configuration.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 272" role="img" aria-labelledby="endT endD">
+        <title id="endT">Data isolation by projection</title>
+        <desc id="endD">The master pipeline holds 74 columns including creator rates and banking
+          details. The client-facing mirror imports only a 43-column subset, so the sensitive
+          columns are structurally absent rather than permission-hidden.</desc>
+
+        <text class="dgm-n" x="20" y="30">MASTER PIPELINE · 74 COLUMNS</text>
+        <rect class="dgm-box"   x="20"    y="42" width="82.5" height="56" rx="2"/>
+        <rect class="dgm-box"   x="102.5" y="42" width="82.5" height="56"/>
+        <rect class="dgm-box"   x="185"   y="42" width="82.5" height="56"/>
+        <rect class="dgm-box"   x="267.5" y="42" width="82.5" height="56"/>
+        <rect class="dgm-box"   x="350"   y="42" width="82.5" height="56"/>
+        <rect class="dgm-box-a" x="432.5" y="42" width="82.5" height="56"/>
+        <rect class="dgm-box-a" x="515"   y="42" width="82.5" height="56"/>
+        <rect class="dgm-box"   x="597.5" y="42" width="82.5" height="56" rx="2"/>
+        <text class="dgm-s" x="61"  y="75" text-anchor="middle">name</text>
+        <text class="dgm-s" x="144" y="75" text-anchor="middle">creator</text>
+        <text class="dgm-s" x="226" y="75" text-anchor="middle">status</text>
+        <text class="dgm-s" x="309" y="75" text-anchor="middle">dates</text>
+        <text class="dgm-s" x="391" y="75" text-anchor="middle">deliver</text>
+        <text class="dgm-a" x="474" y="75" text-anchor="middle">rate</text>
+        <text class="dgm-a" x="556" y="75" text-anchor="middle">bank</text>
+        <text class="dgm-s" x="639" y="75" text-anchor="middle">contract</text>
+
+        <line class="dgm-ln-a" x1="309" y1="100" x2="309" y2="163" marker-end="url(#aha)"/>
+        <text class="dgm-a" x="322" y="126">IMPORTRANGE</text>
+        <text class="dgm-s" x="322" y="140">imports a column subset</text>
+
+        <text class="dgm-n" x="20" y="158">CLIENT MIRROR · 43 COLUMNS · 4 WRITABLE</text>
+        <rect class="dgm-box" x="20"    y="167" width="82.5" height="56" rx="2"/>
+        <rect class="dgm-box" x="102.5" y="167" width="82.5" height="56"/>
+        <rect class="dgm-box" x="185"   y="167" width="82.5" height="56"/>
+        <rect class="dgm-box" x="267.5" y="167" width="82.5" height="56"/>
+        <rect class="dgm-box" x="350"   y="167" width="82.5" height="56" rx="2"/>
+        <text class="dgm-s" x="61"  y="200" text-anchor="middle">name</text>
+        <text class="dgm-s" x="144" y="200" text-anchor="middle">creator</text>
+        <text class="dgm-s" x="226" y="200" text-anchor="middle">status</text>
+        <text class="dgm-s" x="309" y="200" text-anchor="middle">dates</text>
+        <text class="dgm-s" x="391" y="200" text-anchor="middle">deliver</text>
+
+        <rect class="dgm-ln dgm-dash" fill="none" x="432.5" y="167" width="165" height="56"/>
+        <text class="dgm-n" x="515" y="196" text-anchor="middle">NOT IMPORTED</text>
+        <text class="dgm-n" x="515" y="209" text-anchor="middle">— NO COLUMN EXISTS</text>
+
+        <rect class="dgm-box" x="597.5" y="167" width="82.5" height="56" rx="2"/>
+        <text class="dgm-s" x="639" y="200" text-anchor="middle">contract</text>
+      </svg>
+      <figcaption>
+        <b>Structurally absent, not permission-hidden.</b> Because the client sheet never imports
+        the rate and banking columns, there is no permission to misconfigure — a leaked share link
+        exposes nothing, since the data was never in that document.
+      </figcaption>
+    </figure>
+
+    <div class="block">
+      <h3>The arc &mdash; highest priority on the page</h3>
+      <div class="todo">
+        <strong>To write</strong>
+        Handoff §4.3 calls this the single most valuable narrative in the material: I improved what
+        existed on Google Workspace, then rebuilt it as a real ERP when it hit its ceiling. Say it
+        explicitly and early &mdash; several target employers are exactly the "still on spreadsheets"
+        companies that need this.
+      </div>
+    </div>
+
+    <figure class="shot">
+      <div class="shot-empty">
+        <p class="eyebrow">Figure 03 &mdash; awaiting capture</p>
+        <p>The 12-stage pipeline sheet, or a client-facing portal showing the projected column
+        subset. Rates and banking columns must not appear &mdash; they're structurally absent anyway.</p>
+      </div>
+    </figure>
+
+    <div class="block">
+      <h3>The problem</h3>
+      <div class="todo">
+        <strong>To write</strong>
+        2&ndash;3 sentences. Source: <code>endosement_gws.md</code> §1 &mdash; a many-to-many workflow
+        across four parties, where commercially sensitive data (creator rates, banking details) must
+        never reach the client. No budget for infrastructure &mdash; name that constraint, per handoff §7.
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Key decisions</h3>
+      <ul class="decisions">
+        <li>
+          <h4>Data isolation by projection, not permission</h4>
+          <div class="todo">
+            <strong>To write</strong>
+            The client-facing layer imports a subset of columns, so withheld fields are structurally
+            absent rather than permission-hidden. A misconfigured share link cannot expose agency
+            margin because the data was never there.
+          </div>
+        </li>
+        <li>
+          <h4>Configuration as data</h4>
+          <div class="todo">
+            <strong>To write</strong>
+            Partner spreadsheet IDs, import ranges, mode switches and template IDs live in
+            spreadsheet cells rather than code &mdash; which is why roughly 35 KB of script
+            orchestrates a system this size.
+          </div>
+        </li>
+        <li>
+          <h4>Engineering around a hard platform ceiling</h4>
+          <div class="todo">
+            <strong>To write</strong>
+            Apps Script kills execution at 6 minutes. The metrics extractor checkpoints at 4.5
+            minutes, persists its position and resumes via a continuation trigger 10 minutes later,
+            so jobs complete at any dataset size instead of failing and needing a manual restart.
+            Plus a 7-day freshness check for idempotent re-runs and LockService to stop scheduled
+            and manual runs colliding.
+          </div>
+        </li>
+        <li>
+          <h4>A self-managing lifecycle</h4>
+          <div class="todo">
+            <strong>To write</strong>
+            Tabs enrol in weekly tracking for a 6-month window then auto-expire with no cleanup step.
+            12 protection ranges across 4 authorised editors applied in one action. 11 timestamp
+            columns make hand-off duration a subtraction rather than a reporting exercise.
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <details class="deeper">
+      <summary>Deeper technical detail</summary>
+      <div class="deeper-body">
+        <div class="todo">
+          <strong>To write</strong>
+          Available verified material: 74-column pipeline · 43-column client mirror with a 4-column
+          write surface · ~105-tab payment roster consolidated into three triage buckets and one
+          bank-ready payout list · 3-round review cap with revision counter · hub-and-spoke
+          integration pattern · IMPORTRANGE cross-system sync · integrations with RapidAPI,
+          TapReport, FastMoss, Kalodata, Make.com and J&amp;T · spreadsheets created
+          Dec 2024&ndash;Jun 2025 and still modified within days, so roughly 18 months of continuous
+          production use.
+        </div>
+      </div>
+    </details>
+
+    <nav class="pager" aria-label="Project navigation">
+      <a href="#wa-agent">&larr; WA Agent</a>
+      <a href="#extractors">Extractors &rarr;</a>
+    </nav>
+  </div>
+</section>
+
+
+<!-- ═══════════════ VIEW · EXTRACTORS ═══════════════ -->
+<section class="view" id="view-extractors" aria-label="Creator Analytics Extractors">
+  <div class="wrap">
+    <div class="proj-head">
+      <a class="back reveal" style="--d:.02s" href="#">&larr; All projects</a>
+      <svg class="ico proj-ico reveal" style="--d:.04s" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-extract"/></svg>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">04</span> &nbsp;&middot;&nbsp; Technical depth</p>
+      <h1 class="reveal" style="--d:.1s" tabindex="-1">Creator Analytics Extractors</h1>
+      <p class="proj-purpose reveal" style="--d:.16s">
+        Two browser automation systems solving one operational problem: creator performance data
+        cannot be bulk-exported from either TikTok Partner Center or FastMoss. Both are
+        search-one-creator-at-a-time interfaces with no public API.
+      </p>
+      <div class="proj-tags reveal" style="--d:.2s">
+        <span class="tag-label">Data &amp; Integration</span>
+        <span class="tag-label">Automation</span>
+      </div>
+      <ul class="stack reveal" style="--d:.24s">
+        <li>Chrome Extension MV3</li><li>Service workers</li><li>Content scripts</li>
+        <li>chrome.alarms</li><li>Google Apps Script</li><li>Vanilla JS</li>
+      </ul>
+    </div>
+
+    <dl class="metrics reveal" style="--d:.3s">
+      <div class="metric"><dt>Extraction strategies</dt><dd>2</dd></div>
+      <div class="metric"><dt>Hand-written files</dt><dd>16</dd></div>
+      <div class="metric"><dt>Selector fallback depth</dt><dd>7</dd></div>
+      <div class="metric"><dt>Bundles analysed</dt><dd>127</dd></div>
+      <div class="metric"><dt>Per-task timeout</dt><dd>45s</dd></div>
+    </dl>
+    <p class="metrics-note">Every interval, cap and count read directly from source.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 338" role="img" aria-labelledby="extT extD">
+        <title id="extT">Two extraction strategies from one extension</title>
+        <desc id="extD">Google Sheets acts as job queue, state store and operator interface. A
+          Chrome extension reads work from it and extracts by two different routes: DOM scraping
+          against TikTok Partner Center, and a reverse-engineered signed API call to FastMoss.</desc>
+
+        <rect class="dgm-box" x="250" y="20" width="200" height="56" rx="3"/>
+        <text class="dgm-t" x="264" y="44">Google Sheets</text>
+        <text class="dgm-s" x="264" y="61">queue · state · operator UI</text>
+
+        <line class="dgm-ln" x1="350" y1="78" x2="350" y2="108"
+              marker-start="url(#ah)" marker-end="url(#ah)"/>
+        <text class="dgm-s" x="362" y="97">HTTPS / JSON</text>
+
+        <rect class="dgm-box-a" x="250" y="112" width="200" height="56" rx="3"/>
+        <text class="dgm-t" x="264" y="136">Chrome extension</text>
+        <text class="dgm-s" x="264" y="153">MV3 service worker</text>
+
+        <path class="dgm-ln"   d="M350 170 L350 200 L175 200 L175 236" marker-end="url(#ah)"/>
+        <path class="dgm-ln-a" d="M350 170 L350 200 L525 200 L525 236" marker-end="url(#aha)"/>
+        <text class="dgm-n" x="258" y="193" text-anchor="middle">STRATEGY A</text>
+        <text class="dgm-a" x="442" y="193" text-anchor="middle">STRATEGY B</text>
+
+        <rect class="dgm-box" x="80" y="240" width="190" height="60" rx="3"/>
+        <text class="dgm-t" x="94" y="265">TikTok Partner Center</text>
+        <text class="dgm-s" x="94" y="282">DOM scrape · fallback chain</text>
+
+        <rect class="dgm-box" x="430" y="240" width="190" height="60" rx="3"/>
+        <text class="dgm-t" x="444" y="265">FastMoss</text>
+        <text class="dgm-s" x="444" y="282">signed API · no page render</text>
+
+        <text class="dgm-n" x="175" y="322" text-anchor="middle">5–10s PER CREATOR</text>
+        <text class="dgm-a" x="525" y="322" text-anchor="middle">ONE HTTP ROUND-TRIP</text>
+      </svg>
+      <figcaption>
+        <b>A visible progression, not an inconsistency.</b> Strategy A survives an obfuscated,
+        hash-suffixed DOM through a 7-deep selector fallback chain. Strategy B skips the interface
+        entirely by reconstructing the request signature — collapsing a page render into one call.
+      </figcaption>
+    </figure>
+
+    <figure class="shot">
+      <div class="shot-empty">
+        <p class="eyebrow">Figure 04 &mdash; awaiting capture</p>
+        <p>The floating status overlay mid-run, or the Sheets custom menu that launches a batch.
+        Creator usernames blurred.</p>
+      </div>
+    </figure>
+
+    <div class="block">
+      <h3>The problem</h3>
+      <div class="todo">
+        <strong>To write</strong>
+        2&ndash;3 sentences. Source: <code>chrome_extractor.md</code> §1 &mdash; a roster of creator
+        usernames in Sheets needing recurring commercial-performance visibility, against two
+        platforms offering no bulk export and no public API.
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Key decisions</h3>
+      <ul class="decisions">
+        <li>
+          <h4>Two deliberately different strategies in one repository</h4>
+          <div class="todo">
+            <strong>To write</strong>
+            The TikTok extractor scrapes the rendered DOM through a 7-deep cascading selector
+            fallback chain to survive obfuscated hash-suffixed CSS classes. The FastMoss extractor
+            skips the interface entirely. This is a visible engineering progression, not inconsistency.
+          </div>
+        </li>
+        <li>
+          <h4>Reverse-engineered request signing</h4>
+          <div class="todo">
+            <strong>To write</strong>
+            Deriving the <code>fm-sign</code> scheme &mdash; sorted-parameter concatenation with a
+            salt, a hand-inlined dependency-free MD5, and a fold-and-XOR transform &mdash; replaced a
+            5&ndash;10 second page render with a single HTTP round-trip per creator.
+            <br><br>
+            <em>Framing note from the source doc: foreground the architecture and the impact rather
+            than the bypass. An interviewer may probe the terms-of-service angle.</em>
+          </div>
+        </li>
+        <li>
+          <h4>Session-riding instead of credential storage</h4>
+          <div class="todo">
+            <strong>To write</strong>
+            <code>credentials: "include"</code> reuses the operator's existing authenticated browser
+            session, removing API keys, OAuth service accounts, a secrets vault and token-refresh
+            machinery from the system entirely.
+          </div>
+        </li>
+        <li>
+          <h4>Reliability engineering for unattended runs</h4>
+          <div class="todo">
+            <strong>To write</strong>
+            Per-task 45s timeouts, 15/20/30s fetch aborts via <code>AbortController</code>,
+            stale-response task-ID guards, tab-closure detection, and Apps Script document locks
+            preventing concurrent-write corruption. Errors write back into the row, so no record is
+            silently dropped or left stuck.
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <details class="deeper">
+      <summary>Deeper technical detail</summary>
+      <div class="deeper-body">
+        <div class="todo">
+          <strong>To write</strong>
+          Available verified material: Sheets as job queue, state store and operator console
+          simultaneously · server-driven continuation (the next batch returns in the same response
+          that acknowledges the write) · batches capped at 10 with 2.5s inter-batch delay ·
+          60-second poll with auto-terminate after 3 idle cycles · polling delegated to
+          <code>chrome.alarms</code> specifically to avoid recursively hitting the Apps Script quota ·
+          automatic monthly staleness detection · multi-sheet ingestion via a
+          <code>K1 = "Extract"</code> flag · 28-day metric windows · 5.3 MB of vendor bundles used to
+          derive the signing algorithm.
+        </div>
+      </div>
+    </details>
+
+    <nav class="pager" aria-label="Project navigation">
+      <a href="#endorsement">&larr; Endorsement Platform</a>
+      <a href="#property-finder">Property Finder &rarr;</a>
+    </nav>
+  </div>
+</section>
+
+
+<!-- ═══════════════ VIEW · PROPERTY FINDER ═══════════════ -->
+<section class="view" id="view-property-finder" aria-label="Property Finder">
+  <div class="wrap">
+    <div class="proj-head">
+      <a class="back reveal" style="--d:.02s" href="#">&larr; All projects</a>
+      <svg class="ico proj-ico reveal" style="--d:.04s" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-map"/></svg>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">05</span> &nbsp;&middot;&nbsp; Engineering judgment</p>
+      <h1 class="reveal" style="--d:.1s" tabindex="-1">Property Finder</h1>
+      <p class="proj-purpose reveal" style="--d:.16s">
+        A local-first geospatial decision-support tool for residential property search, built to
+        solve one data-quality problem: property portals advertise straight-line or marketing
+        distances to transit, which are unreliable.
+      </p>
+      <div class="proj-tags reveal" style="--d:.2s">
+        <span class="tag-label">Full-Stack</span>
+        <span class="tag-label">Data &amp; Integration</span>
+      </div>
+      <ul class="stack reveal" style="--d:.24s">
+        <li>Next.js 16.2.7</li><li>React 19.2.4</li><li>TypeScript 5</li>
+        <li>Prisma 6.5 / SQLite</li><li>Leaflet 1.9</li><li>GraphHopper 10</li>
+      </ul>
+      <p class="metrics-note reveal" style="--d:.26s; margin:22px 0 0">
+        Personal project &mdash; single-user and local-only by design. No auth, no cloud deployment,
+        no user base.
+      </p>
+    </div>
+
+    <dl class="metrics reveal" style="--d:.32s">
+      <div class="metric"><dt>MB OSM extract</dt><dd>246</dd></div>
+      <div class="metric"><dt>Routing calls per run</dt><dd>426</dd></div>
+      <div class="metric"><dt>Stations mapped</dt><dd>147</dd></div>
+      <div class="metric"><dt>Pipeline scripts</dt><dd>11</dd></div>
+      <div class="metric"><dt>Prisma models</dt><dd>3</dd></div>
+    </dl>
+    <p class="metrics-note">
+      Drawn from source files and a live query against the development database.
+    </p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 236" role="img" aria-labelledby="pfT pfD">
+        <title id="pfT">The swappable routing seam</title>
+        <desc id="pfD">The app and all eleven pipeline scripts depend on a RoutingProvider
+          interface rather than on a routing engine. GraphHopper sits behind it. OSRM was the
+          originally specified engine and was swapped out with a one-line change when Docker
+          proved unavailable.</desc>
+
+        <rect class="dgm-box" x="20" y="30" width="180" height="56" rx="3"/>
+        <text class="dgm-t" x="34" y="54">11 pipeline scripts</text>
+        <text class="dgm-s" x="34" y="71">batch enrichment</text>
+
+        <rect class="dgm-box" x="20" y="110" width="180" height="56" rx="3"/>
+        <text class="dgm-t" x="34" y="134">Next.js app</text>
+        <text class="dgm-s" x="34" y="151">reads SQLite only</text>
+
+        <line class="dgm-ln" x1="202" y1="58"  x2="254" y2="58"  marker-end="url(#ah)"/>
+        <line class="dgm-ln" x1="202" y1="138" x2="254" y2="138" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box-a" x="258" y="30" width="180" height="136" rx="3"/>
+        <text class="dgm-t" x="272" y="92">RoutingProvider</text>
+        <text class="dgm-s" x="272" y="109">one interface</text>
+
+        <line class="dgm-ln-a" x1="440" y1="58"  x2="494" y2="58"  marker-end="url(#aha)"/>
+        <line class="dgm-ln dgm-dash" x1="440" y1="138" x2="494" y2="138" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box" x="498" y="30" width="182" height="56" rx="3"/>
+        <text class="dgm-t" x="512" y="54">GraphHopper 10</text>
+        <text class="dgm-a" x="512" y="71">IN USE · SELF-HOSTED</text>
+
+        <rect class="dgm-box dgm-dash" fill="none" x="498" y="110" width="182" height="56" rx="3"/>
+        <text class="dgm-n" x="512" y="134">OSRM</text>
+        <text class="dgm-n" x="512" y="151">SPECIFIED, THEN DROPPED</text>
+
+        <text class="dgm-a" x="350" y="200" text-anchor="middle">THE ENGINE SWAPS WITH A ONE-LINE CHANGE</text>
+        <text class="dgm-n" x="350" y="216" text-anchor="middle">nothing in the app or the 11 scripts references GraphHopper directly</text>
+      </svg>
+      <figcaption>
+        <b>The seam was chosen before the engine.</b> The design specified OSRM via Docker; Docker
+        turned out to be unavailable on the target machine, so GraphHopper was substituted by
+        changing one line. The abstraction paid for itself during the build rather than hypothetically.
+      </figcaption>
+    </figure>
+
+    <figure class="shot">
+      <div class="shot-empty">
+        <p class="eyebrow">Figure 05 &mdash; awaiting capture</p>
+        <p>The clustered Leaflet map with filters visible. The safest capture of the five &mdash;
+        no client data, no PII, nothing commercially sensitive.</p>
+      </div>
+    </figure>
+
+    <div class="block">
+      <h3>The problem</h3>
+      <div class="todo">
+        <strong>To write</strong>
+        2&ndash;3 sentences. Source: <code>property_finder.md</code> §1 &mdash; portals advertise
+        straight-line distance to transit; the system's core constraint is that straight-line
+        distance is only ever a prefilter, never a displayed number.
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Key decisions</h3>
+      <ul class="decisions">
+        <li>
+          <h4>The seam was chosen before the engine</h4>
+          <div class="todo">
+            <strong>To write</strong>
+            Routing sits behind a <code>RoutingProvider</code> interface; the engine swaps with a
+            one-line change and nothing in the app or the 11 pipeline scripts depends on GraphHopper
+            directly. The design specified OSRM via Docker, Docker turned out to be unavailable, and
+            GraphHopper was substituted with that one line. The seam paid for itself during the build
+            rather than hypothetically &mdash; which is the point worth making.
+          </div>
+        </li>
+        <li>
+          <h4>Batch enrichment, not request-time computation</h4>
+          <div class="todo">
+            <strong>To write</strong>
+            All expensive geo work happens in offline pipelines; the app reads precomputed values
+            from SQLite, so filtering and sorting across 11 dimensions run client-side with no
+            network round-trip.
+          </div>
+        </li>
+        <li>
+          <h4>Failing loudly rather than degrading silently</h4>
+          <div class="todo">
+            <strong>To write</strong>
+            The enrichment script pings the routing engine first and exits non-zero if unreachable.
+            A silent fallback to straight-line distance would have quietly violated the system's one
+            accuracy guarantee.
+          </div>
+        </li>
+        <li>
+          <h4>Null-safe filter semantics</h4>
+          <div class="todo">
+            <strong>To write</strong>
+            Numeric thresholds exclude a listing only when the value is known and violates the
+            threshold, so a project with a missing price-per-square-foot isn't silently erased.
+            "Not yet routed" is distinguished from "routed, but too far" &mdash; absent data never
+            masquerades as a negative result.
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <details class="deeper">
+      <summary>Deeper technical detail</summary>
+      <div class="deeper-body">
+        <div class="todo">
+          <strong>To write</strong>
+          Available verified material: 5 foot-routing plus 1 car-routing call per property, driven by
+          a <code>CANDIDATES = 5</code> station prefilter · 7 rail lines and 17 interchanges · rail
+          network ingested live from OSM route relations including line membership, interchange
+          detection and official Rapid KL colours, explicitly not hand-coded · 14-point
+          data-completeness scoring · 1,700 m walkable cap · Google Places as the single paid
+          dependency, constrained by a 4-field mask, <code>maxResultCount: 1</code>, SQLite caching
+          and a fail-fast break on any 4xx.
+        </div>
+        <div class="todo">
+          <strong>Do not claim</strong>
+          That Google ratings are populated (0 of 71 rows) or brochures are linked (0 rows).
+          Both are built capabilities, not live data.
+        </div>
+      </div>
+    </details>
+
+    <nav class="pager" aria-label="Project navigation">
+      <a href="#extractors">&larr; Extractors</a>
+      <span class="spacer"></span>
+    </nav>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <div><a href="mailto:xaviertan0121@gmail.com">xaviertan0121@gmail.com</a> &nbsp;&middot;&nbsp; Kuala Lumpur</div>
+      <div>
+        Built by hand as a single HTML file &mdash; no framework, no build step, no tracking.<br>
+        Last updated <time datetime="2026-07-28">28 July 2026</time>.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  var VIEWS = ["home", "creator-erp", "wa-agent", "endorsement", "extractors", "property-finder"];
+
+  // Single-view mode is JS-only. Without it the page stays one long
+  // readable document rather than a blank screen.
+  document.body.classList.add("routed");
+
+  function viewEl(name) { return document.getElementById("view-" + name); }
+
+  function route() {
+    var name = (location.hash || "").replace(/^#/, "");
+    if (VIEWS.indexOf(name) === -1) name = "home";
+
+    VIEWS.forEach(function (v) {
+      var el = viewEl(v);
+      if (!el) return;
+      var on = (v === name);
+      el.classList.toggle("active", on);
+      if (!on) el.classList.remove("in");
+    });
+
+    var active = viewEl(name);
+    if (active) {
+      // Re-arm the entrance animation: strip, reflow, re-apply.
+      active.classList.remove("in");
+      void active.offsetWidth;
+      active.classList.add("in");
+
+      var h = active.querySelector("h1[tabindex]");
+      if (h) h.focus({ preventScroll: true });
+    }
+    window.scrollTo(0, 0);
+  }
+
+  window.addEventListener("hashchange", route);
+  route();
+
+  // ── capability filter ──────────────────────────────────────
+  var chips  = Array.prototype.slice.call(document.querySelectorAll(".chip"));
+  var cards  = Array.prototype.slice.call(document.querySelectorAll(".card"));
+  var status = document.querySelector(".filter-status");
+
+  function applyFilter(tag) {
+    var shown = 0;
+    cards.forEach(function (card) {
+      var tags = (card.getAttribute("data-tags") || "").split(/\s+/);
+      var match = (tag === "all") || (tags.indexOf(tag) !== -1);
+      card.hidden = !match;
+      if (match) shown++;
+    });
+    chips.forEach(function (c) {
+      c.setAttribute("aria-pressed", String(c.getAttribute("data-tag") === tag));
+    });
+    if (status) {
+      status.textContent = (tag === "all")
+        ? ""
+        : "Showing " + shown + " of " + cards.length + " projects.";
+    }
+  }
+
+  chips.forEach(function (chip) {
+    chip.addEventListener("click", function () {
+      applyFilter(chip.getAttribute("data-tag"));
+    });
+  });
+
+  applyFilter("all");
+})();
+</script>
+</body>
+</html>
