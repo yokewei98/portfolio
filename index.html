@@ -177,31 +177,34 @@ body.routed .view.active { display: block; }
 .hero { padding: clamp(64px, 13vw, 132px) 0 clamp(48px, 8vw, 84px); }
 
 .hero-top {
-  display: grid; grid-template-columns: 1fr 420px;
+  display: grid; grid-template-columns: 1fr 300px;
   gap: 8px; align-items: end;
 }
 .portrait {
   position: relative;
-  /* The full frame carries roughly 23% dead black down its left side.
-     `lighten` makes it invisible but it still occupies layout, which reads
-     as a large gap. Pulling the figure left closes the visual distance
-     without cropping the image. */
-  margin-left: -85px;
+  /* The frame carries ~21% dead black down its left side. Pulling the
+     figure left closes the visual distance without cropping. */
+  margin-left: -50px;
 }
 .portrait img {
   width: 100%; height: auto; display: block;
-  /* The studio backdrop is essentially pure black. `lighten` takes the
-     per-channel max against the page, so those pixels resolve to exactly
-     the page colour — the rectangle disappears rather than being faded
-     towards invisibility. Subject pixels are all brighter than the page,
-     so none are touched. */
-  mix-blend-mode: lighten;
-  /* Soft vignette: opaque through the subject, dissolving at every frame
-     edge so nothing terminates on a hard line. */
-  -webkit-mask-image: radial-gradient(ellipse 86% 84% at 50% 44%,
-                        #000 60%, rgba(0,0,0,.55) 83%, transparent 100%);
-          mask-image: radial-gradient(ellipse 86% 84% at 50% 44%,
-                        #000 60%, rgba(0,0,0,.55) 83%, transparent 100%);
+
+  /* NO mix-blend-mode. `lighten` looked right but was quietly destructive:
+     the suit's shadow tones measure RGB 6,2,1 — DARKER than the page's
+     12,13,11 — so a per-channel max was overwriting parts of the subject
+     with the background colour. That mismatch was the visible edge.
+
+     Luminance can't separate subject from backdrop either (suit reads
+     2.8–25, backdrop 0, they overlap), so the fade has to be spatial.
+
+     Geometry matters here: the radii must be <= 50%/52% so the gradient
+     actually REACHES transparent at the frame edges. The previous 86%/84%
+     put the left edge at only 58% along the ramp — still fully opaque,
+     which is why the rectangle stayed visible. */
+  -webkit-mask-image: radial-gradient(ellipse 50% 52% at 50% 46%,
+                        #000 0%, #000 52%, rgba(0,0,0,.45) 76%, transparent 100%);
+          mask-image: radial-gradient(ellipse 50% 52% at 50% 46%,
+                        #000 0%, #000 52%, rgba(0,0,0,.45) 76%, transparent 100%);
 }
 @media (max-width: 860px) {
   .hero-top { grid-template-columns: 1fr; gap: 18px; align-items: start; }
@@ -2000,7 +2003,7 @@ footer a:hover { color: var(--text); }
         <text class="dgm-n" x="512" y="151">SPECIFIED, THEN DROPPED</text>
 
         <text class="dgm-a" x="350" y="200" text-anchor="middle">THE ENGINE SWAPS WITH A ONE-LINE CHANGE</text>
-        <text class="dgm-n" x="350" y="216" text-anchor="middle">nothing in the app or the 11 scripts references GraphHopper directly</text>
+        <text class="dgm-n" x="350" y="216" text-anchor="middle">nothing in the app or the 10 scripts references GraphHopper directly</text>
       </svg>
       <figcaption>
         <b>The seam was chosen before the engine.</b> The design specified OSRM via Docker; Docker
@@ -2012,7 +2015,7 @@ footer a:hover { color: var(--text); }
     <figure class="shot">
       <div class="shot-empty">
         <p class="eyebrow">Figure 05 &mdash; awaiting capture</p>
-        <p>The clustered Leaflet map with filters visible. The safest capture of the five &mdash;
+        <p>The clustered Leaflet map with filters visible. The safest capture of the six &mdash;
         no client data, no PII, nothing commercially sensitive.</p>
       </div>
     </figure>
@@ -2040,7 +2043,7 @@ footer a:hover { color: var(--text); }
           <h4>The seam was chosen before the engine</h4>
           <p>
             Routing sits behind a <code>RoutingProvider</code> interface and the concrete engine is
-            selected in one line. Nothing in the application or the eleven pipeline scripts refers to
+            selected in one line. Nothing in the application or the ten pipeline scripts refers to
             GraphHopper directly.
           </p>
           <p>
@@ -2076,13 +2079,16 @@ footer a:hover { color: var(--text); }
         </li>
         <li>
           <h4>Null-safe filter semantics</h4>
-          <div class="todo">
-            <strong>To write</strong>
-            Numeric thresholds exclude a listing only when the value is known and violates the
-            threshold, so a project with a missing price-per-square-foot isn't silently erased.
-            "Not yet routed" is distinguished from "routed, but too far" &mdash; absent data never
-            masquerades as a negative result.
-          </div>
+          <p>
+            Real scraped data has holes, and a filter has to decide what an unknown value means.
+            Numeric thresholds here exclude a listing only when the value is known <em>and</em>
+            violates the threshold, so a project with no recorded price per square foot survives a PSF
+            filter instead of disappearing from a search it might well have belonged in. Categorical
+            filters do the opposite and demand a positive match. The transit layer keeps the same
+            distinction explicit: <em>not yet routed</em> is a different state from <em>routed, and
+            beyond the 1,700&nbsp;m walkable cap</em>. Absent data never gets to masquerade as a
+            negative result.
+          </p>
         </li>
       </ul>
     </div>
@@ -2090,21 +2096,43 @@ footer a:hover { color: var(--text); }
     <details class="deeper">
       <summary>Deeper technical detail</summary>
       <div class="deeper-body">
-        <div class="todo">
-          <strong>To write</strong>
-          Available verified material: 5 foot-routing plus 1 car-routing call per property, driven by
-          a <code>CANDIDATES = 5</code> station prefilter · 7 rail lines and 17 interchanges · rail
-          network ingested live from OSM route relations including line membership, interchange
-          detection and official Rapid KL colours, explicitly not hand-coded · 14-point
-          data-completeness scoring · 1,700 m walkable cap · Google Places as the single paid
-          dependency, constrained by a 4-field mask, <code>maxResultCount: 1</code>, SQLite caching
-          and a fail-fast break on any 4xx.
-        </div>
-        <div class="todo">
-          <strong>Do not claim</strong>
-          That Google ratings are populated (0 of 71 rows) or brochures are linked (0 rows).
-          Both are built capabilities, not live data.
-        </div>
+        <p>
+          <b>What a full enrichment run costs.</b> Each property takes five foot-routing calls &mdash;
+          one per candidate station from a <code>CANDIDATES = 5</code> prefilter &mdash; plus one
+          car-routing call to the personal anchor, so a complete run over the current dataset is 426
+          routing calls. Every one of them is free, because GraphHopper runs locally against a
+          246&nbsp;MB Malaysia, Singapore and Brunei OSM extract. A commercial distance-matrix API
+          bills per element; here the marginal cost of re-routing everything is time rather than
+          money, which is exactly what makes the anchor freely changeable.
+        </p>
+        <p>
+          <b>The network is read, not typed.</b> Rail data comes from OSM route relations &mdash; line
+          membership, interchange detection and the official Rapid KL line colours all parsed from
+          tags rather than hand-maintained. The script header is explicit that the network is not
+          hand-coded, which matters because hand-coded transit data is correct exactly once. 147
+          stations across 7 lines with 17 interchanges, against 71 projects.
+        </p>
+        <p>
+          <b>One paid dependency, deliberately fenced.</b> Google Places is the only API key in the
+          project. It is called with a four-field mask and <code>maxResultCount: 1</code>, results are
+          cached into SQLite with the place ID persisted so a repeat run costs nothing, and any 4xx
+          breaks the loop immediately rather than burning quota against an auth or limit error. Query
+          construction is context-aware: an under-development project is searched as its sales
+          gallery, a completed one as itself.
+        </p>
+        <p>
+          <b>Built, but not populated.</b> Two capabilities are implemented end to end without live
+          data behind them &mdash; Google ratings are non-null on none of the 71 rows, and brochure
+          paths are set on none, though 35 PDFs sit in the repository. They belong here as built
+          capabilities, not as data in use. A 14-point completeness score surfaces exactly which
+          fields are missing per property, which is how gaps like these stay visible instead of being
+          discovered at a viewing.
+        </p>
+        <p>
+          <b>Scope, stated plainly.</b> Single-user, local-only, no authentication and no deployment
+          &mdash; by design and by written non-goal, not by omission. The engineering decisions here
+          stand on their own; the project has no users to claim and none are claimed.
+        </p>
       </div>
     </details>
 
