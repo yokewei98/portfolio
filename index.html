@@ -1572,23 +1572,29 @@ footer a:hover { color: var(--text); }
         </li>
         <li>
           <h4>Engineering around a hard platform ceiling</h4>
-          <div class="todo">
-            <strong>To write</strong>
-            Apps Script kills execution at 6 minutes. The metrics extractor checkpoints at 4.5
-            minutes, persists its position and resumes via a continuation trigger 10 minutes later,
-            so jobs complete at any dataset size instead of failing and needing a manual restart.
-            Plus a 7-day freshness check for idempotent re-runs and LockService to stop scheduled
-            and manual runs colliding.
-          </div>
+          <p>
+            Apps Script terminates execution at six minutes, and a full metrics sweep across the
+            roster will always exceed that. The extractor checkpoints at 4.5 minutes, writes its
+            position back to the sheet and schedules a continuation trigger ten minutes out, so a run
+            completes across as many invocations as it needs rather than failing at whatever size
+            first broke it. That position is not hidden state: the control sheet keeps a row per tab
+            marking it processed, still to do, or deliberately skipped, so anyone can open the file
+            and see where the last run stopped. A seven-day freshness check makes re-running harmless,
+            and <code>LockService</code> stops a manual run colliding with the scheduled one.
+          </p>
         </li>
         <li>
           <h4>A self-managing lifecycle</h4>
-          <div class="todo">
-            <strong>To write</strong>
-            Tabs enrol in weekly tracking for a 6-month window then auto-expire with no cleanup step.
-            12 protection ranges across 4 authorised editors applied in one action. 11 timestamp
-            columns make hand-off duration a subtraction rather than a reporting exercise.
-          </div>
+          <p>
+            Tabs enrol themselves in weekly tracking for a six-month window and then drop out, so the
+            job's workload does not grow without bound and nobody has to remember to retire a
+            finished campaign. Sheet protection works the same way &mdash; 12 ranges scoped to four
+            authorised editors, applied in one action instead of range-by-range on every new
+            campaign. Client feedback is capped at three rounds by the layout itself, with a revision
+            counter and an elapsed-days column, so scope creep surfaces as data rather than as an
+            argument. And 11 timestamp columns, one per stage boundary, make hand-off duration a
+            subtraction rather than a reporting exercise.
+          </p>
         </li>
       </ul>
     </div>
@@ -1596,16 +1602,36 @@ footer a:hover { color: var(--text); }
     <details class="deeper">
       <summary>Deeper technical detail</summary>
       <div class="deeper-body">
-        <div class="todo">
-          <strong>To write</strong>
-          Available verified material: 74-column pipeline · 43-column client mirror with a 4-column
-          write surface · ~105-tab payment roster consolidated into three triage buckets and one
-          bank-ready payout list · 3-round review cap with revision counter · hub-and-spoke
-          integration pattern · IMPORTRANGE cross-system sync · integrations with RapidAPI,
-          TapReport, FastMoss, Kalodata, Make.com and J&amp;T · spreadsheets created
-          Dec 2024&ndash;Jun 2025 and still modified within days, so roughly 18 months of continuous
-          production use.
-        </div>
+        <p>
+          <b>Five layers, one join point.</b> A creator CRM holds the talent master &mdash; identity,
+          banking, tier, category, audience split, and ten paired columns recording which brands each
+          creator has already worked with and what each of those produced. The campaign pipeline is
+          the hub every other layer joins to. A logistics workbook mirrors the shipping columns for
+          the courier partner. A control workbook drives the batch jobs and payment runs. Client
+          portals project from the pipeline. Nothing integrates with anything except the hub, which
+          is what kept the number of connections linear as campaigns accumulated.
+        </p>
+        <p>
+          <b>Built for the team that uses it.</b> Every column header is written in Chinese and
+          English, because the account team is. The workbooks are owned by four separate accounts
+          across business development, operations, logistics and me &mdash; this was never a personal
+          spreadsheet that grew, it crosses department boundaries and had to keep working when people
+          changed roles.
+        </p>
+        <p>
+          <b>Integrations and generated artefacts.</b> Engagement metrics via RapidAPI, affiliate GMV
+          via TapReport exports, creator analytics from FastMoss and Kalodata, a Make.com webhook, and
+          the courier's own workspace. Contracts are produced from a Docs template with 15 merge
+          fields, shared view-only by link, and the resulting PDF URL written back to the creator's
+          row. Payment consolidation reduces a 105-tab roster to three triage buckets and one
+          bank-ready payout list.
+        </p>
+        <p>
+          <b>Longevity.</b> The workbooks were created between December 2024 and June 2025 and were
+          all still being edited nineteen months later. This is a system in continuous production use
+          rather than a prototype &mdash; which is also why its limits were worth taking seriously
+          enough to rebuild against.
+        </p>
       </div>
     </details>
 
