@@ -531,6 +531,36 @@ body.routed .view.active { display: block; }
 .decisions p { color: var(--text-2); font-size: 1rem; }
 .decisions p + p { margin-top: 14px; }
 
+/* ─── spec table — module / component inventories ─────────────
+   Scrolls rather than reflows: a 4-column spec that wraps into
+   stacked rows stops being scannable, which is the only reason
+   to use a table here. */
+.spec-wrap {
+  margin: 30px 0 0; border: 1px solid var(--rule); background: var(--ink-2);
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+}
+.spec { width: 100%; min-width: 560px; border-collapse: collapse; }
+.spec th {
+  font-family: var(--mono); font-size: .625rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: .1em; color: var(--muted);
+  text-align: left; padding: 11px 15px; border-bottom: 1px solid var(--rule-lt);
+}
+.spec td {
+  padding: 13px 15px; border-bottom: 1px solid var(--rule);
+  vertical-align: top; color: var(--text-2); font-size: .9375rem;
+}
+.spec tr:last-child td { border-bottom: 0; }
+.spec td:first-child { color: var(--text); white-space: nowrap; }
+.spec td.tg { font-family: var(--mono); font-size: .6875rem; color: var(--brass); white-space: nowrap; }
+
+/* ─── technique list — formula / mechanism call-outs ──────────── */
+.fx { list-style: none; margin: 26px 0 0; }
+.fx > li { padding: 14px 0; border-bottom: 1px solid var(--rule); }
+.fx > li:last-child { border-bottom: 0; }
+.fx b { display: block; color: var(--text); font-weight: 500; font-size: .9375rem; margin-bottom: 5px; }
+.fx span { color: var(--text-2); font-size: .9375rem; }
+.fx code { white-space: nowrap; }
+
 details.deeper { margin: 46px 0; border-top: 1px solid var(--rule); }
 details.deeper > summary {
   cursor: pointer; list-style: none;
@@ -1523,6 +1553,71 @@ footer a:hover { color: var(--text); }
     <p class="metrics-note">Every figure countable in the code or configuration.</p>
 
     <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 336" role="img" aria-labelledby="ecoT ecoD">
+        <title id="ecoT">Five linked layers around one join point</title>
+        <desc id="ecoD">A creator CRM and two external metric sources feed a central campaign
+          pipeline. That pipeline in turn feeds 48 client sheets, a logistics workbook, generated
+          contracts and a payment hub. Every layer connects to the pipeline, never to each other.</desc>
+
+        <text class="dgm-n" x="20" y="20">UPSTREAM &amp; EXTERNAL SOURCES</text>
+        <rect class="dgm-box" x="20" y="30" width="180" height="48" rx="2"/>
+        <text class="dgm-t" x="33" y="51">Creator Database</text>
+        <text class="dgm-s" x="33" y="67">talent CRM · tab: New</text>
+
+        <rect class="dgm-box dgm-dash" x="290" y="30" width="150" height="48" rx="2"/>
+        <text class="dgm-t" x="302" y="51">TapReport</text>
+        <text class="dgm-s" x="302" y="67">affiliate GMV export</text>
+
+        <rect class="dgm-box dgm-dash" x="455" y="30" width="160" height="48" rx="2"/>
+        <text class="dgm-t" x="467" y="51">RapidAPI</text>
+        <text class="dgm-s" x="467" y="67">comment · share · collect</text>
+
+        <path class="dgm-ln"   d="M110 78 L110 108 L215 108 L215 126" marker-end="url(#ah)"/>
+        <path class="dgm-ln"   d="M365 78 L365 126" marker-end="url(#ah)"/>
+        <path class="dgm-ln-a" d="M535 78 L535 108 L470 108 L470 126" marker-end="url(#aha)"/>
+
+        <rect class="dgm-box-a" x="140" y="128" width="420" height="80" rx="3"/>
+        <text class="dgm-t" x="158" y="152">(IS Page) New Project Endorsement</text>
+        <text class="dgm-s" x="158" y="170">12-STAGE PIPELINE · 49 CAMPAIGN TABS · 74 COLUMNS</text>
+        <text class="dgm-a" x="158" y="190">the only sheet with Apps Script attached</text>
+
+        <path class="dgm-ln"   d="M215 208 L215 234 L97 234 L97 254"  marker-start="url(#ah)"  marker-end="url(#ah)"/>
+        <path class="dgm-ln"   d="M290 208 L290 234 L267 234 L267 254" marker-start="url(#ah)" marker-end="url(#ah)"/>
+        <path class="dgm-ln-a" d="M400 208 L400 234 L437 234 L437 254" marker-end="url(#aha)"/>
+        <path class="dgm-ln-a" d="M480 208 L480 234 L605 234 L605 254" marker-end="url(#aha)"/>
+
+        <rect class="dgm-box" x="20"  y="254" width="155" height="52" rx="2"/>
+        <text class="dgm-t" x="32"  y="275">Brand Sheets &times;48</text>
+        <text class="dgm-s" x="32"  y="292">43 cols · 4 writable</text>
+
+        <rect class="dgm-box" x="190" y="254" width="155" height="52" rx="2"/>
+        <text class="dgm-t" x="202" y="275">J&amp;T Logistics</text>
+        <text class="dgm-s" x="202" y="292">two-way link</text>
+
+        <rect class="dgm-box" x="360" y="254" width="155" height="52" rx="2"/>
+        <text class="dgm-t" x="372" y="275">KOL Agreement</text>
+        <text class="dgm-s" x="372" y="292">Docs merge &rarr; PDF</text>
+
+        <rect class="dgm-box" x="530" y="254" width="150" height="52" rx="2"/>
+        <text class="dgm-t" x="542" y="275">Payment Hub</text>
+        <text class="dgm-s" x="542" y="292">105-tab roster</text>
+
+        <line class="dgm-ln" x1="20" y1="328" x2="44" y2="328"/>
+        <text class="dgm-n" x="50" y="332">IMPORTRANGE</text>
+        <line class="dgm-ln-a" x1="165" y1="328" x2="189" y2="328"/>
+        <text class="dgm-n" x="195" y="332">APPS SCRIPT</text>
+        <line class="dgm-ln dgm-dash" x1="300" y1="328" x2="324" y2="328"/>
+        <text class="dgm-n" x="330" y="332">EXTERNAL SOURCE</text>
+      </svg>
+      <figcaption>
+        <b>Hub and spoke, deliberately.</b> Every layer integrates with the pipeline, never with
+        each other — so connections grew linearly rather than quadratically as campaigns
+        accumulated. Formulas carry the sheet-to-sheet joins; code is used only where formulas
+        cannot reach — document generation, outbound HTTP, permissions and scheduling.
+      </figcaption>
+    </figure>
+
+    <figure class="figure">
       <svg class="dgm" viewBox="0 0 700 272" role="img" aria-labelledby="endT endD">
         <title id="endT">Data isolation by projection</title>
         <desc id="endD">The master pipeline holds 74 columns including creator rates and banking
@@ -2138,6 +2233,199 @@ footer a:hover { color: var(--text); }
 
     <nav class="pager" aria-label="Project navigation">
       <a href="#extractors">&larr; Extractors</a>
+      <a href="#feng-shui">Feng Shui Dashboard &rarr;</a>
+    </nav>
+  </div>
+</section>
+
+
+<!-- ═══════════════ VIEW · FENG SHUI DASHBOARD ═══════════════ -->
+<section class="view" id="view-feng-shui" aria-label="Feng Shui Dashboard">
+  <div class="wrap">
+    <div class="proj-head">
+      <a class="back reveal" style="--d:.02s" href="#">&larr; All projects</a>
+      <svg class="ico proj-ico reveal" style="--d:.04s" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-compass"/></svg>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">06</span> &nbsp;&middot;&nbsp; Scoping judgment</p>
+      <h1 class="reveal" style="--d:.1s" tabindex="-1">Feng Shui Dashboard</h1>
+      <p class="proj-purpose reveal" style="--d:.16s">
+        A zero-dependency comparison surface for one real property purchase. Four shortlisted
+        projects held side by side with the evidence attached &mdash; including the disqualifying
+        facts that appear in no listing anywhere.
+      </p>
+      <div class="proj-tags reveal" style="--d:.2s">
+        <span class="tag-label">Data</span>
+      </div>
+      <ul class="stack reveal" style="--d:.24s">
+        <li>Vanilla JavaScript</li><li>HTML5</li><li>Hand-written CSS</li>
+        <li>GitHub Pages</li><li>No framework</li><li>No build step</li>
+      </ul>
+      <p class="metrics-note reveal" style="--d:.26s; margin:22px 0 0">
+        Personal project &mdash; one buyer, one decision, four candidates. Deployed publicly, but
+        built for an audience of one.
+      </p>
+    </div>
+
+    <dl class="metrics reveal" style="--d:.32s">
+      <div class="metric"><dt>Projects compared</dt><dd>4</dd></div>
+      <div class="metric"><dt>Unit types</dt><dd>7</dd></div>
+      <div class="metric"><dt>Lines of code</dt><dd>1,520</dd></div>
+      <div class="metric"><dt>Dependencies</dt><dd>0</dd></div>
+      <div class="metric"><dt>Build steps</dt><dd>0</dd></div>
+    </dl>
+    <p class="metrics-note">
+      Read directly from the repository on 28 July 2026.
+    </p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 230" role="img" aria-labelledby="fsT fsD">
+        <title id="fsT">What a listing carries versus what decides the purchase</title>
+        <desc id="fsD">A property portal listing carries price, size, bedroom count, advertised
+          transit distance and the developer's headline incentive — enough to shortlist. This tool
+          adds the facts that actually decide the purchase: a balcony facing a graveyard, three
+          lifts serving the whole tower, a balcony facing a mosque, and the front-door and
+          rear/view compass bearings — each photographed or derived.</desc>
+
+        <rect class="dgm-box" x="20" y="30" width="310" height="170" rx="3"/>
+        <text class="dgm-n" x="36" y="52">PORTAL LISTING</text>
+        <text class="dgm-s" x="36" y="78">Price and built-up size</text>
+        <text class="dgm-s" x="36" y="98">Bedroom and bathroom count</text>
+        <text class="dgm-s" x="36" y="118">Advertised distance to transit</text>
+        <text class="dgm-s" x="36" y="138">The developer's headline incentive</text>
+        <text class="dgm-n" x="36" y="180">ENOUGH TO SHORTLIST</text>
+
+        <rect class="dgm-box-a" x="370" y="30" width="310" height="170" rx="3"/>
+        <text class="dgm-a" x="386" y="52">WHAT THIS TOOL ADDS</text>
+        <text class="dgm-s" x="386" y="78">Balcony faces a graveyard — photographed</text>
+        <text class="dgm-s" x="386" y="98">Three lifts serving the whole tower</text>
+        <text class="dgm-s" x="386" y="118">Balcony faces a mosque — photographed</text>
+        <text class="dgm-s" x="386" y="138">Front-door and rear/view compass bearing</text>
+        <text class="dgm-a" x="386" y="180">ENOUGH TO DECIDE</text>
+      </svg>
+      <figcaption>
+        <b>The gap is the point.</b> A listing gives you enough to shortlist and nothing to decide
+        with. The facts that ruled projects out here &mdash; a graveyard past the balcony, three
+        lifts for the whole tower &mdash; exist in no structured feed, which is precisely why this
+        dataset is hand-typed.
+      </figcaption>
+    </figure>
+
+    <figure class="shot">
+      <div class="shot-empty">
+        <p class="eyebrow">Figure 06 &mdash; awaiting capture</p>
+        <p>The comparison table with all four projects visible. The safest capture of the six by
+        some distance &mdash; the site is already public, and none of the data is anyone's but mine.</p>
+      </div>
+    </figure>
+
+    <div class="block">
+      <h3>The problem</h3>
+      <p>
+        By the time a property search narrows to four candidates, the portals have stopped being
+        useful. Every listing shows the same five fields, every developer's incentive package is
+        shaped differently &mdash; one offers a ten per cent rebate, another absorbs the legal fees
+        and adds air-conditioning &mdash; and none of it is comparable at a glance. Meanwhile the
+        facts that actually decide the purchase are not in any listing at all.
+      </p>
+      <p>
+        The things that ruled projects out here were: a balcony facing a graveyard, a balcony facing
+        a mosque, and three lifts serving an entire tower. You find those by visiting, and then you
+        need somewhere to put them &mdash; because six weeks later you will not remember which
+        project had the lift problem, and you will not be able to show anyone why you walked away.
+        This tool is that somewhere.
+      </p>
+    </div>
+
+    <div class="block">
+      <h3>Key decisions</h3>
+      <ul class="decisions">
+        <li>
+          <h4>Not automating, at n=4</h4>
+          <p>
+            The scraping, geocoding and routing pipeline built for Property Finder already existed
+            and already covered this exact domain. It was not reused. At four candidates the
+            automation does not amortise &mdash; and more to the point, the deciding facts here are
+            not machine-readable. There is no feed that will tell you a balcony overlooks a
+            graveyard.
+          </p>
+          <p>
+            So every field is hand-typed, and that is the correct answer rather than a shortcut.
+            Knowing when not to build the pipeline is the judgment worth citing; the pipeline itself
+            is the easier of the two decisions.
+          </p>
+        </li>
+        <li>
+          <h4>Store one bearing, derive the other</h4>
+          <p>
+            Each unit records a single number &mdash; the direction you face walking out the front
+            door. The rear and view bearing is computed as the opposite, and both are labelled
+            against an eight-point compass in code. Storing the second value alongside the first
+            would have created a field that can silently contradict its neighbour. One authoritative
+            number, one derivation, and the two cannot disagree.
+          </p>
+        </li>
+        <li>
+          <h4>Margining the loan the way a bank does</h4>
+          <p>
+            The financing panel computes the loan against the SPA price and displays the purchase
+            price net of rebate, which looks inconsistent until you have sat through the paperwork.
+            Malaysian banks margin against the transacted SPA value, not the discounted figure the
+            buyer actually pays. Getting this backwards understates the loan on every rebate-heavy
+            unit &mdash; which is most of them.
+          </p>
+        </li>
+        <li>
+          <h4>Evidence attached to every claimed disadvantage</h4>
+          <p>
+            A stated drawback with no photograph behind it decays into a vague misgiving within a
+            fortnight. Each disadvantage in the dataset carries an image &mdash; the graveyard, the
+            mosque &mdash; opened through a lightbox alongside the annotated floor plate showing
+            which stack the unit sits in. The tool's real output is not a recommendation; it is a
+            decision that can still be defended months later.
+          </p>
+        </li>
+      </ul>
+    </div>
+
+    <details class="deeper">
+      <summary>Deeper technical detail</summary>
+      <div class="deeper-body">
+        <p>
+          <b>Three files, nothing else.</b> 474 lines of JavaScript, 263 of HTML, 783 of CSS, no
+          <code>package.json</code>, no bundler, no transpile step. The data layer is a JavaScript
+          object literal occupying the first 238 lines of <code>app.js</code>; the deploy pipeline
+          is <code>git push</code> to GitHub Pages. For a tool whose useful life is one purchase
+          decision, there is nothing here to patch, upgrade or pay for.
+        </p>
+        <p>
+          <b>Where the repository's weight actually sits.</b> Roughly nineteen megabytes of it is
+          media &mdash; unit layouts, annotated floor plates, evidence photographs and one
+          developer brochure. The code is the small part, which is the correct ratio for a tool
+          whose value is the evidence it holds rather than the logic it runs.
+        </p>
+        <div class="todo">
+          <strong>Do not claim</strong>
+          That this computes a true net cost. Each unit stores five fee-liability fields
+          (<code>motPaidBy</code>, <code>loanStampDutyPaidBy</code>, <code>spaLegalPaidBy</code>,
+          <code>loanLegalPaidBy</code>, <code>valuationPaidBy</code>) plus <code>cashback</code>
+          and <code>size</code> &mdash; each appears exactly seven times in <code>app.js</code>,
+          once per unit in the data block and never in any code path. <code>calculateMOT()</code>,
+          a correct implementation of Malaysia's tiered stamp-duty scale, and
+          <code>calculateLoanStampDuty()</code> are both defined and never called. The schema
+          anticipates a net-cost calculator; the UI displays three figures and does not contain one.
+          That is a design observation, not a shipped feature.
+        </div>
+        <div class="todo">
+          <strong>Do not claim</strong>
+          Any automation. Transit distances here are quoted from developer marketing material
+          &mdash; the exact unreliable-distance problem Property Finder exists to solve. If both
+          projects come up together, the honest framing is that they were built for different jobs:
+          one to search wide, this one to decide between four.
+        </div>
+      </div>
+    </details>
+
+    <nav class="pager" aria-label="Project navigation">
+      <a href="#property-finder">&larr; Property Finder</a>
       <span class="spacer"></span>
     </nav>
   </div>
@@ -2165,7 +2453,7 @@ footer a:hover { color: var(--text); }
 (function () {
   "use strict";
 
-  var VIEWS = ["home", "creator-erp", "wa-agent", "endorsement", "extractors", "property-finder"];
+  var VIEWS = ["home", "creator-erp", "wa-agent", "endorsement", "extractors", "property-finder", "feng-shui"];
 
   // Single-view mode is JS-only. Without it the page stays one long
   // readable document rather than a blank screen.
