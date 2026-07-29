@@ -506,7 +506,8 @@ body.routed .view.active { display: block; }
   font-family: var(--mono); font-size: .6875rem; letter-spacing: .03em;
   color: var(--text-2); line-height: 1; white-space: nowrap;
 }
-.tool svg { width: 15px; height: 15px; flex: none; display: block; }
+.tool svg,
+.tool img { width: 15px; height: 15px; flex: none; display: block; }
 /* Marks I can't reproduce faithfully ship as a name-only chip. */
 .tool.no-mark { padding-left: 10px; }
 
@@ -964,16 +965,6 @@ footer a:hover { color: var(--text); }
         <path d="M69.2652 101.47L119.823 50.9117C129.196 41.5391 144.392 41.5391 153.765 50.9117L154.118 51.2652C163.491 60.6378 163.491 75.8338 154.118 85.2063L92.7248 146.6C89.6006 149.724 89.6006 154.789 92.7248 157.913L105.331 170.52"/>
         <path d="M102.853 33.9411L52.6482 84.1457C43.2756 93.5183 43.2756 108.714 52.6482 118.087V118.087C62.0208 127.459 77.2167 127.459 86.5893 118.087L136.794 67.8822"/>
       </g>
-    </symbol>
-
-    <!-- Lark: traced from the supplied artwork, three flat shapes in the
-         brand's mint / royal / navy. NOT taken from an official vector —
-         it renders at 15px where silhouette and colour carry recognition,
-         but swap it for the real SVG when one is to hand. -->
-    <symbol id="l-lark" viewBox="0 0 432 432">
-      <path fill="#6FD7B3" d="M112 76 L272 76 C300 78 324 115 332 162 L249 251 Z"/>
-      <path fill="#4C62F0" d="M50 168 C104 216 162 260 206 268 C270 281 333 239 391 171 C398 245 361 322 301 356 C241 387 157 389 103 365 C69 349 50 330 50 308 Z"/>
-      <path fill="#2B3F8F" d="M206 268 C270 281 333 239 391 171 C393 214 372 268 340 292 C310 314 270 316 244 302 C228 293 214 281 206 268 Z"/>
     </symbol>
 
     <!-- Platform marks. Brand colours are baked in, so these deliberately sit
@@ -1507,7 +1498,7 @@ footer a:hover { color: var(--text); }
               <span>Workspace architecture, database design, operational workflow deployment. Lark is common across TikTok-ecosystem and regional SEA businesses.</span>
               <div class="tools">
                 <span class="tool"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#l-notion"/></svg>Notion</span>
-                <span class="tool"><svg viewBox="0 0 432 432" aria-hidden="true"><use href="#l-lark"/></svg>Lark / Feishu</span>
+                <span class="tool"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIYSURBVFhH7ZbPS9tgHMbDBu42QntwsMN6GypiaBRGlw3xIHhSb17EqjDYyde/wPwH7WWUpYWWHXZyeBCJqYcKeg9oq3jKGGwnobB/4Cvfl6xrv3nT5E166KEPfCCH5nme92eqKBONpdrnZeWu2ZLHOVFcO0ft5OW2VG5250ACPMU9UallMnVsUxAQg4sStUqupCVu7WVqlVxtuxgIiKTZojbplKREu6lRm3SSXY6OY1KLgDQGcjuWH1FBmBhPfVfJZQtWMWNYBxnjq4nPqlH9vz90Bp7GQO7sdhxXEDbAi9oPeLn3DbKGFUY3a1hlLADSJe7tnNJpdmko8uzqDNStBg0Toha+aP8K8BJLDOJvmhtng4Y/d04hs1oLBInA5eA+fQU4eQaMZoWq77aUCn9veT0PWsAvcTQQFCZ/KWTCOR9rOz0PGt6/JHH2xVTluCETPjB6lCA49mzg0aIBkfSPHkUDQ/D0Q+i9qC7X1cyHailgHkFg9ChB2DC82b3fpn+GAwFRvFo9Hhx9ggKchc9/4c36JUyvfA+EhJHbvBZ/nKi5LHP7f4aWeb12CjO7v8I3NDVMw/ynR5gp/oS32w8cnKk8g6427IKjJqMkMhylM+jSF0dBPuY9ggU28MfUICVlqc88NtUZNARGsrQWGST/L8iLHMJBnoErMBeC64wjThUskj8ruDymzqCOo/PB5zIWlfp8TzSuegJa/7+zwdAiRQAAAABJRU5ErkJggg==" alt="" width="15" height="15">Lark / Feishu</span>
               </div>
             </li>
             <li>
