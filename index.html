@@ -1893,6 +1893,10 @@ footer a:hover { color: var(--text); }
       test declarations, settings from the schema contract.
     </p>
 
+    <h2 class="sec-h" id="w-s1"><span class="sec-n">01</span> The whole WA agent</h2>
+    <p class="sec-lede">One engine, three modes and a 16-tab Sheet &mdash; four agents run on it
+    without a line of engine code differing.</p>
+
     <figure class="figure">
       <svg class="dgm" viewBox="0 0 700 288" role="img" aria-labelledby="waT waD">
         <title id="waT">Three-tier architecture</title>
@@ -1935,19 +1939,14 @@ footer a:hover { color: var(--text); }
         <text class="dgm-s" x="469" y="236">16 tabs · database + CMS</text>
       </svg>
       <figcaption>
-        <b>The business is data, not code.</b> Persona, catalogue, fact base and the definition of
-        a lead all live in the Sheet — so onboarding a new client is composition, not development.
-        The relay is deliberately ignorant: it can be compromised without exposing a key or a record.
+        <b>The business is data, not code.</b> Persona, catalogue and lead definition live in the
+        Sheet, not the engine.
       </figcaption>
     </figure>
 
-    <figure class="shot">
-      <div class="shot-empty">
-        <p class="eyebrow">Figure 02 &mdash; awaiting capture</p>
-        <p>Options: the 16-tab Sheet schema acting as admin panel, or a redacted trilingual
-        conversation showing lead capture. No customer numbers or names.</p>
-      </div>
-    </figure>
+    <details class="layer2">
+      <summary>The problem, and the four decisions that answer it</summary>
+      <div class="layer2-body">
 
     <div class="block">
       <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>The problem</h3>
@@ -2017,89 +2016,337 @@ footer a:hover { color: var(--text); }
     </div>
 
     <div class="block">
-      <h3>Deployments</h3>
       <p>
-        Four agents run on this engine, three of them as live WhatsApp sessions sharing one relay and
-        one tunnel. Each is a different Sheet, a different preset and a different persona &mdash; and
-        none of them is a different codebase. Standing up the fourth required no engine change, which
-        is the only real test of the claim above.
+        <b>One engine, three modes.</b> A single setting in the Sheet selects the behaviour:
+        <code>lead_capture</code> answers from the catalogue and extracts booking fields;
+        <code>answer_handoff</code> answers from a knowledge base and escalates to the right person
+        by category, relaying their reply back and closing the ticket; and
+        <code>content_prep</code> is a group assistant that picks photos and drafts captions. Three
+        products' worth of behaviour without three codebases.
       </p>
-      <ul class="deploys">
-        <li>
-          <h4><a href="#wa-afterdark">AfterDark</a></h4>
-          <p class="dep-meta">Venue &middot; lead_capture &middot; a lead is a table</p>
-          <p>
-            The bar and lounge agent &mdash; and the bot the whole engine was generalised out of.
-          </p>
-        </li>
-        <li>
-          <h4><a href="#wa-jephie">jephie</a></h4>
-          <p class="dep-meta">Property &middot; lead_capture &middot; a lead is a viewing</p>
-          <p>
-            Answers ad enquiries about specific developments and books sales-gallery visits.
-          </p>
-        </li>
-        <li>
-          <h4><a href="#wa-cps">CPS</a></h4>
-          <p class="dep-meta">Support &middot; answer_handoff &middot; a win is a resolved question</p>
-          <p>
-            Answers from a knowledge base instead of a catalogue, and routes to a human by category
-            when it can't.
-          </p>
-        </li>
-        <li>
-          <h4><a href="#wa-post">post agent</a></h4>
-          <p class="dep-meta">Internal &middot; content_prep &middot; not customer-facing</p>
-          <p>
-            Sits in a staff group, selects photos on request and drafts the caption.
-          </p>
-        </li>
-      </ul>
     </div>
 
-    <details class="deeper">
-      <summary>Deeper technical detail</summary>
-      <div class="deeper-body">
-        <p>
-          <b>One engine, three modes.</b> A single setting in the Sheet selects the behaviour:
-          <code>lead_capture</code> answers from the catalogue and extracts booking fields;
-          <code>answer_handoff</code> answers from a knowledge base and escalates to the right
-          person by category, relaying their reply back and closing the ticket; and
-          <code>content_prep</code> is a group assistant that picks photos and drafts captions.
-          Three products' worth of behaviour without three codebases.
-        </p>
-        <p>
-          <b>Multi-tenant by design.</b> One Node process hosts every client's WhatsApp session
-          behind one multiplexed send router and one shared Cloudflare tunnel, with isolated
-          per-project auth stores and secrets so sessions cannot cross-wire. Three sessions run
-          live. The alternative &mdash; one relay and one tunnel per client &mdash; multiplies the
-          running cost by the client count for no benefit.
-        </p>
-        <p>
-          <b>Resilience in the transport.</b> A SQLite-backed retry queue with exponential backoff
-          persists both inbound webhooks and outbound sends when Google or WhatsApp is unreachable.
-          Message IDs are deduplicated, and the relay suppresses its own echoes with a five-minute
-          self-sent TTL. Failed sends retry every minute; queue dispatch and a relay health check
-          run every five; a daily 09:00 Drive backup keeps thirty days; and ten minutes of silence
-          from the relay triggers a Telegram alert out-of-band, so the channel that reports the
-          outage is not the one that is down.
-        </p>
-        <p>
-          <b>Compliance built into broadcast.</b> Bulk sends exclude opted-out contacts, enforce a
-          three-day per-contact cooldown, stagger at thirty-second spacing inside a 10:00&ndash;20:00
-          window, and require an explicit preview confirmation before anything leaves. A single
-          opt-out keyword adds the contact to the ignore list and drops their already-queued sends.
-        </p>
-        <p>
-          <b>Fitting the client, not the reverse.</b> The engine reads and writes by live header
-          rather than fixed column index, so it adopts a client's existing tab names and column
-          layout with no data migration. Human takeover needs no command either: when the operator
-          replies manually from their own phone, the relay flags it and the next turn's history
-          carries it, so the agent stays consistent with the person instead of talking over them.
-          Trilingual throughout &mdash; Chinese, English and Malay &mdash; and multimodal, reading
-          voice notes and images directly. Backed by 706 test cases across 73 files, roughly 12,100
-          lines of test code.
-        </p>
+      </div>
+    </details>
+
+    <h2 class="sec-h" id="w-s2"><span class="sec-n">02</span> The worker</h2>
+    <p class="sec-lede">One Node process carries every client's WhatsApp session behind one router
+    and one tunnel.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 264" role="img" aria-labelledby="wkT wkD">
+        <title id="wkT">One worker process, four sessions</title>
+        <desc id="wkD">Four WhatsApp numbers connect to a single Node process holding four sessions
+          with isolated auth stores, one multiplexed send router and one shared Cloudflare tunnel.
+          Each session reaches its own Apps Script brain and Sheet, running its own mode.</desc>
+
+        <text class="dgm-n" x="20" y="20">FOUR WHATSAPP NUMBERS</text>
+        <rect class="dgm-box" x="20" y="30"  width="120" height="44" rx="2"/>
+        <text class="dgm-t" x="32" y="52">AfterDark</text>
+        <text class="dgm-s" x="32" y="67">venue</text>
+        <rect class="dgm-box" x="20" y="88"  width="120" height="44" rx="2"/>
+        <text class="dgm-t" x="32" y="110">jephie</text>
+        <text class="dgm-s" x="32" y="125">property</text>
+        <rect class="dgm-box" x="20" y="146" width="120" height="44" rx="2"/>
+        <text class="dgm-t" x="32" y="168">CPS</text>
+        <text class="dgm-s" x="32" y="183">support</text>
+        <rect class="dgm-box" x="20" y="204" width="120" height="44" rx="2"/>
+        <text class="dgm-t" x="32" y="226">post agent</text>
+        <text class="dgm-s" x="32" y="241">internal</text>
+
+        <line class="dgm-ln" x1="142" y1="52"  x2="188" y2="52"  marker-start="url(#ah)" marker-end="url(#ah)"/>
+        <line class="dgm-ln" x1="142" y1="110" x2="188" y2="110" marker-start="url(#ah)" marker-end="url(#ah)"/>
+        <line class="dgm-ln" x1="142" y1="168" x2="188" y2="168" marker-start="url(#ah)" marker-end="url(#ah)"/>
+        <line class="dgm-ln" x1="142" y1="226" x2="188" y2="226" marker-start="url(#ah)" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box-a" x="190" y="30" width="300" height="218" rx="3"/>
+        <text class="dgm-t" x="206" y="56">The worker</text>
+        <text class="dgm-s" x="206" y="74">one Node process</text>
+        <text class="dgm-s" x="206" y="110">4 sessions, isolated auth stores</text>
+        <text class="dgm-s" x="206" y="134">one multiplexed /send router</text>
+        <text class="dgm-s" x="206" y="158">one shared Cloudflare tunnel</text>
+        <text class="dgm-n" x="206" y="200">NO LLM KEY &middot; NO DB CREDENTIALS</text>
+        <text class="dgm-n" x="206" y="216">NO BUSINESS LOGIC</text>
+
+        <line class="dgm-ln-a" x1="492" y1="52"  x2="538" y2="52"  marker-end="url(#aha)"/>
+        <line class="dgm-ln-a" x1="492" y1="110" x2="538" y2="110" marker-end="url(#aha)"/>
+        <line class="dgm-ln-a" x1="492" y1="168" x2="538" y2="168" marker-end="url(#aha)"/>
+        <line class="dgm-ln-a" x1="492" y1="226" x2="538" y2="226" marker-end="url(#aha)"/>
+
+        <text class="dgm-n" x="540" y="20">OWN BRAIN, SHEET AND MODE</text>
+        <rect class="dgm-box" x="540" y="30"  width="140" height="44" rx="2"/>
+        <text class="dgm-t" x="552" y="52">lead_capture</text>
+        <text class="dgm-s" x="552" y="67">a lead is a table</text>
+        <rect class="dgm-box" x="540" y="88"  width="140" height="44" rx="2"/>
+        <text class="dgm-t" x="552" y="110">lead_capture</text>
+        <text class="dgm-s" x="552" y="125">a lead is a viewing</text>
+        <rect class="dgm-box" x="540" y="146" width="140" height="44" rx="2"/>
+        <text class="dgm-t" x="552" y="168">answer_handoff</text>
+        <text class="dgm-s" x="552" y="183">a resolved question</text>
+        <rect class="dgm-box" x="540" y="204" width="140" height="44" rx="2"/>
+        <text class="dgm-t" x="552" y="226">content_prep</text>
+        <text class="dgm-s" x="552" y="241">a drafted post</text>
+      </svg>
+      <figcaption>
+        <b>One process, N sessions.</b> Isolated auth stores and secrets per project, so sessions
+        cannot cross-wire.
+      </figcaption>
+    </figure>
+
+    <details class="layer2">
+      <summary>What the transport does when things go wrong</summary>
+      <div class="layer2-body">
+        <div class="block">
+          <p>
+            <b>Multi-tenant by design.</b> One process hosts every client's session behind one
+            multiplexed send router and one shared Cloudflare tunnel, with isolated per-project auth
+            stores and secrets. Three sessions run live. The alternative &mdash; one relay and one
+            tunnel per client &mdash; multiplies the running cost by the client count for no benefit.
+          </p>
+          <p>
+            <b>Resilience in the transport.</b> A SQLite-backed retry queue with exponential backoff
+            persists both inbound webhooks and outbound sends when Google or WhatsApp is unreachable.
+            Message IDs are deduplicated, and the relay suppresses its own echoes with a five-minute
+            self-sent TTL. Failed sends retry every minute; queue dispatch and a relay health check
+            run every five; a daily 09:00 Drive backup keeps thirty days; and ten minutes of silence
+            triggers a Telegram alert out-of-band, so the channel reporting the outage is not the one
+            that is down.
+          </p>
+          <p>
+            <b>Compliance built into broadcast.</b> Bulk sends exclude opted-out contacts, enforce a
+            three-day per-contact cooldown, stagger at thirty-second spacing inside a 10:00&ndash;20:00
+            window, and require an explicit preview confirmation before anything leaves. A single
+            opt-out keyword adds the contact to the ignore list and drops their already-queued sends.
+          </p>
+          <p>
+            <b>Fitting the client, not the reverse.</b> The engine reads and writes by live header
+            rather than fixed column index, so it adopts a client's existing tab names and column
+            layout with no data migration. Human takeover needs no command: when the operator replies
+            manually from their own phone, the relay flags it and the next turn's history carries it.
+            Trilingual throughout, and multimodal &mdash; voice notes and images are read directly.
+            Backed by 706 test cases across 73 files.
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <h2 class="sec-h" id="w-s3"><span class="sec-n">03</span> AfterDark</h2>
+    <p class="sec-lede">The venue bot the whole engine was generalised out of &mdash; built specific,
+    then rebuilt so the specifics were data.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 160" role="img" aria-labelledby="adT adD">
+        <title id="adT">From a single-domain bot to a configurable engine</title>
+        <desc id="adD">AfterDark was built first as a venue-specific bot with tables and minimum
+          spends written into it. The business-agnostic WA Agent engine was generalised out of it,
+          and now carries four deployments.</desc>
+
+        <text class="dgm-n" x="20" y="20">BUILT FIRST</text>
+        <rect class="dgm-box" x="20" y="28" width="180" height="64" rx="2"/>
+        <text class="dgm-t" x="34" y="52">AfterDark</text>
+        <text class="dgm-s" x="34" y="70">tables and min spends</text>
+        <text class="dgm-s" x="34" y="86">written into the bot</text>
+
+        <line class="dgm-ln-a" x1="202" y1="60" x2="256" y2="60" marker-end="url(#aha)"/>
+        <text class="dgm-a" x="229" y="48" text-anchor="middle">GENERALISED</text>
+
+        <rect class="dgm-box-a" x="258" y="28" width="180" height="64" rx="3"/>
+        <text class="dgm-t" x="272" y="52">WA Agent engine</text>
+        <text class="dgm-s" x="272" y="70">neutral, preset-driven</text>
+        <text class="dgm-s" x="272" y="86">the business is data</text>
+
+        <line class="dgm-ln" x1="440" y1="60" x2="494" y2="60" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box" x="496" y="28" width="184" height="64" rx="2"/>
+        <text class="dgm-t" x="510" y="52">4 deployments</text>
+        <text class="dgm-s" x="510" y="70">3 live sessions</text>
+        <text class="dgm-s" x="510" y="86">one shared engine</text>
+
+        <text class="dgm-n" x="350" y="126" text-anchor="middle">BUILD THE SPECIFIC THING &middot; LEARN WHICH PARTS WERE ACTUALLY SPECIFIC &middot; MAKE THOSE PARTS DATA</text>
+        <text class="dgm-n" x="350" y="144" text-anchor="middle">THE SAME ARC AS ENDORSEMENT TO CREATOR ERP, IN AN UNRELATED DOMAIN</text>
+      </svg>
+      <figcaption>
+        <b>Built specific, then generalised.</b> The same arc as Endorsement to Creator ERP, in an
+        unrelated domain.
+      </figcaption>
+    </figure>
+
+    <details class="layer2">
+      <summary>Venue &middot; lead_capture &middot; a lead is a table</summary>
+      <div class="layer2-body">
+        <div class="block">
+          <p>
+            The bar and lounge agent. The <code>venue</code> preset makes the default booking a
+            table, points the document keyword at <code>menu</code>, and shapes the catalogue around
+            tables, areas and packages with capacity and minimum spend.
+            <a href="#wa-afterdark">Open the AfterDark deployment &rarr;</a>
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <h2 class="sec-h" id="w-s4"><span class="sec-n">04</span> jephie</h2>
+    <p class="sec-lede">The property agent opens already knowing which development, because the ad
+    pre-fills the catalogue code.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 158" role="img" aria-labelledby="jpT jpD">
+        <title id="jpT">The routing is solved in the ad</title>
+        <desc id="jpD">A listing ad carries a WhatsApp click-to-chat link that pre-fills a catalogue
+          code. The customer's first message already names the development, so the opening reply is
+          about the right project, price and gallery address.</desc>
+
+        <rect class="dgm-box" x="20" y="36" width="150" height="56" rx="2"/>
+        <text class="dgm-t" x="34" y="60">Listing ad</text>
+        <text class="dgm-s" x="34" y="78">click-to-chat link</text>
+
+        <line class="dgm-ln" x1="172" y1="64" x2="216" y2="64" marker-end="url(#ah)"/>
+        <text class="dgm-a" x="194" y="28" text-anchor="middle">PRE-FILLS</text>
+
+        <rect class="dgm-box" x="218" y="36" width="240" height="56" rx="2"/>
+        <text class="dgm-t" x="232" y="60">First message</text>
+        <text class="dgm-s" x="232" y="78">Hi, I'm interested in [SKY01]</text>
+
+        <line class="dgm-ln-a" x1="460" y1="64" x2="504" y2="64" marker-end="url(#aha)"/>
+
+        <rect class="dgm-box-a" x="506" y="36" width="174" height="56" rx="3"/>
+        <text class="dgm-t" x="520" y="60">Agent replies</text>
+        <text class="dgm-s" x="520" y="78">already on SKY01</text>
+
+        <text class="dgm-n" x="350" y="124" text-anchor="middle">THE CATALOGUE CODE COMES FROM THE AD, NOT FROM A QUESTION</text>
+        <text class="dgm-n" x="350" y="142" text-anchor="middle">SO THE FIRST REPLY IS ALREADY THE RIGHT DEVELOPMENT, PRICE AND GALLERY ADDRESS</text>
+      </svg>
+      <figcaption>
+        <b>The routing is solved in the ad.</b> A pre-filled code means the first reply is already
+        the right project.
+      </figcaption>
+    </figure>
+
+    <details class="layer2">
+      <summary>Property &middot; lead_capture &middot; a lead is a viewing</summary>
+      <div class="layer2-body">
+        <div class="block">
+          <p>
+            Answers ad enquiries about specific developments and books sales-gallery visits. The
+            confirmation names a real place because the address is read from the catalogue's
+            <code>showroom_address</code> column, and "can I see the floor plan" maps to
+            <code>brochure</code>.
+            <a href="#wa-jephie">Open the jephie deployment &rarr;</a>
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <h2 class="sec-h" id="w-s5"><span class="sec-n">05</span> CPS</h2>
+    <p class="sec-lede">Same engine, one setting changed: a good conversation here ends in a resolved
+    question, not a booking.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 204" role="img" aria-labelledby="cpsT cpsD">
+        <title id="cpsT">Category routing instead of a shared inbox</title>
+        <desc id="cpsD">An enquiry is matched to the category that owns it and forwarded to that
+          person with a reference code. Their reply is relayed back to the customer and the ticket
+          closes.</desc>
+
+        <rect class="dgm-box" x="20" y="30" width="150" height="52" rx="2"/>
+        <text class="dgm-t" x="34" y="54">Enquiry</text>
+        <text class="dgm-s" x="34" y="71">on WhatsApp</text>
+
+        <line class="dgm-ln" x1="172" y1="56" x2="208" y2="56" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box-a" x="210" y="30" width="180" height="52" rx="3"/>
+        <text class="dgm-t" x="224" y="54">Category match</text>
+        <text class="dgm-s" x="224" y="71">answer_handoff</text>
+
+        <line class="dgm-ln" x1="392" y1="56" x2="428" y2="56" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box" x="430" y="30" width="180" height="52" rx="2"/>
+        <text class="dgm-t" x="444" y="54">Category owner</text>
+        <text class="dgm-s" x="444" y="71">plus a reference code</text>
+
+        <path class="dgm-ln-a" d="M520 84 L520 122 L95 122 L95 86" marker-end="url(#aha)"/>
+        <text class="dgm-a" x="307" y="142" text-anchor="middle">REPLY RELAYED BACK, TICKET CLOSED</text>
+
+        <text class="dgm-n" x="350" y="172" text-anchor="middle">REPLACES A SHARED INBOX AND SOMEBODY DECIDING BY HAND WHO TAKES EACH MESSAGE</text>
+        <text class="dgm-n" x="350" y="190" text-anchor="middle">SAME ENGINE AS THE SALES AGENTS &mdash; ONE SETTING DIFFERENT</text>
+      </svg>
+      <figcaption>
+        <b>Category routing replaces a shared inbox.</b> Reference code out, human reply relayed
+        back, ticket closed.
+      </figcaption>
+    </figure>
+
+    <details class="layer2">
+      <summary>Support &middot; answer_handoff &middot; a win is a resolved question</summary>
+      <div class="layer2-body">
+        <div class="block">
+          <p>
+            Answers from a knowledge base instead of a catalogue, and routes to a human by category
+            when it can't. The refusal rule matters more here than anywhere: a confidently wrong
+            answer about how a product works comes back as a second ticket, from someone who now
+            trusts you less.
+            <a href="#wa-cps">Open the CPS deployment &rarr;</a>
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <h2 class="sec-h" id="w-s6"><span class="sec-n">06</span> post agent</h2>
+    <p class="sec-lede">The one that never speaks to a customer &mdash; it picks the photos and
+    drafts the caption in a staff group.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 228" role="img" aria-labelledby="pgT pgD">
+        <title id="pgT">Two sizes of the same image</title>
+        <desc id="pgD">Up to thirty candidate images are downscaled to 1024 pixel thumbnails for the
+          vision call, while the full-resolution originals are what get delivered to WhatsApp.</desc>
+
+        <rect class="dgm-box" x="20" y="76" width="150" height="52" rx="2"/>
+        <text class="dgm-t" x="34" y="100">MediaLibrary</text>
+        <text class="dgm-s" x="34" y="117">up to 30 candidates</text>
+
+        <path class="dgm-ln" d="M172 92 L200 92 L200 44 L234 44" marker-end="url(#ah)"/>
+        <path class="dgm-ln" d="M172 112 L200 112 L200 160 L234 160" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box" x="236" y="18" width="196" height="52" rx="2"/>
+        <text class="dgm-t" x="250" y="42">1024px thumbnails</text>
+        <text class="dgm-s" x="250" y="59">fits the vision budget</text>
+
+        <rect class="dgm-box" x="236" y="134" width="196" height="52" rx="2"/>
+        <text class="dgm-t" x="250" y="158">Full resolution</text>
+        <text class="dgm-s" x="250" y="175">untouched originals</text>
+
+        <line class="dgm-ln-a" x1="434" y1="44"  x2="468" y2="44"  marker-end="url(#aha)"/>
+        <line class="dgm-ln"   x1="434" y1="160" x2="468" y2="160" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box-a" x="470" y="18" width="210" height="52" rx="3"/>
+        <text class="dgm-t" x="484" y="42">Gemini selects</text>
+        <text class="dgm-s" x="484" y="59">varied, no near-duplicates</text>
+
+        <rect class="dgm-box" x="470" y="134" width="210" height="52" rx="2"/>
+        <text class="dgm-t" x="484" y="158">WhatsApp</text>
+        <text class="dgm-s" x="484" y="175">the post itself</text>
+
+        <text class="dgm-n" x="350" y="214" text-anchor="middle">WHAT THE MODEL NEEDS TO SEE IS RARELY WHAT THE USER NEEDS TO RECEIVE</text>
+      </svg>
+      <figcaption>
+        <b>Thumbnails to the model, originals to WhatsApp.</b> What the model sees is not what the
+        user receives.
+      </figcaption>
+    </figure>
+
+    <details class="layer2">
+      <summary>Internal &middot; content_prep &middot; not customer-facing</summary>
+      <div class="layer2-body">
+        <div class="block">
+          <p>
+            Sits in a staff group, selects photos on request and drafts the caption. Same relay, same
+            16-tab Sheet, same control group, same alerting &mdash; one setting points it at a
+            different goal. A content assistant and a sales assistant share almost everything as
+            software.
+            <a href="#wa-post">Open the post agent deployment &rarr;</a>
+          </p>
+        </div>
       </div>
     </details>
 
@@ -2128,43 +2375,127 @@ footer a:hover { color: var(--text); }
       </ul>
     </div>
 
-    <div class="block">
-      <h3>Where the engine came from</h3>
-      <p>
-        AfterDark was built first, as a single-domain venue bot &mdash; it knew about tables and
-        minimum spends because those things were written into it. The business-agnostic WA Agent was
-        then adapted out of it; the repository records the lineage in its own words, as a bot
-        "generalised from a single-domain bot into a configurable base".
-      </p>
-      <p>
-        That is the same shape as the Endorsement Platform becoming the Creator ERP: build the
-        specific thing, discover from running it which parts were actually specific, then rebuild so
-        those parts are data. Doing it twice, in two unrelated domains, is the part I would defend in
-        an interview &mdash; the first time can be luck.
-      </p>
-    </div>
+    <h2 class="sec-h" id="ad-s1"><span class="sec-n">01</span> What a lead is here</h2>
+    <p class="sec-lede">A lead here is a table booking &mdash; confirmed only once name, date and
+    time are all present.</p>
 
-    <div class="block">
-      <h3>What a lead is here</h3>
-      <p>
-        The <code>venue</code> preset makes the default booking a table, points the document keyword
-        at <code>menu</code> so "what's on" sends the right PDF, and shapes the catalogue around
-        tables, areas and packages with capacity and minimum spend. A booking flips to confirmed only
-        once name, date and time are all present. The phone number is never asked for &mdash; it is
-        taken from the WhatsApp identity, which removes a question, a typo and a drop-off point.
-      </p>
-    </div>
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 214" role="img" aria-labelledby="adlT adlD">
+        <title id="adlT">Three fields confirm a booking</title>
+        <desc id="adlD">Name, date and time are gathered in conversation. Only when all three are
+          present does the booking flip to confirmed, write a ConfirmedBookings row and alert the
+          control group. The phone number is taken from the WhatsApp identity rather than asked
+          for.</desc>
 
-    <div class="block">
-      <h3>The configuration layer, tested properly</h3>
-      <p>
-        This deployment does not use the engine's default lead tabs. It points
-        <code>lead_tab</code> and <code>confirmed_lead_tab</code> at the venue's own
-        <code>Bookings</code> and <code>ConfirmedBookings</code>, and because reads and writes resolve
-        by live header rather than fixed column index, it runs on the sheet layout the venue already
-        had. No migration, no renaming, no asking the client to adopt my schema.
-      </p>
-    </div>
+        <text class="dgm-n" x="20" y="18">ASKED FOR IN CONVERSATION</text>
+        <rect class="dgm-box" x="20" y="26"  width="140" height="38" rx="2"/>
+        <text class="dgm-t" x="34" y="50">name</text>
+        <rect class="dgm-box" x="20" y="74"  width="140" height="38" rx="2"/>
+        <text class="dgm-t" x="34" y="98">date</text>
+        <rect class="dgm-box" x="20" y="122" width="140" height="38" rx="2"/>
+        <text class="dgm-t" x="34" y="146">time</text>
+
+        <path class="dgm-ln" d="M162 45 L206 45 L206 93 L248 93" marker-end="url(#ah)"/>
+        <path class="dgm-ln" d="M162 93 L248 93" marker-end="url(#ah)"/>
+        <path class="dgm-ln" d="M162 141 L206 141 L206 93 L248 93" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box-a" x="250" y="62" width="190" height="62" rx="3"/>
+        <text class="dgm-t" x="264" y="86">Booking confirmed</text>
+        <text class="dgm-s" x="264" y="104">only when all three land</text>
+
+        <line class="dgm-ln-a" x1="442" y1="93" x2="484" y2="93" marker-end="url(#aha)"/>
+
+        <rect class="dgm-box" x="486" y="62" width="194" height="62" rx="2"/>
+        <text class="dgm-t" x="500" y="86">ConfirmedBookings</text>
+        <text class="dgm-s" x="500" y="104">plus a control-group alert</text>
+
+        <text class="dgm-n" x="350" y="180" text-anchor="middle">THE PHONE NUMBER IS TAKEN FROM THE WHATSAPP IDENTITY, NEVER ASKED</text>
+        <text class="dgm-n" x="350" y="198" text-anchor="middle">ONE FEWER QUESTION, ONE FEWER TYPO, ONE FEWER DROP-OFF POINT</text>
+      </svg>
+      <figcaption>
+        <b>All three, or it is not a booking.</b> The phone number comes from WhatsApp itself and is
+        never asked for.
+      </figcaption>
+    </figure>
+
+    <details class="layer2">
+      <summary>The venue preset, and where the engine came from</summary>
+      <div class="layer2-body">
+        <div class="block">
+          <p>
+            The <code>venue</code> preset makes the default booking a table, points the document
+            keyword at <code>menu</code> so "what's on" sends the right PDF, and shapes the catalogue
+            around tables, areas and packages with capacity and minimum spend.
+          </p>
+          <p>
+            AfterDark was built first, as a single-domain venue bot &mdash; it knew about tables and
+            minimum spends because those things were written into it. The business-agnostic WA Agent
+            was then adapted out of it; the repository records the lineage in its own words, as a bot
+            "generalised from a single-domain bot into a configurable base".
+          </p>
+          <p>
+            That is the same shape as the Endorsement Platform becoming the Creator ERP: build the
+            specific thing, discover from running it which parts were actually specific, then rebuild
+            so those parts are data. Doing it twice, in two unrelated domains, is the part I would
+            defend in an interview &mdash; the first time can be luck.
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <h2 class="sec-h" id="ad-s2"><span class="sec-n">02</span> Running on the venue's own sheet</h2>
+    <p class="sec-lede">It runs on the venue's existing Bookings tabs, with no migration and no
+    renaming.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 176" role="img" aria-labelledby="adcT adcD">
+        <title id="adcT">Settings repoint the engine at the client's tabs</title>
+        <desc id="adcD">The engine defaults to Leads and ConfirmedLeads. Two settings repoint it at
+          the venue's own Bookings and ConfirmedBookings tabs, and because reads and writes resolve
+          by live header rather than fixed column index, the existing layout works untouched.</desc>
+
+        <text class="dgm-n" x="20" y="20">ENGINE DEFAULT</text>
+        <rect class="dgm-box" x="20" y="28" width="180" height="60" rx="2"/>
+        <text class="dgm-t" x="34" y="52">Leads</text>
+        <text class="dgm-s" x="34" y="70">ConfirmedLeads</text>
+
+        <line class="dgm-ln-a" x1="202" y1="58" x2="256" y2="58" marker-end="url(#aha)"/>
+        <text class="dgm-a" x="229" y="46" text-anchor="middle">SETTING</text>
+
+        <rect class="dgm-box-a" x="258" y="28" width="180" height="60" rx="3"/>
+        <text class="dgm-t" x="272" y="52">lead_tab</text>
+        <text class="dgm-s" x="272" y="70">confirmed_lead_tab</text>
+
+        <line class="dgm-ln" x1="440" y1="58" x2="494" y2="58" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box" x="496" y="28" width="184" height="60" rx="2"/>
+        <text class="dgm-t" x="510" y="52">Bookings</text>
+        <text class="dgm-s" x="510" y="70">ConfirmedBookings</text>
+
+        <text class="dgm-n" x="350" y="124" text-anchor="middle">READS AND WRITES RESOLVE BY LIVE HEADER, NOT BY FIXED COLUMN INDEX</text>
+        <text class="dgm-n" x="350" y="142" text-anchor="middle">SO THE ENGINE ADOPTS THE SHEET THE VENUE ALREADY HAD</text>
+        <text class="dgm-n" x="350" y="160" text-anchor="middle">NO MIGRATION &middot; NO RENAMING &middot; NO ASKING THE CLIENT TO ADOPT MY SCHEMA</text>
+      </svg>
+      <figcaption>
+        <b>The client keeps their schema.</b> Live-header resolution means no migration and no
+        renaming.
+      </figcaption>
+    </figure>
+
+    <details class="layer2">
+      <summary>Why this is the real test of the configuration layer</summary>
+      <div class="layer2-body">
+        <div class="block">
+          <p>
+            This deployment does not use the engine's default lead tabs. It points
+            <code>lead_tab</code> and <code>confirmed_lead_tab</code> at the venue's own
+            <code>Bookings</code> and <code>ConfirmedBookings</code>, and because reads and writes
+            resolve by live header rather than fixed column index, it runs on the sheet layout the
+            venue already had. No migration, no renaming, no asking the client to adopt my schema.
+          </p>
+        </div>
+      </div>
+    </details>
 
     <nav class="pager" aria-label="Deployment navigation">
       <a href="#wa-agent">&larr; WA Agent</a>
@@ -2191,43 +2522,125 @@ footer a:hover { color: var(--text); }
       </ul>
     </div>
 
-    <div class="block">
-      <h3>It already knows which project before it replies</h3>
-      <p>
-        The ad carries a WhatsApp click-to-chat link that pre-fills a catalogue code &mdash; the
-        customer taps it and their first message arrives reading something like
-        <code>Hi, I'm interested in [SKY01]</code>. So the opening reply is already about the right
-        development, with the right price and the right gallery address, before anyone has typed a
-        question. The routing problem is solved in the ad rather than in the conversation.
-      </p>
-    </div>
+    <h2 class="sec-h" id="jp-s1"><span class="sec-n">01</span> What a lead is here</h2>
+    <p class="sec-lede">A lead here is a showroom visit, confirmed against an address read from the
+    catalogue.</p>
 
-    <div class="block">
-      <h3>What a lead is here</h3>
-      <p>
-        The <code>property</code> preset makes the booking a showroom visit and reads its address
-        from the catalogue's <code>showroom_address</code> column, so the confirmation names a real
-        place. The document keyword maps to <code>brochure</code>, which is what turns "can I see the
-        floor plan" into the project's PDF landing in the chat. Name, date and time confirm the
-        viewing; the phone number comes from WhatsApp itself.
-      </p>
-    </div>
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 166" role="img" aria-labelledby="jplT jplD">
+        <title id="jplT">The gallery address is a column, not a phrase</title>
+        <desc id="jplD">The catalogue row for a development carries its showroom address and
+          brochure. The confirmation therefore names a real place, and a request for the floor plan
+          returns the project's own PDF. Name, date and time confirm the viewing.</desc>
 
-    <div class="block">
-      <h3>Restraint is a persona setting, not an engine rule</h3>
-      <p>
-        This agent stays on the development the customer asked about. It will not volunteer other
-        projects, and when someone's stated need clearly does not fit, it asks before suggesting
-        alternatives rather than pivoting to a sales pitch.
-      </p>
-      <p>
-        The precise version matters, because it is the interesting part: there is no per-contact lock
-        in the engine. The whole active catalogue is injected on every single turn, and the moment a
-        customer asks what else is available, the agent helps across all of it. The focus is a line
-        in the persona &mdash; a setting an operator can soften or remove &mdash; not behaviour
-        hard-coded into the engine. Sales discipline belongs to the business, not to me.
-      </p>
-    </div>
+        <rect class="dgm-box" x="20" y="34" width="190" height="64" rx="2"/>
+        <text class="dgm-t" x="34" y="58">Catalogue row</text>
+        <text class="dgm-s" x="34" y="76">showroom_address</text>
+        <text class="dgm-s" x="34" y="92">brochure</text>
+
+        <line class="dgm-ln" x1="212" y1="66" x2="256" y2="66" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box" x="258" y="34" width="190" height="64" rx="2"/>
+        <text class="dgm-t" x="272" y="58">Named gallery</text>
+        <text class="dgm-s" x="272" y="76">and the project PDF</text>
+        <text class="dgm-s" x="272" y="92">on request</text>
+
+        <line class="dgm-ln-a" x1="450" y1="66" x2="494" y2="66" marker-end="url(#aha)"/>
+
+        <rect class="dgm-box-a" x="496" y="34" width="184" height="64" rx="3"/>
+        <text class="dgm-t" x="510" y="58">Viewing booked</text>
+        <text class="dgm-s" x="510" y="76">name, date, time</text>
+        <text class="dgm-s" x="510" y="92">phone from WhatsApp</text>
+
+        <text class="dgm-n" x="350" y="132" text-anchor="middle">THE CONFIRMATION NAMES A REAL PLACE BECAUSE THE ADDRESS IS DATA, NOT A PHRASE IN THE PROMPT</text>
+        <text class="dgm-n" x="350" y="150" text-anchor="middle">&ldquo;CAN I SEE THE FLOOR PLAN&rdquo; MAPS TO THE DOCUMENT KEYWORD brochure</text>
+      </svg>
+      <figcaption>
+        <b>The address is data, not a phrase.</b> So the confirmation names a real gallery the
+        customer can drive to.
+      </figcaption>
+    </figure>
+
+    <details class="layer2">
+      <summary>The property preset, and how the ad does the routing</summary>
+      <div class="layer2-body">
+        <div class="block">
+          <p>
+            The <code>property</code> preset makes the booking a showroom visit and reads its address
+            from the catalogue's <code>showroom_address</code> column, so the confirmation names a
+            real place. The document keyword maps to <code>brochure</code>, which is what turns "can
+            I see the floor plan" into the project's PDF landing in the chat. Name, date and time
+            confirm the viewing; the phone number comes from WhatsApp itself.
+          </p>
+          <p>
+            The ad carries a WhatsApp click-to-chat link that pre-fills a catalogue code &mdash; the
+            customer taps it and their first message arrives reading something like
+            <code>Hi, I'm interested in [SKY01]</code>. So the opening reply is already about the
+            right development, with the right price and the right gallery address, before anyone has
+            typed a question. The routing problem is solved in the ad rather than in the conversation.
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <h2 class="sec-h" id="jp-s2"><span class="sec-n">02</span> Restraint is a persona setting</h2>
+    <p class="sec-lede">The agent stays on one development by persona, not by a lock in the
+    engine.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 170" role="img" aria-labelledby="jprT jprD">
+        <title id="jprT">Focus is a line in the persona, not a rule in the code</title>
+        <desc id="jprD">The whole active catalogue is injected on every turn. What keeps the agent
+          on one development is a single line in the persona, which an operator can soften or
+          remove. There is no per-contact lock anywhere in the engine.</desc>
+
+        <text class="dgm-n" x="20" y="20">ON EVERY SINGLE TURN</text>
+        <rect class="dgm-box" x="20" y="28" width="200" height="56" rx="2"/>
+        <text class="dgm-t" x="34" y="52">Whole catalogue</text>
+        <text class="dgm-s" x="34" y="70">injected into the prompt</text>
+
+        <line class="dgm-ln" x1="222" y1="56" x2="266" y2="56" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box-a" x="268" y="28" width="200" height="56" rx="3"/>
+        <text class="dgm-t" x="282" y="52">One persona line</text>
+        <text class="dgm-s" x="282" y="70">stay on their project</text>
+
+        <line class="dgm-ln-a" x1="470" y1="56" x2="514" y2="56" marker-end="url(#aha)"/>
+
+        <rect class="dgm-box" x="516" y="28" width="164" height="56" rx="2"/>
+        <text class="dgm-t" x="530" y="52">Stays focused</text>
+        <text class="dgm-s" x="530" y="70">until asked otherwise</text>
+
+        <text class="dgm-n" x="350" y="118" text-anchor="middle">THERE IS NO PER-CONTACT LOCK IN THE ENGINE</text>
+        <text class="dgm-n" x="350" y="136" text-anchor="middle">THE MOMENT A CUSTOMER ASKS WHAT ELSE IS AVAILABLE, IT HELPS ACROSS ALL OF IT</text>
+        <text class="dgm-n" x="350" y="154" text-anchor="middle">SALES DISCIPLINE BELONGS TO THE BUSINESS &mdash; A SETTING, NOT A RULE I WROTE</text>
+      </svg>
+      <figcaption>
+        <b>Focus is a persona line, not a lock.</b> An operator can soften it; the engine never
+        enforces it.
+      </figcaption>
+    </figure>
+
+    <details class="layer2">
+      <summary>The precise version, which is the interesting part</summary>
+      <div class="layer2-body">
+        <div class="block">
+          <p>
+            This agent stays on the development the customer asked about. It will not volunteer other
+            projects, and when someone's stated need clearly does not fit, it asks before suggesting
+            alternatives rather than pivoting to a sales pitch.
+          </p>
+          <p>
+            The precise version matters, because it is the interesting part: there is no per-contact
+            lock in the engine. The whole active catalogue is injected on every single turn, and the
+            moment a customer asks what else is available, the agent helps across all of it. The
+            focus is a line in the persona &mdash; a setting an operator can soften or remove &mdash;
+            not behaviour hard-coded into the engine. Sales discipline belongs to the business, not
+            to me.
+          </p>
+        </div>
+      </div>
+    </details>
 
     <nav class="pager" aria-label="Deployment navigation">
       <a href="#wa-afterdark">&larr; AfterDark</a>
@@ -2254,37 +2667,122 @@ footer a:hover { color: var(--text); }
       </ul>
     </div>
 
-    <div class="block">
-      <h3>A different definition of a good conversation</h3>
-      <p>
-        For AfterDark and jephie, a conversation has gone well when it ends in a booking. Here it has
-        gone well when a question is resolved and nobody had to chase it. That is one setting on the
-        same engine &mdash; <code>answer_handoff</code> instead of <code>lead_capture</code> &mdash;
-        and it changes what the agent looks for, what it escalates and what it writes down, without
-        changing a line of the transport, the schema or the alerting.
-      </p>
-    </div>
+    <h2 class="sec-h" id="cp-s1"><span class="sec-n">01</span> A different definition of success</h2>
+    <p class="sec-lede">One setting turns a sales agent into a support agent, with no change to
+    transport or schema.</p>
 
-    <div class="block">
-      <h3>Routing instead of a shared inbox</h3>
-      <p>
-        An enquiry is matched to the category that owns it and forwarded to that person with a
-        reference code attached. Their reply is relayed back to the customer, and the ticket closes.
-        What that replaces is the usual arrangement &mdash; a shared inbox, somebody deciding by hand
-        who should take each message, and no record afterwards of how long any of it took.
-      </p>
-    </div>
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 216" role="img" aria-labelledby="cpmT cpmD">
+        <title id="cpmT">One setting, two definitions of a good conversation</title>
+        <desc id="cpmD">The conversation goal setting selects between lead_capture, where success is
+          a booking, and answer_handoff, where success is a resolved question. Everything underneath
+          — transport, schema, control group and alerting — is identical.</desc>
 
-    <div class="block">
-      <h3>The refusal rule matters more here</h3>
-      <p>
-        The same discipline applies as everywhere else in the engine: anything not on file produces
-        silence to the customer, a <code>KnowledgeGaps</code> row and an alert to the control group,
-        rather than a plausible guess. On a support deployment that is worth more than it is on a
-        sales one. A confidently wrong answer about how a product works does not end the
-        conversation &mdash; it comes back as a second ticket, from someone who now trusts you less.
-      </p>
-    </div>
+        <text class="dgm-n" x="20" y="20">ONE SETTING: Settings.conversation_goal</text>
+
+        <rect class="dgm-box" x="20" y="30" width="320" height="76" rx="2"/>
+        <text class="dgm-t" x="34" y="54">lead_capture</text>
+        <text class="dgm-s" x="34" y="72">success is a booking</text>
+        <text class="dgm-s" x="34" y="90">extracts name, date, time</text>
+
+        <rect class="dgm-box-a" x="360" y="30" width="320" height="76" rx="3"/>
+        <text class="dgm-t" x="374" y="54">answer_handoff</text>
+        <text class="dgm-s" x="374" y="72">success is a resolved question</text>
+        <text class="dgm-s" x="374" y="90">escalates by category</text>
+
+        <line class="dgm-ln"   x1="180" y1="108" x2="180" y2="148" marker-end="url(#ah)"/>
+        <line class="dgm-ln-a" x1="520" y1="108" x2="520" y2="148" marker-end="url(#aha)"/>
+
+        <rect class="dgm-box" x="20" y="150" width="660" height="52" rx="2"/>
+        <text class="dgm-t" x="34" y="174">Unchanged underneath</text>
+        <text class="dgm-s" x="34" y="192">same transport &middot; same 16-tab schema &middot; same control group &middot; same alerting</text>
+      </svg>
+      <figcaption>
+        <b>Same engine, different definition of success.</b> Transport, schema and alerting never
+        change.
+      </figcaption>
+    </figure>
+
+    <details class="layer2">
+      <summary>What changes, and what routing replaces</summary>
+      <div class="layer2-body">
+        <div class="block">
+          <p>
+            For AfterDark and jephie, a conversation has gone well when it ends in a booking. Here it
+            has gone well when a question is resolved and nobody had to chase it. That is one setting
+            on the same engine &mdash; <code>answer_handoff</code> instead of
+            <code>lead_capture</code> &mdash; and it changes what the agent looks for, what it
+            escalates and what it writes down, without changing a line of the transport, the schema
+            or the alerting.
+          </p>
+          <p>
+            An enquiry is matched to the category that owns it and forwarded to that person with a
+            reference code attached. Their reply is relayed back to the customer, and the ticket
+            closes. What that replaces is the usual arrangement &mdash; a shared inbox, somebody
+            deciding by hand who should take each message, and no record afterwards of how long any
+            of it took.
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <h2 class="sec-h" id="cp-s2"><span class="sec-n">02</span> The refusal rule matters more here</h2>
+    <p class="sec-lede">Anything not on file produces silence and a logged gap, never a plausible
+    guess.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 220" role="img" aria-labelledby="cprT cprD">
+        <title id="cprT">Not on file means silence, not a guess</title>
+        <desc id="cprD">A customer question is checked against the knowledge base. If it is on file
+          the agent answers. If it is not, the agent says nothing on that point, logs a KnowledgeGaps
+          row and alerts the control group so a person can reply.</desc>
+
+        <rect class="dgm-box" x="20" y="76" width="150" height="52" rx="2"/>
+        <text class="dgm-t" x="34" y="100">Question</text>
+        <text class="dgm-s" x="34" y="117">from a customer</text>
+
+        <line class="dgm-ln" x1="172" y1="102" x2="216" y2="102" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box-a" x="218" y="76" width="170" height="52" rx="3"/>
+        <text class="dgm-t" x="232" y="100">On file?</text>
+        <text class="dgm-s" x="232" y="117">KnowledgeBase</text>
+
+        <path class="dgm-ln"   d="M390 92 L420 92 L420 40 L454 40" marker-end="url(#ah)"/>
+        <path class="dgm-ln-a" d="M390 112 L420 112 L420 160 L454 160" marker-end="url(#aha)"/>
+        <text class="dgm-n" x="426" y="60">YES</text>
+        <text class="dgm-a" x="426" y="140">NO</text>
+
+        <rect class="dgm-box" x="456" y="16" width="224" height="48" rx="2"/>
+        <text class="dgm-t" x="470" y="38">Answer it</text>
+        <text class="dgm-s" x="470" y="55">from the knowledge base</text>
+
+        <rect class="dgm-box" x="456" y="136" width="224" height="48" rx="2"/>
+        <text class="dgm-t" x="470" y="158">Say nothing</text>
+        <text class="dgm-s" x="470" y="175">log the gap, alert the group</text>
+
+        <text class="dgm-n" x="350" y="208" text-anchor="middle">A CONFIDENTLY WRONG ANSWER COMES BACK AS A SECOND TICKET, FROM SOMEONE WHO TRUSTS YOU LESS</text>
+      </svg>
+      <figcaption>
+        <b>Silence beats a plausible guess.</b> The gap is logged and a person answers that
+        customer.
+      </figcaption>
+    </figure>
+
+    <details class="layer2">
+      <summary>Why it is worth more on a support deployment</summary>
+      <div class="layer2-body">
+        <div class="block">
+          <p>
+            The same discipline applies as everywhere else in the engine: anything not on file
+            produces silence to the customer, a <code>KnowledgeGaps</code> row and an alert to the
+            control group, rather than a plausible guess. On a support deployment that is worth more
+            than it is on a sales one. A confidently wrong answer about how a product works does not
+            end the conversation &mdash; it comes back as a second ticket, from someone who now
+            trusts you less.
+          </p>
+        </div>
+      </div>
+    </details>
 
     <nav class="pager" aria-label="Deployment navigation">
       <a href="#wa-jephie">&larr; jephie</a>
@@ -2311,38 +2809,121 @@ footer a:hover { color: var(--text); }
       </ul>
     </div>
 
-    <div class="block">
-      <h3>How it is used</h3>
-      <p>
-        Someone types <code>@a</code> in the group. The agent evaluates up to thirty candidate
-        images, selects a varied subset without near-duplicates, and drafts a caption in the house
-        voice. If the caption is not right, it is rewritten in the thread rather than regenerated
-        from nothing &mdash; the point is to finish a post, not to admire a first draft.
-      </p>
-    </div>
+    <h2 class="sec-h" id="pg-s1"><span class="sec-n">01</span> How it is used</h2>
+    <p class="sec-lede">Someone types @a in the group and gets a photo set and a caption back, then
+    edits it in place.</p>
 
-    <div class="block">
-      <h3>Two different sizes of the same image</h3>
-      <p>
-        The vision call has a byte budget that the deliverable does not. So candidates are downscaled
-        to 1024px thumbnails for the model to look at, while the full-resolution originals are what
-        actually get sent to WhatsApp. It sounds small, and it is the difference between the
-        selection step working at thirty candidates and failing at eight. Most of the useful
-        engineering in an LLM feature is this &mdash; deciding what the model needs to see, which is
-        rarely what the user needs to receive.
-      </p>
-    </div>
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 198" role="img" aria-labelledby="pguT pguD">
+        <title id="pguT">From a trigger to a finished post</title>
+        <desc id="pguD">A staff member types the trigger in the group. The agent selects a varied
+          set of photos and drafts a caption in the house voice. An unsatisfactory caption is
+          rewritten in the same thread rather than regenerated from nothing.</desc>
 
-    <div class="block">
-      <h3>Why it lives in the same engine</h3>
-      <p>
-        Nothing underneath changes. Same relay, same 16-tab Sheet, same control group, same media
-        library, same alerting &mdash; one setting points the agent at a different goal. A content
-        assistant and a sales assistant have almost nothing in common as products, and share almost
-        everything as software. That they could sit on one engine without either bending is the
-        clearest evidence I have that the mode boundary was drawn in the right place.
-      </p>
-    </div>
+        <rect class="dgm-box" x="20" y="40" width="160" height="56" rx="2"/>
+        <text class="dgm-t" x="34" y="64">@a</text>
+        <text class="dgm-s" x="34" y="82">typed in the group</text>
+
+        <line class="dgm-ln" x1="182" y1="68" x2="218" y2="68" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box" x="220" y="40" width="200" height="56" rx="2"/>
+        <text class="dgm-t" x="234" y="64">Selects photos</text>
+        <text class="dgm-s" x="234" y="82">varied, no duplicates</text>
+
+        <line class="dgm-ln" x1="422" y1="68" x2="458" y2="68" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box-a" x="460" y="40" width="220" height="56" rx="3"/>
+        <text class="dgm-t" x="474" y="64">Drafts the caption</text>
+        <text class="dgm-s" x="474" y="82">in the house voice</text>
+
+        <path class="dgm-ln-a" d="M570 98 L570 132 L320 132 L320 100" marker-end="url(#aha)"/>
+        <text class="dgm-a" x="445" y="150" text-anchor="middle">REWRITTEN IN THE THREAD, NOT REGENERATED FROM NOTHING</text>
+
+        <text class="dgm-n" x="350" y="182" text-anchor="middle">THE POINT IS TO FINISH A POST, NOT TO ADMIRE A FIRST DRAFT</text>
+      </svg>
+      <figcaption>
+        <b>Finish the post, do not admire the draft.</b> The caption is rewritten in the thread, not
+        regenerated.
+      </figcaption>
+    </figure>
+
+    <details class="layer2">
+      <summary>Two different sizes of the same image</summary>
+      <div class="layer2-body">
+        <div class="block">
+          <p>
+            Someone types <code>@a</code> in the group. The agent evaluates up to thirty candidate
+            images, selects a varied subset without near-duplicates, and drafts a caption in the
+            house voice. If the caption is not right, it is rewritten in the thread rather than
+            regenerated from nothing &mdash; the point is to finish a post, not to admire a first
+            draft.
+          </p>
+          <p>
+            The vision call has a byte budget that the deliverable does not. So candidates are
+            downscaled to 1024px thumbnails for the model to look at, while the full-resolution
+            originals are what actually get sent to WhatsApp. It sounds small, and it is the
+            difference between the selection step working at thirty candidates and failing at eight.
+            Most of the useful engineering in an LLM feature is this &mdash; deciding what the model
+            needs to see, which is rarely what the user needs to receive.
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <h2 class="sec-h" id="pg-s2"><span class="sec-n">02</span> Why it lives in the same engine</h2>
+    <p class="sec-lede">A content assistant and a sales assistant share almost everything as
+    software.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 210" role="img" aria-labelledby="pgeT pgeD">
+        <title id="pgeT">Three products on one substrate</title>
+        <desc id="pgeD">Two sales agents, a support agent and a content agent all run on the same
+          relay, the same 16-tab Sheet, the same control group, the same media library and the same
+          alerting. One setting points each at a different goal.</desc>
+
+        <text class="dgm-n" x="20" y="20">THREE PRODUCTS</text>
+
+        <rect class="dgm-box" x="20" y="28" width="200" height="48" rx="2"/>
+        <text class="dgm-t" x="34" y="50">Sales agents</text>
+        <text class="dgm-s" x="34" y="67">AfterDark, jephie</text>
+
+        <rect class="dgm-box" x="250" y="28" width="200" height="48" rx="2"/>
+        <text class="dgm-t" x="264" y="50">Support agent</text>
+        <text class="dgm-s" x="264" y="67">CPS</text>
+
+        <rect class="dgm-box-a" x="480" y="28" width="200" height="48" rx="3"/>
+        <text class="dgm-t" x="494" y="50">Content agent</text>
+        <text class="dgm-s" x="494" y="67">post agent</text>
+
+        <line class="dgm-ln"   x1="120" y1="78" x2="120" y2="116" marker-end="url(#ah)"/>
+        <line class="dgm-ln"   x1="350" y1="78" x2="350" y2="116" marker-end="url(#ah)"/>
+        <line class="dgm-ln-a" x1="580" y1="78" x2="580" y2="116" marker-end="url(#aha)"/>
+
+        <rect class="dgm-box" x="20" y="118" width="660" height="64" rx="2"/>
+        <text class="dgm-t" x="34" y="142">One substrate</text>
+        <text class="dgm-s" x="34" y="160">same relay &middot; same 16-tab Sheet &middot; same control group &middot; same media library &middot; same alerting</text>
+
+        <text class="dgm-n" x="350" y="200" text-anchor="middle">ONE SETTING POINTS EACH AT A DIFFERENT GOAL</text>
+      </svg>
+      <figcaption>
+        <b>Almost nothing in common as products.</b> Almost everything in common as software.
+      </figcaption>
+    </figure>
+
+    <details class="layer2">
+      <summary>Why this is evidence the mode boundary is right</summary>
+      <div class="layer2-body">
+        <div class="block">
+          <p>
+            Nothing underneath changes. Same relay, same 16-tab Sheet, same control group, same media
+            library, same alerting &mdash; one setting points the agent at a different goal. A content
+            assistant and a sales assistant have almost nothing in common as products, and share
+            almost everything as software. That they could sit on one engine without either bending is
+            the clearest evidence I have that the mode boundary was drawn in the right place.
+          </p>
+        </div>
+      </div>
+    </details>
 
     <nav class="pager" aria-label="Deployment navigation">
       <a href="#wa-cps">&larr; CPS</a>
