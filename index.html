@@ -478,6 +478,20 @@ body.routed .view.active { display: block; }
   font-size: .9375rem; color: var(--muted);
   margin: 12px auto 0; max-width: 46ch;
 }
+/* Framed screen capture — the white app UI needs a window edge so it reads
+   as a screen object on the dark page, not a hole punched in it. */
+.shot-frame { border: 1px solid var(--rule); background: var(--ink-2); }
+.shot-bar {
+  display: flex; align-items: center; gap: 7px;
+  padding: 9px 13px; border-bottom: 1px solid var(--rule);
+  font-family: var(--mono); font-size: .6875rem; color: var(--muted);
+}
+.shot-bar i {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--rule-lt); flex: none;
+}
+.shot-bar span { margin-left: 7px; letter-spacing: .04em; }
+.shot-frame img { width: 100%; height: auto; display: block; }
 
 /* ─── icons ──────────────────────────────────────────────────── */
 .ico {
@@ -1848,9 +1862,205 @@ footer a:hover { color: var(--text); }
       </div>
     </details>
 
+    <div class="block">
+      <h3>Areas of the system</h3>
+      <p>
+        Eight areas of the ERP, each with its own page. The first covers how one role string decides
+        both what a person sees and what the database hands back.
+      </p>
+      <ul class="deploys">
+        <li>
+          <h4><a href="#erp-roles">User &amp; Role</a></h4>
+          <p class="dep-meta">5 role groups &middot; 6 platforms &middot; 240 RLS policies</p>
+          <p>
+            One sign-in, five role groups, and a scope enforced in the database rather than
+            suggested by the interface.
+          </p>
+        </li>
+      </ul>
+    </div>
+
     <nav class="pager" aria-label="Project navigation">
       <span class="spacer"></span>
       <a href="#wa-agent">WA Agent &rarr;</a>
+    </nav>
+  </div>
+</section>
+
+
+<!-- ═══════════════ VIEW · ERP AREA · USER & ROLE ═══════════════ -->
+<section class="view" id="view-erp-roles" aria-label="Creator ERP — User and role">
+  <div class="wrap">
+    <div class="proj-head">
+      <a class="back reveal" style="--d:.02s" href="#creator-erp">&larr; Creator ERP</a>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">01</span> &nbsp;&middot;&nbsp; ERP area</p>
+      <h1 class="reveal" style="--d:.1s" tabindex="-1">User &amp; Role</h1>
+      <p class="proj-purpose reveal" style="--d:.16s">
+        Five role groups share one sign-in and land in five different places. Which platform a person
+        sees, and which rows come back when they ask, are decided by the same single role string.
+      </p>
+      <ul class="stack reveal" style="--d:.24s">
+        <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg>5 role groups</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-key"/></svg>app_metadata.role</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-lock"/></svg>240 RLS policies</li>
+        <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-supabase"/></svg>Supabase Auth</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-globe"/></svg>6 platforms</li>
+      </ul>
+    </div>
+
+    <h2 class="sec-h" id="ur-s1"><span class="sec-n">01</span> One sign-in, six platforms</h2>
+    <p class="sec-lede">One login decides which of six platforms you land on &mdash; the choice is a
+    role string, not a menu.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 290" role="img" aria-labelledby="urpT urpD">
+        <title id="urpT">One role string selects one of six platforms</title>
+        <desc id="urpD">A single sign-in screen reads a role value from the user's application
+          metadata. That one value selects which of six platforms the person lands on: ERP, PIC,
+          Client, Creator, Develop or Legal. No per-user menu is stored anywhere.</desc>
+
+        <text class="dgm-n" x="20" y="16">ONE SET OF CREDENTIALS</text>
+
+        <rect class="dgm-box" x="20" y="111" width="140" height="44" rx="2"/>
+        <text class="dgm-t" x="34" y="132">Sign-in</text>
+        <text class="dgm-s" x="34" y="148">one screen</text>
+
+        <line class="dgm-ln" x1="162" y1="133" x2="206" y2="133" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box-a" x="210" y="111" width="200" height="44" rx="3"/>
+        <text class="dgm-t" x="224" y="132">app_metadata.role</text>
+        <text class="dgm-s" x="224" y="148">read per request</text>
+
+        <line class="dgm-ln-a" x1="410" y1="133" x2="435" y2="133"/>
+        <line class="dgm-ln-a" x1="435" y1="33" x2="435" y2="233"/>
+
+        <line class="dgm-ln-a" x1="435" y1="33"  x2="458" y2="33"  marker-end="url(#aha)"/>
+        <line class="dgm-ln-a" x1="435" y1="73"  x2="458" y2="73"  marker-end="url(#aha)"/>
+        <line class="dgm-ln-a" x1="435" y1="113" x2="458" y2="113" marker-end="url(#aha)"/>
+        <line class="dgm-ln-a" x1="435" y1="153" x2="458" y2="153" marker-end="url(#aha)"/>
+        <line class="dgm-ln-a" x1="435" y1="193" x2="458" y2="193" marker-end="url(#aha)"/>
+        <line class="dgm-ln-a" x1="435" y1="233" x2="458" y2="233" marker-end="url(#aha)"/>
+
+        <rect class="dgm-box" x="460" y="16"  width="220" height="34" rx="2"/>
+        <text class="dgm-t" x="474" y="38">ERP</text>
+        <text class="dgm-s" x="666" y="38" text-anchor="end">/projects</text>
+
+        <rect class="dgm-box" x="460" y="56"  width="220" height="34" rx="2"/>
+        <text class="dgm-t" x="474" y="78">PIC</text>
+        <text class="dgm-s" x="666" y="78" text-anchor="end">/pic</text>
+
+        <rect class="dgm-box" x="460" y="96"  width="220" height="34" rx="2"/>
+        <text class="dgm-t" x="474" y="118">Client</text>
+        <text class="dgm-s" x="666" y="118" text-anchor="end">/client</text>
+
+        <rect class="dgm-box" x="460" y="136" width="220" height="34" rx="2"/>
+        <text class="dgm-t" x="474" y="158">Creator</text>
+        <text class="dgm-s" x="666" y="158" text-anchor="end">/creator</text>
+
+        <rect class="dgm-box" x="460" y="176" width="220" height="34" rx="2"/>
+        <text class="dgm-t" x="474" y="198">Develop</text>
+        <text class="dgm-s" x="666" y="198" text-anchor="end">/develop</text>
+
+        <rect class="dgm-box" x="460" y="216" width="220" height="34" rx="2"/>
+        <text class="dgm-t" x="474" y="238">Legal</text>
+        <text class="dgm-s" x="666" y="238" text-anchor="end">/contract</text>
+
+        <text class="dgm-n" x="350" y="272" text-anchor="middle">NO PER-USER MENU TO KEEP IN SYNC &mdash; THE ROLE STRING DECIDES</text>
+      </svg>
+      <figcaption>
+        <b>One string, six destinations.</b> Landing is derived from the role, never assembled
+        per user.
+      </figcaption>
+    </figure>
+
+    <h2 class="sec-h" id="ur-s2"><span class="sec-n">02</span> Scope, not just role</h2>
+    <p class="sec-lede">A PIC reaches only assigned projects, and the Users screen shows that scope
+    as a count per person.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 268" role="img" aria-labelledby="urscT urscD">
+        <title id="urscT">What each role group can reach</title>
+        <desc id="urscD">Five role groups and the data each one reaches. Admin and Supervisor both
+          see every project and differ only over user management. A PIC is narrowed to assigned
+          projects, clients to their own campaign, and the legal team to contracts.</desc>
+
+        <text class="dgm-n" x="20" y="16">WHAT EACH GROUP CAN REACH</text>
+
+        <rect class="dgm-box" x="20" y="30" width="190" height="36" rx="2"/>
+        <text class="dgm-t" x="34" y="53">Admin</text>
+        <text class="dgm-s" x="196" y="53" text-anchor="end">1</text>
+        <line class="dgm-ln" x1="212" y1="48" x2="246" y2="48" marker-end="url(#ah)"/>
+        <rect class="dgm-box" x="250" y="30" width="430" height="36" rx="2"/>
+        <text class="dgm-t" x="264" y="53">every project &middot; plus user management</text>
+
+        <rect class="dgm-box" x="20" y="74" width="190" height="36" rx="2"/>
+        <text class="dgm-t" x="34" y="97">Supervisor</text>
+        <text class="dgm-s" x="196" y="97" text-anchor="end">2</text>
+        <line class="dgm-ln" x1="212" y1="92" x2="246" y2="92" marker-end="url(#ah)"/>
+        <rect class="dgm-box" x="250" y="74" width="430" height="36" rx="2"/>
+        <text class="dgm-t" x="264" y="97">every project &middot; no user management</text>
+
+        <rect class="dgm-box-a" x="20" y="118" width="190" height="36" rx="3"/>
+        <text class="dgm-t" x="34" y="141">PIC</text>
+        <text class="dgm-s" x="196" y="141" text-anchor="end">2</text>
+        <line class="dgm-ln-a" x1="212" y1="136" x2="246" y2="136" marker-end="url(#aha)"/>
+        <rect class="dgm-box-a" x="250" y="118" width="430" height="36" rx="3"/>
+        <text class="dgm-t" x="264" y="141">assigned projects only &mdash; shown as a count</text>
+
+        <rect class="dgm-box" x="20" y="162" width="190" height="36" rx="2"/>
+        <text class="dgm-t" x="34" y="185">Clients</text>
+        <text class="dgm-s" x="196" y="185" text-anchor="end">2</text>
+        <line class="dgm-ln" x1="212" y1="180" x2="246" y2="180" marker-end="url(#ah)"/>
+        <rect class="dgm-box" x="250" y="162" width="430" height="36" rx="2"/>
+        <text class="dgm-t" x="264" y="185">their own campaign</text>
+
+        <rect class="dgm-box" x="20" y="206" width="190" height="36" rx="2"/>
+        <text class="dgm-t" x="34" y="229">Legal Team</text>
+        <text class="dgm-s" x="196" y="229" text-anchor="end">1</text>
+        <line class="dgm-ln" x1="212" y1="224" x2="246" y2="224" marker-end="url(#ah)"/>
+        <rect class="dgm-box" x="250" y="206" width="430" height="36" rx="2"/>
+        <text class="dgm-t" x="264" y="229">contracts only</text>
+
+        <text class="dgm-n" x="350" y="260" text-anchor="middle">SCOPE IS STORED, NOT DRAWN &mdash; THE COUNT AND THE ROWS COME FROM ONE PLACE</text>
+      </svg>
+      <figcaption>
+        <b>Scope is data, not a screen.</b> The same record drives both the count shown and the
+        rows returned.
+      </figcaption>
+    </figure>
+
+    <details class="layer2">
+      <summary>The roster as the operator sees it</summary>
+      <div class="layer2-body">
+        <figure class="shot">
+          <div class="shot-frame">
+            <div class="shot-bar"><i></i><i></i><i></i><span>erp-id.vercel.app/admin/users</span></div>
+            <img src="shots/erp-users-roles.webp" width="1440" height="470" alt="The Users screen of the Creator ERP: tabs reading Admin 1, Supervisor 2, PIC 2, Clients 2 and Legal Team 1 sit above a table with user, role, scope, status, created and last-login columns.">
+          </div>
+          <figcaption>Users &middot; Creator ERP (Indonesia) &mdash; test accounts</figcaption>
+        </figure>
+        <div class="block">
+          <p>
+            The counts on the tabs are the roster: eight active users across five groups, with five
+            more deactivated rather than deleted. Keeping them means a departed operator's history
+            stays attached to the projects they ran, which a hard delete would sever.
+          </p>
+          <p>
+            The status column is the part worth reading. <em>Waiting for password</em> and
+            <em>not signed in yet</em> both mean an account exists that no administrator ever held a
+            password for &mdash; users are invited and set their own credential. There is no step
+            where a password is typed by one person and given to another.
+          </p>
+          <p>
+            The scope column shows the same number the database enforces. It is not a summary
+            computed for display; the row that limits a PIC to their assigned projects is the row
+            that produces the count. A role change takes effect immediately, revoking live sessions
+            rather than waiting for a token to expire.
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <nav class="pager" aria-label="Area navigation">
+      <a href="#creator-erp">&larr; Creator ERP</a>
+      <span class="spacer"></span>
     </nav>
   </div>
 </section>
@@ -2163,11 +2373,11 @@ footer a:hover { color: var(--text); }
         <text class="dgm-s" x="510" y="86">one shared engine</text>
 
         <text class="dgm-n" x="350" y="126" text-anchor="middle">BUILD THE SPECIFIC THING &middot; LEARN WHICH PARTS WERE ACTUALLY SPECIFIC &middot; MAKE THOSE PARTS DATA</text>
-        <text class="dgm-n" x="350" y="144" text-anchor="middle">THE SAME ARC AS ENDORSEMENT TO CREATOR ERP, IN AN UNRELATED DOMAIN</text>
+        <text class="dgm-n" x="350" y="144" text-anchor="middle">A FOURTH DEPLOYMENT NEEDED NO ENGINE CHANGE &mdash; THE ONLY REAL TEST OF THE CLAIM</text>
       </svg>
       <figcaption>
-        <b>Built specific, then generalised.</b> The same arc as Endorsement to Creator ERP, in an
-        unrelated domain.
+        <b>Built specific, then generalised.</b> The venue bot came first; the neutral engine was
+        extracted out of it.
       </figcaption>
     </figure>
 
@@ -2434,10 +2644,10 @@ footer a:hover { color: var(--text); }
             "generalised from a single-domain bot into a configurable base".
           </p>
           <p>
-            That is the same shape as the Endorsement Platform becoming the Creator ERP: build the
-            specific thing, discover from running it which parts were actually specific, then rebuild
-            so those parts are data. Doing it twice, in two unrelated domains, is the part I would
-            defend in an interview &mdash; the first time can be luck.
+            Build the specific thing, discover from running it which parts were actually specific,
+            then rebuild so those parts are data. Standing up a fourth deployment on the result
+            needed no engine change &mdash; which is the only real test of whether the split was
+            drawn in the right place.
           </p>
         </div>
       </div>
@@ -4153,7 +4363,9 @@ footer a:hover { color: var(--text); }
 
   var VIEWS = ["home", "creator-erp", "wa-agent", "endorsement", "extractors", "property-finder", "feng-shui",
                // WA Agent deployment sub-pages — reachable from the WA Agent view, not the masthead.
-               "wa-afterdark", "wa-jephie", "wa-cps", "wa-post"];
+               "wa-afterdark", "wa-jephie", "wa-cps", "wa-post",
+               // Creator ERP area sub-pages — reachable from the Creator ERP view, not the masthead.
+               "erp-roles"];
 
   // Single-view mode is JS-only. Without it the page stays one long
   // readable document rather than a blank screen.
