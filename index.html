@@ -2387,10 +2387,8 @@ footer a:hover { color: var(--text); }
           <text class="dgm-n" x="350" y="252" text-anchor="middle">DONE BY HAND, ONE BANK NUMBER WAS RE-KEYED INTO A CONTRACT, A MANIFEST AND A PAYMENT RUN</text>
         </svg>
         <figcaption>
-          <b>Two constraints shaped everything after.</b> Creator rates must never reach the client,
-          because the gap between what the brand pays and what the creator receives is the agency's
-          margin. And there was no budget for infrastructure — so it had to run on the Workspace
-          licence the company already paid for.
+          <b>Two constraints:</b> creator rates must never reach the client, and there was no
+          infrastructure budget.
         </figcaption>
       </figure>
     </div>
@@ -2455,10 +2453,8 @@ footer a:hover { color: var(--text); }
         <text class="dgm-n" x="330" y="332">EXTERNAL SOURCE</text>
       </svg>
       <figcaption>
-        <b>Hub and spoke, deliberately.</b> Every layer integrates with the pipeline, never with
-        each other — so connections grew linearly rather than quadratically as campaigns
-        accumulated. Formulas carry the sheet-to-sheet joins; code is used only where formulas
-        cannot reach — document generation, outbound HTTP, permissions and scheduling.
+        <b>Hub and spoke, deliberately.</b> Every layer joins the pipeline, never each other — so
+        connections grew linearly.
       </figcaption>
     </figure>
 
@@ -2540,10 +2536,8 @@ footer a:hover { color: var(--text); }
         <text class="dgm-n" x="380" y="205">AUTOMATED / IMPORTED</text>
       </svg>
       <figcaption>
-        <b>The workflow is the column layout.</b> There is no status field and no project-management
-        tool — a deal's stage is how far right its row has been filled. Because every boundary
-        carries a timestamp, cycle time per stage is a subtraction. Stages 6–10 are capped at three
-        rounds by the layout itself, so a client who burns revisions shows up in the data.
+        <b>The workflow is the column layout.</b> A deal's stage is how far right its row has been
+        filled.
       </figcaption>
     </figure>
 
@@ -2606,9 +2600,8 @@ footer a:hover { color: var(--text); }
         <text class="dgm-s" x="639" y="200" text-anchor="middle">contract</text>
       </svg>
       <figcaption>
-        <b>Structurally absent, not permission-hidden.</b> Because the client sheet never imports
-        the rate and banking columns, there is no permission to misconfigure — a leaked share link
-        exposes nothing, since the data was never in that document.
+        <b>Structurally absent, not permission-hidden.</b> A leaked link exposes a document that
+        never held the data.
       </figcaption>
     </figure>
 
@@ -2684,10 +2677,8 @@ footer a:hover { color: var(--text); }
         <text class="dgm-n" x="20" y="166">POSITION IS WRITTEN BACK TO THE SHEET, NOT HELD IN MEMORY — SO A KILLED RUN IS DIAGNOSABLE</text>
       </svg>
       <figcaption>
-        <b>The ceiling is a design input, not a failure mode.</b> A full metrics sweep across the
-        roster will always exceed six minutes, so the extractor is built to be interrupted. A
-        seven-day freshness check makes re-running harmless, and <code>LockService</code> stops a
-        manual run colliding with the scheduled one.
+        <b>The ceiling is a design input, not a failure mode.</b> The extractor is built to be
+        interrupted and resumed.
       </figcaption>
     </figure>
 
@@ -2723,10 +2714,8 @@ footer a:hover { color: var(--text); }
         <text class="dgm-n" x="20" y="232">SAME PATTERN AT EVERY LAYER — BRAND SHEET A1 AND J&amp;T A1 BOTH HOLD THE PIPELINE'S FILE ID</text>
       </svg>
       <figcaption>
-        <b>The sheet configures itself.</b> A new campaign tab is a copy of a template, and copying
-        it carries its wiring with it. Because the script reads the sheet's own headers to decide
-        behaviour, the configuration is self-documenting to the operator — there is no settings tab
-        to keep in sync and no deployment to run.
+        <b>The sheet configures itself.</b> A campaign tab is a copy of a template, and copying it
+        carries its wiring.
       </figcaption>
     </figure>
 
@@ -2823,11 +2812,8 @@ footer a:hover { color: var(--text); }
           <text class="dgm-n" x="300" y="177">CLIENT WRITES HERE</text>
         </svg>
         <figcaption>
-          <b>The gaps are the interface.</b> The blocks were arranged so the four columns the client
-          must fill in land exactly between them — the campaign tab reads
-          <code>Sheet1!Q3:Q</code>, <code>AB3:AB</code>, <code>AE3:AE</code> and
-          <code>AH3:AH</code> straight back in. No form, no app, no API: the client's own
-          spreadsheet is the write surface.
+          <b>The gaps are the interface.</b> No form, no app, no API — the client's own spreadsheet
+          is the write surface.
         </figcaption>
       </figure>
       <ul class="fx">
@@ -2860,6 +2846,15 @@ footer a:hover { color: var(--text); }
     <details class="deeper">
       <summary>Deeper technical detail</summary>
       <div class="deeper-body">
+        <p>
+          <b>What the captions above leave out.</b> The margin being protected is the gap between
+          what the brand pays and what the creator receives &mdash; which is why the rate columns
+          are the ones that never cross. On the extractor, a seven-day freshness check makes
+          re-running harmless and <code>LockService</code> stops a manual run colliding with the
+          scheduled one. And the client's four write-back columns are read by the campaign tab as
+          <code>Sheet1!Q3:Q</code>, <code>AB3:AB</code>, <code>AE3:AE</code> and
+          <code>AH3:AH</code>.
+        </p>
         <p>
           <b>One template, three commercial arrangements.</b> A dropdown in <code>C2</code>
           reconfigures the entire logistics section of a campaign: product-only, full fulfilment with
