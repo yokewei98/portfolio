@@ -472,6 +472,18 @@ body.routed .view.active { display: block; }
   width: 38px; height: 38px; color: var(--brass);
   display: block; margin-bottom: 18px;
 }
+.stat-ico { width: 19px; height: 19px; color: var(--brass-dk); margin-bottom: 14px; }
+
+/* Platform marks carry their own brand colours, so they don't use .ico —
+   no stroke inheritance, no accent tinting. */
+.logos { display: flex; align-items: center; gap: 9px; margin-bottom: 13px; min-height: 24px; }
+.lg { width: 23px; height: 23px; flex: none; display: block; }
+/* Marks I can't reproduce faithfully get their name instead of a bad drawing. */
+.lg-text {
+  font-family: var(--mono); font-size: .625rem; letter-spacing: .06em;
+  color: var(--text-2); border: 1px solid var(--rule-lt);
+  border-radius: 3px; padding: 4px 7px; line-height: 1; white-space: nowrap;
+}
 
 /* ─── diagrams ───────────────────────────────────────────────── */
 /* Rendered from the architecture sketches in the source docs.
@@ -602,6 +614,17 @@ details.deeper .deeper-body p + p { margin-top: 15px; }
   letter-spacing: .05em; color: var(--brass); font-weight: 500; margin-bottom: 6px;
 }
 .skills li span { color: var(--muted); }
+
+/* Closing statement for the skills section — the strongest single line in
+   the source material, so it gets display treatment rather than body copy. */
+.closer {
+  margin-top: 44px; padding-top: 32px;
+  border-top: 1px solid var(--rule);
+  font-family: var(--serif);
+  font-size: clamp(1.15rem, 2.3vw, 1.45rem);
+  line-height: 1.5; color: var(--text); max-width: 46ch;
+}
+.closer em { font-style: normal; color: var(--brass); }
 
 /* ─── editorial notes (placeholders) ─────────────────────────── */
 .todo {
@@ -754,6 +777,96 @@ footer a:hover { color: var(--text); }
       <circle cx="12" cy="12" r="9"/>
       <path d="M15.9 8.1 13.6 13.6 8.1 15.9 10.4 10.4Z"/>
     </symbol>
+
+    <!-- headline-figure icons: stroke only, inherit colour like the rest -->
+    <symbol id="i-code" viewBox="0 0 24 24">
+      <path d="M8.6 7.4 3.8 12l4.8 4.6M15.4 7.4 20.2 12l-4.8 4.6M13.6 5.2l-3.2 13.6"/>
+    </symbol>
+    <symbol id="i-users" viewBox="0 0 24 24">
+      <circle cx="9" cy="8" r="3.3"/>
+      <path d="M2.9 19.6a6.1 6.1 0 0 1 12.2 0"/>
+      <path d="M16.4 5.1a3.3 3.3 0 0 1 0 5.8"/>
+      <path d="M17.9 13.5a6.1 6.1 0 0 1 3.2 5.4"/>
+    </symbol>
+    <symbol id="i-key" viewBox="0 0 24 24">
+      <circle cx="7.4" cy="12" r="3.7"/>
+      <path d="M11.1 12H21"/><path d="M18.2 12v3.3"/><path d="M14.9 12v2.4"/>
+    </symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="M3 12h18"/>
+      <path d="M12 3c2.6 2.9 3.9 5.9 3.9 9s-1.3 6.1-3.9 9c-2.6-2.9-3.9-5.9-3.9-9S9.4 5.9 12 3Z"/>
+    </symbol>
+
+    <!-- Platform marks. Brand colours are baked in, so these deliberately sit
+         outside the single-accent rule the rest of the page follows. -->
+    <symbol id="l-react" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="2.05" fill="#61DAFB"/>
+      <g fill="none" stroke="#61DAFB" stroke-width="1">
+        <ellipse cx="12" cy="12" rx="10.6" ry="4"/>
+        <ellipse cx="12" cy="12" rx="10.6" ry="4" transform="rotate(60 12 12)"/>
+        <ellipse cx="12" cy="12" rx="10.6" ry="4" transform="rotate(120 12 12)"/>
+      </g>
+    </symbol>
+    <symbol id="l-ts" viewBox="0 0 24 24">
+      <rect width="24" height="24" rx="2.5" fill="#3178C6"/>
+      <text x="12.4" y="17" text-anchor="middle" fill="#fff"
+            font-family="ui-monospace,Consolas,monospace" font-size="10.5" font-weight="700">TS</text>
+    </symbol>
+    <symbol id="l-next" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="11.4" fill="#fff"/>
+      <text x="12" y="16.9" text-anchor="middle" fill="#000"
+            font-family="Georgia,serif" font-size="12.5" font-weight="700">N</text>
+    </symbol>
+    <symbol id="l-supabase" viewBox="0 0 24 24">
+      <path d="M13.1 1.4 3.3 13.1c-.5.6-.1 1.5.7 1.5h6.3v7.9c0 .9 1.1 1.3 1.7.6l9.8-11.7c.5-.6.1-1.5-.7-1.5h-6.3V2c0-.9-1.1-1.3-1.7-.6Z"
+            fill="#3ECF8E"/>
+    </symbol>
+    <symbol id="l-vercel" viewBox="0 0 24 24">
+      <path d="M12 3 22.6 21.2H1.4Z" fill="#fff"/>
+    </symbol>
+    <symbol id="l-node" viewBox="0 0 24 24">
+      <path d="M12 1.4 21.6 7v10L12 22.6 2.4 17V7Z" fill="#539E43"/>
+      <text x="12" y="15.4" text-anchor="middle" fill="#fff"
+            font-family="ui-monospace,Consolas,monospace" font-size="7" font-weight="700">JS</text>
+    </symbol>
+    <symbol id="l-chrome" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="11" fill="#EA4335"/>
+      <path d="M12 12 3.1 6.9A11 11 0 0 0 8.4 22.4Z" fill="#34A853"/>
+      <path d="M12 12h11a11 11 0 0 1-14.6 10.4Z" fill="#FBBC05"/>
+      <path d="M12 12h11A11 11 0 0 0 3.1 6.9Z" fill="#EA4335"/>
+      <circle cx="12" cy="12" r="5.2" fill="#fff"/>
+      <circle cx="12" cy="12" r="4.1" fill="#4285F4"/>
+    </symbol>
+    <symbol id="l-gsheets" viewBox="0 0 24 24">
+      <path d="M14 2H6.5A1.5 1.5 0 0 0 5 3.5v17A1.5 1.5 0 0 0 6.5 22h11a1.5 1.5 0 0 0 1.5-1.5V7l-5-5Z" fill="#0F9D58"/>
+      <path d="M14 2v5h5l-5-5Z" fill="#0B8043"/>
+      <rect x="8" y="11" width="8" height="7" fill="#fff"/>
+      <path d="M8 13.3h8M8 15.7h8M11.7 11v7" stroke="#0F9D58" stroke-width=".9"/>
+    </symbol>
+    <symbol id="l-excel" viewBox="0 0 24 24">
+      <rect x="2.5" y="3" width="19" height="18" rx="2.2" fill="#217346"/>
+      <text x="12" y="16.6" text-anchor="middle" fill="#fff"
+            font-family="ui-monospace,Consolas,monospace" font-size="11" font-weight="700">X</text>
+    </symbol>
+    <symbol id="l-notion" viewBox="0 0 24 24">
+      <rect x="2.5" y="2.5" width="19" height="19" rx="2.6" fill="#fff"/>
+      <text x="12" y="17" text-anchor="middle" fill="#000"
+            font-family="Georgia,serif" font-size="12.5" font-weight="700">N</text>
+    </symbol>
+    <symbol id="l-claude" viewBox="0 0 24 24">
+      <g stroke="#D97757" stroke-width="1.9" stroke-linecap="round">
+        <path d="M12 3.1v6.1"/><path d="M12 14.8v6.1"/>
+        <path d="M3.1 12h6.1"/><path d="M14.8 12h6.1"/>
+        <path d="m5.7 5.7 4.3 4.3"/><path d="m14 14 4.3 4.3"/>
+        <path d="m18.3 5.7-4.3 4.3"/><path d="m10 14-4.3 4.3"/>
+      </g>
+    </symbol>
+    <symbol id="l-appsscript" viewBox="0 0 24 24">
+      <rect x="2.5" y="3" width="19" height="18" rx="2.2" fill="#4285F4"/>
+      <path d="M9.6 9 7 12l2.6 3M14.4 9 17 12l-2.6 3"
+            fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
   </defs>
 </svg>
 
@@ -802,10 +915,22 @@ footer a:hover { color: var(--text); }
       </div>
 
       <div class="stats reveal" style="--d:.38s">
-        <div><div class="stat-n">51,000</div><div class="stat-l">Lines TypeScript</div></div>
-        <div><div class="stat-n">21</div><div class="stat-l">Internal active users</div></div>
-        <div><div class="stat-n">7</div><div class="stat-l">Distinct user roles</div></div>
-        <div><div class="stat-n">3</div><div class="stat-l">Countries served</div></div>
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-code"/></svg>
+          <div class="stat-n">51,000</div><div class="stat-l">Lines TypeScript</div>
+        </div>
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg>
+          <div class="stat-n">21</div><div class="stat-l">Internal active users</div>
+        </div>
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-key"/></svg>
+          <div class="stat-n">7</div><div class="stat-l">Distinct user roles</div>
+        </div>
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-globe"/></svg>
+          <div class="stat-n">3</div><div class="stat-l">Countries served</div>
+        </div>
       </div>
 
       <div class="hero-note reveal" style="--d:.46s">
@@ -1060,23 +1185,69 @@ footer a:hover { color: var(--text); }
           </div>
 
           <ul class="skills">
-            <li><b>Full-stack build</b><span>Next.js, React, TypeScript, Supabase/PostgreSQL. Multi-tenant applications with database-level authorisation and role-based portals.</span></li>
-            <li><b>Google Apps Script</b><span>Production automation: scheduled jobs, external API calls, document generation, checkpoint/resume pipelines.</span></li>
-            <li><b>Sheets &amp; Excel</b><span>Advanced formulas, cross-sheet logic, pivot tables, complex multi-sheet models. Certified &mdash; Google Cloud.</span></li>
-            <li><b>Scraping &amp; API integration</b><span>Manifest V3 extensions, reverse-engineered request signing, bulk extraction pipelines.</span></li>
-            <li><b>Reporting &amp; dashboards</b><span>Making operational and commercial numbers visible, accurate and timely, so the people who own them can act.</span></li>
-            <li><b>AI tooling</b><span>Claude Code, LLM APIs, MCP, agent workflows.</span></li>
-            <li><b>Notion, Lark / Feishu</b><span>Workspace architecture, database design, operational workflow deployment. Lark is common across TikTok-ecosystem and regional SEA businesses.</span></li>
-            <li><b>Deployment &amp; hosting</b><span>Vercel production deployment, self-hosted Node workers, local databases and routing engines.</span></li>
+            <li>
+              <div class="logos" aria-hidden="true">
+                <svg class="lg" viewBox="0 0 24 24"><use href="#l-next"/></svg>
+                <svg class="lg" viewBox="0 0 24 24"><use href="#l-react"/></svg>
+                <svg class="lg" viewBox="0 0 24 24"><use href="#l-ts"/></svg>
+                <svg class="lg" viewBox="0 0 24 24"><use href="#l-supabase"/></svg>
+              </div>
+              <b>Full-stack build</b><span>Next.js, React, TypeScript, Supabase/PostgreSQL. Multi-tenant applications with database-level authorisation and role-based portals.</span>
+            </li>
+            <li>
+              <div class="logos" aria-hidden="true">
+                <svg class="lg" viewBox="0 0 24 24"><use href="#l-appsscript"/></svg>
+              </div>
+              <b>Google Apps Script</b><span>Production automation: scheduled jobs, external API calls, document generation, checkpoint/resume pipelines.</span>
+            </li>
+            <li>
+              <div class="logos" aria-hidden="true">
+                <svg class="lg" viewBox="0 0 24 24"><use href="#l-gsheets"/></svg>
+                <svg class="lg" viewBox="0 0 24 24"><use href="#l-excel"/></svg>
+              </div>
+              <b>Sheets &amp; Excel</b><span>Advanced formulas, cross-sheet logic, pivot tables, complex multi-sheet models. Certified &mdash; Google Cloud.</span>
+            </li>
+            <li>
+              <div class="logos" aria-hidden="true">
+                <svg class="lg" viewBox="0 0 24 24"><use href="#l-chrome"/></svg>
+              </div>
+              <b>Scraping &amp; API integration</b><span>Manifest V3 extensions, reverse-engineered request signing, bulk extraction pipelines.</span>
+            </li>
+            <li>
+              <div class="logos" aria-hidden="true">
+                <svg class="lg" viewBox="0 0 24 24"><use href="#l-gsheets"/></svg>
+                <svg class="lg" viewBox="0 0 24 24"><use href="#l-supabase"/></svg>
+              </div>
+              <b>Reporting &amp; dashboards</b><span>Making operational and commercial numbers visible, accurate and timely, so the people who own them can act.</span>
+            </li>
+            <li>
+              <div class="logos" aria-hidden="true">
+                <svg class="lg" viewBox="0 0 24 24"><use href="#l-claude"/></svg>
+                <span class="lg-text">MCP</span>
+              </div>
+              <b>AI tooling</b><span>Claude Code, LLM APIs, MCP, agent workflows.</span>
+            </li>
+            <li>
+              <div class="logos" aria-hidden="true">
+                <svg class="lg" viewBox="0 0 24 24"><use href="#l-notion"/></svg>
+                <span class="lg-text">Lark</span>
+              </div>
+              <b>Notion, Lark / Feishu</b><span>Workspace architecture, database design, operational workflow deployment. Lark is common across TikTok-ecosystem and regional SEA businesses.</span>
+            </li>
+            <li>
+              <div class="logos" aria-hidden="true">
+                <svg class="lg" viewBox="0 0 24 24"><use href="#l-vercel"/></svg>
+                <svg class="lg" viewBox="0 0 24 24"><use href="#l-node"/></svg>
+              </div>
+              <b>Deployment &amp; hosting</b><span>Vercel production deployment, self-hosted Node workers, local databases and routing engines.</span>
+            </li>
           </ul>
 
-          <div class="todo" style="margin-top:26px">
-            <strong>To confirm</strong>
-            Whether to add the "proven arc" line from <code>background.md</code>:
-            <em>"I can improve the spreadsheets you have today, and I am the person who can rebuild
-            them as a real system when you outgrow them — because I have done exactly that before."</em>
-            It's the strongest single sentence in the source material.
-          </div>
+          <p class="closer">
+            I can improve the spreadsheets you have today, and I am the person who can rebuild them
+            as a real system when you outgrow them &mdash; <em>because I have done exactly that
+            before</em>.
+          </p>
         </div>
       </div>
     </div>
@@ -1545,12 +1716,14 @@ footer a:hover { color: var(--text); }
 
     <dl class="metrics reveal" style="--d:.3s">
       <div class="metric"><dt>Pipeline stages</dt><dd>12</dd></div>
+      <div class="metric"><dt>Columns per campaign</dt><dd>74</dd></div>
       <div class="metric"><dt>Concurrent campaigns</dt><dd>49</dd></div>
       <div class="metric"><dt>Client portals</dt><dd>48</dd></div>
-      <div class="metric"><dt>Linked layers</dt><dd>5</dd></div>
-      <div class="metric"><dt>Contract merge fields</dt><dd>15</dd></div>
+      <div class="metric"><dt>Script modules</dt><dd>5</dd></div>
     </dl>
-    <p class="metrics-note">Every figure countable in the code or configuration.</p>
+    <p class="metrics-note">
+      Every figure countable in the code or configuration, and recounted in the live sheets.
+    </p>
 
     <figure class="figure">
       <svg class="dgm" viewBox="0 0 700 336" role="img" aria-labelledby="ecoT ecoD">
@@ -1617,6 +1790,161 @@ footer a:hover { color: var(--text); }
       </figcaption>
     </figure>
 
+    <div class="block">
+      <h3>The arc &mdash; spreadsheets, then an ERP</h3>
+      <figure class="figure">
+        <svg class="dgm" viewBox="0 0 700 262" role="img" aria-labelledby="arcT arcD">
+          <title id="arcT">What V1 could not express, and how V2 answers it</title>
+          <desc id="arcD">Four limits of the Google Workspace system set against the Creator ERP
+            that replaced each one: tabs become rows in a table, IMPORTRANGE joins become joins the
+            database enforces, access by column omission becomes 240 row-level-security policies,
+            and the six-minute execution ceiling disappears.</desc>
+
+          <text class="dgm-a" x="20" y="24">THE UPGRADE ARC — I BUILT BOTH SIDES OF THIS</text>
+
+          <text class="dgm-n" x="20"  y="48">V1 · GOOGLE WORKSPACE</text>
+          <text class="dgm-n" x="380" y="48">V2 · CREATOR ERP</text>
+
+          <rect class="dgm-box"   x="20"  y="60"  width="290" height="36" rx="2"/>
+          <rect class="dgm-box-a" x="380" y="60"  width="300" height="36" rx="2"/>
+          <text class="dgm-t" x="34"  y="83">105 tabs in one workbook</text>
+          <text class="dgm-t" x="394" y="83">campaigns as rows in a table</text>
+          <line class="dgm-ln-a" x1="316" y1="78" x2="374" y2="78" marker-end="url(#aha)"/>
+
+          <rect class="dgm-box"   x="20"  y="104" width="290" height="36" rx="2"/>
+          <rect class="dgm-box-a" x="380" y="104" width="300" height="36" rx="2"/>
+          <text class="dgm-t" x="34"  y="127">IMPORTRANGE joins</text>
+          <text class="dgm-t" x="394" y="127">joins the database enforces</text>
+          <line class="dgm-ln-a" x1="316" y1="122" x2="374" y2="122" marker-end="url(#aha)"/>
+
+          <rect class="dgm-box"   x="20"  y="148" width="290" height="36" rx="2"/>
+          <rect class="dgm-box-a" x="380" y="148" width="300" height="36" rx="2"/>
+          <text class="dgm-t" x="34"  y="171">access by column omission</text>
+          <text class="dgm-t" x="394" y="171">240 row-level-security policies</text>
+          <line class="dgm-ln-a" x1="316" y1="166" x2="374" y2="166" marker-end="url(#aha)"/>
+
+          <rect class="dgm-box"   x="20"  y="192" width="290" height="36" rx="2"/>
+          <rect class="dgm-box-a" x="380" y="192" width="300" height="36" rx="2"/>
+          <text class="dgm-t" x="34"  y="215">6-minute execution ceiling</text>
+          <text class="dgm-t" x="394" y="215">no execution ceiling</text>
+          <line class="dgm-ln-a" x1="316" y1="210" x2="374" y2="210" marker-end="url(#aha)"/>
+
+          <text class="dgm-a" x="350" y="248" text-anchor="middle">THE LIMITS IT HIT WERE THE PLATFORM'S, NOT THE WORKLOAD'S</text>
+        </svg>
+        <figcaption>
+          <b>I improved what existed, then rebuilt it when it ran out.</b> V1 automated the
+          spreadsheets the agency already used, so nothing had to be migrated and nobody had to be
+          retrained — which is the only reason it was allowed to happen. It ran that way for over a
+          year. Knowing exactly where it stopped is most of what made the ERP right.
+        </figcaption>
+      </figure>
+    </div>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 216" role="img" aria-labelledby="stgT stgD">
+        <title id="stgT">The 12-stage pipeline expressed as horizontal position</title>
+        <desc id="stgD">Twelve workflow stages laid out left to right across columns A to BV. Each
+          stage closes with its own timestamp column — eleven in total. Stages six to ten form a
+          bounded three-round revision loop that runs through the client's own sheet.</desc>
+
+        <text class="dgm-a" x="432" y="22" text-anchor="middle">BOUNDED REVISION LOOP · 3 ROUNDS, THEN IT SHIPS</text>
+        <path class="dgm-ln-a" d="M295 40 L295 30 L570 30 L570 40"/>
+
+        <text class="dgm-n" x="47"  y="50" text-anchor="middle">01</text>
+        <text class="dgm-n" x="102" y="50" text-anchor="middle">02</text>
+        <text class="dgm-n" x="157" y="50" text-anchor="middle">03</text>
+        <text class="dgm-n" x="212" y="50" text-anchor="middle">04</text>
+        <text class="dgm-n" x="267" y="50" text-anchor="middle">05</text>
+        <text class="dgm-a" x="322" y="50" text-anchor="middle">06</text>
+        <text class="dgm-n" x="377" y="50" text-anchor="middle">07</text>
+        <text class="dgm-a" x="432" y="50" text-anchor="middle">08</text>
+        <text class="dgm-n" x="487" y="50" text-anchor="middle">09</text>
+        <text class="dgm-a" x="542" y="50" text-anchor="middle">10</text>
+        <text class="dgm-n" x="597" y="50" text-anchor="middle">11</text>
+        <text class="dgm-n" x="652" y="50" text-anchor="middle">12</text>
+
+        <rect class="dgm-box dgm-dash" x="20"  y="56" width="54" height="60" rx="2"/>
+        <rect class="dgm-box"          x="75"  y="56" width="54" height="60"/>
+        <rect class="dgm-box"          x="130" y="56" width="54" height="60"/>
+        <rect class="dgm-box"          x="185" y="56" width="54" height="60"/>
+        <rect class="dgm-box"          x="240" y="56" width="54" height="60"/>
+        <rect class="dgm-box-a"        x="295" y="56" width="54" height="60"/>
+        <rect class="dgm-box"          x="350" y="56" width="54" height="60"/>
+        <rect class="dgm-box-a"        x="405" y="56" width="54" height="60"/>
+        <rect class="dgm-box"          x="460" y="56" width="54" height="60"/>
+        <rect class="dgm-box-a"        x="515" y="56" width="54" height="60"/>
+        <rect class="dgm-box"          x="570" y="56" width="54" height="60"/>
+        <rect class="dgm-box dgm-dash" x="625" y="56" width="54" height="60" rx="2"/>
+
+        <text class="dgm-s" x="47"  y="78" text-anchor="middle">Source</text>
+        <text class="dgm-s" x="102" y="78" text-anchor="middle">Confirm</text>
+        <text class="dgm-s" x="157" y="78" text-anchor="middle">Contract</text>
+        <text class="dgm-s" x="212" y="78" text-anchor="middle">Sample</text>
+        <text class="dgm-s" x="267" y="78" text-anchor="middle">Draft</text>
+        <text class="dgm-a" x="322" y="78" text-anchor="middle">Brand 1</text>
+        <text class="dgm-s" x="377" y="78" text-anchor="middle">Revise</text>
+        <text class="dgm-a" x="432" y="78" text-anchor="middle">Brand 2</text>
+        <text class="dgm-s" x="487" y="78" text-anchor="middle">Revise</text>
+        <text class="dgm-a" x="542" y="78" text-anchor="middle">Brand 3</text>
+        <text class="dgm-s" x="597" y="78" text-anchor="middle">Live</text>
+        <text class="dgm-s" x="652" y="78" text-anchor="middle">Metrics</text>
+
+        <text class="dgm-t" x="47"  y="100" text-anchor="middle">A&rarr;W</text>
+        <text class="dgm-t" x="102" y="100" text-anchor="middle">Y&rarr;Z</text>
+        <text class="dgm-t" x="157" y="100" text-anchor="middle">AB&rarr;AM</text>
+        <text class="dgm-t" x="212" y="100" text-anchor="middle">AO&rarr;AR</text>
+        <text class="dgm-t" x="267" y="100" text-anchor="middle">AT&rarr;AU</text>
+        <text class="dgm-t" x="322" y="100" text-anchor="middle">AW</text>
+        <text class="dgm-t" x="377" y="100" text-anchor="middle">AY&rarr;AZ</text>
+        <text class="dgm-t" x="432" y="100" text-anchor="middle">BB</text>
+        <text class="dgm-t" x="487" y="100" text-anchor="middle">BD&rarr;BE</text>
+        <text class="dgm-t" x="542" y="100" text-anchor="middle">BG</text>
+        <text class="dgm-t" x="597" y="100" text-anchor="middle">BI&rarr;BJ</text>
+        <text class="dgm-t" x="652" y="100" text-anchor="middle">BN&rarr;BV</text>
+
+        <path class="dgm-ln-a" d="M74 118 L74 126 M129 118 L129 126 M184 118 L184 126 M239 118 L239 126 M294 118 L294 126 M349 118 L349 126 M404 118 L404 126 M459 118 L459 126 M514 118 L514 126 M569 118 L569 126 M624 118 L624 126"/>
+        <text class="dgm-a" x="20" y="142">11 TIMESTAMP COLUMNS — ONE PER STAGE BOUNDARY</text>
+
+        <line class="dgm-ln dgm-dash" x1="20" y1="164" x2="680" y2="164"/>
+        <text class="dgm-n" x="20"  y="180">COLUMN A</text>
+        <text class="dgm-n" x="680" y="180" text-anchor="end">COLUMN BV</text>
+        <text class="dgm-n" x="350" y="180" text-anchor="middle">PROGRESS IS HOW FAR RIGHT THE ROW HAS BEEN FILLED</text>
+
+        <rect class="dgm-box"          x="20"  y="196" width="14" height="10"/>
+        <text class="dgm-n" x="40"  y="205">INTERNAL TEAM</text>
+        <rect class="dgm-box-a"        x="170" y="196" width="14" height="10"/>
+        <text class="dgm-n" x="190" y="205">CLIENT WRITES HERE</text>
+        <rect class="dgm-box dgm-dash" x="360" y="196" width="14" height="10"/>
+        <text class="dgm-n" x="380" y="205">AUTOMATED / IMPORTED</text>
+      </svg>
+      <figcaption>
+        <b>The workflow is the column layout.</b> There is no status field and no project-management
+        tool — a deal's stage is how far right its row has been filled. Because every boundary
+        carries a timestamp, cycle time per stage is a subtraction. Stages 6–10 are capped at three
+        rounds by the layout itself, so a client who burns revisions shows up in the data.
+      </figcaption>
+    </figure>
+
+    <figure class="shot">
+      <div class="shot-empty">
+        <p class="eyebrow">Figure 03 &mdash; awaiting capture</p>
+        <p>The 12-stage pipeline sheet, or a client-facing portal showing the projected column
+        subset. Rates and banking columns must not appear &mdash; they're structurally absent anyway.</p>
+      </div>
+    </figure>
+
+    <div class="block">
+      <h3>The problem</h3>
+      <p>
+        One endorsement deal touches four parties who each need a different slice of the same record
+        &mdash; creator, brand client, internal account team, warehouse. Done by hand, one creator's
+        bank details got re-keyed into a contract, a shipping manifest and a payment run. Two
+        constraints shaped everything that followed: creator rates must never reach the client,
+        because that gap is the agency's margin; and there was no budget for infrastructure, so it
+        had to run on the Workspace licence the company already paid for.
+      </p>
+    </div>
+
     <figure class="figure">
       <svg class="dgm" viewBox="0 0 700 272" role="img" aria-labelledby="endT endD">
         <title id="endT">Data isolation by projection</title>
@@ -1673,108 +2001,173 @@ footer a:hover { color: var(--text); }
     </figure>
 
     <div class="block">
-      <h3>The arc &mdash; spreadsheets, then an ERP</h3>
-      <p>
-        The agency already ran on spreadsheets. Rather than propose a rewrite nobody had budget for,
-        I automated the sheets in place &mdash; contract generation, permission setup, metric
-        collection and payment consolidation became scripted actions on the documents the team was
-        already using. Nothing had to be migrated and nobody had to be retrained, which is the only
-        reason it was allowed to happen at all.
-      </p>
-      <p>
-        It ran that way for over a year, and the limits it eventually hit were the platform's, not
-        the workload's. Every new campaign meant another tab &mdash; the roster reached 105.
-        Cross-workbook joins were <code>IMPORTRANGE</code> formulas with no referential integrity
-        behind them. And the only way to express <em>the client may not see this</em> was to omit a
-        column or lock a range: effective, but not auditable, and it does not compose.
-      </p>
-      <p>
-        The Creator ERP is the same domain rebuilt once those became the binding constraint &mdash;
-        campaigns as rows in a table instead of tabs in a workbook, joins the database enforces, and
-        authorisation expressed as 240 row-level-security policies rather than column omission.
-        Knowing precisely where the first system stopped is most of what made the second one right.
-      </p>
-    </div>
-
-    <figure class="shot">
-      <div class="shot-empty">
-        <p class="eyebrow">Figure 03 &mdash; awaiting capture</p>
-        <p>The 12-stage pipeline sheet, or a client-facing portal showing the projected column
-        subset. Rates and banking columns must not appear &mdash; they're structurally absent anyway.</p>
-      </div>
-    </figure>
-
-    <div class="block">
-      <h3>The problem</h3>
-      <p>
-        A single endorsement deal touches four parties who each need a different slice of the same
-        record. The creator supplies identity, address and bank details; the brand client approves
-        talent and reviews video; an internal account team runs the pipeline; and a warehouse ships
-        the physical sample. Coordinated by hand, the same creator's details were re-keyed into a
-        contract, a shipping manifest and a payment run &mdash; three chances to get one bank account
-        number wrong.
-      </p>
-      <p>
-        Two constraints shaped every decision that followed. Creator rates and banking details must
-        never reach the client, because the gap between what the brand pays and what the creator
-        receives is the agency's margin. And there was no budget for infrastructure &mdash; no
-        server, no database, no front-end to host &mdash; so the whole thing had to run on the Google
-        Workspace licence the company already paid for.
-      </p>
-    </div>
-
-    <div class="block">
       <h3>Key decisions</h3>
       <ul class="decisions">
         <li>
           <h4>Data isolation by projection, not permission</h4>
           <p>
-            The master pipeline carries 74 columns, creator rate and banking fields among them. Each
-            brand client gets a live view of their own campaign built by importing a 43-column subset
-            of it, with a four-column write surface for approvals and feedback. The withheld columns
-            are not permission-protected &mdash; they are absent. There is no hidden field to reveal
-            and no sharing setting to get wrong, because a leaked link exposes a document that never
-            contained the data. Permissions fail quietly when someone picks the wrong option;
-            structure cannot fail that way.
+            The withheld columns are not permission-protected &mdash; they are absent. There is no
+            hidden field to reveal and no sharing setting to get wrong, because a leaked link exposes
+            a document that never contained the data. Permissions fail quietly when someone picks the
+            wrong option; a range that was never imported cannot fail that way.
           </p>
         </li>
         <li>
           <h4>Configuration as data</h4>
           <p>
-            The scripts hold almost no constants. Partner spreadsheet IDs, the A1 ranges to import
-            from, mode switches and Docs template IDs all live in cells at the top of the sheets they
-            govern: the logistics workbook stores the pipeline's file ID and four source ranges in
-            the first row of every brand tab, and the pipeline template stores the logistics file ID
-            beside a label reading <code>Logistic ID:</code>. Wiring a new campaign, or repointing an
-            existing feed, is an edit an account manager can make &mdash; it needs neither me nor a
-            deployment. That is why roughly 35&nbsp;KB of script is enough to run a system this size.
+            The scripts hold almost no constants &mdash; partner file IDs, import ranges, mode
+            switches and template IDs all live in cells, as the diagram below shows. Launching a
+            campaign, linking a client or swapping the contract template is a cell edit an account
+            manager can make. That is why roughly 35&nbsp;KB of script runs a system this size.
           </p>
         </li>
         <li>
           <h4>Engineering around a hard platform ceiling</h4>
           <p>
-            Apps Script terminates execution at six minutes, and a full metrics sweep across the
-            roster will always exceed that. The extractor checkpoints at 4.5 minutes, writes its
-            position back to the sheet and schedules a continuation trigger ten minutes out, so a run
-            completes across as many invocations as it needs rather than failing at whatever size
-            first broke it. That position is not hidden state: the control sheet keeps a row per tab
-            marking it processed, still to do, or deliberately skipped, so anyone can open the file
-            and see where the last run stopped. A seven-day freshness check makes re-running harmless,
-            and <code>LockService</code> stops a manual run colliding with the scheduled one.
+            Apps Script terminates execution at six minutes, which a full metrics sweep always
+            exceeds. The extractor checkpoints at 4.5 minutes, persists its position and schedules a
+            continuation trigger ten minutes out, so a run completes across as many invocations as it
+            needs. That position is not hidden state &mdash; the control sheet keeps a row per tab
+            marking it processed, pending or skipped, so a killed run is diagnosable by opening the
+            file. A seven-day freshness check makes re-running harmless, and <code>LockService</code>
+            stops a manual run colliding with the scheduled one.
           </p>
         </li>
         <li>
           <h4>A self-managing lifecycle</h4>
           <p>
-            Tabs enrol themselves in weekly tracking for a six-month window and then drop out, so the
-            job's workload does not grow without bound and nobody has to remember to retire a
-            finished campaign. Sheet protection works the same way &mdash; 12 ranges scoped to four
-            authorised editors, applied in one action instead of range-by-range on every new
-            campaign. Client feedback is capped at three rounds by the layout itself, with a revision
-            counter and an elapsed-days column, so scope creep surfaces as data rather than as an
-            argument. And 11 timestamp columns, one per stage boundary, make hand-off duration a
-            subtraction rather than a reporting exercise.
+            Modules install a trigger when there is work and delete it when the work drains, which is
+            how the project stays under Google's 20-trigger ceiling: the weekly extractor keeps
+            exactly one shared trigger no matter how many tabs enrol. Tabs enrol for a six-month
+            window and then drop out on their own, so nobody has to remember to retire a finished
+            campaign.
           </p>
+        </li>
+      </ul>
+    </div>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 240" role="img" aria-labelledby="cpT cpD">
+        <title id="cpT">Rows 1 to 3 are the control plane</title>
+        <desc id="cpD">In every campaign tab, row 1 holds linked file IDs, row 2 holds live
+          configuration including import range strings, and row 3 holds headers whose text the
+          script reads to decide its own behaviour. Data only ever starts at row 4.</desc>
+
+        <text class="dgm-n" x="20" y="24">ONE CAMPAIGN TAB · THE TOP THREE ROWS ARE CONFIGURATION, NOT DATA</text>
+
+        <text class="dgm-n" x="37" y="62" text-anchor="middle">1</text>
+        <rect class="dgm-box-a" x="54" y="38" width="626" height="40" rx="2"/>
+        <text class="dgm-s" x="68" y="56">STAGE BANNERS + LINKED FILE IDS</text>
+        <text class="dgm-a" x="68" y="71">C1 &rarr; this campaign's brand sheet ID</text>
+
+        <text class="dgm-n" x="37" y="106" text-anchor="middle">2</text>
+        <rect class="dgm-box-a" x="54" y="82" width="626" height="40" rx="2"/>
+        <text class="dgm-s" x="68" y="100">LIVE CONFIGURATION</text>
+        <text class="dgm-a" x="68" y="115">C2 &rarr; sample mode · AL2 &rarr; contract template · col 42 &rarr; J&amp;T file ID · IMPORTRANGE range strings</text>
+
+        <text class="dgm-n" x="37" y="150" text-anchor="middle">3</text>
+        <rect class="dgm-box" x="54" y="126" width="626" height="40" rx="2"/>
+        <text class="dgm-s" x="68" y="144">HEADER ROW — AND THE HEADER TEXT IS ITSELF CONFIG</text>
+        <text class="dgm-a" x="68" y="159">AL3 contains "Contract" &rarr; use Layout 2 · BK3 = "Timestamp" &rarr; enable auto-stamping</text>
+
+        <text class="dgm-n" x="37" y="196" text-anchor="middle">4+</text>
+        <rect class="dgm-box dgm-dash" x="54" y="170" width="626" height="42" rx="2"/>
+        <text class="dgm-s" x="68" y="188">CREATOR DEALS</text>
+        <text class="dgm-s" x="68" y="203">data only ever starts at row 4</text>
+
+        <text class="dgm-n" x="20" y="232">SAME PATTERN AT EVERY LAYER — BRAND SHEET A1 AND J&amp;T A1 BOTH HOLD THE PIPELINE'S FILE ID</text>
+      </svg>
+      <figcaption>
+        <b>The sheet configures itself.</b> A new campaign tab is a copy of a template, and copying
+        it carries its wiring with it. Because the script reads the sheet's own headers to decide
+        behaviour, the configuration is self-documenting to the operator — there is no settings tab
+        to keep in sync and no deployment to run.
+      </figcaption>
+    </figure>
+
+    <div class="block">
+      <h3>The Apps Script layer</h3>
+      <p>
+        Nine files, roughly 35&nbsp;KB, in one container-bound project attached to the pipeline sheet
+        and surfaced through a single <code>Custom</code> menu. Everything else in the ecosystem is
+        native spreadsheet formula &mdash; code is used only where formulas genuinely cannot reach.
+      </p>
+      <div class="spec-wrap">
+        <table class="spec">
+          <thead>
+            <tr><th scope="col">Module</th><th scope="col">What it does</th><th scope="col">Trigger</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sheet Setup</td>
+              <td>Clears and reapplies the full protection map &mdash; 12 ranges scoped to 4 named
+                  editors &mdash; then reads the sample-handling mode from <code>C2</code> to decide
+                  which logistics columns stay editable.</td>
+              <td class="tg">Menu</td>
+            </tr>
+            <tr>
+              <td>Contract</td>
+              <td>Copies a Docs template, merges 15 <code>{{placeholder}}</code> fields, shares it
+                  view-only by link and writes the PDF export URL back into the row. Detects which
+                  of two column layouts the tab uses and adapts.</td>
+              <td class="tg">Menu</td>
+            </tr>
+            <tr>
+              <td>RapidAPI Extractor</td>
+              <td>Weekly TikTok engagement pull for every enrolled tab. Checkpoint/resume across the
+                  6-minute cap, script-level locking, 7-day freshness skip and 6-month auto-expiry
+                  per tab.</td>
+              <td class="tg">Monday, weekly</td>
+            </tr>
+            <tr>
+              <td>Sheet Name Lister</td>
+              <td>Writes the full tab roster to a helper tab, and is also exposed as a
+                  <code>=GET_SHEET_NAMES()</code> custom function that feeds the payment hub's
+                  triage buckets.</td>
+              <td class="tg">Menu / formula</td>
+            </tr>
+            <tr>
+              <td>Unprotect BK</td>
+              <td>One-off migration tool: splits existing protections around a column and re-protects
+                  the neighbours, so a locked column becomes editable across every tab at once.</td>
+              <td class="tg">Editor</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Formula work carrying the load</h3>
+      <ul class="fx">
+        <li>
+          <b>Nine IMPORTRANGE blocks per client sheet</b>
+          <span>Arranged so the four client-writable columns fall in the gaps between them. The
+          campaign tab reads <code>Sheet1!Q3:Q</code>, <code>AB3:AB</code>, <code>AE3:AE</code> and
+          <code>AH3:AH</code> back in; everything else is a live read-only reflection.</span>
+        </li>
+        <li>
+          <b>The security boundary is where each range stops</b>
+          <span><code>G4:T</code> stops before U and V, so creator rates never leave.
+          <code>AE4:AG</code> stops before AH, so banking never leaves. <code>BP4:BV</code> starts
+          after BO, so internal QA state never leaves.</span>
+        </li>
+        <li>
+          <b>Value type as the state machine</b>
+          <span>The contract cell holds a number &mdash; the video quantity &mdash; while pending,
+          and a URL once generated, so no status column is needed. Tick the box and the script flips
+          the type and unticks itself. <code>"Multiple Video"</code> means skip.</span>
+        </li>
+        <li>
+          <b>A custom function feeding the finance layer</b>
+          <span><code>=GET_SHEET_NAMES()</code> generates the ~105-tab roster; two 1/0 flag columns
+          then drive three filtered views &mdash; ignored, payment list, and the remaining work
+          queue. A campaign is classified once and flows to the right list.</span>
+        </li>
+        <li>
+          <b>Computed governance columns</b>
+          <span><code>BL</code> counts revisions and <code>BM</code> computes elapsed days, which is
+          what makes the three-round review cap enforceable rather than aspirational.</span>
         </li>
       </ul>
     </div>
@@ -1783,34 +2176,32 @@ footer a:hover { color: var(--text); }
       <summary>Deeper technical detail</summary>
       <div class="deeper-body">
         <p>
-          <b>Five layers, one join point.</b> A creator CRM holds the talent master &mdash; identity,
-          banking, tier, category, audience split, and ten paired columns recording which brands each
-          creator has already worked with and what each of those produced. The campaign pipeline is
-          the hub every other layer joins to. A logistics workbook mirrors the shipping columns for
-          the courier partner. A control workbook drives the batch jobs and payment runs. Client
-          portals project from the pipeline. Nothing integrates with anything except the hub, which
-          is what kept the number of connections linear as campaigns accumulated.
+          <b>One template, three commercial arrangements.</b> A dropdown in <code>C2</code>
+          reconfigures the entire logistics section of a campaign: product-only, full fulfilment with
+          tracking flowing in from the courier sheet, or no physical sample at all. Across the 49
+          live tabs, 42 run content-only and 7 run full fulfilment. The same tab template serves all
+          three &mdash; the mode decides which columns the protection map leaves editable.
         </p>
         <p>
-          <b>Built for the team that uses it.</b> Every column header is written in Chinese and
-          English, because the account team is. The workbooks are owned by four separate accounts
-          across business development, operations, logistics and me &mdash; this was never a personal
-          spreadsheet that grew, it crosses department boundaries and had to keep working when people
-          changed roles.
+          <b>Stage 12 exists because of a gap in someone else's export.</b> Video ID, GMV, View and
+          Like arrive from the TikTok affiliate report. Comment, Share and Collect are not in that
+          export, which is the entire reason the RapidAPI module exists &mdash; it fills exactly
+          that three-column gap and nothing more.
         </p>
         <p>
-          <b>Integrations and generated artefacts.</b> Engagement metrics via RapidAPI, affiliate GMV
-          via TapReport exports, creator analytics from FastMoss and Kalodata, a Make.com webhook, and
-          the courier's own workspace. Contracts are produced from a Docs template with 15 merge
-          fields, shared view-only by link, and the resulting PDF URL written back to the creator's
-          row. Payment consolidation reduces a 105-tab roster to three triage buckets and one
-          bank-ready payout list.
+          <b>Built for the team that uses it.</b> Every operational header is Chinese and English in
+          one cell, because one roster serves a Malaysian operations team, Chinese-speaking brand
+          partners and a warehouse without a translation step. Campaign state is encoded in the tab
+          name itself &mdash; <code>(on process)</code>, <code>(HOLD)</code>, <code>(Finish)</code>
+          &mdash; so the roster reads as a portfolio view with no extra column and no extra tooling.
+          The creator CRM carries ten paired columns recording which brands each creator has already
+          worked with and what each of those produced.
         </p>
         <p>
-          <b>Longevity.</b> The workbooks were created between December 2024 and June 2025 and were
-          all still being edited nineteen months later. This is a system in continuous production use
-          rather than a prototype &mdash; which is also why its limits were worth taking seriously
-          enough to rebuild against.
+          <b>Longevity.</b> Four workbooks across four accounts in three departments plus my own,
+          created between December 2024 and June 2025 and all still being edited nineteen months
+          later. It crosses department boundaries and kept working as people changed roles &mdash;
+          which is also why its limits were worth taking seriously enough to rebuild against.
         </p>
       </div>
     </details>
