@@ -1865,17 +1865,49 @@ footer a:hover { color: var(--text); }
     <div class="block">
       <h3>Areas of the system</h3>
       <p>
-        Eight areas of the ERP, each with its own page. The first covers how one role string decides
-        both what a person sees and what the database hands back.
+        Eight areas, each with its own page &mdash; a diagram of the mechanism first, the running
+        screen behind a toggle.
       </p>
       <ul class="deploys">
         <li>
+          <h4><a href="#erp-platforms">Multiple platform</a></h4>
+          <p class="dep-meta">6 platforms &middot; 3 audiences &middot; one schema</p>
+          <p>Six front doors onto one codebase, with a route guard rather than a hidden menu.</p>
+        </li>
+        <li>
           <h4><a href="#erp-roles">User &amp; Role</a></h4>
-          <p class="dep-meta">5 role groups &middot; 6 platforms &middot; 240 RLS policies</p>
-          <p>
-            One sign-in, five role groups, and a scope enforced in the database rather than
-            suggested by the interface.
-          </p>
+          <p class="dep-meta">5 role groups &middot; 240 RLS policies</p>
+          <p>One sign-in, and a scope the database enforces rather than the interface suggests.</p>
+        </li>
+        <li>
+          <h4><a href="#erp-country">Multiple country</a></h4>
+          <p class="dep-meta">ID &middot; MY &middot; VN &middot; 5 rules per market</p>
+          <p>One switch moves the workspace; country selects currency, tax and paperwork.</p>
+        </li>
+        <li>
+          <h4><a href="#erp-endorse">Endorsement pipeline</a></h4>
+          <p class="dep-meta">Develop platform &middot; 8 stages &middot; no AI</p>
+          <p>The Indonesian pipeline as it runs today, from proposal to verified post.</p>
+        </li>
+        <li>
+          <h4><a href="#erp-agentic">Agentic journey</a></h4>
+          <p class="dep-meta">Develop platform &middot; retired, preserved</p>
+          <p>The same eight stages run by an agent, and the confidence gate that escalated.</p>
+        </li>
+        <li>
+          <h4><a href="#erp-contract">Contract</a></h4>
+          <p class="dep-meta">auto-generated &middot; Rp 5M threshold</p>
+          <p>Documents that assemble themselves, with the withholding computed at build time.</p>
+        </li>
+        <li>
+          <h4><a href="#erp-extractor">Extractor</a></h4>
+          <p class="dep-meta">2 sources &middot; queued &middot; failures counted</p>
+          <p>Metrics pulled on a queue instead of read off a dashboard and retyped.</p>
+        </li>
+        <li>
+          <h4><a href="#erp-creators">Creator profile</a></h4>
+          <p class="dep-meta">shared pool &middot; category &middot; level &middot; tier</p>
+          <p>The talent CRM, and the tier field that reaches forward into the contract path.</p>
         </li>
       </ul>
     </div>
@@ -1888,12 +1920,169 @@ footer a:hover { color: var(--text); }
 </section>
 
 
+<!-- ═══════════════ VIEW · ERP AREA · MULTIPLE PLATFORM ═══════════════ -->
+<section class="view" id="view-erp-platforms" aria-label="Creator ERP — Multiple platform">
+  <div class="wrap">
+    <div class="proj-head">
+      <a class="back reveal" style="--d:.02s" href="#creator-erp">&larr; Creator ERP</a>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">01</span> &nbsp;&middot;&nbsp; ERP area</p>
+      <h1 class="reveal" style="--d:.1s" tabindex="-1">Multiple platform</h1>
+      <p class="proj-purpose reveal" style="--d:.16s">
+        Six platforms run off one codebase and one database. The masthead re-brands, the navigation
+        changes and the reachable data narrows &mdash; but nothing underneath is duplicated.
+      </p>
+      <ul class="stack reveal" style="--d:.24s">
+        <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-blocks"/></svg>6 platforms</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-next"/></svg>one Next.js app</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-supabase"/></svg>one schema</li>
+        <li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-route"/></svg>proxy.ts guard</li>
+      </ul>
+    </div>
+
+    <h2 class="sec-h" id="pf-s1"><span class="sec-n">01</span> Six front doors, one building</h2>
+    <p class="sec-lede">Six platforms serve three different audiences off a single codebase and a
+    single schema.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 244" role="img" aria-labelledby="pfaT pfaD">
+        <title id="pfaT">Six platforms grouped by who is on the other side</title>
+        <desc id="pfaD">The six platforms fall into three audiences. ERP and PIC serve internal
+          operators, Client and Creator serve external parties, and Develop and Legal serve
+          oversight. All six are served by one application and one database schema.</desc>
+
+        <text class="dgm-n" x="20"  y="16">INTERNAL</text>
+        <text class="dgm-n" x="250" y="16">EXTERNAL</text>
+        <text class="dgm-n" x="480" y="16">OVERSIGHT</text>
+
+        <rect class="dgm-box" x="20"  y="26" width="200" height="44" rx="2"/>
+        <text class="dgm-t" x="34"  y="47">ERP</text>
+        <text class="dgm-s" x="34"  y="62">operators, full scope</text>
+
+        <rect class="dgm-box" x="20"  y="78" width="200" height="44" rx="2"/>
+        <text class="dgm-t" x="34"  y="99">PIC</text>
+        <text class="dgm-s" x="34"  y="114">assigned projects</text>
+
+        <rect class="dgm-box" x="250" y="26" width="200" height="44" rx="2"/>
+        <text class="dgm-t" x="264" y="47">Client</text>
+        <text class="dgm-s" x="264" y="62">their campaign only</text>
+
+        <rect class="dgm-box" x="250" y="78" width="200" height="44" rx="2"/>
+        <text class="dgm-t" x="264" y="99">Creator</text>
+        <text class="dgm-s" x="264" y="114">tokenised, no login</text>
+
+        <rect class="dgm-box" x="480" y="26" width="200" height="44" rx="2"/>
+        <text class="dgm-t" x="494" y="47">Develop</text>
+        <text class="dgm-s" x="494" y="62">progress, bilingual</text>
+
+        <rect class="dgm-box" x="480" y="78" width="200" height="44" rx="2"/>
+        <text class="dgm-t" x="494" y="99">Legal</text>
+        <text class="dgm-s" x="494" y="114">contracts only</text>
+
+        <line class="dgm-ln" x1="120" y1="122" x2="120" y2="150"/>
+        <line class="dgm-ln" x1="350" y1="122" x2="350" y2="150"/>
+        <line class="dgm-ln" x1="580" y1="122" x2="580" y2="150"/>
+        <line class="dgm-ln" x1="120" y1="150" x2="580" y2="150"/>
+        <line class="dgm-ln-a" x1="350" y1="150" x2="350" y2="172" marker-end="url(#aha)"/>
+
+        <rect class="dgm-box-a" x="20" y="174" width="660" height="46" rx="3"/>
+        <text class="dgm-t" x="350" y="195" text-anchor="middle">One Next.js app &middot; one PostgreSQL schema</text>
+        <text class="dgm-s" x="350" y="211" text-anchor="middle">NOTHING BELOW THIS LINE IS DUPLICATED PER PLATFORM</text>
+
+        <text class="dgm-n" x="350" y="238" text-anchor="middle">SIX FRONT DOORS, NOT SIX SYSTEMS</text>
+      </svg>
+      <figcaption>
+        <b>Six doors, one building.</b> The platform changes what you meet at the entrance, not what
+        is stored inside.
+      </figcaption>
+    </figure>
+
+    <h2 class="sec-h" id="pf-s2"><span class="sec-n">02</span> The switcher is not the boundary</h2>
+    <p class="sec-lede">Typing another platform's URL does not open it &mdash; the route guard sends
+    you back to your own.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 212" role="img" aria-labelledby="pfgT pfgD">
+        <title id="pfgT">A route guard, not a hidden menu</title>
+        <desc id="pfgD">A person holding a PIC session who requests the client platform is stopped
+          by the route guard in proxy.ts and redirected back to their own platform. Hiding the
+          switcher is presentation; the guard is what actually enforces the boundary.</desc>
+
+        <text class="dgm-n" x="20" y="18">THE SWITCHER IS ONLY HIDDEN &mdash; THIS IS WHAT STOPS YOU</text>
+
+        <rect class="dgm-box" x="20" y="88" width="140" height="48" rx="2"/>
+        <text class="dgm-t" x="34" y="110">PIC session</text>
+        <text class="dgm-s" x="34" y="126">no switcher shown</text>
+
+        <line class="dgm-ln" x1="162" y1="112" x2="186" y2="112" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box" x="190" y="88" width="150" height="48" rx="2"/>
+        <text class="dgm-t" x="204" y="110">GET /client</text>
+        <text class="dgm-s" x="204" y="126">typed by hand</text>
+
+        <line class="dgm-ln" x1="342" y1="112" x2="366" y2="112" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box-a" x="370" y="84" width="160" height="56" rx="3"/>
+        <text class="dgm-t" x="384" y="108">Route guard</text>
+        <text class="dgm-s" x="384" y="124">proxy.ts, server side</text>
+
+        <line class="dgm-ln-a" x1="532" y1="112" x2="556" y2="112" marker-end="url(#aha)"/>
+
+        <rect class="dgm-box" x="560" y="88" width="120" height="48" rx="2"/>
+        <text class="dgm-t" x="574" y="110">Sent back</text>
+        <text class="dgm-s" x="574" y="126">to /pic</text>
+
+        <text class="dgm-n" x="350" y="192" text-anchor="middle">A HIDDEN LINK IS PRESENTATION &mdash; THE GUARD IS THE RULE</text>
+      </svg>
+      <figcaption>
+        <b>Hiding is not securing.</b> The missing switcher is cosmetic; the redirect is the part
+        that holds.
+      </figcaption>
+    </figure>
+
+    <details class="layer2">
+      <summary>The same app, wearing a different platform</summary>
+      <div class="layer2-body">
+        <figure class="shot">
+          <div class="shot-frame">
+            <div class="shot-bar"><i></i><i></i><i></i><span>erp-id.vercel.app/pic</span></div>
+            <img src="shots/erp-pic-portal.webp" width="1440" height="300" alt="The PIC platform: the masthead badge reads PIC PORTAL instead of Creator ERP, with the PIC entry highlighted in the platform row.">
+          </div>
+          <figcaption>PIC Portal &middot; Creator ERP (Indonesia) &mdash; test project</figcaption>
+        </figure>
+        <div class="block">
+          <p>
+            The badge beside the mark reads <em>PIC Portal</em> rather than <em>ERP</em>, and the
+            active platform moves along the row. It is the same deployment, the same session and the
+            same database &mdash; only the frame around them changes.
+          </p>
+          <p>
+            Six platforms could easily have become six applications, each with its own deploy, its
+            own drift and its own copy of the schema. Keeping them as one means a change to how a
+            project is modelled lands everywhere at once, and there is no version of the truth that
+            belongs to only one audience.
+          </p>
+          <p>
+            The cost of that choice is that the boundaries have to be real. If the platforms were
+            separate applications, a mistake would leak within one audience; because they share a
+            database, a mistake would leak across all of them. That is the reason authorisation sits
+            in the data layer rather than in the pages.
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <nav class="pager" aria-label="Area navigation">
+      <a href="#creator-erp">&larr; Creator ERP</a>
+      <a href="#erp-roles">User &amp; Role &rarr;</a>
+    </nav>
+  </div>
+</section>
+
+
 <!-- ═══════════════ VIEW · ERP AREA · USER & ROLE ═══════════════ -->
 <section class="view" id="view-erp-roles" aria-label="Creator ERP — User and role">
   <div class="wrap">
     <div class="proj-head">
       <a class="back reveal" style="--d:.02s" href="#creator-erp">&larr; Creator ERP</a>
-      <p class="eyebrow reveal" style="--d:.06s"><span class="num">01</span> &nbsp;&middot;&nbsp; ERP area</p>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">02</span> &nbsp;&middot;&nbsp; ERP area</p>
       <h1 class="reveal" style="--d:.1s" tabindex="-1">User &amp; Role</h1>
       <p class="proj-purpose reveal" style="--d:.16s">
         Five role groups share one sign-in and land in five different places. Which platform a person
@@ -2059,7 +2248,908 @@ footer a:hover { color: var(--text); }
     </details>
 
     <nav class="pager" aria-label="Area navigation">
-      <a href="#creator-erp">&larr; Creator ERP</a>
+      <a href="#erp-platforms">&larr; Multiple platform</a>
+      <a href="#erp-country">Multiple country &rarr;</a>
+    </nav>
+  </div>
+</section>
+
+
+<!-- ═══════════════ VIEW · ERP AREA · MULTIPLE COUNTRY ═══════════════ -->
+<section class="view" id="view-erp-country" aria-label="Creator ERP — Multiple country">
+  <div class="wrap">
+    <div class="proj-head">
+      <a class="back reveal" style="--d:.02s" href="#creator-erp">&larr; Creator ERP</a>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">03</span> &nbsp;&middot;&nbsp; ERP area</p>
+      <h1 class="reveal" style="--d:.1s" tabindex="-1">Multiple country</h1>
+      <p class="proj-purpose reveal" style="--d:.16s">
+        One control moves the whole workspace between three markets. Country is modelled as a
+        dimension of the data, not as a copy of the application per market.
+      </p>
+      <ul class="stack reveal" style="--d:.24s">
+        <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-globe"/></svg>ID &middot; MY &middot; VN</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-config"/></svg>lib/country/types.ts</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-check"/></svg>PPh21 computed</li>
+      </ul>
+    </div>
+
+    <h2 class="sec-h" id="cy-s1"><span class="sec-n">01</span> One switch, three markets</h2>
+    <p class="sec-lede">One control moves the whole workspace between Indonesia, Malaysia and
+    Vietnam.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 212" role="img" aria-labelledby="cy1T cy1D">
+        <title id="cy1T">One switch selects the active market</title>
+        <desc id="cy1D">A single country control selects between Indonesia, Malaysia and Vietnam.
+          Each market carries its own currency, statutory withholding rule and contract paperwork,
+          while running on the same application.</desc>
+
+        <text class="dgm-n" x="20" y="16">ONE CONTROL IN THE MASTHEAD</text>
+
+        <rect class="dgm-box-a" x="20" y="76" width="170" height="48" rx="3"/>
+        <text class="dgm-t" x="34" y="98">Country switch</text>
+        <text class="dgm-s" x="34" y="114">active market</text>
+
+        <line class="dgm-ln-a" x1="192" y1="100" x2="230" y2="100"/>
+        <line class="dgm-ln-a" x1="230" y1="40"  x2="230" y2="160"/>
+        <line class="dgm-ln-a" x1="230" y1="40"  x2="276" y2="40"  marker-end="url(#aha)"/>
+        <line class="dgm-ln-a" x1="230" y1="100" x2="276" y2="100" marker-end="url(#aha)"/>
+        <line class="dgm-ln-a" x1="230" y1="160" x2="276" y2="160" marker-end="url(#aha)"/>
+
+        <rect class="dgm-box" x="280" y="16" width="400" height="48" rx="2"/>
+        <text class="dgm-t" x="294" y="38">Indonesia</text>
+        <text class="dgm-s" x="294" y="54">IDR &middot; PPh21 withheld &middot; KOL agreement</text>
+
+        <rect class="dgm-box" x="280" y="76" width="400" height="48" rx="2"/>
+        <text class="dgm-t" x="294" y="98">Malaysia</text>
+        <text class="dgm-s" x="294" y="114">MYR &middot; own template &middot; own numbering</text>
+
+        <rect class="dgm-box" x="280" y="136" width="400" height="48" rx="2"/>
+        <text class="dgm-t" x="294" y="158">Vietnam</text>
+        <text class="dgm-s" x="294" y="174">VND &middot; own template &middot; own numbering</text>
+
+        <text class="dgm-n" x="350" y="204" text-anchor="middle">THREE MARKETS, ONE APPLICATION</text>
+      </svg>
+      <figcaption>
+        <b>Three markets, one build.</b> Switching country changes the data in view, not the code
+        being run.
+      </figcaption>
+    </figure>
+
+    <h2 class="sec-h" id="cy-s2"><span class="sec-n">02</span> What country actually decides</h2>
+    <p class="sec-lede">Country is not a label &mdash; it selects currency, tax, paperwork and the
+    numbering sequence.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 226" role="img" aria-labelledby="cy2T cy2D">
+        <title id="cy2T">Five things the country value drives</title>
+        <desc id="cy2D">The country value determines currency and date locale, which banking fields
+          are collected, whether a national identity number is required, which contract template is
+          used, and which numbering sequence a contract draws from.</desc>
+
+        <text class="dgm-n" x="20" y="16">DECLARED IN lib/country/types.ts</text>
+
+        <rect class="dgm-box-a" x="40" y="90" width="180" height="48" rx="3"/>
+        <text class="dgm-t" x="54" y="112">Country</text>
+        <text class="dgm-s" x="54" y="128">ID &middot; MY &middot; VN</text>
+
+        <line class="dgm-ln-a" x1="222" y1="114" x2="300" y2="114"/>
+        <line class="dgm-ln-a" x1="300" y1="42"  x2="300" y2="186"/>
+        <line class="dgm-ln-a" x1="300" y1="42"  x2="338" y2="42"  marker-end="url(#aha)"/>
+        <line class="dgm-ln-a" x1="300" y1="78"  x2="338" y2="78"  marker-end="url(#aha)"/>
+        <line class="dgm-ln-a" x1="300" y1="114" x2="338" y2="114" marker-end="url(#aha)"/>
+        <line class="dgm-ln-a" x1="300" y1="150" x2="338" y2="150" marker-end="url(#aha)"/>
+        <line class="dgm-ln-a" x1="300" y1="186" x2="338" y2="186" marker-end="url(#aha)"/>
+
+        <rect class="dgm-box" x="340" y="26"  width="340" height="32" rx="2"/>
+        <text class="dgm-t" x="354" y="47">currency &amp; date locale</text>
+
+        <rect class="dgm-box" x="340" y="62"  width="340" height="32" rx="2"/>
+        <text class="dgm-t" x="354" y="83">banking fields collected</text>
+
+        <rect class="dgm-box" x="340" y="98"  width="340" height="32" rx="2"/>
+        <text class="dgm-t" x="354" y="119">national-ID requirement</text>
+
+        <rect class="dgm-box" x="340" y="134" width="340" height="32" rx="2"/>
+        <text class="dgm-t" x="354" y="155">contract template</text>
+
+        <rect class="dgm-box" x="340" y="170" width="340" height="32" rx="2"/>
+        <text class="dgm-t" x="354" y="191">contract numbering sequence</text>
+
+        <text class="dgm-n" x="350" y="218" text-anchor="middle">FIVE RULES THAT WOULD OTHERWISE LIVE IN SOMEONE'S HEAD</text>
+      </svg>
+      <figcaption>
+        <b>A dimension, not a label.</b> Each market-specific rule sits in one place where it can
+        be tested.
+      </figcaption>
+    </figure>
+
+    <details class="layer2">
+      <summary>The switch, and why it is not three deployments</summary>
+      <div class="layer2-body">
+        <figure class="shot">
+          <div class="shot-frame">
+            <div class="shot-bar"><i></i><i></i><i></i><span>erp-id.vercel.app/projects</span></div>
+            <img src="shots/erp-country-switch.webp" width="1440" height="300" alt="The country control open in the masthead, listing Indonesia with a tick, Malaysia and Vietnam, each with its national flag.">
+          </div>
+          <figcaption>Country control &middot; Creator ERP (Indonesia) &mdash; test project</figcaption>
+        </figure>
+        <div class="block">
+          <p>
+            Indonesian withholding is the clearest case for computing rather than typing. PPh21 is
+            derived at the moment a document is built, as a fixed percentage of the fee, so the
+            figure on a contract cannot disagree with the fee it was drawn from.
+          </p>
+          <p>
+            Contract numbers are sequenced per country. That removes a manually kept register, and
+            it means two markets issuing paperwork on the same day cannot collide.
+          </p>
+          <p>
+            Worth being precise about the limit: the Indonesian deployment is its own repository,
+            Vercel project and database, separate from the Malaysian one. Country-as-a-dimension is
+            what makes three markets tractable <em>inside</em> a deployment &mdash; it is not a claim
+            that a fourth market costs nothing.
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <nav class="pager" aria-label="Area navigation">
+      <a href="#erp-roles">&larr; User &amp; Role</a>
+      <a href="#erp-endorse">Endorsement pipeline &rarr;</a>
+    </nav>
+  </div>
+</section>
+
+
+<!-- ═══════════════ VIEW · ERP AREA · ENDORSEMENT PIPELINE ═══════════════ -->
+<section class="view" id="view-erp-endorse" aria-label="Creator ERP — Indonesia endorsement pipeline">
+  <div class="wrap">
+    <div class="proj-head">
+      <a class="back reveal" style="--d:.02s" href="#creator-erp">&larr; Creator ERP</a>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">04</span> &nbsp;&middot;&nbsp; ERP area &middot; Develop platform</p>
+      <h1 class="reveal" style="--d:.1s" tabindex="-1">Endorsement pipeline</h1>
+      <p class="proj-purpose reveal" style="--d:.16s">
+        The Indonesian pipeline as it runs today: eight stages from proposal to verified post,
+        messaged by the team, with no AI anywhere in the path.
+      </p>
+      <ul class="stack reveal" style="--d:.24s">
+        <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-board"/></svg>8 stages</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-none"/></svg>no AI in path</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>3 drop-out points</li>
+      </ul>
+    </div>
+
+    <h2 class="sec-h" id="ep-s1"><span class="sec-n">01</span> Eight stages, run by hand</h2>
+    <p class="sec-lede">Eight stages carry a creator from proposal to verified post, messaged by the
+    team throughout.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 186" role="img" aria-labelledby="ep1T ep1D">
+        <title id="ep1T">The eight stages of the endorsement pipeline</title>
+        <desc id="ep1D">A creator moves through eight stages in order: proposed, invite sent,
+          contract, logistics, draft review, URL submission, reporting and verified. The board
+          carries the record and the team does the messaging.</desc>
+
+        <text class="dgm-n" x="20" y="18">EVERY CREATOR CONVERSATION IS HAD BY THE TEAM</text>
+
+        <rect class="dgm-box" x="25"  y="40" width="155" height="44" rx="2"/>
+        <text class="dgm-t" x="37"  y="60">S1 Proposed</text>
+        <text class="dgm-s" x="37"  y="76">added to project</text>
+
+        <line class="dgm-ln" x1="182" y1="62" x2="188" y2="62" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box" x="190" y="40" width="155" height="44" rx="2"/>
+        <text class="dgm-t" x="202" y="60">S2 Invite sent</text>
+        <text class="dgm-s" x="202" y="76">deal terms pitched</text>
+
+        <line class="dgm-ln" x1="347" y1="62" x2="353" y2="62" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box" x="355" y="40" width="155" height="44" rx="2"/>
+        <text class="dgm-t" x="367" y="60">S3 Contract</text>
+        <text class="dgm-s" x="367" y="76">details collected</text>
+
+        <line class="dgm-ln" x1="512" y1="62" x2="518" y2="62" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box" x="520" y="40" width="155" height="44" rx="2"/>
+        <text class="dgm-t" x="532" y="60">S4 Logistics</text>
+        <text class="dgm-s" x="532" y="76">sample shipped</text>
+
+        <path class="dgm-ln dgm-dash" d="M690 62 L694 62 L694 96 L6 96 L6 132 L23 132" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box" x="25"  y="110" width="155" height="44" rx="2"/>
+        <text class="dgm-t" x="37"  y="130">S5 Draft review</text>
+        <text class="dgm-s" x="37"  y="146">team, then client</text>
+
+        <line class="dgm-ln" x1="182" y1="132" x2="188" y2="132" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box" x="190" y="110" width="155" height="44" rx="2"/>
+        <text class="dgm-t" x="202" y="130">S6 URL sent</text>
+        <text class="dgm-s" x="202" y="146">post goes live</text>
+
+        <line class="dgm-ln" x1="347" y1="132" x2="353" y2="132" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box" x="355" y="110" width="155" height="44" rx="2"/>
+        <text class="dgm-t" x="367" y="130">S7 Reporting</text>
+        <text class="dgm-s" x="367" y="146">figures entered</text>
+
+        <line class="dgm-ln-a" x1="512" y1="132" x2="518" y2="132" marker-end="url(#aha)"/>
+
+        <rect class="dgm-box-a" x="520" y="110" width="155" height="44" rx="3"/>
+        <text class="dgm-t" x="532" y="130">S8 Verified</text>
+        <text class="dgm-s" x="532" y="146">item complete</text>
+
+        <text class="dgm-n" x="350" y="178" text-anchor="middle">THE BOARD HOLDS THE RECORD &mdash; NOTHING IS SENT AUTOMATICALLY</text>
+      </svg>
+      <figcaption>
+        <b>Eight stages, in order.</b> The board is where the record lives; the messaging is done by
+        a person.
+      </figcaption>
+    </figure>
+
+    <h2 class="sec-h" id="ep-s2"><span class="sec-n">02</span> Where a creator leaves</h2>
+    <p class="sec-lede">Three points can end a creator's run, and each is recorded rather than
+    quietly dropped.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 218" role="img" aria-labelledby="ep2T ep2D">
+        <title id="ep2T">Three points where a creator leaves the pipeline</title>
+        <desc id="ep2D">A creator can leave at three decision points: the client declining to select
+          them at stage one, the creator declining or not replying to the invitation, and the
+          contract going unsigned or expiring. Each exit is recorded as a state.</desc>
+
+        <text class="dgm-n" x="20" y="18">THREE PLACES A RUN CAN END</text>
+
+        <rect class="dgm-box" x="20" y="40" width="260" height="44" rx="2"/>
+        <text class="dgm-t" x="34" y="60">Client approves?</text>
+        <text class="dgm-s" x="34" y="76">stage 1 shortlist</text>
+
+        <line class="dgm-ln-a" x1="282" y1="62" x2="316" y2="62" marker-end="url(#aha)"/>
+        <text class="dgm-a" x="288" y="56">NO</text>
+
+        <rect class="dgm-box-a" x="320" y="40" width="280" height="44" rx="3"/>
+        <text class="dgm-t" x="334" y="60">Not selected</text>
+        <text class="dgm-s" x="334" y="76">S1 cancelled</text>
+
+        <rect class="dgm-box" x="20" y="98" width="260" height="44" rx="2"/>
+        <text class="dgm-t" x="34" y="118">Creator accepts?</text>
+        <text class="dgm-s" x="34" y="134">after the invite</text>
+
+        <line class="dgm-ln-a" x1="282" y1="120" x2="316" y2="120" marker-end="url(#aha)"/>
+        <text class="dgm-a" x="288" y="114">NO</text>
+
+        <rect class="dgm-box-a" x="320" y="98" width="280" height="44" rx="3"/>
+        <text class="dgm-t" x="334" y="118">Declines or no reply</text>
+        <text class="dgm-s" x="334" y="134">recorded, not deleted</text>
+
+        <rect class="dgm-box" x="20" y="156" width="260" height="44" rx="2"/>
+        <text class="dgm-t" x="34" y="176">Signed?</text>
+        <text class="dgm-s" x="34" y="192">contract issued</text>
+
+        <line class="dgm-ln-a" x1="282" y1="178" x2="316" y2="178" marker-end="url(#aha)"/>
+        <text class="dgm-a" x="288" y="172">NO</text>
+
+        <rect class="dgm-box-a" x="320" y="156" width="280" height="44" rx="3"/>
+        <text class="dgm-t" x="334" y="176">Declines or expires</text>
+        <text class="dgm-s" x="334" y="192">slot freed</text>
+
+        <text class="dgm-n" x="350" y="212" text-anchor="middle">AN EXIT IS A STATE, NOT A MISSING ROW</text>
+      </svg>
+      <figcaption>
+        <b>Exits are recorded.</b> A creator who declines leaves a state behind, not a gap in the
+        board.
+      </figcaption>
+    </figure>
+
+    <details class="layer2">
+      <summary>The full flowchart, as the team reads it</summary>
+      <div class="layer2-body">
+        <figure class="shot">
+          <div class="shot-frame">
+            <div class="shot-bar"><i></i><i></i><i></i><span>erp-id.vercel.app/develop/endorse-flow/indonesia</span></div>
+            <img src="shots/erp-endorse-flow.webp" width="1165" height="4313" alt="The full endorsement pipeline flowchart: a legend of actors down the left, and a long vertical chain of eight stages with decision diamonds, drop-out nodes and branch paths.">
+          </div>
+          <figcaption>Endorsement pipeline &middot; Develop platform &mdash; Indonesia</figcaption>
+        </figure>
+        <div class="block">
+          <p>
+            The published flowchart colours every node by who acts: the team, the creator, the
+            client, the legal function, or deterministic code with no AI in it. Reading it, you can
+            tell at a glance how much of the pipeline is a person and how much is the system.
+          </p>
+          <p>
+            Two things are tighter here than on the AI version. The shipment reveals itself to the
+            client the moment a contract is verified, with no click to forget. And at posting, the
+            creator submits the post link and ad code through the same upload link they already
+            have, rather than being sent somewhere new.
+          </p>
+          <p>
+            This diagram lives inside the product rather than in a document. It is written for the
+            operations team and their client, which is why it reads as steps and refusals rather
+            than as architecture &mdash; and why the same page carries Malaysia and Vietnam variants
+            behind their own tabs.
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <nav class="pager" aria-label="Area navigation">
+      <a href="#erp-country">&larr; Multiple country</a>
+      <a href="#erp-agentic">Agentic journey &rarr;</a>
+    </nav>
+  </div>
+</section>
+
+
+<!-- ═══════════════ VIEW · ERP AREA · AGENTIC JOURNEY ═══════════════ -->
+<section class="view" id="view-erp-agentic" aria-label="Creator ERP — Agentic journey">
+  <div class="wrap">
+    <div class="proj-head">
+      <a class="back reveal" style="--d:.02s" href="#creator-erp">&larr; Creator ERP</a>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">05</span> &nbsp;&middot;&nbsp; ERP area &middot; Develop platform</p>
+      <h1 class="reveal" style="--d:.1s" tabindex="-1">Agentic journey</h1>
+      <p class="proj-purpose reveal" style="--d:.16s">
+        The retired agent, kept as reference. It ran the identical eight stages &mdash; what differed
+        was who held the conversation, and what happened when the model was unsure.
+      </p>
+      <ul class="stack reveal" style="--d:.24s">
+        <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gemini"/></svg>LLM-driven</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-none"/></svg>retired, preserved</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>confidence gate</li>
+      </ul>
+    </div>
+
+    <h2 class="sec-h" id="ag-s1"><span class="sec-n">01</span> The same eight stages</h2>
+    <p class="sec-lede">The agent changed who did the messaging, not the shape of the pipeline
+    underneath it.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 218" role="img" aria-labelledby="ag1T ag1D">
+        <title id="ag1T">Hand-run and agent-run, side by side</title>
+        <desc id="ag1D">Both versions of the pipeline run the same eight stages on the same board.
+          In the hand-run version a team member sends every message and advances the board. In the
+          retired agent version the model sent the messages and advanced on clear replies.</desc>
+
+        <text class="dgm-n" x="20"  y="18">RUNNING TODAY</text>
+        <text class="dgm-n" x="360" y="18">RETIRED &mdash; KEPT AS REFERENCE</text>
+
+        <rect class="dgm-box" x="20" y="28" width="320" height="48" rx="2"/>
+        <text class="dgm-t" x="34" y="50">Team sends every message</text>
+        <text class="dgm-s" x="34" y="66">own WhatsApp, DM or call</text>
+
+        <rect class="dgm-box-a" x="360" y="28" width="320" height="48" rx="3"/>
+        <text class="dgm-t" x="374" y="50">Agent sends every message</text>
+        <text class="dgm-s" x="374" y="66">LLM over a WhatsApp worker</text>
+
+        <rect class="dgm-box" x="20" y="86" width="320" height="48" rx="2"/>
+        <text class="dgm-t" x="34" y="108">Advanced by hand</text>
+        <text class="dgm-s" x="34" y="124">a person marks the stage</text>
+
+        <rect class="dgm-box-a" x="360" y="86" width="320" height="48" rx="3"/>
+        <text class="dgm-t" x="374" y="108">Auto-advanced</text>
+        <text class="dgm-s" x="374" y="124">on a clear enough reply</text>
+
+        <line class="dgm-ln" x1="180" y1="134" x2="180" y2="156"/>
+        <line class="dgm-ln" x1="520" y1="134" x2="520" y2="156"/>
+        <line class="dgm-ln" x1="180" y1="156" x2="520" y2="156"/>
+        <line class="dgm-ln" x1="350" y1="156" x2="350" y2="170" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box" x="20" y="172" width="660" height="42" rx="2"/>
+        <text class="dgm-t" x="350" y="192" text-anchor="middle">The same eight stages, on the same board</text>
+        <text class="dgm-s" x="350" y="207" text-anchor="middle">RETIRING THE AGENT DID NOT REQUIRE A DATABASE MIGRATION</text>
+      </svg>
+      <figcaption>
+        <b>Same pipeline, different hands.</b> Because the stages never moved, the agent could be
+        removed cleanly.
+      </figcaption>
+    </figure>
+
+    <h2 class="sec-h" id="ag-s2"><span class="sec-n">02</span> The confidence gate</h2>
+    <p class="sec-lede">When the model was unsure it escalated to a human control group rather than
+    guessing.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 214" role="img" aria-labelledby="ag2T ag2D">
+        <title id="ag2T">Unsure replies escalated instead of advancing</title>
+        <desc id="ag2D">After a creator replied, the agent judged its own confidence. A clear reply
+          advanced the pipeline to the contract stage. An unclear one was handed to a WhatsApp
+          control group where an operator picked it up.</desc>
+
+        <text class="dgm-n" x="20" y="18">THE MODEL WAS ALLOWED TO SAY IT DID NOT KNOW</text>
+
+        <rect class="dgm-box" x="20" y="88" width="150" height="48" rx="2"/>
+        <text class="dgm-t" x="34" y="110">Creator replies</text>
+        <text class="dgm-s" x="34" y="126">free text</text>
+
+        <line class="dgm-ln" x1="172" y1="112" x2="196" y2="112" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box-a" x="200" y="84" width="170" height="56" rx="3"/>
+        <text class="dgm-t" x="214" y="108">AI confidence?</text>
+        <text class="dgm-s" x="214" y="124">judged per reply</text>
+
+        <path class="dgm-ln-a" d="M372 100 L400 100 L400 50 L426 50" marker-end="url(#aha)"/>
+        <text class="dgm-a" x="404" y="44">UNSURE</text>
+
+        <path class="dgm-ln" d="M372 124 L400 124 L400 172 L426 172" marker-end="url(#ah)"/>
+        <text class="dgm-n" x="404" y="166">CLEAR</text>
+
+        <rect class="dgm-box-a" x="430" y="28" width="250" height="46" rx="3"/>
+        <text class="dgm-t" x="444" y="50">Control group &rarr; PIC</text>
+        <text class="dgm-s" x="444" y="66">a person takes it over</text>
+
+        <rect class="dgm-box" x="430" y="150" width="250" height="46" rx="2"/>
+        <text class="dgm-t" x="444" y="172">Advance to contract</text>
+        <text class="dgm-s" x="444" y="188">no human touch needed</text>
+
+        <text class="dgm-n" x="350" y="208" text-anchor="middle">ESCALATION WAS THE DEFAULT, NOT THE EXCEPTION HANDLER</text>
+      </svg>
+      <figcaption>
+        <b>Uncertainty had somewhere to go.</b> The escalation path was designed first, not bolted
+        on later.
+      </figcaption>
+    </figure>
+
+    <details class="layer2">
+      <summary>The agent journey, and why it is switched off</summary>
+      <div class="layer2-body">
+        <figure class="shot">
+          <div class="shot-frame">
+            <div class="shot-bar"><i></i><i></i><i></i><span>erp-id.vercel.app/develop/agentic-flow/journey</span></div>
+            <img src="shots/erp-agentic-journey.webp" width="1165" height="4089" alt="The agentic journey page, headed by a retired-reference-only notice, with eight summary cards and a full flowchart in which an AI agent node and a WhatsApp control group appear alongside the team and creator.">
+          </div>
+          <figcaption>Agentic journey &middot; Develop platform &mdash; retired, kept as reference</figcaption>
+        </figure>
+        <div class="block">
+          <p>
+            The page opens by saying plainly that none of it is running. That notice matters more
+            than it looks: a preserved design that does not announce its own status is how a team
+            ends up describing a system it no longer has.
+          </p>
+          <p>
+            The reason for switching it off was external. WhatsApp changed its own rules for
+            automated messaging, which made the unofficial client route untenable regardless of how
+            well the agent performed. The write-up records that as a diagnosis, not a defect.
+          </p>
+          <p>
+            What was kept is the part that is expensive to rebuild: the stage-by-stage journey, the
+            escalation design, and the sequence diagrams behind it. Because the eight stages were
+            never agent-specific, restoring the agent is a matter of reconnecting the messaging
+            layer rather than reshaping the pipeline.
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <nav class="pager" aria-label="Area navigation">
+      <a href="#erp-endorse">&larr; Endorsement pipeline</a>
+      <a href="#erp-contract">Contract &rarr;</a>
+    </nav>
+  </div>
+</section>
+
+
+<!-- ═══════════════ VIEW · ERP AREA · CONTRACT ═══════════════ -->
+<section class="view" id="view-erp-contract" aria-label="Creator ERP — Contract">
+  <div class="wrap">
+    <div class="proj-head">
+      <a class="back reveal" style="--d:.02s" href="#creator-erp">&larr; Creator ERP</a>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">06</span> &nbsp;&middot;&nbsp; ERP area</p>
+      <h1 class="reveal" style="--d:.1s" tabindex="-1">Contract</h1>
+      <p class="proj-purpose reveal" style="--d:.16s">
+        Contracts assemble themselves from a DOCX template the moment the last required field lands,
+        with the withholding computed and the number drawn from a per-country sequence.
+      </p>
+      <ul class="stack reveal" style="--d:.24s">
+        <li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-cog"/></svg>auto-generated</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-key"/></svg>tokenised signing</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-check"/></svg>PPh21 computed</li>
+      </ul>
+    </div>
+
+    <h2 class="sec-h" id="ct-s1"><span class="sec-n">01</span> Contracts assemble themselves</h2>
+    <p class="sec-lede">The document builds the moment the last required field lands &mdash; there is
+    no generate step.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 202" role="img" aria-labelledby="ct1T ct1D">
+        <title id="ct1T">A contract triggered by data, not by a button</title>
+        <desc id="ct1D">When the final required field is entered, the contract document assembles
+          itself from the active template. The statutory withholding is computed at build time and
+          the contract number is drawn from the country's own sequence.</desc>
+
+        <text class="dgm-n" x="20" y="18">NO OPERATOR PRESSES GENERATE</text>
+
+        <rect class="dgm-box" x="20" y="80" width="160" height="48" rx="2"/>
+        <text class="dgm-t" x="34" y="102">Last field</text>
+        <text class="dgm-s" x="34" y="118">lands on the board</text>
+
+        <line class="dgm-ln" x1="182" y1="104" x2="206" y2="104" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box-a" x="210" y="76" width="180" height="56" rx="3"/>
+        <text class="dgm-t" x="224" y="100">Contract builds</text>
+        <text class="dgm-s" x="224" y="116">from the DOCX template</text>
+
+        <line class="dgm-ln-a" x1="392" y1="104" x2="420" y2="104"/>
+        <line class="dgm-ln-a" x1="420" y1="56"  x2="420" y2="152"/>
+        <line class="dgm-ln-a" x1="420" y1="56"  x2="446" y2="56"  marker-end="url(#aha)"/>
+        <line class="dgm-ln-a" x1="420" y1="152" x2="446" y2="152" marker-end="url(#aha)"/>
+
+        <rect class="dgm-box" x="450" y="34" width="230" height="44" rx="2"/>
+        <text class="dgm-t" x="464" y="54">PPh21 computed</text>
+        <text class="dgm-s" x="464" y="70">never typed by hand</text>
+
+        <rect class="dgm-box" x="450" y="130" width="230" height="44" rx="2"/>
+        <text class="dgm-t" x="464" y="150">Number issued</text>
+        <text class="dgm-s" x="464" y="166">per-country sequence</text>
+
+        <text class="dgm-n" x="350" y="196" text-anchor="middle">A FIGURE THAT IS COMPUTED CANNOT DISAGREE WITH THE FEE IT CAME FROM</text>
+      </svg>
+      <figcaption>
+        <b>Triggered by data.</b> The last field is the trigger, so there is no step left for
+        someone to forget.
+      </figcaption>
+    </figure>
+
+    <h2 class="sec-h" id="ct-s2"><span class="sec-n">02</span> Value decides the path</h2>
+    <p class="sec-lede">Below Rp 5.000.000 the system prepares the contract; at or above it, the
+    legal team does.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 200" role="img" aria-labelledby="ct2T ct2D">
+        <title id="ct2T">One threshold splits the contract path</title>
+        <desc id="ct2D">The contract value decides which route a deal takes. Below five million
+          rupiah the system prepares the document automatically. At or above it, the legal function
+          prepares and uploads the agreement instead.</desc>
+
+        <text class="dgm-n" x="350" y="16" text-anchor="middle">ONE THRESHOLD, TWO ROUTES</text>
+
+        <rect class="dgm-box-a" x="270" y="26" width="170" height="48" rx="3"/>
+        <text class="dgm-t" x="284" y="48">Contract value</text>
+        <text class="dgm-s" x="284" y="64">read from the deal</text>
+
+        <path class="dgm-ln" d="M355 76 L355 96 L170 96 L170 122" marker-end="url(#ah)"/>
+        <path class="dgm-ln-a" d="M355 76 L355 96 L530 96 L530 122" marker-end="url(#aha)"/>
+
+        <text class="dgm-n" x="184" y="92">UNDER Rp 5.000.000</text>
+        <text class="dgm-a" x="440" y="92">Rp 5.000.000 AND ABOVE</text>
+
+        <rect class="dgm-box" x="20" y="124" width="300" height="52" rx="2"/>
+        <text class="dgm-t" x="34" y="146">System prepares it</text>
+        <text class="dgm-s" x="34" y="163">appears for review, not upload</text>
+
+        <rect class="dgm-box-a" x="380" y="124" width="300" height="52" rx="3"/>
+        <text class="dgm-t" x="394" y="146">Legal team uploads it</text>
+        <text class="dgm-s" x="394" y="163">prepared on the legal platform</text>
+
+        <text class="dgm-n" x="350" y="194" text-anchor="middle">THE THRESHOLD IS DATA &mdash; IT IS NOT A HABIT SOMEONE HAS TO REMEMBER</text>
+      </svg>
+      <figcaption>
+        <b>The threshold is enforced.</b> Value routes the deal, rather than an operator recalling
+        the rule.
+      </figcaption>
+    </figure>
+
+    <details class="layer2">
+      <summary>The template library behind it</summary>
+      <div class="layer2-body">
+        <figure class="shot">
+          <div class="shot-frame">
+            <div class="shot-bar"><i></i><i></i><i></i><span>erp-id.vercel.app/contract</span></div>
+            <img src="shots/erp-contract-templates.webp" width="1440" height="940" alt="The contract templates screen: one active DOCX template, a list of previous templates including separate agreements for above and below five million rupiah, and a legal section explaining that contracts under Rp 5.000.000 are prepared automatically.">
+          </div>
+          <figcaption>Contract templates &middot; Creator ERP (Indonesia) &mdash; creator rows cropped out</figcaption>
+        </figure>
+        <div class="block">
+          <p>
+            Templates are ordinary DOCX files carrying <code>{{placeholders}}</code>, uploaded
+            through the interface rather than built into the code. The template history is kept, so
+            a contract issued in April can still be read against the wording that was active then.
+          </p>
+          <p>
+            The names in that list are the threshold made visible: separate agreements for above and
+            below five million rupiah, and an under-5M variant revised twice in a month. Legal wording
+            changes far more often than software does, which is the argument for keeping it as an
+            uploaded asset.
+          </p>
+          <p>
+            Signing is tokenised. A creator opens a link, signs in the browser and never holds an
+            account, which keeps the slowest party in the workflow free of account creation. That is
+            also why this screen is cropped here &mdash; below it sit per-creator rows carrying names
+            and fees, which do not belong on a public page.
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <nav class="pager" aria-label="Area navigation">
+      <a href="#erp-agentic">&larr; Agentic journey</a>
+      <a href="#erp-extractor">Extractor &rarr;</a>
+    </nav>
+  </div>
+</section>
+
+
+<!-- ═══════════════ VIEW · ERP AREA · EXTRACTOR ═══════════════ -->
+<section class="view" id="view-erp-extractor" aria-label="Creator ERP — Extractor">
+  <div class="wrap">
+    <div class="proj-head">
+      <a class="back reveal" style="--d:.02s" href="#creator-erp">&larr; Creator ERP</a>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">07</span> &nbsp;&middot;&nbsp; ERP area</p>
+      <h1 class="reveal" style="--d:.1s" tabindex="-1">Extractor</h1>
+      <p class="proj-purpose reveal" style="--d:.16s">
+        The ERP side of creator metrics: a queue that refreshes profiles from two independent
+        sources and records what it did, rather than operators reading numbers off a dashboard.
+      </p>
+      <ul class="stack reveal" style="--d:.24s">
+        <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-extract"/></svg>queued refresh</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-server"/></svg>FastMoss &middot; RapidAPI</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg>results log</li>
+      </ul>
+    </div>
+
+    <h2 class="sec-h" id="ex-s1"><span class="sec-n">01</span> Metrics arrive, not typed</h2>
+    <p class="sec-lede">Creator figures are pulled on a queue instead of being read off a dashboard
+    and retyped.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 190" role="img" aria-labelledby="ex1T ex1D">
+        <title id="ex1T">A queue refreshes creator profiles</title>
+        <desc id="ex1D">Creators whose figures have gone stale are queued, an extraction run fetches
+          fresh metrics, and the profile record is updated in place. The operator queues work rather
+          than transcribing numbers.</desc>
+
+        <text class="dgm-n" x="20" y="18">THE OPERATOR QUEUES WORK, NOT NUMBERS</text>
+
+        <rect class="dgm-box" x="20" y="80" width="160" height="48" rx="2"/>
+        <text class="dgm-t" x="34" y="102">Stale creators</text>
+        <text class="dgm-s" x="34" y="118">flagged by age</text>
+
+        <line class="dgm-ln" x1="182" y1="104" x2="206" y2="104" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box-a" x="210" y="76" width="150" height="56" rx="3"/>
+        <text class="dgm-t" x="224" y="100">Queue</text>
+        <text class="dgm-s" x="224" y="116">polled on a timer</text>
+
+        <line class="dgm-ln-a" x1="362" y1="104" x2="386" y2="104" marker-end="url(#aha)"/>
+
+        <rect class="dgm-box" x="390" y="80" width="150" height="48" rx="2"/>
+        <text class="dgm-t" x="404" y="102">Extraction</text>
+        <text class="dgm-s" x="404" y="118">runs unattended</text>
+
+        <line class="dgm-ln" x1="542" y1="104" x2="562" y2="104" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box" x="566" y="80" width="114" height="48" rx="2"/>
+        <text class="dgm-t" x="578" y="102">Profile</text>
+        <text class="dgm-s" x="578" y="118">updated</text>
+
+        <text class="dgm-n" x="350" y="182" text-anchor="middle">TRANSCRIPTION IS THE STEP THAT WAS REMOVED</text>
+      </svg>
+      <figcaption>
+        <b>Queued, not transcribed.</b> The operator chooses who to refresh; the numbers arrive on
+        their own.
+      </figcaption>
+    </figure>
+
+    <h2 class="sec-h" id="ex-s2"><span class="sec-n">02</span> Two sources, one queue</h2>
+    <p class="sec-lede">Two independent sources feed one queue, and every run ends in a state the
+    log can show.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 196" role="img" aria-labelledby="ex2T ex2D">
+        <title id="ex2T">Two sources converge on one queue</title>
+        <desc id="ex2D">FastMoss and RapidAPI both feed the same extraction queue. Every run
+          finishes in one of three recorded states: done, failed, or left stale for a later attempt,
+          so a failing source is visible rather than silent.</desc>
+
+        <text class="dgm-n" x="20" y="18">TWO WAYS IN, ONE PLACE TO WATCH</text>
+
+        <rect class="dgm-box" x="20" y="36" width="190" height="44" rx="2"/>
+        <text class="dgm-t" x="34" y="56">FastMoss</text>
+        <text class="dgm-s" x="34" y="72">first source</text>
+
+        <rect class="dgm-box" x="20" y="96" width="190" height="44" rx="2"/>
+        <text class="dgm-t" x="34" y="116">RapidAPI</text>
+        <text class="dgm-s" x="34" y="132">second source</text>
+
+        <line class="dgm-ln" x1="212" y1="58"  x2="230" y2="58"/>
+        <line class="dgm-ln" x1="212" y1="118" x2="230" y2="118"/>
+        <line class="dgm-ln" x1="230" y1="58"  x2="230" y2="118"/>
+        <line class="dgm-ln" x1="230" y1="88"  x2="248" y2="88" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box-a" x="250" y="60" width="170" height="56" rx="3"/>
+        <text class="dgm-t" x="264" y="84">One queue</text>
+        <text class="dgm-s" x="264" y="100">source-agnostic</text>
+
+        <line class="dgm-ln-a" x1="422" y1="88" x2="440" y2="88"/>
+        <line class="dgm-ln-a" x1="440" y1="40" x2="440" y2="136"/>
+        <line class="dgm-ln-a" x1="440" y1="40"  x2="458" y2="40"  marker-end="url(#aha)"/>
+        <line class="dgm-ln-a" x1="440" y1="88"  x2="458" y2="88"  marker-end="url(#aha)"/>
+        <line class="dgm-ln-a" x1="440" y1="136" x2="458" y2="136" marker-end="url(#aha)"/>
+
+        <rect class="dgm-box" x="460" y="20" width="220" height="40" rx="2"/>
+        <text class="dgm-t" x="474" y="45">Done</text>
+
+        <rect class="dgm-box" x="460" y="68" width="220" height="40" rx="2"/>
+        <text class="dgm-t" x="474" y="93">Failed &mdash; and counted</text>
+
+        <rect class="dgm-box" x="460" y="116" width="220" height="40" rx="2"/>
+        <text class="dgm-t" x="474" y="141">Still stale &mdash; retried</text>
+
+        <text class="dgm-n" x="350" y="188" text-anchor="middle">A FAILING SOURCE DEGRADES THE REFRESH, IT DOES NOT STOP IT</text>
+      </svg>
+      <figcaption>
+        <b>Failure is a state.</b> Runs that fail are counted on the dashboard rather than
+        disappearing.
+      </figcaption>
+    </figure>
+
+    <details class="layer2">
+      <summary>The extractor dashboard, and the browser tooling behind it</summary>
+      <div class="layer2-body">
+        <figure class="shot">
+          <div class="shot-frame">
+            <div class="shot-bar"><i></i><i></i><i></i><span>erp-id.vercel.app/extractor</span></div>
+            <img src="shots/erp-extractor.webp" width="1440" height="590" alt="The extractor dashboard: counters for total creators, stale, queued, running, done today and failed today, above tabs for stale creators, queue, results log and scope.">
+          </div>
+          <figcaption>Extractor &middot; Creator ERP (Indonesia) &mdash; test creators</figcaption>
+        </figure>
+        <div class="block">
+          <p>
+            The six counters across the top are the whole operating picture: how many creators
+            exist, how many have gone stale, how many are waiting, how many are moving, and how many
+            succeeded or failed today. <em>Failed today</em> having its own counter is the point &mdash;
+            an extraction system without a visible failure count is one that quietly stops working.
+          </p>
+          <p>
+            The tab row names the two sources directly, and a debug log sits beside them. Being able
+            to see which source answered, and what it returned, is what makes a run diagnosable
+            rather than merely repeatable.
+          </p>
+          <p>
+            This is the ERP end of the story. The browser-automation work that collects the data in
+            the first place &mdash; two extraction strategies built as a Chrome extension against
+            interfaces with no public API &mdash; is a separate project, covered in
+            <a href="#extractors">Creator Analytics Extractors</a>.
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <nav class="pager" aria-label="Area navigation">
+      <a href="#erp-contract">&larr; Contract</a>
+      <a href="#erp-creators">Creator profile &rarr;</a>
+    </nav>
+  </div>
+</section>
+
+
+<!-- ═══════════════ VIEW · ERP AREA · CREATOR PROFILE ═══════════════ -->
+<section class="view" id="view-erp-creators" aria-label="Creator ERP — Creator profile">
+  <div class="wrap">
+    <div class="proj-head">
+      <a class="back reveal" style="--d:.02s" href="#creator-erp">&larr; Creator ERP</a>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">08</span> &nbsp;&middot;&nbsp; ERP area</p>
+      <h1 class="reveal" style="--d:.1s" tabindex="-1">Creator profile</h1>
+      <p class="proj-purpose reveal" style="--d:.16s">
+        The talent CRM underneath every campaign. One record per creator, carrying the identity,
+        vertical and commercial band that the rest of the pipeline reads.
+      </p>
+      <ul class="stack reveal" style="--d:.24s">
+        <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg>one record each</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg>category &middot; level &middot; tier</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stack"/></svg>shared pool</li>
+      </ul>
+    </div>
+
+    <h2 class="sec-h" id="cr-s1"><span class="sec-n">01</span> One record per creator</h2>
+    <p class="sec-lede">Each creator is one record, filterable by the three attributes the pipeline
+    actually uses.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 178" role="img" aria-labelledby="cr1T cr1D">
+        <title id="cr1T">What a creator record carries</title>
+        <desc id="cr1D">One record per creator holds the handle and identity, the affiliate
+          category they sell in, their TikTok level, and the commercial tier that governs how they
+          are contracted. Those last three are the filters the roster is searched by.</desc>
+
+        <rect class="dgm-box-a" x="20" y="20" width="660" height="44" rx="3"/>
+        <text class="dgm-t" x="350" y="41" text-anchor="middle">One record per creator</text>
+        <text class="dgm-s" x="350" y="56" text-anchor="middle">A SHARED POOL &mdash; NO OPERATOR OWNS A CREATOR</text>
+
+        <line class="dgm-ln-a" x1="102" y1="64" x2="102" y2="94" marker-end="url(#aha)"/>
+        <line class="dgm-ln-a" x1="267" y1="64" x2="267" y2="94" marker-end="url(#aha)"/>
+        <line class="dgm-ln-a" x1="432" y1="64" x2="432" y2="94" marker-end="url(#aha)"/>
+        <line class="dgm-ln-a" x1="597" y1="64" x2="597" y2="94" marker-end="url(#aha)"/>
+
+        <rect class="dgm-box" x="25"  y="96" width="155" height="48" rx="2"/>
+        <text class="dgm-t" x="37"  y="118">Handle</text>
+        <text class="dgm-s" x="37"  y="134">identity</text>
+
+        <rect class="dgm-box" x="190" y="96" width="155" height="48" rx="2"/>
+        <text class="dgm-t" x="202" y="118">Category</text>
+        <text class="dgm-s" x="202" y="134">affiliate vertical</text>
+
+        <rect class="dgm-box" x="355" y="96" width="155" height="48" rx="2"/>
+        <text class="dgm-t" x="367" y="118">Level</text>
+        <text class="dgm-s" x="367" y="134">TikTok grade</text>
+
+        <rect class="dgm-box" x="520" y="96" width="155" height="48" rx="2"/>
+        <text class="dgm-t" x="532" y="118">Tier</text>
+        <text class="dgm-s" x="532" y="134">commercial band</text>
+
+        <text class="dgm-n" x="350" y="170" text-anchor="middle">THE LAST THREE ARE THE FILTERS THE ROSTER IS SEARCHED BY</text>
+      </svg>
+      <figcaption>
+        <b>One record, four things.</b> Identity plus the three attributes the pipeline later acts
+        on.
+      </figcaption>
+    </figure>
+
+    <h2 class="sec-h" id="cr-s2"><span class="sec-n">02</span> Tier reaches the paperwork</h2>
+    <p class="sec-lede">A creator's commercial band is not decoration &mdash; it reaches forward into
+    the contract path.</p>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 200" role="img" aria-labelledby="cr2T cr2D">
+        <title id="cr2T">Tier connects the CRM to the contract route</title>
+        <desc id="cr2D">The commercial tier recorded against a creator implies the expected value of
+          a deal, which in turn selects which contract route applies. The roster and the legal path
+          are therefore reading the same field.</desc>
+
+        <text class="dgm-n" x="20" y="18">THE CRM AND THE LEGAL PATH READ THE SAME FIELD</text>
+
+        <rect class="dgm-box" x="20" y="84" width="180" height="48" rx="2"/>
+        <text class="dgm-t" x="34" y="106">Commercial tier</text>
+        <text class="dgm-s" x="34" y="122">Top &middot; Mid &middot; Low &middot; Nano</text>
+
+        <line class="dgm-ln" x1="202" y1="108" x2="236" y2="108" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box-a" x="240" y="80" width="190" height="56" rx="3"/>
+        <text class="dgm-t" x="254" y="104">Expected value</text>
+        <text class="dgm-s" x="254" y="120">band, not a fee</text>
+
+        <line class="dgm-ln-a" x1="432" y1="108" x2="450" y2="108"/>
+        <line class="dgm-ln-a" x1="450" y1="50" x2="450" y2="158"/>
+        <line class="dgm-ln-a" x1="450" y1="50"  x2="468" y2="50"  marker-end="url(#aha)"/>
+        <line class="dgm-ln-a" x1="450" y1="158" x2="468" y2="158" marker-end="url(#aha)"/>
+
+        <rect class="dgm-box" x="470" y="28" width="210" height="44" rx="2"/>
+        <text class="dgm-t" x="484" y="48">Under-5M template</text>
+        <text class="dgm-s" x="484" y="64">prepared by the system</text>
+
+        <rect class="dgm-box" x="470" y="136" width="210" height="44" rx="2"/>
+        <text class="dgm-t" x="484" y="156">Full KOL agreement</text>
+        <text class="dgm-s" x="484" y="172">prepared by legal</text>
+
+        <text class="dgm-n" x="350" y="194" text-anchor="middle">A FIELD IN THE CRM DECIDES WHICH DOCUMENT GETS DRAWN</text>
+      </svg>
+      <figcaption>
+        <b>Tier is load-bearing.</b> The band recorded in the CRM decides which contract route the
+        deal takes.
+      </figcaption>
+    </figure>
+
+    <details class="layer2">
+      <summary>The roster, with identities removed</summary>
+      <div class="layer2-body">
+        <figure class="shot">
+          <div class="shot-frame">
+            <div class="shot-bar"><i></i><i></i><i></i><span>erp-id.vercel.app/crm</span></div>
+            <img src="shots/erp-creator-profiles.webp" width="1440" height="760" alt="The creator profiles roster: a count of 41 records, a search field and filters for affiliate category, TikTok level and tier, above a table whose creator handles and follower counts have been replaced with placeholders.">
+          </div>
+          <figcaption>Creator profiles &middot; Creator ERP (Indonesia) &mdash; handles and follower counts redacted</figcaption>
+        </figure>
+        <div class="block">
+          <p>
+            Handles and follower counts in this capture have been replaced with placeholders. The
+            roster is a real client's talent list, and publishing it would disclose which creators
+            the agency works with &mdash; each handle is public on its own, but the list is not.
+            Everything structural is untouched.
+          </p>
+          <p>
+            The three filters are the working shape of the CRM. Category is the vertical a creator
+            sells in, level is TikTok's own grading, and tier is the commercial band. An operator
+            building a shortlist is nearly always intersecting those three.
+          </p>
+          <p>
+            The pool is shared rather than owned. Creator ownership was deliberately removed, along
+            with the cross-operator approval step it required, so proposing a creator takes effect
+            immediately instead of waiting on another person to release them.
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <nav class="pager" aria-label="Area navigation">
+      <a href="#erp-extractor">&larr; Extractor</a>
       <span class="spacer"></span>
     </nav>
   </div>
@@ -4365,7 +5455,8 @@ footer a:hover { color: var(--text); }
                // WA Agent deployment sub-pages — reachable from the WA Agent view, not the masthead.
                "wa-afterdark", "wa-jephie", "wa-cps", "wa-post",
                // Creator ERP area sub-pages — reachable from the Creator ERP view, not the masthead.
-               "erp-roles"];
+               "erp-platforms", "erp-roles", "erp-country", "erp-endorse",
+               "erp-agentic", "erp-contract", "erp-extractor", "erp-creators"];
 
   // Single-view mode is JS-only. Without it the page stays one long
   // readable document rather than a blank screen.
