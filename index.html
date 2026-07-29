@@ -378,6 +378,7 @@ body.routed .view.active { display: block; }
   color: var(--muted);
   border: 1px solid var(--rule-lt); border-radius: 2px;
   padding: 3px 8px;
+  display: inline-flex; align-items: center; gap: 6px;
 }
 .card-go {
   font-family: var(--mono); font-size: 1.1rem; color: var(--dim);
@@ -409,6 +410,22 @@ body.routed .view.active { display: block; }
   font-size: .7rem; color: var(--text-2);
   background: var(--ink-2); border: 1px solid var(--rule);
   border-radius: 2px; padding: 5px 9px;
+  display: inline-flex; align-items: center; gap: 7px;
+}
+
+/* Chip marks. Real products carry their own brand colours (.chip-ico);
+   things that aren't products — schedulers, locks, "no build step" —
+   get a neutral stroke glyph instead of a borrowed logo (.chip-ico.mono). */
+.chip-ico { width: 14px; height: 14px; flex: none; display: block; }
+.chip-ico.mono {
+  stroke: currentColor; fill: none;
+  stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
+  opacity: .82;
+}
+.tag-ico {
+  width: 12px; height: 12px; flex: none; display: block;
+  stroke: currentColor; fill: none;
+  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
 }
 
 /* Verified figures — a rule-bound data band, the argument of the page */
@@ -893,6 +910,19 @@ footer a:hover { color: var(--text); }
       <path d="M6.8 7.1h.01M6.8 16.9h.01"/>
     </symbol>
 
+    <!-- MCP: official mark, taken verbatim from the published SVG. It ships
+         black and white variants by design, so currentColor is the correct
+         treatment here rather than a baked brand colour.
+         Source: commons.wikimedia.org — MIT/Expat, below the originality
+         threshold for copyright. -->
+    <symbol id="l-mcp" viewBox="0 0 180 180">
+      <g fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round">
+        <path d="M18 84.8528L85.8822 16.9706C95.2548 7.59798 110.451 7.59798 119.823 16.9706V16.9706C129.196 26.3431 129.196 41.5391 119.823 50.9117L68.5581 102.177"/>
+        <path d="M69.2652 101.47L119.823 50.9117C129.196 41.5391 144.392 41.5391 153.765 50.9117L154.118 51.2652C163.491 60.6378 163.491 75.8338 154.118 85.2063L92.7248 146.6C89.6006 149.724 89.6006 154.789 92.7248 157.913L105.331 170.52"/>
+        <path d="M102.853 33.9411L52.6482 84.1457C43.2756 93.5183 43.2756 108.714 52.6482 118.087V118.087C62.0208 127.459 77.2167 127.459 86.5893 118.087L136.794 67.8822"/>
+      </g>
+    </symbol>
+
     <!-- Platform marks. Brand colours are baked in, so these deliberately sit
          outside the single-accent rule the rest of the page follows. -->
     <symbol id="l-react" viewBox="0 0 24 24">
@@ -961,6 +991,96 @@ footer a:hover { color: var(--text); }
       <rect x="2.5" y="3" width="19" height="18" rx="2.2" fill="#4285F4"/>
       <path d="M9.6 9 7 12l2.6 3M14.4 9 17 12l-2.6 3"
             fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <!-- ── additional brand marks: full colour, matching the l-* set ── -->
+    <symbol id="l-tailwind" viewBox="0 0 24 24">
+      <path d="M12 6.4c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8 .9.23 1.6.92 2.3 1.7 1.2 1.2 2.5 2.6 5.5 2.6 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.9-.23-1.6-.92-2.3-1.7C16.3 7.8 15 6.4 12 6.4Z" fill="#38BDF8"/>
+      <path d="M6 13.6c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.9.23 1.6.92 2.3 1.7 1.2 1.2 2.5 2.6 5.5 2.6 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.9-.23-1.6-.92-2.3-1.7-1.2-1.2-2.5-2.6-5.5-2.6Z" fill="#38BDF8" opacity=".72"/>
+    </symbol>
+    <symbol id="l-vitest" viewBox="0 0 24 24">
+      <path d="M12 1.8 22.4 21H1.6Z" fill="#729B1B"/>
+      <path d="M13.4 7.2 8.6 14.4h3.2l-1 4.4 4.8-7.2h-3.2Z" fill="#FCC72B"/>
+    </symbol>
+    <symbol id="l-sqlite" viewBox="0 0 24 24">
+      <ellipse cx="12" cy="5.6" rx="7.6" ry="2.9" fill="#0F80CC"/>
+      <path d="M4.4 5.6v12.8c0 1.6 3.4 2.9 7.6 2.9s7.6-1.3 7.6-2.9V5.6c0 1.6-3.4 2.9-7.6 2.9S4.4 7.2 4.4 5.6Z" fill="#0F80CC" opacity=".62"/>
+      <path d="M4.4 12c0 1.6 3.4 2.9 7.6 2.9s7.6-1.3 7.6-2.9" fill="none" stroke="#0F80CC" stroke-width="1.1"/>
+    </symbol>
+    <symbol id="l-prisma" viewBox="0 0 24 24">
+      <path d="M10.4 1.6 20.6 17.8a1.2 1.2 0 0 1-.75 1.8l-11.5 2.5a1.2 1.2 0 0 1-1.45-1.5L12.1 2.1a1.2 1.2 0 0 1 2.1-.2Z" transform="translate(-1.6 0)" fill="#7C86F0"/>
+    </symbol>
+    <symbol id="l-gemini" viewBox="0 0 24 24">
+      <path d="M12 1.6c.8 5.6 4 8.8 9.6 9.6-5.6.8-8.8 4-9.6 9.6-.8-5.6-4-8.8-9.6-9.6 5.6-.8 8.8-4 9.6-9.6Z" fill="#4285F4"/>
+    </symbol>
+    <symbol id="l-cloudflare" viewBox="0 0 24 24">
+      <path d="M16.9 17.6H4.9a3.2 3.2 0 0 1 .55-6.35 4.9 4.9 0 0 1 9.15-1.35 3.6 3.6 0 0 1 2.3 7.7Z" fill="#F38020"/>
+      <path d="M18.6 10.1a3.9 3.9 0 0 1 3.4 3.9 3.7 3.7 0 0 1-2.6 3.6h-2.5a3.6 3.6 0 0 0 1.7-7.5Z" fill="#FBAD41"/>
+    </symbol>
+    <symbol id="l-gdocs" viewBox="0 0 24 24">
+      <path d="M14 2H6.5A1.5 1.5 0 0 0 5 3.5v17A1.5 1.5 0 0 0 6.5 22h11a1.5 1.5 0 0 0 1.5-1.5V7l-5-5Z" fill="#4285F4"/>
+      <path d="M14 2v5h5l-5-5Z" fill="#1A66C9"/>
+      <path d="M8.2 11.6h7.6M8.2 14h7.6M8.2 16.4h5" stroke="#fff" stroke-width="1.1" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="l-gdrive" viewBox="0 0 24 24">
+      <path d="M9 2.6h6l6.6 11.4h-6Z" fill="#FFCF63"/>
+      <path d="M9 2.6 2.4 14l3 5.4L15 2.6Z" fill="#4285F4" opacity=".9"/>
+      <path d="M5.4 19.4h13.2L21.6 14H8.4Z" fill="#3DA55C"/>
+    </symbol>
+    <symbol id="l-leaflet" viewBox="0 0 24 24">
+      <path d="M19.6 2.8C10.4 4 3.6 8.8 3.6 15.2c0 2.4 1 4.4 2.6 5.8C7.6 12.4 12.4 6.6 19.6 2.8Z" fill="#199900"/>
+    </symbol>
+    <symbol id="l-js" viewBox="0 0 24 24">
+      <rect width="24" height="24" rx="2.5" fill="#F7DF1E"/>
+      <text x="12.6" y="17.4" text-anchor="middle" fill="#111"
+            font-family="ui-monospace,Consolas,monospace" font-size="10" font-weight="700">JS</text>
+    </symbol>
+    <symbol id="l-html5" viewBox="0 0 24 24">
+      <path d="M3.4 2.4h17.2l-1.6 17.2L12 21.6l-7-2L3.4 2.4Z" fill="#E34F26"/>
+      <path d="M12 4.6v15.1l5.6-1.6 1.3-13.5H12Z" fill="#EF652A"/>
+      <path d="M7.4 7.6h9.2l-.2 2.2H9.8l.15 2.2h6.3l-.55 5.6L12 18.6l-3.7-1v-2.3h1.8v1l1.9.5 1.9-.5.2-2H8.2L7.4 7.6Z" fill="#fff"/>
+    </symbol>
+    <symbol id="l-css" viewBox="0 0 24 24">
+      <path d="M3.4 2.4h17.2l-1.6 17.2L12 21.6l-7-2L3.4 2.4Z" fill="#1572B6"/>
+      <path d="M12 4.6v15.1l5.6-1.6 1.3-13.5H12Z" fill="#33A9DC"/>
+      <path d="M7.4 7.6h9.2l-.2 2.2H9.8l.15 2.2h6.3l-.55 5.6L12 18.6l-3.7-1v-2.3h1.8v1l1.9.5 1.9-.5.2-2H8.2L7.4 7.6Z" fill="#fff"/>
+    </symbol>
+
+    <!-- ── category glyphs: monochrome stroke, for things that are not
+         products and therefore have no logo to borrow ── -->
+    <symbol id="g-lock" viewBox="0 0 24 24">
+      <rect x="4.6" y="10.4" width="14.8" height="10.4" rx="2"/>
+      <path d="M8.2 10.4V7.6a3.8 3.8 0 0 1 7.6 0v2.8"/>
+      <circle cx="12" cy="15.6" r="1.5"/>
+    </symbol>
+    <symbol id="g-clock" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="M12 6.8V12l3.6 2.2"/>
+    </symbol>
+    <symbol id="g-cog" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="3.2"/>
+      <path d="M12 2.6v3M12 18.4v3M21.4 12h-3M5.6 12h-3M18.6 5.4l-2.1 2.1M7.5 16.5l-2.1 2.1M18.6 18.6l-2.1-2.1M7.5 7.5 5.4 5.4"/>
+    </symbol>
+    <symbol id="g-route" viewBox="0 0 24 24">
+      <circle cx="6" cy="6" r="2.6"/><circle cx="18" cy="18" r="2.6"/>
+      <path d="M8.6 6h5.2a3.4 3.4 0 0 1 0 6.8h-3.6a3.4 3.4 0 0 0 0 6.8h5.2"/>
+    </symbol>
+    <symbol id="g-server" viewBox="0 0 24 24">
+      <rect x="3" y="3.6" width="18" height="7" rx="1.6"/>
+      <rect x="3" y="13.4" width="18" height="7" rx="1.6"/>
+      <path d="M6.6 7.1h.02M6.6 16.9h.02"/>
+    </symbol>
+    <symbol id="g-none" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="m5.6 5.6 12.8 12.8"/>
+    </symbol>
+    <symbol id="g-config" viewBox="0 0 24 24">
+      <path d="M3.4 7.4h17.2M3.4 16.6h17.2"/>
+      <circle cx="9.2" cy="7.4" r="2.4"/><circle cx="15.4" cy="16.6" r="2.4"/>
+    </symbol>
+    <symbol id="g-check" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="m8.2 12.2 2.7 2.7 5-5.4"/>
     </symbol>
   </defs>
 </svg>
@@ -1081,9 +1201,9 @@ footer a:hover { color: var(--text); }
                   <span><b>40</b> tables</span>
                 </div>
                 <div class="card-tags">
-                  <span class="tag-label">ERP</span>
-                  <span class="tag-label">Full-Stack</span>
-                  <span class="tag-label">Data</span>
+                  <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-blocks"/></svg>ERP</span>
+                  <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stack"/></svg>Full-Stack</span>
+                  <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg>Data</span>
                 </div>
               </div>
               <div class="card-go" aria-hidden="true">&rarr;</div>
@@ -1104,9 +1224,9 @@ footer a:hover { color: var(--text); }
                   <span><b>3</b> agent modes</span>
                 </div>
                 <div class="card-tags">
-                  <span class="tag-label">AI &amp; Agents</span>
-                  <span class="tag-label">Automation</span>
-                  <span class="tag-label">Full-Stack</span>
+                  <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spark"/></svg>AI &amp; Agents</span>
+                  <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bolt"/></svg>Automation</span>
+                  <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stack"/></svg>Full-Stack</span>
                 </div>
               </div>
               <div class="card-go" aria-hidden="true">&rarr;</div>
@@ -1128,8 +1248,8 @@ footer a:hover { color: var(--text); }
                   <span><b>48</b> client portals</span>
                 </div>
                 <div class="card-tags">
-                  <span class="tag-label">Automation</span>
-                  <span class="tag-label">Data</span>
+                  <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bolt"/></svg>Automation</span>
+                  <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg>Data</span>
                 </div>
               </div>
               <div class="card-go" aria-hidden="true">&rarr;</div>
@@ -1150,8 +1270,8 @@ footer a:hover { color: var(--text); }
                   <span><b>127</b> bundles analysed</span>
                 </div>
                 <div class="card-tags">
-                  <span class="tag-label">Data</span>
-                  <span class="tag-label">Automation</span>
+                  <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg>Data</span>
+                  <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bolt"/></svg>Automation</span>
                 </div>
               </div>
               <div class="card-go" aria-hidden="true">&rarr;</div>
@@ -1173,8 +1293,8 @@ footer a:hover { color: var(--text); }
                   <span><b>147</b> stations</span>
                 </div>
                 <div class="card-tags">
-                  <span class="tag-label">Full-Stack</span>
-                  <span class="tag-label">Data</span>
+                  <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stack"/></svg>Full-Stack</span>
+                  <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg>Data</span>
                 </div>
               </div>
               <div class="card-go" aria-hidden="true">&rarr;</div>
@@ -1196,7 +1316,7 @@ footer a:hover { color: var(--text); }
                   <span><b>1,520</b> lines</span>
                 </div>
                 <div class="card-tags">
-                  <span class="tag-label">Data</span>
+                  <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg>Data</span>
                 </div>
               </div>
               <div class="card-go" aria-hidden="true">&rarr;</div>
@@ -1325,7 +1445,7 @@ footer a:hover { color: var(--text); }
               <span>Claude Code, LLM APIs, MCP, agent workflows.</span>
               <div class="tools">
                 <span class="tool"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#l-claude"/></svg>Claude Code</span>
-                <span class="tool no-mark">MCP</span>
+                <span class="tool"><svg viewBox="0 0 180 180" aria-hidden="true"><use href="#l-mcp"/></svg>MCP</span>
               </div>
             </li>
             <li>
@@ -1373,13 +1493,13 @@ footer a:hover { color: var(--text); }
         review, performance reporting and verification.
       </p>
       <div class="proj-tags reveal" style="--d:.2s">
-        <span class="tag-label">ERP &amp; Business Systems</span>
-        <span class="tag-label">Full-Stack</span>
-        <span class="tag-label">Data &amp; Integration</span>
+        <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-blocks"/></svg>ERP &amp; Business Systems</span>
+        <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stack"/></svg>Full-Stack</span>
+        <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>Data &amp; Integration</span>
       </div>
       <ul class="stack reveal" style="--d:.24s">
-        <li>Next.js 16</li><li>React 19</li><li>TypeScript</li>
-        <li>Supabase / PostgreSQL</li><li>Tailwind v4</li><li>Vitest</li><li>Vercel</li>
+        <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-next"/></svg>Next.js 16</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-react"/></svg>React 19</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-ts"/></svg>TypeScript</li>
+        <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-supabase"/></svg>Supabase / PostgreSQL</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-tailwind"/></svg>Tailwind v4</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-vitest"/></svg>Vitest</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-vercel"/></svg>Vercel</li>
       </ul>
     </div>
 
@@ -1645,14 +1765,14 @@ footer a:hover { color: var(--text); }
         and steers each conversation toward a captured lead.
       </p>
       <div class="proj-tags reveal" style="--d:.2s">
-        <span class="tag-label">AI &amp; Agents</span>
-        <span class="tag-label">Automation</span>
-        <span class="tag-label">Full-Stack</span>
+        <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spark"/></svg>AI &amp; Agents</span>
+        <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bolt"/></svg>Automation</span>
+        <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stack"/></svg>Full-Stack</span>
       </div>
       <ul class="stack reveal" style="--d:.24s">
-        <li>Node.js 20</li><li>TypeScript</li><li>Baileys v7</li><li>Express 5</li>
-        <li>better-sqlite3</li><li>Google Apps Script</li><li>Gemini 2.5 Flash</li>
-        <li>Cloudflare Tunnel</li>
+        <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-node"/></svg>Node.js 20</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-ts"/></svg>TypeScript</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-agent"/></svg>Baileys v7</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-server"/></svg>Express 5</li>
+        <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-sqlite"/></svg>better-sqlite3</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-appsscript"/></svg>Google Apps Script</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gemini"/></svg>Gemini 2.5 Flash</li>
+        <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-cloudflare"/></svg>Cloudflare Tunnel</li>
       </ul>
     </div>
 
@@ -1898,8 +2018,8 @@ footer a:hover { color: var(--text); }
         also the bot the entire configurable engine was generalised out of.
       </p>
       <ul class="stack reveal" style="--d:.24s">
-        <li>venue preset</li><li>lead_capture</li><li>Bookings tab</li>
-        <li>MediaSets</li><li>Gemini 2.5 Flash</li>
+        <li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-config"/></svg>venue preset</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>lead_capture</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gsheets"/></svg>Bookings tab</li>
+        <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gsheets"/></svg>MediaSets</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gemini"/></svg>Gemini 2.5 Flash</li>
       </ul>
     </div>
 
@@ -1961,8 +2081,8 @@ footer a:hover { color: var(--text); }
         sales-gallery viewings, in whichever of three languages the enquiry arrived in.
       </p>
       <ul class="stack reveal" style="--d:.24s">
-        <li>property preset</li><li>lead_capture</li><li>showroom_address</li>
-        <li>brochure</li><li>MediaSets</li>
+        <li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-config"/></svg>property preset</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>lead_capture</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-config"/></svg>showroom_address</li>
+        <li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-config"/></svg>brochure</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gsheets"/></svg>MediaSets</li>
       </ul>
     </div>
 
@@ -2024,8 +2144,8 @@ footer a:hover { color: var(--text); }
         cannot answer, its actual job is to reach the right person quickly.
       </p>
       <ul class="stack reveal" style="--d:.24s">
-        <li>answer_handoff</li><li>KnowledgeBase</li><li>category routing</li>
-        <li>reference codes</li><li>ticket close</li>
+        <li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg>answer_handoff</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gsheets"/></svg>KnowledgeBase</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-route"/></svg>category routing</li>
+        <li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-config"/></svg>reference codes</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-check"/></svg>ticket close</li>
       </ul>
     </div>
 
@@ -2081,8 +2201,8 @@ footer a:hover { color: var(--text); }
         posts on request &mdash; choosing the photos and drafting the caption.
       </p>
       <ul class="stack reveal" style="--d:.24s">
-        <li>content_prep</li><li>@a trigger</li><li>Gemini vision</li>
-        <li>MediaSets</li><li>in-chat rewrite</li>
+        <li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spark"/></svg>content_prep</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bolt"/></svg>@a trigger</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gemini"/></svg>Gemini vision</li>
+        <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gsheets"/></svg>MediaSets</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-tools"/></svg>in-chat rewrite</li>
       </ul>
     </div>
 
@@ -2141,12 +2261,12 @@ footer a:hover { color: var(--text); }
         each party needs a different slice of the same record.
       </p>
       <div class="proj-tags reveal" style="--d:.2s">
-        <span class="tag-label">Automation</span>
-        <span class="tag-label">Data &amp; Integration</span>
+        <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bolt"/></svg>Automation</span>
+        <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>Data &amp; Integration</span>
       </div>
       <ul class="stack reveal" style="--d:.24s">
-        <li>Google Apps Script (V8)</li><li>Google Sheets</li><li>Docs API</li>
-        <li>Drive API</li><li>LockService</li><li>Time-based triggers</li>
+        <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-appsscript"/></svg>Google Apps Script (V8)</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gsheets"/></svg>Google Sheets</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gdocs"/></svg>Docs API</li>
+        <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gdrive"/></svg>Drive API</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-lock"/></svg>LockService</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-clock"/></svg>Time-based triggers</li>
       </ul>
     </div>
 
@@ -2720,12 +2840,12 @@ footer a:hover { color: var(--text); }
         search-one-creator-at-a-time interfaces with no public API.
       </p>
       <div class="proj-tags reveal" style="--d:.2s">
-        <span class="tag-label">Data &amp; Integration</span>
-        <span class="tag-label">Automation</span>
+        <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>Data &amp; Integration</span>
+        <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bolt"/></svg>Automation</span>
       </div>
       <ul class="stack reveal" style="--d:.24s">
-        <li>Chrome Extension MV3</li><li>Service workers</li><li>Content scripts</li>
-        <li>chrome.alarms</li><li>Google Apps Script</li><li>Vanilla JS</li>
+        <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-chrome"/></svg>Chrome Extension MV3</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-cog"/></svg>Service workers</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-code"/></svg>Content scripts</li>
+        <li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-clock"/></svg>chrome.alarms</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-appsscript"/></svg>Google Apps Script</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-js"/></svg>Vanilla JS</li>
       </ul>
     </div>
 
@@ -2922,12 +3042,12 @@ footer a:hover { color: var(--text); }
         distances to transit, which are unreliable.
       </p>
       <div class="proj-tags reveal" style="--d:.2s">
-        <span class="tag-label">Full-Stack</span>
-        <span class="tag-label">Data &amp; Integration</span>
+        <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stack"/></svg>Full-Stack</span>
+        <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>Data &amp; Integration</span>
       </div>
       <ul class="stack reveal" style="--d:.24s">
-        <li>Next.js 16.2.7</li><li>React 19.2.4</li><li>TypeScript 5</li>
-        <li>Prisma 6.5 / SQLite</li><li>Leaflet 1.9</li><li>GraphHopper 10</li>
+        <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-next"/></svg>Next.js 16.2.7</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-react"/></svg>React 19.2.4</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-ts"/></svg>TypeScript 5</li>
+        <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-prisma"/></svg>Prisma 6.5 / SQLite</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-leaflet"/></svg>Leaflet 1.9</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-route"/></svg>GraphHopper 10</li>
       </ul>
       <p class="metrics-note reveal" style="--d:.26s; margin:22px 0 0">
         Personal project &mdash; single-user and local-only by design. No auth, no cloud deployment,
@@ -3136,11 +3256,11 @@ footer a:hover { color: var(--text); }
         facts that appear in no listing anywhere.
       </p>
       <div class="proj-tags reveal" style="--d:.2s">
-        <span class="tag-label">Data</span>
+        <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg>Data</span>
       </div>
       <ul class="stack reveal" style="--d:.24s">
-        <li>Vanilla JavaScript</li><li>HTML5</li><li>Hand-written CSS</li>
-        <li>GitHub Pages</li><li>No framework</li><li>No build step</li>
+        <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-js"/></svg>Vanilla JavaScript</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-html5"/></svg>HTML5</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-css"/></svg>Hand-written CSS</li>
+        <li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>GitHub Pages</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-none"/></svg>No framework</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-none"/></svg>No build step</li>
       </ul>
       <p class="metrics-note reveal" style="--d:.26s; margin:22px 0 0">
         Personal project &mdash; one buyer, one decision, four candidates. Deployed publicly, but
