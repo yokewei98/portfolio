@@ -477,16 +477,27 @@ body.routed .view.active { display: block; }
 }
 .stat-ico { width: 19px; height: 19px; color: var(--brass-dk); margin-bottom: 14px; }
 
-/* Platform marks carry their own brand colours, so they don't use .ico —
-   no stroke inheritance, no accent tinting. */
-.logos { display: flex; align-items: center; gap: 9px; margin-bottom: 13px; min-height: 24px; }
-.lg { width: 23px; height: 23px; flex: none; display: block; }
-/* Marks I can't reproduce faithfully get their name instead of a bad drawing. */
-.lg-text {
-  font-family: var(--mono); font-size: .625rem; letter-spacing: .06em;
-  color: var(--text-2); border: 1px solid var(--rule-lt);
-  border-radius: 3px; padding: 4px 7px; line-height: 1; white-space: nowrap;
+/* Tool chips sit under the description. Each pairs a platform mark with its
+   name inside a border, so a logo is never left to be recognised on its own.
+   Brand colours are baked into the marks, so these don't use .ico. */
+.tools { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 15px; }
+.tool {
+  display: inline-flex; align-items: center; gap: 7px;
+  border: 1px solid var(--rule-lt); border-radius: 4px;
+  background: var(--ink-2);
+  padding: 5px 10px 5px 8px;
+  font-family: var(--mono); font-size: .6875rem; letter-spacing: .03em;
+  color: var(--text-2); line-height: 1; white-space: nowrap;
 }
+.tool svg { width: 15px; height: 15px; flex: none; display: block; }
+/* Marks I can't reproduce faithfully ship as a name-only chip. */
+.tool.no-mark { padding-left: 10px; }
+
+/* Headings lead with an icon. */
+.section-head h2 { display: flex; align-items: center; gap: 13px; }
+.head-ico { width: 25px; height: 25px; color: var(--brass); flex: none; }
+.blk-ico  { width: 15px; height: 15px; color: var(--brass-dk); flex: none; }
+.skill-ico { width: 17px; height: 17px; color: var(--brass); flex: none; }
 
 /* ─── diagrams ───────────────────────────────────────────────── */
 /* Rendered from the architecture sketches in the source docs.
@@ -524,6 +535,7 @@ body.routed .view.active { display: block; }
 /* ─── prose blocks ───────────────────────────────────────────── */
 .block { margin: 46px 0; }
 .block > h3 {
+  display: flex; align-items: center; gap: 10px;
   font-family: var(--mono); font-size: .6875rem; font-weight: 500;
   text-transform: uppercase; letter-spacing: .1em;
   color: var(--muted);
@@ -545,6 +557,32 @@ body.routed .view.active { display: block; }
 }
 .decisions p { color: var(--text-2); font-size: 1rem; }
 .decisions p + p { margin-top: 14px; }
+
+/* ─── deployment list (WA Agent sub-pages) ───────────────────── */
+.deploys { list-style: none; }
+.deploys > li { padding: 0 0 26px; }
+.deploys > li + li { padding-top: 26px; border-top: 1px solid var(--rule); }
+.deploys h4 {
+  font-family: var(--serif); font-size: 1.1875rem; font-weight: 600;
+  letter-spacing: -0.015em; margin-bottom: 7px;
+}
+.deploys h4::before {
+  content: "▸"; color: var(--brass); margin-right: 11px; font-size: .8em;
+}
+.deploys h4 a {
+  color: var(--text); text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  transition: color .16s, border-color .16s;
+}
+.deploys h4 a:hover, .deploys h4 a:focus-visible {
+  color: var(--brass); border-color: var(--brass);
+}
+.deploys .dep-meta {
+  font-family: var(--mono); font-size: .6875rem;
+  text-transform: uppercase; letter-spacing: .09em;
+  color: var(--muted); margin-bottom: 9px;
+}
+.deploys p { color: var(--text-2); font-size: 1rem; }
 
 /* ─── spec table — module / component inventories ─────────────
    Scrolls rather than reflows: a 4-column spec that wraps into
@@ -613,8 +651,9 @@ details.deeper .deeper-body p + p { margin-top: 15px; }
 }
 .skills li { font-size: .9375rem; line-height: 1.6; }
 .skills li b {
-  display: block; font-family: var(--mono); font-size: .75rem;
-  letter-spacing: .05em; color: var(--brass); font-weight: 500; margin-bottom: 6px;
+  display: flex; align-items: center; gap: 9px;
+  font-family: var(--mono); font-size: .75rem;
+  letter-spacing: .05em; color: var(--brass); font-weight: 500; margin-bottom: 7px;
 }
 .skills li span { color: var(--muted); }
 
@@ -726,6 +765,10 @@ footer a:hover { color: var(--text); }
   .figure { overflow: visible; margin-left: 0; margin-right: 0; padding: 0; }
   .dgm { min-width: 0; max-width: 100%; }
   .portrait img { mix-blend-mode: normal; -webkit-mask-image: none; mask-image: none; }
+  /* Several brand marks are white-filled (Vercel, Notion, Next.js) and would
+     be invisible on paper. Drop the marks; the chip still carries the name. */
+  .tool svg { display: none; }
+  .tool { padding-left: 10px; background: none; }
   .hero { padding-top: 8pt; }
   footer { page-break-before: avoid; }
 }
@@ -1007,7 +1050,7 @@ footer a:hover { color: var(--text); }
         <div>
           <div class="section-head reveal" style="--d:.08s">
             <p class="eyebrow">Six systems</p>
-            <h2 id="projects-h">What I've built</h2>
+            <h2 id="projects-h"><svg class="ico head-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-blocks"/></svg>What I've built</h2>
             <p class="lede">Filter by capability, or open any project for the full detail.</p>
           </div>
 
@@ -1233,65 +1276,73 @@ footer a:hover { color: var(--text); }
         <div>
           <div class="section-head">
             <p class="eyebrow">Skills</p>
-            <h2 id="skills-h">What I work with</h2>
+            <h2 id="skills-h"><svg class="ico head-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-tools"/></svg>What I work with</h2>
           </div>
 
           <ul class="skills">
             <li>
-              <div class="logos" aria-hidden="true">
-                <svg class="lg" viewBox="0 0 24 24"><use href="#l-next"/></svg>
-                <svg class="lg" viewBox="0 0 24 24"><use href="#l-react"/></svg>
-                <svg class="lg" viewBox="0 0 24 24"><use href="#l-ts"/></svg>
-                <svg class="lg" viewBox="0 0 24 24"><use href="#l-supabase"/></svg>
+              <b><svg class="ico skill-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stack"/></svg>Full-stack build</b>
+              <span>Next.js, React, TypeScript, Supabase/PostgreSQL. Multi-tenant applications with database-level authorisation and role-based portals.</span>
+              <div class="tools">
+                <span class="tool"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#l-next"/></svg>Next.js</span>
+                <span class="tool"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#l-react"/></svg>React</span>
+                <span class="tool"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#l-ts"/></svg>TypeScript</span>
+                <span class="tool"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#l-supabase"/></svg>Supabase</span>
               </div>
-              <b>Full-stack build</b><span>Next.js, React, TypeScript, Supabase/PostgreSQL. Multi-tenant applications with database-level authorisation and role-based portals.</span>
             </li>
             <li>
-              <div class="logos" aria-hidden="true">
-                <svg class="lg" viewBox="0 0 24 24"><use href="#l-appsscript"/></svg>
+              <b><svg class="ico skill-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bolt"/></svg>Google Apps Script</b>
+              <span>Production automation: scheduled jobs, external API calls, document generation, checkpoint/resume pipelines.</span>
+              <div class="tools">
+                <span class="tool"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#l-appsscript"/></svg>Google Apps Script</span>
               </div>
-              <b>Google Apps Script</b><span>Production automation: scheduled jobs, external API calls, document generation, checkpoint/resume pipelines.</span>
             </li>
             <li>
-              <div class="logos" aria-hidden="true">
-                <svg class="lg" viewBox="0 0 24 24"><use href="#l-gsheets"/></svg>
-                <svg class="lg" viewBox="0 0 24 24"><use href="#l-excel"/></svg>
+              <b><svg class="ico skill-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sheet"/></svg>Sheets &amp; Excel</b>
+              <span>Advanced formulas, cross-sheet logic, pivot tables, complex multi-sheet models. Certified &mdash; Google Cloud.</span>
+              <div class="tools">
+                <span class="tool"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gsheets"/></svg>Google Sheets</span>
+                <span class="tool"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#l-excel"/></svg>Microsoft Excel</span>
               </div>
-              <b>Sheets &amp; Excel</b><span>Advanced formulas, cross-sheet logic, pivot tables, complex multi-sheet models. Certified &mdash; Google Cloud.</span>
             </li>
             <li>
-              <div class="logos" aria-hidden="true">
-                <svg class="lg" viewBox="0 0 24 24"><use href="#l-chrome"/></svg>
+              <b><svg class="ico skill-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-extract"/></svg>Scraping &amp; API integration</b>
+              <span>Manifest V3 extensions, reverse-engineered request signing, bulk extraction pipelines.</span>
+              <div class="tools">
+                <span class="tool"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#l-chrome"/></svg>Chrome Extension</span>
               </div>
-              <b>Scraping &amp; API integration</b><span>Manifest V3 extensions, reverse-engineered request signing, bulk extraction pipelines.</span>
             </li>
             <li>
-              <div class="logos" aria-hidden="true">
-                <svg class="lg" viewBox="0 0 24 24"><use href="#l-gsheets"/></svg>
-                <svg class="lg" viewBox="0 0 24 24"><use href="#l-supabase"/></svg>
+              <b><svg class="ico skill-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg>Reporting &amp; dashboards</b>
+              <span>Making operational and commercial numbers visible, accurate and timely, so the people who own them can act.</span>
+              <div class="tools">
+                <span class="tool"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gsheets"/></svg>Google Sheets</span>
+                <span class="tool"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#l-supabase"/></svg>Supabase</span>
               </div>
-              <b>Reporting &amp; dashboards</b><span>Making operational and commercial numbers visible, accurate and timely, so the people who own them can act.</span>
             </li>
             <li>
-              <div class="logos" aria-hidden="true">
-                <svg class="lg" viewBox="0 0 24 24"><use href="#l-claude"/></svg>
-                <span class="lg-text">MCP</span>
+              <b><svg class="ico skill-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spark"/></svg>AI tooling</b>
+              <span>Claude Code, LLM APIs, MCP, agent workflows.</span>
+              <div class="tools">
+                <span class="tool"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#l-claude"/></svg>Claude Code</span>
+                <span class="tool no-mark">MCP</span>
               </div>
-              <b>AI tooling</b><span>Claude Code, LLM APIs, MCP, agent workflows.</span>
             </li>
             <li>
-              <div class="logos" aria-hidden="true">
-                <svg class="lg" viewBox="0 0 24 24"><use href="#l-notion"/></svg>
-                <span class="lg-text">Lark</span>
+              <b><svg class="ico skill-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-board"/></svg>Notion, Lark / Feishu</b>
+              <span>Workspace architecture, database design, operational workflow deployment. Lark is common across TikTok-ecosystem and regional SEA businesses.</span>
+              <div class="tools">
+                <span class="tool"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#l-notion"/></svg>Notion</span>
+                <span class="tool no-mark">Lark / Feishu</span>
               </div>
-              <b>Notion, Lark / Feishu</b><span>Workspace architecture, database design, operational workflow deployment. Lark is common across TikTok-ecosystem and regional SEA businesses.</span>
             </li>
             <li>
-              <div class="logos" aria-hidden="true">
-                <svg class="lg" viewBox="0 0 24 24"><use href="#l-vercel"/></svg>
-                <svg class="lg" viewBox="0 0 24 24"><use href="#l-node"/></svg>
+              <b><svg class="ico skill-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-server"/></svg>Deployment &amp; hosting</b>
+              <span>Vercel production deployment, self-hosted Node workers, local databases and routing engines.</span>
+              <div class="tools">
+                <span class="tool"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#l-vercel"/></svg>Vercel</span>
+                <span class="tool"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#l-node"/></svg>Node.js</span>
               </div>
-              <b>Deployment &amp; hosting</b><span>Vercel production deployment, self-hosted Node workers, local databases and routing engines.</span>
             </li>
           </ul>
 
@@ -1411,7 +1462,7 @@ footer a:hover { color: var(--text); }
     </figure>
 
     <div class="block">
-      <h3>The problem</h3>
+      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>The problem</h3>
       <p>
         Campaign coordination ran on spreadsheets and WhatsApp threads. Four parties &mdash; internal
         operators, brand clients, creators and a contract-review function &mdash; each needed a
@@ -1427,7 +1478,7 @@ footer a:hover { color: var(--text); }
     </div>
 
     <div class="block">
-      <h3>The arc &mdash; spreadsheets, then an ERP</h3>
+      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stack"/></svg>The arc &mdash; spreadsheets, then an ERP</h3>
       <figure class="figure">
         <svg class="dgm" viewBox="0 0 700 262" role="img" aria-labelledby="arcT arcD">
           <title id="arcT">What V1 could not express, and how V2 answers it</title>
@@ -1478,7 +1529,7 @@ footer a:hover { color: var(--text); }
     </div>
 
     <div class="block">
-      <h3>Key decisions</h3>
+      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>Key decisions</h3>
       <ul class="decisions">
         <li>
           <h4>Authorisation enforced in the database, not the application</h4>
@@ -1674,7 +1725,7 @@ footer a:hover { color: var(--text); }
     </figure>
 
     <div class="block">
-      <h3>The problem</h3>
+      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>The problem</h3>
       <p>
         Enquiries from paid ads land on WhatsApp, where they go unanswered overnight, get answered
         slowly, or get answered differently depending on who picks up the phone. Whatever is agreed
@@ -1689,7 +1740,7 @@ footer a:hover { color: var(--text); }
     </div>
 
     <div class="block">
-      <h3>Key decisions</h3>
+      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>Key decisions</h3>
       <ul class="decisions">
         <li>
           <h4>The business is data, not code</h4>
@@ -1735,6 +1786,47 @@ footer a:hover { color: var(--text); }
             once. Handing a confidently wrong price to a buyer is worse than a short silence &mdash;
             and the by-product is a standing queue of what customers keep asking that the business
             has never documented.
+          </p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3>Deployments</h3>
+      <p>
+        Four agents run on this engine, three of them as live WhatsApp sessions sharing one relay and
+        one tunnel. Each is a different Sheet, a different preset and a different persona &mdash; and
+        none of them is a different codebase. Standing up the fourth required no engine change, which
+        is the only real test of the claim above.
+      </p>
+      <ul class="deploys">
+        <li>
+          <h4><a href="#wa-afterdark">AfterDark</a></h4>
+          <p class="dep-meta">Venue &middot; lead_capture &middot; a lead is a table</p>
+          <p>
+            The bar and lounge agent &mdash; and the bot the whole engine was generalised out of.
+          </p>
+        </li>
+        <li>
+          <h4><a href="#wa-jephie">jephie</a></h4>
+          <p class="dep-meta">Property &middot; lead_capture &middot; a lead is a viewing</p>
+          <p>
+            Answers ad enquiries about specific developments and books sales-gallery visits.
+          </p>
+        </li>
+        <li>
+          <h4><a href="#wa-cps">CPS</a></h4>
+          <p class="dep-meta">Support &middot; answer_handoff &middot; a win is a resolved question</p>
+          <p>
+            Answers from a knowledge base instead of a catalogue, and routes to a human by category
+            when it can't.
+          </p>
+        </li>
+        <li>
+          <h4><a href="#wa-post">post agent</a></h4>
+          <p class="dep-meta">Internal &middot; content_prep &middot; not customer-facing</p>
+          <p>
+            Sits in a staff group, selects photos on request and drafts the caption.
           </p>
         </li>
       </ul>
@@ -1794,6 +1886,247 @@ footer a:hover { color: var(--text); }
 </section>
 
 
+<!-- ═══════════════ VIEW · WA · AFTERDARK ═══════════════ -->
+<section class="view" id="view-wa-afterdark" aria-label="AfterDark deployment">
+  <div class="wrap">
+    <div class="proj-head">
+      <a class="back reveal" style="--d:.02s" href="#wa-agent">&larr; WA Agent</a>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">02</span> &nbsp;&middot;&nbsp; Deployment</p>
+      <h1 class="reveal" style="--d:.1s" tabindex="-1">AfterDark</h1>
+      <p class="proj-purpose reveal" style="--d:.16s">
+        The venue agent &mdash; bars and lounges. A lead here is a table or an area booking. It is
+        also the bot the entire configurable engine was generalised out of.
+      </p>
+      <ul class="stack reveal" style="--d:.24s">
+        <li>venue preset</li><li>lead_capture</li><li>Bookings tab</li>
+        <li>MediaSets</li><li>Gemini 2.5 Flash</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3>Where the engine came from</h3>
+      <p>
+        AfterDark was built first, as a single-domain venue bot &mdash; it knew about tables and
+        minimum spends because those things were written into it. The business-agnostic WA Agent was
+        then adapted out of it; the repository records the lineage in its own words, as a bot
+        "generalised from a single-domain bot into a configurable base".
+      </p>
+      <p>
+        That is the same shape as the Endorsement Platform becoming the Creator ERP: build the
+        specific thing, discover from running it which parts were actually specific, then rebuild so
+        those parts are data. Doing it twice, in two unrelated domains, is the part I would defend in
+        an interview &mdash; the first time can be luck.
+      </p>
+    </div>
+
+    <div class="block">
+      <h3>What a lead is here</h3>
+      <p>
+        The <code>venue</code> preset makes the default booking a table, points the document keyword
+        at <code>menu</code> so "what's on" sends the right PDF, and shapes the catalogue around
+        tables, areas and packages with capacity and minimum spend. A booking flips to confirmed only
+        once name, date and time are all present. The phone number is never asked for &mdash; it is
+        taken from the WhatsApp identity, which removes a question, a typo and a drop-off point.
+      </p>
+    </div>
+
+    <div class="block">
+      <h3>The configuration layer, tested properly</h3>
+      <p>
+        This deployment does not use the engine's default lead tabs. It points
+        <code>lead_tab</code> and <code>confirmed_lead_tab</code> at the venue's own
+        <code>Bookings</code> and <code>ConfirmedBookings</code>, and because reads and writes resolve
+        by live header rather than fixed column index, it runs on the sheet layout the venue already
+        had. No migration, no renaming, no asking the client to adopt my schema.
+      </p>
+    </div>
+
+    <nav class="pager" aria-label="Deployment navigation">
+      <a href="#wa-agent">&larr; WA Agent</a>
+      <a href="#wa-jephie">jephie &rarr;</a>
+    </nav>
+  </div>
+</section>
+
+
+<!-- ═══════════════ VIEW · WA · JEPHIE ═══════════════ -->
+<section class="view" id="view-wa-jephie" aria-label="jephie deployment">
+  <div class="wrap">
+    <div class="proj-head">
+      <a class="back reveal" style="--d:.02s" href="#wa-agent">&larr; WA Agent</a>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">02</span> &nbsp;&middot;&nbsp; Deployment</p>
+      <h1 class="reveal" style="--d:.1s" tabindex="-1">jephie</h1>
+      <p class="proj-purpose reveal" style="--d:.16s">
+        The property agent. It picks up enquiries coming off listing ads and turns them into
+        sales-gallery viewings, in whichever of three languages the enquiry arrived in.
+      </p>
+      <ul class="stack reveal" style="--d:.24s">
+        <li>property preset</li><li>lead_capture</li><li>showroom_address</li>
+        <li>brochure</li><li>MediaSets</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3>It already knows which project before it replies</h3>
+      <p>
+        The ad carries a WhatsApp click-to-chat link that pre-fills a catalogue code &mdash; the
+        customer taps it and their first message arrives reading something like
+        <code>Hi, I'm interested in [SKY01]</code>. So the opening reply is already about the right
+        development, with the right price and the right gallery address, before anyone has typed a
+        question. The routing problem is solved in the ad rather than in the conversation.
+      </p>
+    </div>
+
+    <div class="block">
+      <h3>What a lead is here</h3>
+      <p>
+        The <code>property</code> preset makes the booking a showroom visit and reads its address
+        from the catalogue's <code>showroom_address</code> column, so the confirmation names a real
+        place. The document keyword maps to <code>brochure</code>, which is what turns "can I see the
+        floor plan" into the project's PDF landing in the chat. Name, date and time confirm the
+        viewing; the phone number comes from WhatsApp itself.
+      </p>
+    </div>
+
+    <div class="block">
+      <h3>Restraint is a persona setting, not an engine rule</h3>
+      <p>
+        This agent stays on the development the customer asked about. It will not volunteer other
+        projects, and when someone's stated need clearly does not fit, it asks before suggesting
+        alternatives rather than pivoting to a sales pitch.
+      </p>
+      <p>
+        The precise version matters, because it is the interesting part: there is no per-contact lock
+        in the engine. The whole active catalogue is injected on every single turn, and the moment a
+        customer asks what else is available, the agent helps across all of it. The focus is a line
+        in the persona &mdash; a setting an operator can soften or remove &mdash; not behaviour
+        hard-coded into the engine. Sales discipline belongs to the business, not to me.
+      </p>
+    </div>
+
+    <nav class="pager" aria-label="Deployment navigation">
+      <a href="#wa-afterdark">&larr; AfterDark</a>
+      <a href="#wa-cps">CPS &rarr;</a>
+    </nav>
+  </div>
+</section>
+
+
+<!-- ═══════════════ VIEW · WA · CPS ═══════════════ -->
+<section class="view" id="view-wa-cps" aria-label="CPS deployment">
+  <div class="wrap">
+    <div class="proj-head">
+      <a class="back reveal" style="--d:.02s" href="#wa-agent">&larr; WA Agent</a>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">02</span> &nbsp;&middot;&nbsp; Deployment</p>
+      <h1 class="reveal" style="--d:.1s" tabindex="-1">CPS</h1>
+      <p class="proj-purpose reveal" style="--d:.16s">
+        The support agent. It answers from a knowledge base rather than a catalogue, and when it
+        cannot answer, its actual job is to reach the right person quickly.
+      </p>
+      <ul class="stack reveal" style="--d:.24s">
+        <li>answer_handoff</li><li>KnowledgeBase</li><li>category routing</li>
+        <li>reference codes</li><li>ticket close</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3>A different definition of a good conversation</h3>
+      <p>
+        For AfterDark and jephie, a conversation has gone well when it ends in a booking. Here it has
+        gone well when a question is resolved and nobody had to chase it. That is one setting on the
+        same engine &mdash; <code>answer_handoff</code> instead of <code>lead_capture</code> &mdash;
+        and it changes what the agent looks for, what it escalates and what it writes down, without
+        changing a line of the transport, the schema or the alerting.
+      </p>
+    </div>
+
+    <div class="block">
+      <h3>Routing instead of a shared inbox</h3>
+      <p>
+        An enquiry is matched to the category that owns it and forwarded to that person with a
+        reference code attached. Their reply is relayed back to the customer, and the ticket closes.
+        What that replaces is the usual arrangement &mdash; a shared inbox, somebody deciding by hand
+        who should take each message, and no record afterwards of how long any of it took.
+      </p>
+    </div>
+
+    <div class="block">
+      <h3>The refusal rule matters more here</h3>
+      <p>
+        The same discipline applies as everywhere else in the engine: anything not on file produces
+        silence to the customer, a <code>KnowledgeGaps</code> row and an alert to the control group,
+        rather than a plausible guess. On a support deployment that is worth more than it is on a
+        sales one. A confidently wrong answer about how a product works does not end the
+        conversation &mdash; it comes back as a second ticket, from someone who now trusts you less.
+      </p>
+    </div>
+
+    <nav class="pager" aria-label="Deployment navigation">
+      <a href="#wa-jephie">&larr; jephie</a>
+      <a href="#wa-post">post agent &rarr;</a>
+    </nav>
+  </div>
+</section>
+
+
+<!-- ═══════════════ VIEW · WA · POST AGENT ═══════════════ -->
+<section class="view" id="view-wa-post" aria-label="post agent deployment">
+  <div class="wrap">
+    <div class="proj-head">
+      <a class="back reveal" style="--d:.02s" href="#wa-agent">&larr; WA Agent</a>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">02</span> &nbsp;&middot;&nbsp; Deployment</p>
+      <h1 class="reveal" style="--d:.1s" tabindex="-1">post agent</h1>
+      <p class="proj-purpose reveal" style="--d:.16s">
+        The one that never speaks to a customer. It sits in a staff group and helps produce social
+        posts on request &mdash; choosing the photos and drafting the caption.
+      </p>
+      <ul class="stack reveal" style="--d:.24s">
+        <li>content_prep</li><li>@a trigger</li><li>Gemini vision</li>
+        <li>MediaSets</li><li>in-chat rewrite</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3>How it is used</h3>
+      <p>
+        Someone types <code>@a</code> in the group. The agent evaluates up to thirty candidate
+        images, selects a varied subset without near-duplicates, and drafts a caption in the house
+        voice. If the caption is not right, it is rewritten in the thread rather than regenerated
+        from nothing &mdash; the point is to finish a post, not to admire a first draft.
+      </p>
+    </div>
+
+    <div class="block">
+      <h3>Two different sizes of the same image</h3>
+      <p>
+        The vision call has a byte budget that the deliverable does not. So candidates are downscaled
+        to 1024px thumbnails for the model to look at, while the full-resolution originals are what
+        actually get sent to WhatsApp. It sounds small, and it is the difference between the
+        selection step working at thirty candidates and failing at eight. Most of the useful
+        engineering in an LLM feature is this &mdash; deciding what the model needs to see, which is
+        rarely what the user needs to receive.
+      </p>
+    </div>
+
+    <div class="block">
+      <h3>Why it lives in the same engine</h3>
+      <p>
+        Nothing underneath changes. Same relay, same 16-tab Sheet, same control group, same media
+        library, same alerting &mdash; one setting points the agent at a different goal. A content
+        assistant and a sales assistant have almost nothing in common as products, and share almost
+        everything as software. That they could sit on one engine without either bending is the
+        clearest evidence I have that the mode boundary was drawn in the right place.
+      </p>
+    </div>
+
+    <nav class="pager" aria-label="Deployment navigation">
+      <a href="#wa-cps">&larr; CPS</a>
+      <a href="#wa-agent">WA Agent &rarr;</a>
+    </nav>
+  </div>
+</section>
+
+
 <!-- ═══════════════ VIEW · ENDORSEMENT ═══════════════ -->
 <section class="view" id="view-endorsement" aria-label="Endorsement Platform">
   <div class="wrap">
@@ -1829,7 +2162,7 @@ footer a:hover { color: var(--text); }
     </p>
 
     <div class="block">
-      <h3>The problem</h3>
+      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>The problem</h3>
       <figure class="figure">
         <svg class="dgm" viewBox="0 0 700 262" role="img" aria-labelledby="prbT prbD">
           <title id="prbT">Four parties, one record, four different slices</title>
@@ -2090,7 +2423,7 @@ footer a:hover { color: var(--text); }
     </figure>
 
     <div class="block">
-      <h3>Key decisions</h3>
+      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>Key decisions</h3>
       <ul class="decisions">
         <li>
           <h4>Data isolation by projection, not permission</h4>
@@ -2205,7 +2538,7 @@ footer a:hover { color: var(--text); }
     </figure>
 
     <div class="block">
-      <h3>The Apps Script layer</h3>
+      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bolt"/></svg>The Apps Script layer</h3>
       <p>
         Nine files, roughly 35&nbsp;KB, in one container-bound project attached to the pipeline sheet
         and surfaced through a single <code>Custom</code> menu. Everything else in the ecosystem is
@@ -2257,7 +2590,7 @@ footer a:hover { color: var(--text); }
     </div>
 
     <div class="block">
-      <h3>Formula work carrying the load</h3>
+      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sheet"/></svg>Formula work carrying the load</h3>
       <figure class="figure">
         <svg class="dgm" viewBox="0 0 700 190" role="img" aria-labelledby="impT impD">
           <title id="impT">Nine IMPORTRANGE blocks and the four gaps between them</title>
@@ -2456,7 +2789,7 @@ footer a:hover { color: var(--text); }
     </figure>
 
     <div class="block">
-      <h3>The problem</h3>
+      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>The problem</h3>
       <p>
         The operator keeps a roster of TikTok Shop creators in a spreadsheet and needs each one's
         commercial performance refreshed on a recurring basis to make partnership, budget and
@@ -2473,7 +2806,7 @@ footer a:hover { color: var(--text); }
     </div>
 
     <div class="block">
-      <h3>Key decisions</h3>
+      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>Key decisions</h3>
       <ul class="decisions">
         <li>
           <h4>Two deliberately different strategies in one repository</h4>
@@ -2666,7 +2999,7 @@ footer a:hover { color: var(--text); }
     </figure>
 
     <div class="block">
-      <h3>The problem</h3>
+      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>The problem</h3>
       <p>
         Property portals advertise a distance to the nearest station, and that number is usually a
         straight line drawn on a map. A unit listed as 400&nbsp;m from an LRT station can be a
@@ -2682,7 +3015,7 @@ footer a:hover { color: var(--text); }
     </div>
 
     <div class="block">
-      <h3>Key decisions</h3>
+      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>Key decisions</h3>
       <ul class="decisions">
         <li>
           <h4>The seam was chosen before the engine</h4>
@@ -2868,7 +3201,7 @@ footer a:hover { color: var(--text); }
     </figure>
 
     <div class="block">
-      <h3>The problem</h3>
+      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>The problem</h3>
       <p>
         By the time a property search narrows to four candidates, the portals have stopped being
         useful. Every listing shows the same five fields, every developer's incentive package is
@@ -2886,7 +3219,7 @@ footer a:hover { color: var(--text); }
     </div>
 
     <div class="block">
-      <h3>Key decisions</h3>
+      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>Key decisions</h3>
       <ul class="decisions">
         <li>
           <h4>Not automating, at n=4</h4>
@@ -3003,7 +3336,9 @@ footer a:hover { color: var(--text); }
 (function () {
   "use strict";
 
-  var VIEWS = ["home", "creator-erp", "wa-agent", "endorsement", "extractors", "property-finder", "feng-shui"];
+  var VIEWS = ["home", "creator-erp", "wa-agent", "endorsement", "extractors", "property-finder", "feng-shui",
+               // WA Agent deployment sub-pages — reachable from the WA Agent view, not the masthead.
+               "wa-afterdark", "wa-jephie", "wa-cps", "wa-post"];
 
   // Single-view mode is JS-only. Without it the page stays one long
   // readable document rather than a blank screen.
@@ -3034,11 +3369,13 @@ footer a:hover { color: var(--text); }
       if (h) h.focus({ preventScroll: true });
     }
 
-    // Mark the current project in the masthead nav.
+    // Mark the current project in the masthead nav. A deployment sub-page has no
+    // nav entry of its own, so it lights up its parent project instead.
+    var navName = (name.indexOf("wa-") === 0 && name !== "wa-agent") ? "wa-agent" : name;
     Array.prototype.forEach.call(
       document.querySelectorAll(".mh-nav a"),
       function (a) {
-        if (a.getAttribute("data-view") === name) a.setAttribute("aria-current", "page");
+        if (a.getAttribute("data-view") === navName) a.setAttribute("aria-current", "page");
         else a.removeAttribute("aria-current");
       }
     );
