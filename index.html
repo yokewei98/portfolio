@@ -2608,36 +2608,29 @@ footer a:hover { color: var(--text); }
     <h2 class="sec-h" id="e-s4"><span class="sec-n">04</span> Key decisions</h2>
 
     <div class="block">
-      <ul class="decisions">
-        <li>
-          <h4>Data isolation by projection, not permission</h4>
-          <p>
-            The withheld columns are not permission-protected &mdash; they are absent. There is no
-            hidden field to reveal and no sharing setting to get wrong, because a leaked link exposes
-            a document that never contained the data. Permissions fail quietly when someone picks the
-            wrong option; a range that was never imported cannot fail that way.
-          </p>
-        </li>
-        <li>
-          <h4>Configuration as data</h4>
-          <p>
-            The scripts hold almost no constants &mdash; partner file IDs, import ranges, mode
-            switches and template IDs all live in cells, as the diagram below shows. Launching a
-            campaign, linking a client or swapping the contract template is a cell edit an account
-            manager can make. That is why roughly 35&nbsp;KB of script runs a system this size.
-          </p>
-        </li>
-        <li>
-          <h4>A self-managing lifecycle</h4>
-          <p>
-            Modules install a trigger when there is work and delete it when the work drains, which is
-            how the project stays under Google's 20-trigger ceiling: the weekly extractor keeps
-            exactly one shared trigger no matter how many tabs enrol. Tabs enrol for a six-month
-            window and then drop out on their own, so nobody has to remember to retire a finished
-            campaign.
-          </p>
-        </li>
-      </ul>
+      <div class="spec-wrap">
+        <table class="spec">
+          <thead>
+            <tr><th scope="col">Decision</th><th scope="col">Why</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Isolation by projection</td>
+              <td>A leaked link exposes a document that never held the data.</td>
+            </tr>
+            <tr>
+              <td>Configuration as data</td>
+              <td>Partner IDs, ranges and templates live in cells &mdash; 35&nbsp;KB of script runs
+                  105 tabs.</td>
+            </tr>
+            <tr>
+              <td>Self-deleting triggers</td>
+              <td>One shared weekly trigger however many tabs enrol, staying under Google's
+                  20-trigger ceiling.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <h2 class="sec-h" id="e-s5"><span class="sec-n">05</span> Under the hood</h2>
@@ -2721,11 +2714,7 @@ footer a:hover { color: var(--text); }
 
     <div class="block">
       <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bolt"/></svg>The Apps Script layer</h3>
-      <p>
-        Nine files, roughly 35&nbsp;KB, in one container-bound project attached to the pipeline sheet
-        and surfaced through a single <code>Custom</code> menu. Everything else in the ecosystem is
-        native spreadsheet formula &mdash; code is used only where formulas genuinely cannot reach.
-      </p>
+      <p>Nine files, ~35&nbsp;KB, one menu.</p>
       <div class="spec-wrap">
         <table class="spec">
           <thead>
@@ -2734,36 +2723,27 @@ footer a:hover { color: var(--text); }
           <tbody>
             <tr>
               <td>Sheet Setup</td>
-              <td>Clears and reapplies the full protection map &mdash; 12 ranges scoped to 4 named
-                  editors &mdash; then reads the sample-handling mode from <code>C2</code> to decide
-                  which logistics columns stay editable.</td>
+              <td>Applies the protection map &mdash; 12 ranges, 4 editors.</td>
               <td class="tg">Menu</td>
             </tr>
             <tr>
               <td>Contract</td>
-              <td>Copies a Docs template, merges 15 <code>{{placeholder}}</code> fields, shares it
-                  view-only by link and writes the PDF export URL back into the row. Detects which
-                  of two column layouts the tab uses and adapts.</td>
+              <td>Merges 15 fields into a Docs template, writes the PDF URL back.</td>
               <td class="tg">Menu</td>
             </tr>
             <tr>
               <td>RapidAPI Extractor</td>
-              <td>Weekly TikTok engagement pull for every enrolled tab. Checkpoint/resume across the
-                  6-minute cap, script-level locking, 7-day freshness skip and 6-month auto-expiry
-                  per tab.</td>
-              <td class="tg">Monday, weekly</td>
+              <td>Weekly engagement pull, checkpointed across the 6-minute cap.</td>
+              <td class="tg">Monday</td>
             </tr>
             <tr>
               <td>Sheet Name Lister</td>
-              <td>Writes the full tab roster to a helper tab, and is also exposed as a
-                  <code>=GET_SHEET_NAMES()</code> custom function that feeds the payment hub's
-                  triage buckets.</td>
+              <td>Roster tab, also <code>=GET_SHEET_NAMES()</code>.</td>
               <td class="tg">Menu / formula</td>
             </tr>
             <tr>
               <td>Unprotect BK</td>
-              <td>One-off migration tool: splits existing protections around a column and re-protects
-                  the neighbours, so a locked column becomes editable across every tab at once.</td>
+              <td>Splits protections around a column, across all tabs at once.</td>
               <td class="tg">Editor</td>
             </tr>
           </tbody>
@@ -2818,27 +2798,20 @@ footer a:hover { color: var(--text); }
       </figure>
       <ul class="fx">
         <li>
-          <b>The security boundary is where each range stops</b>
-          <span><code>G4:T</code> stops before U and V, so creator rates never leave.
-          <code>AE4:AG</code> stops before AH, so banking never leaves. <code>BP4:BV</code> starts
-          after BO, so internal QA state never leaves.</span>
+          <b>The boundary is where a range stops</b>
+          <span><code>G4:T</code> hides rates, <code>AE4:AG</code> hides banking.</span>
         </li>
         <li>
-          <b>Value type as the state machine</b>
-          <span>The contract cell holds a number &mdash; the video quantity &mdash; while pending,
-          and a URL once generated, so no status column is needed. Tick the box and the script flips
-          the type and unticks itself. <code>"Multiple Video"</code> means skip.</span>
+          <b>Value type is the state</b>
+          <span>A number while pending, a URL once generated &mdash; no status column.</span>
         </li>
         <li>
-          <b>A custom function feeding the finance layer</b>
-          <span><code>=GET_SHEET_NAMES()</code> generates the ~105-tab roster; two 1/0 flag columns
-          then drive three filtered views &mdash; ignored, payment list, and the remaining work
-          queue. A campaign is classified once and flows to the right list.</span>
+          <b>A custom function feeds finance</b>
+          <span><code>=GET_SHEET_NAMES()</code> builds the 105-tab payment roster.</span>
         </li>
         <li>
           <b>Computed governance columns</b>
-          <span><code>BL</code> counts revisions and <code>BM</code> computes elapsed days, which is
-          what makes the three-round review cap enforceable rather than aspirational.</span>
+          <span><code>BL</code> counts revisions, <code>BM</code> elapsed days.</span>
         </li>
       </ul>
     </div>
