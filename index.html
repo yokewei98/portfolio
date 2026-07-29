@@ -631,6 +631,49 @@ body.routed .view.active { display: block; }
 .fx span { color: var(--text-2); font-size: .9375rem; }
 .fx code { white-space: nowrap; }
 
+/* ─── section headings ───────────────────────────────────────
+   A project view runs seven-plus screens. With only an h1 at the
+   top and h3 block labels below it, a reader who scrolls past the
+   first screen has no way to tell which part of the argument they
+   are in. The h2 tier names each part and gives the document a
+   real h1 → h2 → h3 outline for screen readers and Ctrl+F. */
+.sec-h {
+  display: flex; align-items: baseline; gap: 14px;
+  margin: 76px 0 6px; padding-top: 22px;
+  border-top: 1px solid var(--brass-br);
+  font-family: var(--serif); font-size: 1.5rem; font-weight: 600;
+  letter-spacing: -0.02em; color: var(--text);
+  scroll-margin-top: 96px;
+}
+.sec-n {
+  font-family: var(--mono); font-size: .6875rem; font-weight: 500;
+  letter-spacing: .1em; color: var(--brass); flex: none;
+}
+
+/* ─── figure numbering ───────────────────────────────────────
+   Counter rather than markup, so inserting or moving a diagram
+   cannot leave the numbering stale. figure.shot is a different
+   class and is deliberately not counted. */
+.view { counter-reset: fig; }
+.view .figure { counter-increment: fig; }
+.view .figure::before {
+  content: "FIGURE " counter(fig);
+  display: block; margin-bottom: 11px;
+  font-family: var(--mono); font-size: .625rem; letter-spacing: .1em;
+  color: var(--brass-dk);
+}
+
+/* ─── masthead position indicator ────────────────────────────── */
+.mh-where {
+  font-family: var(--mono); font-size: .625rem; letter-spacing: .09em;
+  text-transform: uppercase; color: var(--muted);
+  margin-top: 7px; padding-top: 6px;
+  border-top: 1px solid var(--rule);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.mh-where b { color: var(--brass); font-weight: 500; }
+@media print { .mh-where { display: none; } }
+
 details.deeper { margin: 46px 0; border-top: 1px solid var(--rule); }
 details.deeper > summary {
   cursor: pointer; list-style: none;
@@ -923,6 +966,16 @@ footer a:hover { color: var(--text); }
       </g>
     </symbol>
 
+    <!-- Lark: traced from the supplied artwork, three flat shapes in the
+         brand's mint / royal / navy. NOT taken from an official vector —
+         it renders at 15px where silhouette and colour carry recognition,
+         but swap it for the real SVG when one is to hand. -->
+    <symbol id="l-lark" viewBox="0 0 432 432">
+      <path fill="#6FD7B3" d="M112 76 L272 76 C300 78 324 115 332 162 L249 251 Z"/>
+      <path fill="#4C62F0" d="M50 168 C104 216 162 260 206 268 C270 281 333 239 391 171 C398 245 361 322 301 356 C241 387 157 389 103 365 C69 349 50 330 50 308 Z"/>
+      <path fill="#2B3F8F" d="M206 268 C270 281 333 239 391 171 C393 214 372 268 340 292 C310 314 270 316 244 302 C228 293 214 281 206 268 Z"/>
+    </symbol>
+
     <!-- Platform marks. Brand colours are baked in, so these deliberately sit
          outside the single-accent rule the rest of the page follows. -->
     <symbol id="l-react" viewBox="0 0 24 24">
@@ -1096,6 +1149,7 @@ footer a:hover { color: var(--text); }
       <a href="#property-finder" data-view="property-finder">Property Finder</a>
       <a href="#feng-shui"      data-view="feng-shui">Feng Shui</a>
     </nav>
+    <div class="mh-where" aria-live="polite" hidden></div>
   </div>
 </div>
 
@@ -1453,7 +1507,7 @@ footer a:hover { color: var(--text); }
               <span>Workspace architecture, database design, operational workflow deployment. Lark is common across TikTok-ecosystem and regional SEA businesses.</span>
               <div class="tools">
                 <span class="tool"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#l-notion"/></svg>Notion</span>
-                <span class="tool no-mark">Lark / Feishu</span>
+                <span class="tool"><svg viewBox="0 0 432 432" aria-hidden="true"><use href="#l-lark"/></svg>Lark / Feishu</span>
               </div>
             </li>
             <li>
@@ -2281,8 +2335,9 @@ footer a:hover { color: var(--text); }
       Every figure countable in the code or configuration, and recounted in the live sheets.
     </p>
 
+    <h2 class="sec-h" id="e-s1"><span class="sec-n">01</span> The problem</h2>
+
     <div class="block">
-      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>The problem</h3>
       <figure class="figure">
         <svg class="dgm" viewBox="0 0 700 262" role="img" aria-labelledby="prbT prbD">
           <title id="prbT">Four parties, one record, four different slices</title>
@@ -2328,6 +2383,8 @@ footer a:hover { color: var(--text); }
         </figcaption>
       </figure>
     </div>
+
+    <h2 class="sec-h" id="e-s2"><span class="sec-n">02</span> How it fits together</h2>
 
     <figure class="figure">
       <svg class="dgm" viewBox="0 0 700 336" role="img" aria-labelledby="ecoT ecoD">
@@ -2487,6 +2544,8 @@ footer a:hover { color: var(--text); }
       </div>
     </figure>
 
+    <h2 class="sec-h" id="e-s3"><span class="sec-n">03</span> The client boundary</h2>
+
     <figure class="figure">
       <svg class="dgm" viewBox="0 0 700 272" role="img" aria-labelledby="endT endD">
         <title id="endT">Data isolation by projection</title>
@@ -2542,8 +2601,9 @@ footer a:hover { color: var(--text); }
       </figcaption>
     </figure>
 
+    <h2 class="sec-h" id="e-s4"><span class="sec-n">04</span> Key decisions</h2>
+
     <div class="block">
-      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>Key decisions</h3>
       <ul class="decisions">
         <li>
           <h4>Data isolation by projection, not permission</h4>
@@ -2575,6 +2635,8 @@ footer a:hover { color: var(--text); }
         </li>
       </ul>
     </div>
+
+    <h2 class="sec-h" id="e-s5"><span class="sec-n">05</span> Under the hood</h2>
 
     <figure class="figure">
       <svg class="dgm" viewBox="0 0 700 178" role="img" aria-labelledby="capT capD">
@@ -3536,6 +3598,57 @@ footer a:hover { color: var(--text); }
   });
 
   applyFilter("all");
+
+  // ── masthead position indicator ────────────────────────────
+  // A project view is several screens tall, so the h1 is long gone by
+  // the time you are reading. Echo the current project and section in
+  // the sticky bar. Degrades silently on views that have no h2 tier.
+  var where = document.querySelector(".mh-where");
+
+  function activeView() {
+    var views = document.querySelectorAll("section.view");
+    for (var i = 0; i < views.length; i++) {
+      if (views[i].offsetHeight > 0) return views[i];
+    }
+    return null;
+  }
+
+  function updateWhere() {
+    if (!where) return;
+    var view = activeView();
+    var h1 = view && view.querySelector("h1");
+    var secs = view ? view.querySelectorAll(".sec-h") : [];
+    if (!h1 || !secs.length) { where.hidden = true; return; }
+
+    // The last heading whose top has passed under the masthead wins.
+    var current = null;
+    for (var j = 0; j < secs.length; j++) {
+      if (secs[j].getBoundingClientRect().top <= 118) current = secs[j];
+    }
+    if (!current) { where.hidden = true; return; }
+
+    where.textContent = "";
+    var name = document.createElement("b");
+    name.textContent = h1.textContent.trim();
+    where.appendChild(name);
+    where.appendChild(
+      document.createTextNode("  ·  " + current.textContent.replace(/\s+/g, " ").trim())
+    );
+    where.hidden = false;
+  }
+
+  // Time throttle rather than requestAnimationFrame: rAF is paused whenever
+  // the page is not compositing, and the work here is five getBoundingClientRect
+  // calls, so there is nothing to gain from frame alignment.
+  var lastRun = 0, pending = null;
+  window.addEventListener("scroll", function () {
+    var now = +new Date();
+    if (now - lastRun >= 80) { lastRun = now; updateWhere(); return; }
+    clearTimeout(pending);
+    pending = setTimeout(function () { lastRun = +new Date(); updateWhere(); }, 80);
+  }, { passive: true });
+  window.addEventListener("hashchange", function () { setTimeout(updateWhere, 0); });
+  updateWhere();
 })();
 </script>
 </body>
