@@ -26,13 +26,16 @@
   --rule:     #23261e;
   --rule-lt:  #343829;
 
-  --text:     #eae8e0;
-  --text-2:   #b8b5a8;
-  --muted:    #8d8a78;
+  --text:     #eae8e0;   /* 16.0:1 */
+  --text-2:   #c2bfb1;   /*  9.9:1 */
+  --muted:    #9c9a88;   /*  6.8:1 — secondary text, incl. 9px diagram labels */
+  --dim:      #86846f;   /*  5.0:1 — tertiary labels. The DIMMEST any text goes. */
+  /* --rule / --rule-lt below are for BORDERS ONLY. --rule-lt as a text
+     colour measured 1.62:1 — invisible. Never set `color` from them. */
 
   /* One accent. Brass — archival, not startup. */
   --brass:    #d9a441;
-  --brass-dk: #9d7526;
+  --brass-dk: #b8903a;   /*  6.6:1 — was #9d7526 at 4.64:1, marginal at 10px */
   --brass-bg: rgba(217,164,65,.07);
   --brass-br: rgba(217,164,65,.26);
 
@@ -296,7 +299,7 @@ body.routed .view.active { display: block; }
 .section-grid > * { min-width: 0; }
 .section-num {
   font-family: var(--mono); font-size: .6875rem;
-  letter-spacing: .085em; color: var(--rule-lt);
+  letter-spacing: .085em; color: var(--dim);
   padding-top: .55rem;
 }
 .section-head { margin-bottom: 40px; }
@@ -317,7 +320,7 @@ body.routed .view.active { display: block; }
   transition: color .16s, border-color .16s;
 }
 .chip:hover { color: var(--text); }
-.chip .count { color: var(--rule-lt); margin-left: 5px; }
+.chip .count { color: var(--dim); margin-left: 5px; }
 .chip[aria-pressed="true"] { color: var(--brass); border-bottom-color: var(--brass); }
 .chip[aria-pressed="true"] .count { color: var(--brass-dk); }
 
@@ -346,7 +349,7 @@ body.routed .view.active { display: block; }
 .card[hidden] { display: none; }
 
 .card-idx {
-  font-size: .75rem; color: var(--rule-lt);
+  font-size: .75rem; color: var(--dim);
   padding-top: .3rem; letter-spacing: .06em;
   display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
 }
@@ -377,7 +380,7 @@ body.routed .view.active { display: block; }
   padding: 3px 8px;
 }
 .card-go {
-  font-family: var(--mono); font-size: 1.1rem; color: var(--rule-lt);
+  font-family: var(--mono); font-size: 1.1rem; color: var(--dim);
   padding-top: .3rem; transition: color .2s, transform .2s;
 }
 .card:hover .card-go { color: var(--brass); transform: translateX(4px); }
@@ -498,7 +501,7 @@ body.routed .view.active { display: block; }
 .dgm-t { fill: var(--text);   font-family: var(--mono); font-size: 11.5px; }
 .dgm-s { fill: var(--muted);  font-family: var(--mono); font-size: 9px;  letter-spacing: .05em; }
 .dgm-a { fill: var(--brass);  font-family: var(--mono); font-size: 9px;  letter-spacing: .05em; }
-.dgm-n { fill: var(--rule-lt);font-family: var(--mono); font-size: 9px;  letter-spacing: .08em; }
+.dgm-n { fill: var(--dim);font-family: var(--mono); font-size: 9px;  letter-spacing: .08em; }
 .mk    { fill: none; stroke: var(--rule-lt); stroke-width: 1.3; }
 .mk-a  { fill: none; stroke: var(--brass);   stroke-width: 1.3; }
 .figure figcaption {
@@ -798,6 +801,55 @@ footer a:hover { color: var(--text); }
       <path d="M12 3c2.6 2.9 3.9 5.9 3.9 9s-1.3 6.1-3.9 9c-2.6-2.9-3.9-5.9-3.9-9S9.4 5.9 12 3Z"/>
     </symbol>
 
+    <!-- heading + capability icons: stroke only, inherit colour -->
+    <symbol id="i-blocks" viewBox="0 0 24 24">
+      <rect x="3" y="3" width="7.6" height="7.6" rx="1.3"/>
+      <rect x="13.4" y="3" width="7.6" height="7.6" rx="1.3"/>
+      <rect x="3" y="13.4" width="7.6" height="7.6" rx="1.3"/>
+      <rect x="13.4" y="13.4" width="7.6" height="7.6" rx="1.3"/>
+    </symbol>
+    <symbol id="i-tools" viewBox="0 0 24 24">
+      <path d="M20.4 5.6a5.4 5.4 0 0 1-7.1 7.1L5.9 20.1a2 2 0 0 1-2.8-2.8l7.4-7.4a5.4 5.4 0 0 1 7.1-7.1l-3.2 3.2 2.8 2.8 3.2-3.2Z"/>
+    </symbol>
+    <symbol id="i-target" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.6"/>
+      <circle cx="12" cy="12" r=".9" fill="currentColor" stroke="none"/>
+    </symbol>
+    <symbol id="i-branch" viewBox="0 0 24 24">
+      <circle cx="6.5" cy="5" r="2.4"/><circle cx="6.5" cy="19" r="2.4"/><circle cx="17.5" cy="9.5" r="2.4"/>
+      <path d="M6.5 7.4v9.2"/><path d="M17.5 11.9c0 3.5-3.4 4.4-6.6 4.9"/>
+    </symbol>
+    <symbol id="i-search" viewBox="0 0 24 24">
+      <circle cx="10.5" cy="10.5" r="6.8"/><path d="m15.4 15.4 5.1 5.1"/>
+    </symbol>
+    <symbol id="i-stack" viewBox="0 0 24 24">
+      <path d="M12 2.5 21.5 7.5 12 12.5 2.5 7.5Z"/>
+      <path d="m2.5 12 9.5 5 9.5-5"/><path d="m2.5 16.5 9.5 5 9.5-5"/>
+    </symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24">
+      <path d="M13.6 2 4.4 13.6h6L10.4 22l9.2-11.6h-6L13.6 2Z"/>
+    </symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24">
+      <path d="M3.2 20.6h17.6"/>
+      <rect x="5.4" y="12" width="3.4" height="6" rx=".6"/>
+      <rect x="10.7" y="7.4" width="3.4" height="10.6" rx=".6"/>
+      <rect x="16" y="9.8" width="3.4" height="8.2" rx=".6"/>
+    </symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24">
+      <path d="M10.5 2.2c.6 4.6 2.2 6.2 6.8 6.8-4.6.6-6.2 2.2-6.8 6.8-.6-4.6-2.2-6.2-6.8-6.8 4.6-.6 6.2-2.2 6.8-6.8Z"/>
+      <path d="M18 14.6c.3 2.3 1.1 3.1 3.4 3.4-2.3.3-3.1 1.1-3.4 3.4-.3-2.3-1.1-3.1-3.4-3.4 2.3-.3 3.1-1.1 3.4-3.4Z"/>
+    </symbol>
+    <symbol id="i-board" viewBox="0 0 24 24">
+      <rect x="3" y="4" width="5" height="16" rx="1.2"/>
+      <rect x="9.5" y="4" width="5" height="10.5" rx="1.2"/>
+      <rect x="16" y="4" width="5" height="13.5" rx="1.2"/>
+    </symbol>
+    <symbol id="i-server" viewBox="0 0 24 24">
+      <rect x="3" y="4" width="18" height="6.2" rx="1.6"/>
+      <rect x="3" y="13.8" width="18" height="6.2" rx="1.6"/>
+      <path d="M6.8 7.1h.01M6.8 16.9h.01"/>
+    </symbol>
+
     <!-- Platform marks. Brand colours are baked in, so these deliberately sit
          outside the single-accent rule the rest of the page follows. -->
     <symbol id="l-react" viewBox="0 0 24 24">
@@ -1020,7 +1072,7 @@ footer a:hover { color: var(--text); }
             <a class="card" href="#endorsement" data-tags="automation data">
               <div class="card-idx"><svg class="ico card-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sheet"/></svg><span>03</span></div>
               <div>
-                <div class="card-role">The V1 &rarr; V2 arc</div>
+                <div class="card-role">Where the ERP came from</div>
                 <h3>Endorsement Platform</h3>
                 <p class="card-purpose">
                   The system the ERP replaced. A five-layer operations platform built entirely on
@@ -1375,6 +1427,57 @@ footer a:hover { color: var(--text); }
     </div>
 
     <div class="block">
+      <h3>The arc &mdash; spreadsheets, then an ERP</h3>
+      <figure class="figure">
+        <svg class="dgm" viewBox="0 0 700 262" role="img" aria-labelledby="arcT arcD">
+          <title id="arcT">What V1 could not express, and how V2 answers it</title>
+          <desc id="arcD">Four limits of the Google Workspace system set against the Creator ERP
+            that replaced each one: tabs become rows in a table, IMPORTRANGE joins become joins the
+            database enforces, access by column omission becomes 240 row-level-security policies,
+            and the six-minute execution ceiling disappears.</desc>
+
+          <text class="dgm-a" x="20" y="24">THE UPGRADE ARC — I BUILT BOTH SIDES OF THIS</text>
+
+          <text class="dgm-n" x="20"  y="48">V1 · GOOGLE WORKSPACE</text>
+          <text class="dgm-n" x="380" y="48">V2 · CREATOR ERP</text>
+
+          <rect class="dgm-box"   x="20"  y="60"  width="290" height="36" rx="2"/>
+          <rect class="dgm-box-a" x="380" y="60"  width="300" height="36" rx="2"/>
+          <text class="dgm-t" x="34"  y="83">105 tabs in one workbook</text>
+          <text class="dgm-t" x="394" y="83">campaigns as rows in a table</text>
+          <line class="dgm-ln-a" x1="316" y1="78" x2="374" y2="78" marker-end="url(#aha)"/>
+
+          <rect class="dgm-box"   x="20"  y="104" width="290" height="36" rx="2"/>
+          <rect class="dgm-box-a" x="380" y="104" width="300" height="36" rx="2"/>
+          <text class="dgm-t" x="34"  y="127">IMPORTRANGE joins</text>
+          <text class="dgm-t" x="394" y="127">joins the database enforces</text>
+          <line class="dgm-ln-a" x1="316" y1="122" x2="374" y2="122" marker-end="url(#aha)"/>
+
+          <rect class="dgm-box"   x="20"  y="148" width="290" height="36" rx="2"/>
+          <rect class="dgm-box-a" x="380" y="148" width="300" height="36" rx="2"/>
+          <text class="dgm-t" x="34"  y="171">access by column omission</text>
+          <text class="dgm-t" x="394" y="171">240 row-level-security policies</text>
+          <line class="dgm-ln-a" x1="316" y1="166" x2="374" y2="166" marker-end="url(#aha)"/>
+
+          <rect class="dgm-box"   x="20"  y="192" width="290" height="36" rx="2"/>
+          <rect class="dgm-box-a" x="380" y="192" width="300" height="36" rx="2"/>
+          <text class="dgm-t" x="34"  y="215">6-minute execution ceiling</text>
+          <text class="dgm-t" x="394" y="215">no execution ceiling</text>
+          <line class="dgm-ln-a" x1="316" y1="210" x2="374" y2="210" marker-end="url(#aha)"/>
+
+          <text class="dgm-a" x="350" y="248" text-anchor="middle">THE LIMITS IT HIT WERE THE PLATFORM'S, NOT THE WORKLOAD'S</text>
+        </svg>
+        <figcaption>
+          <b>I improved what existed, then rebuilt it when it ran out.</b> V1 automated the
+          spreadsheets the agency already used, so nothing had to be migrated and nobody had to be
+          retrained — which is the only reason it was allowed to happen. It ran that way for over a
+          year. Knowing exactly where it stopped is most of what made this one right.
+          <a href="#endorsement">See V1 &mdash; the Endorsement Platform &rarr;</a>
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="block">
       <h3>Key decisions</h3>
       <ul class="decisions">
         <li>
@@ -1697,7 +1800,7 @@ footer a:hover { color: var(--text); }
     <div class="proj-head">
       <a class="back reveal" style="--d:.02s" href="#">&larr; All projects</a>
       <svg class="ico proj-ico reveal" style="--d:.04s" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sheet"/></svg>
-      <p class="eyebrow reveal" style="--d:.06s"><span class="num">03</span> &nbsp;&middot;&nbsp; The V1 &rarr; V2 arc</p>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">03</span> &nbsp;&middot;&nbsp; The system the ERP replaced</p>
       <h1 class="reveal" style="--d:.1s" tabindex="-1">Endorsement Platform</h1>
       <p class="proj-purpose reveal" style="--d:.16s">
         A five-layer influencer-marketing operations platform built entirely on Google Workspace
@@ -1724,6 +1827,54 @@ footer a:hover { color: var(--text); }
     <p class="metrics-note">
       Every figure countable in the code or configuration, and recounted in the live sheets.
     </p>
+
+    <div class="block">
+      <h3>The problem</h3>
+      <figure class="figure">
+        <svg class="dgm" viewBox="0 0 700 262" role="img" aria-labelledby="prbT prbD">
+          <title id="prbT">Four parties, one record, four different slices</title>
+          <desc id="prbD">A creator, a brand client, an internal account team and a warehouse all
+            act on the same deal record, but each needs a different subset of it. Two of the four
+            must never see the creator's rate or banking details.</desc>
+
+          <rect class="dgm-box" x="20" y="30" width="200" height="54" rx="2"/>
+          <text class="dgm-t" x="34" y="52">Creator</text>
+          <text class="dgm-s" x="34" y="70">identity · bank · address</text>
+
+          <rect class="dgm-box" x="480" y="30" width="200" height="54" rx="2"/>
+          <text class="dgm-t" x="494" y="52">Brand client</text>
+          <text class="dgm-s" x="494" y="70">approves talent · reviews video</text>
+
+          <rect class="dgm-box" x="20" y="178" width="200" height="54" rx="2"/>
+          <text class="dgm-t" x="34" y="200">Account team</text>
+          <text class="dgm-s" x="34" y="218">runs the 12 stages</text>
+
+          <rect class="dgm-box" x="480" y="178" width="200" height="54" rx="2"/>
+          <text class="dgm-t" x="494" y="200">Warehouse</text>
+          <text class="dgm-s" x="494" y="218">ships the physical sample</text>
+
+          <line class="dgm-ln" x1="222" y1="70"  x2="286" y2="106" marker-end="url(#ah)"/>
+          <line class="dgm-ln" x1="478" y1="70"  x2="414" y2="106" marker-end="url(#ah)"/>
+          <line class="dgm-ln" x1="222" y1="192" x2="286" y2="156" marker-end="url(#ah)"/>
+          <line class="dgm-ln" x1="478" y1="192" x2="414" y2="156" marker-end="url(#ah)"/>
+
+          <rect class="dgm-box-a" x="250" y="106" width="200" height="50" rx="3"/>
+          <text class="dgm-t" x="350" y="128" text-anchor="middle">ONE DEAL RECORD</text>
+          <text class="dgm-s" x="350" y="145" text-anchor="middle">74 COLUMNS · ONE ROW</text>
+
+          <path class="dgm-ln-a dgm-dash" d="M480 96 L640 96 L640 44"/>
+          <text class="dgm-a" x="486" y="92">MUST NEVER SEE THE RATE</text>
+
+          <text class="dgm-n" x="350" y="252" text-anchor="middle">DONE BY HAND, ONE BANK NUMBER WAS RE-KEYED INTO A CONTRACT, A MANIFEST AND A PAYMENT RUN</text>
+        </svg>
+        <figcaption>
+          <b>Two constraints shaped everything after.</b> Creator rates must never reach the client,
+          because the gap between what the brand pays and what the creator receives is the agency's
+          margin. And there was no budget for infrastructure — so it had to run on the Workspace
+          licence the company already paid for.
+        </figcaption>
+      </figure>
+    </div>
 
     <figure class="figure">
       <svg class="dgm" viewBox="0 0 700 336" role="img" aria-labelledby="ecoT ecoD">
@@ -1789,56 +1940,6 @@ footer a:hover { color: var(--text); }
         cannot reach — document generation, outbound HTTP, permissions and scheduling.
       </figcaption>
     </figure>
-
-    <div class="block">
-      <h3>The arc &mdash; spreadsheets, then an ERP</h3>
-      <figure class="figure">
-        <svg class="dgm" viewBox="0 0 700 262" role="img" aria-labelledby="arcT arcD">
-          <title id="arcT">What V1 could not express, and how V2 answers it</title>
-          <desc id="arcD">Four limits of the Google Workspace system set against the Creator ERP
-            that replaced each one: tabs become rows in a table, IMPORTRANGE joins become joins the
-            database enforces, access by column omission becomes 240 row-level-security policies,
-            and the six-minute execution ceiling disappears.</desc>
-
-          <text class="dgm-a" x="20" y="24">THE UPGRADE ARC — I BUILT BOTH SIDES OF THIS</text>
-
-          <text class="dgm-n" x="20"  y="48">V1 · GOOGLE WORKSPACE</text>
-          <text class="dgm-n" x="380" y="48">V2 · CREATOR ERP</text>
-
-          <rect class="dgm-box"   x="20"  y="60"  width="290" height="36" rx="2"/>
-          <rect class="dgm-box-a" x="380" y="60"  width="300" height="36" rx="2"/>
-          <text class="dgm-t" x="34"  y="83">105 tabs in one workbook</text>
-          <text class="dgm-t" x="394" y="83">campaigns as rows in a table</text>
-          <line class="dgm-ln-a" x1="316" y1="78" x2="374" y2="78" marker-end="url(#aha)"/>
-
-          <rect class="dgm-box"   x="20"  y="104" width="290" height="36" rx="2"/>
-          <rect class="dgm-box-a" x="380" y="104" width="300" height="36" rx="2"/>
-          <text class="dgm-t" x="34"  y="127">IMPORTRANGE joins</text>
-          <text class="dgm-t" x="394" y="127">joins the database enforces</text>
-          <line class="dgm-ln-a" x1="316" y1="122" x2="374" y2="122" marker-end="url(#aha)"/>
-
-          <rect class="dgm-box"   x="20"  y="148" width="290" height="36" rx="2"/>
-          <rect class="dgm-box-a" x="380" y="148" width="300" height="36" rx="2"/>
-          <text class="dgm-t" x="34"  y="171">access by column omission</text>
-          <text class="dgm-t" x="394" y="171">240 row-level-security policies</text>
-          <line class="dgm-ln-a" x1="316" y1="166" x2="374" y2="166" marker-end="url(#aha)"/>
-
-          <rect class="dgm-box"   x="20"  y="192" width="290" height="36" rx="2"/>
-          <rect class="dgm-box-a" x="380" y="192" width="300" height="36" rx="2"/>
-          <text class="dgm-t" x="34"  y="215">6-minute execution ceiling</text>
-          <text class="dgm-t" x="394" y="215">no execution ceiling</text>
-          <line class="dgm-ln-a" x1="316" y1="210" x2="374" y2="210" marker-end="url(#aha)"/>
-
-          <text class="dgm-a" x="350" y="248" text-anchor="middle">THE LIMITS IT HIT WERE THE PLATFORM'S, NOT THE WORKLOAD'S</text>
-        </svg>
-        <figcaption>
-          <b>I improved what existed, then rebuilt it when it ran out.</b> V1 automated the
-          spreadsheets the agency already used, so nothing had to be migrated and nobody had to be
-          retrained — which is the only reason it was allowed to happen. It ran that way for over a
-          year. Knowing exactly where it stopped is most of what made the ERP right.
-        </figcaption>
-      </figure>
-    </div>
 
     <figure class="figure">
       <svg class="dgm" viewBox="0 0 700 216" role="img" aria-labelledby="stgT stgD">
@@ -1933,18 +2034,6 @@ footer a:hover { color: var(--text); }
       </div>
     </figure>
 
-    <div class="block">
-      <h3>The problem</h3>
-      <p>
-        One endorsement deal touches four parties who each need a different slice of the same record
-        &mdash; creator, brand client, internal account team, warehouse. Done by hand, one creator's
-        bank details got re-keyed into a contract, a shipping manifest and a payment run. Two
-        constraints shaped everything that followed: creator rates must never reach the client,
-        because that gap is the agency's margin; and there was no budget for infrastructure, so it
-        had to run on the Workspace licence the company already paid for.
-      </p>
-    </div>
-
     <figure class="figure">
       <svg class="dgm" viewBox="0 0 700 272" role="img" aria-labelledby="endT endD">
         <title id="endT">Data isolation by projection</title>
@@ -2022,18 +2111,6 @@ footer a:hover { color: var(--text); }
           </p>
         </li>
         <li>
-          <h4>Engineering around a hard platform ceiling</h4>
-          <p>
-            Apps Script terminates execution at six minutes, which a full metrics sweep always
-            exceeds. The extractor checkpoints at 4.5 minutes, persists its position and schedules a
-            continuation trigger ten minutes out, so a run completes across as many invocations as it
-            needs. That position is not hidden state &mdash; the control sheet keeps a row per tab
-            marking it processed, pending or skipped, so a killed run is diagnosable by opening the
-            file. A seven-day freshness check makes re-running harmless, and <code>LockService</code>
-            stops a manual run colliding with the scheduled one.
-          </p>
-        </li>
-        <li>
           <h4>A self-managing lifecycle</h4>
           <p>
             Modules install a trigger when there is work and delete it when the work drains, which is
@@ -2045,6 +2122,48 @@ footer a:hover { color: var(--text); }
         </li>
       </ul>
     </div>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 178" role="img" aria-labelledby="capT capD">
+        <title id="capT">Engineering around a hard platform ceiling</title>
+        <desc id="capD">Apps Script kills execution at six minutes. The extractor checkpoints at
+          four and a half minutes, writes its position back to the sheet and schedules a
+          continuation trigger ten minutes later, so the six-minute kill point is never reached and
+          the run completes across as many invocations as it needs.</desc>
+
+        <text class="dgm-a" x="20" y="22">ONE RUN · AS MANY INVOCATIONS AS IT NEEDS</text>
+
+        <rect class="dgm-box-a" x="40" y="38" width="157" height="30" rx="2"/>
+        <text class="dgm-s" x="118" y="57" text-anchor="middle">INVOCATION 1</text>
+
+        <rect class="dgm-box dgm-dash" x="197" y="38" width="350" height="30" rx="2"/>
+        <text class="dgm-n" x="372" y="57" text-anchor="middle">SCRIPT NOT RUNNING · +10 MIN CONTINUATION TRIGGER</text>
+
+        <rect class="dgm-box-a" x="547" y="38" width="113" height="30" rx="2"/>
+        <text class="dgm-s" x="603" y="57" text-anchor="middle">INVOCATION 2</text>
+
+        <line class="dgm-ln" x1="40" y1="90" x2="660" y2="90"/>
+        <path class="dgm-ln" d="M40 86 L40 94 M197 86 L197 94 M250 86 L250 94 M547 86 L547 94"/>
+        <text class="dgm-n" x="40"  y="108" text-anchor="middle">0:00</text>
+        <text class="dgm-a" x="197" y="108" text-anchor="middle">4:30</text>
+        <text class="dgm-n" x="250" y="108" text-anchor="middle">6:00</text>
+        <text class="dgm-n" x="547" y="108" text-anchor="middle">14:30</text>
+
+        <line class="dgm-ln-a" x1="197" y1="112" x2="197" y2="130"/>
+        <text class="dgm-a" x="191" y="134" text-anchor="end">CHECKPOINT</text>
+
+        <line class="dgm-ln dgm-dash" x1="250" y1="112" x2="250" y2="130"/>
+        <text class="dgm-n" x="256" y="134">PLATFORM HARD KILL — NEVER REACHED</text>
+
+        <text class="dgm-n" x="20" y="166">POSITION IS WRITTEN BACK TO THE SHEET, NOT HELD IN MEMORY — SO A KILLED RUN IS DIAGNOSABLE</text>
+      </svg>
+      <figcaption>
+        <b>The ceiling is a design input, not a failure mode.</b> A full metrics sweep across the
+        roster will always exceed six minutes, so the extractor is built to be interrupted. A
+        seven-day freshness check makes re-running harmless, and <code>LockService</code> stops a
+        manual run colliding with the scheduled one.
+      </figcaption>
+    </figure>
 
     <figure class="figure">
       <svg class="dgm" viewBox="0 0 700 240" role="img" aria-labelledby="cpT cpD">
@@ -2139,13 +2258,53 @@ footer a:hover { color: var(--text); }
 
     <div class="block">
       <h3>Formula work carrying the load</h3>
+      <figure class="figure">
+        <svg class="dgm" viewBox="0 0 700 190" role="img" aria-labelledby="impT impD">
+          <title id="impT">Nine IMPORTRANGE blocks and the four gaps between them</title>
+          <desc id="impD">The client sheet's 43 columns are assembled from nine separate
+            IMPORTRANGE blocks, deliberately arranged so the four columns the client must fill in —
+            Q, AB, AE and AH — fall in the gaps between the imported blocks and flow back into the
+            internal pipeline.</desc>
+
+          <text class="dgm-n" x="20" y="26">THE BRAND SHEET · 43 COLUMNS BUILT FROM NINE IMPORTRANGE BLOCKS</text>
+
+          <text class="dgm-a" x="272" y="48" text-anchor="middle">Q</text>
+          <text class="dgm-a" x="440" y="48" text-anchor="middle">AB</text>
+          <text class="dgm-a" x="486" y="48" text-anchor="middle">AE</text>
+          <text class="dgm-a" x="532" y="48" text-anchor="middle">AH</text>
+
+          <rect class="dgm-box"   x="20"  y="56" width="245" height="44" rx="2"/>
+          <rect class="dgm-box-a" x="265" y="56" width="15"  height="44"/>
+          <rect class="dgm-box"   x="280" y="56" width="153" height="44"/>
+          <rect class="dgm-box-a" x="433" y="56" width="15"  height="44"/>
+          <rect class="dgm-box"   x="448" y="56" width="31"  height="44"/>
+          <rect class="dgm-box-a" x="479" y="56" width="15"  height="44"/>
+          <rect class="dgm-box"   x="494" y="56" width="31"  height="44"/>
+          <rect class="dgm-box-a" x="525" y="56" width="15"  height="44"/>
+          <rect class="dgm-box"   x="540" y="56" width="138" height="44" rx="2"/>
+
+          <text class="dgm-s" x="142" y="82" text-anchor="middle">profile · audience · metrics</text>
+          <text class="dgm-s" x="356" y="82" text-anchor="middle">identity · shipping · video</text>
+          <text class="dgm-s" x="609" y="82" text-anchor="middle">performance</text>
+
+          <path class="dgm-ln-a" d="M272 100 L272 118 M440 100 L440 118 M486 100 L486 118 M532 100 L532 118 M272 118 L532 118"/>
+          <line class="dgm-ln-a" x1="402" y1="118" x2="402" y2="134" marker-end="url(#aha)"/>
+          <text class="dgm-a" x="402" y="148" text-anchor="middle">WRITE BACK INTO THE PIPELINE</text>
+
+          <rect class="dgm-box"   x="20"  y="168" width="14" height="10"/>
+          <text class="dgm-n" x="40"  y="177">IMPORTED — READ-ONLY REFLECTION</text>
+          <rect class="dgm-box-a" x="280" y="168" width="14" height="10"/>
+          <text class="dgm-n" x="300" y="177">CLIENT WRITES HERE</text>
+        </svg>
+        <figcaption>
+          <b>The gaps are the interface.</b> The blocks were arranged so the four columns the client
+          must fill in land exactly between them — the campaign tab reads
+          <code>Sheet1!Q3:Q</code>, <code>AB3:AB</code>, <code>AE3:AE</code> and
+          <code>AH3:AH</code> straight back in. No form, no app, no API: the client's own
+          spreadsheet is the write surface.
+        </figcaption>
+      </figure>
       <ul class="fx">
-        <li>
-          <b>Nine IMPORTRANGE blocks per client sheet</b>
-          <span>Arranged so the four client-writable columns fall in the gaps between them. The
-          campaign tab reads <code>Sheet1!Q3:Q</code>, <code>AB3:AB</code>, <code>AE3:AE</code> and
-          <code>AH3:AH</code> back in; everything else is a live read-only reflection.</span>
-        </li>
         <li>
           <b>The security boundary is where each range stops</b>
           <span><code>G4:T</code> stops before U and V, so creator rates never leave.
