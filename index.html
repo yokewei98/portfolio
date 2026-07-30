@@ -698,7 +698,10 @@ body.routed .view.active { display: block; }
    name; eyebrow, heading and lede stack beside it. Mirrors the home page's
    .section-grid, which is the reference implementation. */
 .sec-head {
-  display: grid; grid-template-columns: 46px 1fr;
+  /* Gutter geometry copied from home's .section-grid — 88px column, 32px gap.
+     Home's H2 bundle is the template; a narrower gutter here put the number
+     at a different optical position on every project page. */
+  display: grid; grid-template-columns: 88px 1fr; column-gap: 32px;
   margin: 68px 0 0; align-items: start;
   /* The divider belongs above the whole bundle. It used to live on
      h2.sec-h, which was correct when the h2 was the first thing in the
@@ -706,13 +709,15 @@ body.routed .view.active { display: block; }
      between eyebrow and heading. Moved here; the h2 rule is zeroed below. */
   border-top: 1px solid var(--brass-br); padding-top: 22px;
 }
+/* Number, eyebrow and lede spacing all mirror home's .section-num / .eyebrow /
+   .lede so the two bundles are optically identical at their two sizes. */
 .sec-head .sec-n {
   font-family: var(--mono); font-size: .6875rem; font-weight: 400;
-  letter-spacing: .1em; color: var(--muted); padding-top: 2px;
+  letter-spacing: .085em; color: #86846f; padding-top: 0;
 }
 .sec-body .eyebrow { margin-bottom: 9px; }
 .sec-body h2.sec-h { margin: 0; border-top: 0; padding-top: 0; }
-.sec-body .sec-lede { margin-top: 10px; }
+.sec-body .sec-lede { margin-top: 14px; }
 @media (max-width: 640px) {
   .sec-head { grid-template-columns: 1fr; gap: 6px; }
 }
@@ -729,9 +734,12 @@ body.routed .view.active { display: block; }
 /* Outcome first, mechanism last. Each section opens with what it achieved
    for the business; the diagrams and tables below it explain how. A reader
    who stops at the lede still gets the point of the section. */
+/* Matches home's .lede exactly — sans, not serif. Home's H2 bundle is the
+   template (rule 3b); the third line is explanatory copy, and serif at this
+   size read as a second heading rather than as supporting text. */
 .sec-lede {
-  font-family: var(--serif); font-size: 1.0625rem; line-height: 1.5;
-  color: var(--text); margin: 0 0 4px; max-width: 60ch;
+  font-family: var(--sans); font-size: 1.0625rem; line-height: 1.68;
+  color: var(--text-2); margin: 0; max-width: 60ch;
 }
 
 /* ─── figure numbering ───────────────────────────────────────
