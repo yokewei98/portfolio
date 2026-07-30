@@ -1634,39 +1634,53 @@ footer a:hover { color: var(--text); }
       and the generated database type definitions.
     </p>
 
-    <h2 class="sec-h" id="ce-s1"><span class="sec-n">01</span> Four portals, one database</h2>
-    <p class="sec-lede">Four parties share one database and none can read another's rows &mdash;
-    enforced by 240 policies, not by page code.</p>
+    <h2 class="sec-h" id="ce-s1"><span class="sec-n">01</span> Six portals, one database</h2>
+    <p class="sec-lede">Database-level authorisation: six portals read one schema, and none can
+    reach another's rows.</p>
 
     <figure class="figure">
       <svg class="dgm" viewBox="0 0 700 342" role="img" aria-labelledby="erpT erpD">
         <title id="erpT">Defence-in-depth authorisation</title>
-        <desc id="erpD">Four portals read through narrow views, which sit above 240 row-level
+        <desc id="erpD">Six portals read through narrow views, which sit above 240 row-level
           security policies, which sit above the base tables. Authorisation is enforced at the
           data layer rather than in application code.</desc>
 
-        <rect class="dgm-box" x="20"  y="20" width="150" height="52" rx="3"/>
-        <text class="dgm-t" x="34"  y="44">Operators</text>
-        <text class="dgm-s" x="34"  y="61">internal, elevated</text>
+        <text class="dgm-n" x="20"  y="14">INTERNAL</text>
+        <text class="dgm-n" x="240" y="14">EXTERNAL</text>
+        <text class="dgm-n" x="570" y="14">OVERSIGHT</text>
 
-        <rect class="dgm-box" x="190" y="20" width="150" height="52" rx="3"/>
-        <text class="dgm-t" x="204" y="44">Brand clients</text>
-        <text class="dgm-s" x="204" y="61">scoped view</text>
+        <rect class="dgm-box" x="20"  y="20" width="104" height="52" rx="3"/>
+        <text class="dgm-t" x="32"  y="44">ERP</text>
+        <text class="dgm-s" x="32"  y="61">full scope</text>
 
-        <rect class="dgm-box" x="360" y="20" width="150" height="52" rx="3"/>
-        <text class="dgm-t" x="374" y="44">Creators</text>
-        <text class="dgm-s" x="374" y="61">tokenised, no login</text>
+        <rect class="dgm-box" x="130" y="20" width="104" height="52" rx="3"/>
+        <text class="dgm-t" x="142" y="44">PIC</text>
+        <text class="dgm-s" x="142" y="61">own projects</text>
 
-        <rect class="dgm-box" x="530" y="20" width="150" height="52" rx="3"/>
-        <text class="dgm-t" x="544" y="44">Contract review</text>
-        <text class="dgm-s" x="544" y="61">approval only</text>
+        <rect class="dgm-box" x="240" y="20" width="104" height="52" rx="3"/>
+        <text class="dgm-t" x="252" y="44">Client</text>
+        <text class="dgm-s" x="252" y="61">own campaign</text>
+
+        <rect class="dgm-box" x="350" y="20" width="104" height="52" rx="3"/>
+        <text class="dgm-t" x="362" y="44">Creator</text>
+        <text class="dgm-s" x="362" y="61">tokenised</text>
+
+        <rect class="dgm-box" x="460" y="20" width="104" height="52" rx="3"/>
+        <text class="dgm-t" x="472" y="44">Develop</text>
+        <text class="dgm-s" x="472" y="61">progress only</text>
+
+        <rect class="dgm-box" x="570" y="20" width="104" height="52" rx="3"/>
+        <text class="dgm-t" x="582" y="44">Legal</text>
+        <text class="dgm-s" x="582" y="61">contracts only</text>
 
         <!-- collector bus -->
-        <line class="dgm-ln" x1="95"  y1="72" x2="95"  y2="110"/>
-        <line class="dgm-ln" x1="265" y1="72" x2="265" y2="110"/>
-        <line class="dgm-ln" x1="435" y1="72" x2="435" y2="110"/>
-        <line class="dgm-ln" x1="605" y1="72" x2="605" y2="110"/>
-        <line class="dgm-ln" x1="95"  y1="110" x2="605" y2="110"/>
+        <line class="dgm-ln" x1="72"  y1="72" x2="72"  y2="110"/>
+        <line class="dgm-ln" x1="182" y1="72" x2="182" y2="110"/>
+        <line class="dgm-ln" x1="292" y1="72" x2="292" y2="110"/>
+        <line class="dgm-ln" x1="402" y1="72" x2="402" y2="110"/>
+        <line class="dgm-ln" x1="512" y1="72" x2="512" y2="110"/>
+        <line class="dgm-ln" x1="622" y1="72" x2="622" y2="110"/>
+        <line class="dgm-ln" x1="72"  y1="110" x2="622" y2="110"/>
         <line class="dgm-ln-a" x1="350" y1="110" x2="350" y2="141" marker-end="url(#aha)"/>
         <text class="dgm-a" x="360" y="131">EVERY READ</text>
 
