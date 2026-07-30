@@ -700,13 +700,18 @@ body.routed .view.active { display: block; }
 .sec-head {
   display: grid; grid-template-columns: 46px 1fr;
   margin: 68px 0 0; align-items: start;
+  /* The divider belongs above the whole bundle. It used to live on
+     h2.sec-h, which was correct when the h2 was the first thing in the
+     section — once the eyebrow moved above it, that rule stranded itself
+     between eyebrow and heading. Moved here; the h2 rule is zeroed below. */
+  border-top: 1px solid var(--brass-br); padding-top: 22px;
 }
 .sec-head .sec-n {
-  font-family: var(--mono); font-size: .6875rem; font-weight: 500;
-  letter-spacing: .1em; color: var(--brass); padding-top: 4px;
+  font-family: var(--mono); font-size: .6875rem; font-weight: 400;
+  letter-spacing: .1em; color: var(--muted); padding-top: 2px;
 }
 .sec-body .eyebrow { margin-bottom: 9px; }
-.sec-body h2.sec-h { margin: 0; }
+.sec-body h2.sec-h { margin: 0; border-top: 0; padding-top: 0; }
 .sec-body .sec-lede { margin-top: 10px; }
 @media (max-width: 640px) {
   .sec-head { grid-template-columns: 1fr; gap: 6px; }
