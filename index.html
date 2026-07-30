@@ -715,6 +715,26 @@ body.routed .view.active { display: block; }
   font-family: var(--mono); font-size: .6875rem; font-weight: 400;
   letter-spacing: .085em; color: #86846f; padding-top: 0;
 }
+/* The gutter is for numbering and nothing else. On home the .section-grid
+   wraps the whole section, so every element below the heading sits in the
+   content column. Project sections only grid the header, so figures and
+   toggles were starting at the container edge and running under the number.
+   Indent them by the same 88 + 32 = 120px. */
+.view .wrap > .figure,
+.view .wrap > .block,
+.view .wrap > figure.shot,
+.view .wrap > details.layer2 { margin-left: 120px; }
+
+@media (max-width: 900px) {
+  /* Gutter collapses; the number moves inline above the heading. */
+  .sec-head { grid-template-columns: 1fr; column-gap: 0; }
+  .sec-head .sec-n { margin-bottom: 6px; }
+  .view .wrap > .figure,
+  .view .wrap > .block,
+  .view .wrap > figure.shot,
+  .view .wrap > details.layer2 { margin-left: 0; }
+}
+
 .sec-body .eyebrow { margin-bottom: 9px; }
 .sec-body h2.sec-h { margin: 0; border-top: 0; padding-top: 0; }
 .sec-body .sec-lede { margin-top: 14px; }
