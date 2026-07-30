@@ -732,15 +732,21 @@ body.routed .view.active { display: block; }
    navigation, so the one-line descriptions are labels, not prose. Keep them
    to a single line — that is what stops the exemption becoming a loophole. */
 .areas {
-  list-style: none; display: grid; grid-template-columns: repeat(2, 1fr);
-  gap: 1px; background: var(--rule);
-  border: 1px solid var(--rule); margin: 30px 0 0;
+  list-style: none; display: grid; grid-template-columns: 1fr 1fr;
+  column-gap: 48px; row-gap: 28px; margin: 32px 0 0;
+  /* One continuous rule down the centre instead of a boxed table. A single
+     gradient stop beats a border on nth-child(even), which would break the
+     line into four disconnected segments. */
+  background: linear-gradient(to right,
+    transparent calc(50% - .5px), var(--rule) calc(50% - .5px),
+    var(--rule) calc(50% + .5px), transparent calc(50% + .5px));
 }
 .areas > li {
   display: grid; grid-template-columns: 20px 1fr; gap: 14px;
-  background: var(--ink-2); padding: 18px 20px; align-items: start;
+  align-items: start;
 }
-.areas > li:hover { background: var(--ink-3); }
+.areas > li:nth-child(even) { padding-left: 24px; }
+.areas > li:nth-child(odd)  { padding-right: 24px; }
 .area-ico { width: 18px; height: 18px; color: var(--brass-dk); margin-top: 4px; }
 .areas h3 { font-family: var(--serif); font-size: 1.0625rem; font-weight: 600; margin: 0; }
 .areas h3 a {
