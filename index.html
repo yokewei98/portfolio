@@ -723,7 +723,39 @@ body.routed .view.active { display: block; }
 .view .wrap > .figure,
 .view .wrap > .block,
 .view .wrap > figure.shot,
+.view .wrap > ul.areas,
 .view .wrap > details.layer2 { margin-left: 120px; }
+
+/* Area index — the 8 sub-page cards. Icon in a fixed left column so all
+   eight align vertically down each column and the set reads as a directory
+   rather than eight paragraphs. Same reasoning as .capmap: this is
+   navigation, so the one-line descriptions are labels, not prose. Keep them
+   to a single line — that is what stops the exemption becoming a loophole. */
+.areas {
+  list-style: none; display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1px; background: var(--rule);
+  border: 1px solid var(--rule); margin: 30px 0 0;
+}
+.areas > li {
+  display: grid; grid-template-columns: 20px 1fr; gap: 14px;
+  background: var(--ink-2); padding: 18px 20px; align-items: start;
+}
+.areas > li:hover { background: var(--ink-3); }
+.area-ico { width: 18px; height: 18px; color: var(--brass-dk); margin-top: 4px; }
+.areas h3 { font-family: var(--serif); font-size: 1.0625rem; font-weight: 600; margin: 0; }
+.areas h3 a {
+  color: var(--text); text-decoration: none;
+  border-bottom: 1px solid var(--brass-br);
+}
+.areas h3 a:hover { border-bottom-color: var(--brass); }
+.areas .dep-meta {
+  font-family: var(--mono); font-size: .625rem; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--brass-dk); margin: 7px 0 0;
+}
+.areas > li > div > p:last-child {
+  font-size: .9375rem; color: var(--text-2); margin: 8px 0 0;
+}
+@media (max-width: 900px) { .areas { grid-template-columns: 1fr; } }
 
 @media (max-width: 900px) {
   /* Gutter collapses; the number moves inline above the heading. */
@@ -2035,55 +2067,82 @@ footer a:hover { color: var(--text); }
       </div>
     </details>
 
-    <div class="block">
-      <h3>Areas of the system</h3>
-      <p>
-        Eight areas, each with its own page &mdash; a diagram of the mechanism first, the running
-        screen behind a toggle.
-      </p>
-      <ul class="deploys">
-        <li>
-          <h4><a href="#erp-platforms">Portals</a></h4>
+    <div class="sec-head">
+      <div class="sec-n">03</div>
+      <div class="sec-body">
+        <p class="eyebrow">AREA PAGES</p>
+        <h2 class="sec-h" id="ce-s3"><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-blocks"/></svg> Areas of the system</h2>
+        <p class="sec-lede">Eight areas, each with its own page &mdash; the mechanism as a diagram,
+        the running screen behind a toggle.</p>
+      </div>
+    </div>
+
+    <ul class="areas">
+      <li>
+        <svg class="ico area-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-key"/></svg>
+        <div>
+          <h3><a href="#erp-platforms">Portals</a></h3>
           <p class="dep-meta">6 portals &middot; 3 audiences &middot; one schema</p>
           <p>Six front doors onto one codebase, with a route guard rather than a hidden menu.</p>
-        </li>
-        <li>
-          <h4><a href="#erp-roles">User &amp; Role</a></h4>
+        </div>
+      </li>
+      <li>
+        <svg class="ico area-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg>
+        <div>
+          <h3><a href="#erp-roles">User &amp; Role</a></h3>
           <p class="dep-meta">5 role groups &middot; 240 RLS policies</p>
           <p>One sign-in, and a scope the database enforces rather than the interface suggests.</p>
-        </li>
-        <li>
-          <h4><a href="#erp-country">Multiple country</a></h4>
+        </div>
+      </li>
+      <li>
+        <svg class="ico area-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-globe"/></svg>
+        <div>
+          <h3><a href="#erp-country">Multiple country</a></h3>
           <p class="dep-meta">ID &middot; MY &middot; VN &middot; 5 rules per market</p>
           <p>One switch moves the workspace; country selects currency, tax and paperwork.</p>
-        </li>
-        <li>
-          <h4><a href="#erp-endorse">Endorsement pipeline</a></h4>
+        </div>
+      </li>
+      <li>
+        <svg class="ico area-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>
+        <div>
+          <h3><a href="#erp-endorse">Endorsement pipeline</a></h3>
           <p class="dep-meta">Develop portal &middot; 8 stages &middot; no AI</p>
           <p>The Indonesian pipeline as it runs today, from proposal to verified post.</p>
-        </li>
-        <li>
-          <h4><a href="#erp-agentic">Agentic journey</a></h4>
+        </div>
+      </li>
+      <li>
+        <svg class="ico area-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-agent"/></svg>
+        <div>
+          <h3><a href="#erp-agentic">Agentic journey</a></h3>
           <p class="dep-meta">Develop portal &middot; retired, preserved</p>
           <p>The same eight stages run by an agent, and the confidence gate that escalated.</p>
-        </li>
-        <li>
-          <h4><a href="#erp-contract">Contract</a></h4>
+        </div>
+      </li>
+      <li>
+        <svg class="ico area-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sheet"/></svg>
+        <div>
+          <h3><a href="#erp-contract">Contract</a></h3>
           <p class="dep-meta">auto-generated &middot; Rp 5M threshold</p>
           <p>Documents that assemble themselves, with the withholding computed at build time.</p>
-        </li>
-        <li>
-          <h4><a href="#erp-extractor">Extractor</a></h4>
+        </div>
+      </li>
+      <li>
+        <svg class="ico area-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-extract"/></svg>
+        <div>
+          <h3><a href="#erp-extractor">Extractor</a></h3>
           <p class="dep-meta">2 sources &middot; queued &middot; failures counted</p>
           <p>Metrics pulled on a queue instead of read off a dashboard and retyped.</p>
-        </li>
-        <li>
-          <h4><a href="#erp-creators">Creator profile</a></h4>
+        </div>
+      </li>
+      <li>
+        <svg class="ico area-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-board"/></svg>
+        <div>
+          <h3><a href="#erp-creators">Creator profile</a></h3>
           <p class="dep-meta">shared pool &middot; category &middot; level &middot; tier</p>
           <p>The talent CRM, and the tier field that reaches forward into the contract path.</p>
-        </li>
-      </ul>
-    </div>
+        </div>
+      </li>
+    </ul>
 
     <nav class="pager" aria-label="Project navigation">
       <span class="spacer"></span>
