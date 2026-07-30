@@ -638,6 +638,34 @@ body.routed .view.active { display: block; }
 .spec td:first-child { color: var(--text); white-space: nowrap; }
 .spec td.tg { font-family: var(--mono); font-size: .6875rem; color: var(--brass); white-space: nowrap; }
 
+/* ─── capability map — an index, not prose ────────────────────
+   Cells are labels and pointers, never sentences. Deliberately NOT
+   .spec: .spec td counts against the prose budget, and this table is
+   navigation, exempt like tag chips and headings. Keep every cell
+   under ~60 characters so it cannot quietly become a prose dump —
+   that is the loophole this file keeps re-learning. */
+.capmap-wrap {
+  border: 1px solid var(--rule); background: var(--ink-2);
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+}
+.capmap { width: 100%; min-width: 520px; border-collapse: collapse; }
+.capmap th {
+  font-family: var(--mono); font-size: .625rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: .1em; color: var(--muted);
+  text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--rule-lt);
+}
+.capmap td { padding: 12px 16px; border-bottom: 1px solid var(--rule); font-size: .9375rem; }
+.capmap tr:last-child td { border-bottom: 0; }
+.capmap tr:hover td { background: var(--ink-3); }
+.capmap td:first-child { color: var(--text); white-space: nowrap; }
+.capmap td:last-child { color: var(--muted); }
+.capmap a {
+  color: var(--brass); text-decoration: none;
+  border-bottom: 1px solid var(--brass-br); font-family: var(--mono); font-size: .8125rem;
+}
+.capmap a:hover { border-bottom-color: var(--brass); }
+@media (max-width: 560px) { .capmap { min-width: 460px; } }
+
 /* ─── technique list — formula / mechanism call-outs ──────────── */
 .fx { list-style: none; margin: 26px 0 0; }
 .fx > li { padding: 14px 0; border-bottom: 1px solid var(--rule); }
@@ -1506,10 +1534,45 @@ footer a:hover { color: var(--text); }
     </div>
   </section>
 
-  <section class="section" aria-labelledby="skills-h">
+  <section class="section" aria-labelledby="cap-h">
     <div class="wrap">
       <div class="section-grid">
         <div class="section-num">02</div>
+        <div>
+          <div class="section-head">
+            <p class="eyebrow">Capability map</p>
+            <h2 id="cap-h"><svg class="ico head-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>Where the evidence is</h2>
+            <p class="lede">If you are hiring for one particular thing, go straight to it.</p>
+          </div>
+
+          <div class="capmap-wrap">
+            <table class="capmap">
+              <thead>
+                <tr><th scope="col">Capability</th><th scope="col">Evidence</th><th scope="col">Go to</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Database-level authorisation</td><td>240 RLS policies, six portals, one schema</td><td><a href="#creator-erp">Creator ERP &middot; 01</a></td></tr>
+                <tr><td>Multi-market systems</td><td>one value drives currency, tax, paperwork</td><td><a href="#erp-country">Multiple country &middot; 02</a></td></tr>
+                <tr><td>Requirements &rarr; system</td><td>12-stage pipeline across 74 columns</td><td><a href="#endorsement">Endorsement &middot; 02</a></td></tr>
+                <tr><td>Security by construction</td><td>withheld columns structurally absent</td><td><a href="#endorsement">Endorsement &middot; 03</a></td></tr>
+                <tr><td>AI agents &amp; LLM integration</td><td>three modes on one engine</td><td><a href="#wa-agent">WA Agent &middot; 01</a></td></tr>
+                <tr><td>Configuration over code</td><td>engine repointed at a client's own sheet</td><td><a href="#wa-afterdark">AfterDark &middot; 02</a></td></tr>
+                <tr><td>API &amp; reverse engineering</td><td>request signing replaces a page render</td><td><a href="#extractors">Extractors &middot; 02</a></td></tr>
+                <tr><td>Data pipelines</td><td>two sources converge on one queue</td><td><a href="#erp-extractor">Extractor &middot; 02</a></td></tr>
+                <tr><td>Document automation</td><td>contracts assemble from data, no button</td><td><a href="#erp-contract">Contract &middot; 01</a></td></tr>
+                <tr><td>Engineering judgment</td><td>a swappable seam, and when to rebuild</td><td><a href="#property-finder">Property Finder &middot; 02</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="skills-h">
+    <div class="wrap">
+      <div class="section-grid">
+        <div class="section-num">03</div>
         <div>
           <div class="section-head">
             <p class="eyebrow">Skills</p>
