@@ -693,6 +693,15 @@ body.routed .view.active { display: block; }
   letter-spacing: .1em; color: var(--brass); flex: none;
 }
 
+/* Every section heading carries an icon, chosen for what the section is
+   about — so the eye can find a section by shape before reading it. Sized
+   between .head-ico (25px, page sections) and .blk-ico (15px, sub-blocks). */
+.sec-ico {
+  width: 19px; height: 19px; color: var(--brass-dk);
+  flex: none; margin-right: 2px;
+}
+@media print { .sec-ico { color: var(--brass); } }
+
 /* Outcome first, mechanism last. Each section opens with what it achieved
    for the business; the diagrams and tables below it explain how. A reader
    who stops at the lede still gets the point of the section. */
@@ -1235,7 +1244,7 @@ footer a:hover { color: var(--text); }
     <nav class="mh-nav" aria-label="Projects">
       <a href="#creator-erp"    data-view="creator-erp">Creator ERP</a>
       <a href="#wa-agent"       data-view="wa-agent">WA Agent</a>
-      <a href="#endorsement"    data-view="endorsement">Endorsement</a>
+      <a href="#endorsement"    data-view="endorsement">Endorsement Platform</a>
       <a href="#extractors"     data-view="extractors">Extractors</a>
       <a href="#property-finder" data-view="property-finder">Property Finder</a>
       <a href="#feng-shui"      data-view="feng-shui">Feng Shui</a>
@@ -1473,9 +1482,10 @@ footer a:hover { color: var(--text); }
             <svg class="dgm" viewBox="0 0 700 392" role="img" aria-labelledby="mapT mapD">
               <title id="mapT">How the six systems relate</title>
               <desc id="mapD">The Endorsement Platform was rebuilt as the Creator ERP when it
-                hit its platform ceiling. The Analytics Extractors feed metrics into the ERP.
-                WA Agent, Property Finder and the Feng Shui Dashboard are independent
-                projects.</desc>
+                hit its platform ceiling. The Analytics Extractors feed creator metrics into
+                both systems — into the ERP, and into the Google Sheets the Endorsement
+                Platform runs on. WA Agent, Property Finder and the Feng Shui Dashboard are
+                independent projects.</desc>
 
               <!-- V1 -->
               <rect class="dgm-box" x="20" y="30" width="250" height="60" rx="3"/>
@@ -1501,6 +1511,10 @@ footer a:hover { color: var(--text); }
               <text class="dgm-n" x="664" y="202" text-anchor="end">04</text>
               <line class="dgm-ln" x1="555" y1="172" x2="555" y2="94" marker-end="url(#ah)"/>
               <text class="dgm-s" x="566" y="137">feeds creator metrics</text>
+              <!-- the extractors write into Sheets, which is what V1 runs on,
+                   so they feed the older system as well as the ERP -->
+              <path class="dgm-ln" d="M428 205 L145 205 L145 94" marker-end="url(#ah)"/>
+              <text class="dgm-s" x="287" y="196" text-anchor="middle">feeds the V1 sheets too</text>
 
               <!-- divider -->
               <line class="dgm-ln dgm-dash" x1="20"  y1="272" x2="238" y2="272"/>
@@ -1553,8 +1567,8 @@ footer a:hover { color: var(--text); }
               <tbody>
                 <tr><td>Database-level authorisation</td><td>240 RLS policies, six portals, one schema</td><td><a href="#creator-erp">Creator ERP &middot; 01</a></td></tr>
                 <tr><td>Multi-market systems</td><td>one value drives currency, tax, paperwork</td><td><a href="#erp-country">Multiple country &middot; 02</a></td></tr>
-                <tr><td>Requirements &rarr; system</td><td>12-stage pipeline across 74 columns</td><td><a href="#endorsement">Endorsement &middot; 02</a></td></tr>
-                <tr><td>Security by construction</td><td>withheld columns structurally absent</td><td><a href="#endorsement">Endorsement &middot; 03</a></td></tr>
+                <tr><td>Requirements &rarr; system</td><td>12-stage pipeline across 74 columns</td><td><a href="#endorsement">Endorsement Platform &middot; 02</a></td></tr>
+                <tr><td>Security by construction</td><td>withheld columns structurally absent</td><td><a href="#endorsement">Endorsement Platform &middot; 03</a></td></tr>
                 <tr><td>AI agents &amp; LLM integration</td><td>three modes on one engine</td><td><a href="#wa-agent">WA Agent &middot; 01</a></td></tr>
                 <tr><td>Configuration over code</td><td>engine repointed at a client's own sheet</td><td><a href="#wa-afterdark">AfterDark &middot; 02</a></td></tr>
                 <tr><td>API &amp; reverse engineering</td><td>request signing replaces a page render</td><td><a href="#extractors">Extractors &middot; 02</a></td></tr>
@@ -1697,7 +1711,7 @@ footer a:hover { color: var(--text); }
       and the generated database type definitions.
     </p>
 
-    <h2 class="sec-h" id="ce-s1"><span class="sec-n">01</span> Six portals, one database</h2>
+    <h2 class="sec-h" id="ce-s1"><span class="sec-n">01</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-key"/></svg> Six portals, one database</h2>
     <p class="sec-lede">Database-level authorisation: six portals read one schema, and none can
     reach another's rows.</p>
 
@@ -1895,7 +1909,7 @@ footer a:hover { color: var(--text); }
       </div>
     </details>
 
-    <h2 class="sec-h" id="ce-s2"><span class="sec-n">02</span> Spreadsheets, then an ERP</h2>
+    <h2 class="sec-h" id="ce-s2"><span class="sec-n">02</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stack"/></svg> Spreadsheets, then an ERP</h2>
     <p class="sec-lede">I built the Google Workspace system this replaced, so its limits were known
     before this one was designed.</p>
 
@@ -2035,7 +2049,7 @@ footer a:hover { color: var(--text); }
       </ul>
     </div>
 
-    <h2 class="sec-h" id="pf-s1"><span class="sec-n">01</span> Six front doors, one building</h2>
+    <h2 class="sec-h" id="pf-s1"><span class="sec-n">01</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-key"/></svg> Six front doors, one building</h2>
     <p class="sec-lede">Six portals serve three different audiences off a single codebase and a
     single schema.</p>
 
@@ -2092,7 +2106,7 @@ footer a:hover { color: var(--text); }
       </figcaption>
     </figure>
 
-    <h2 class="sec-h" id="pf-s2"><span class="sec-n">02</span> The switcher is not the boundary</h2>
+    <h2 class="sec-h" id="pf-s2"><span class="sec-n">02</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-key"/></svg> The switcher is not the boundary</h2>
     <p class="sec-lede">Typing another portal's URL does not open it &mdash; the route guard sends
     you back to your own.</p>
 
@@ -2192,7 +2206,7 @@ footer a:hover { color: var(--text); }
       </ul>
     </div>
 
-    <h2 class="sec-h" id="ur-s1"><span class="sec-n">01</span> One sign-in, six portals</h2>
+    <h2 class="sec-h" id="ur-s1"><span class="sec-n">01</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-key"/></svg> One sign-in, six portals</h2>
     <p class="sec-lede">One login decides which of six portals you land on &mdash; the choice is a
     role string, not a menu.</p>
 
@@ -2257,7 +2271,7 @@ footer a:hover { color: var(--text); }
       </figcaption>
     </figure>
 
-    <h2 class="sec-h" id="ur-s2"><span class="sec-n">02</span> Scope, not just role</h2>
+    <h2 class="sec-h" id="ur-s2"><span class="sec-n">02</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-key"/></svg> Scope, not just role</h2>
     <p class="sec-lede">A PIC reaches only assigned projects, and the Users screen shows that scope
     as a count per person.</p>
 
@@ -2369,7 +2383,7 @@ footer a:hover { color: var(--text); }
       </ul>
     </div>
 
-    <h2 class="sec-h" id="cy-s1"><span class="sec-n">01</span> One switch, three markets</h2>
+    <h2 class="sec-h" id="cy-s1"><span class="sec-n">01</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-globe"/></svg> One switch, three markets</h2>
     <p class="sec-lede">One control moves the whole workspace between Indonesia, Malaysia and
     Vietnam.</p>
 
@@ -2412,7 +2426,7 @@ footer a:hover { color: var(--text); }
       </figcaption>
     </figure>
 
-    <h2 class="sec-h" id="cy-s2"><span class="sec-n">02</span> What country actually decides</h2>
+    <h2 class="sec-h" id="cy-s2"><span class="sec-n">02</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-globe"/></svg> What country actually decides</h2>
     <p class="sec-lede">Country is not a label &mdash; it selects currency, tax, paperwork and the
     numbering sequence.</p>
 
@@ -2514,7 +2528,7 @@ footer a:hover { color: var(--text); }
       </ul>
     </div>
 
-    <h2 class="sec-h" id="ep-s1"><span class="sec-n">01</span> Eight stages, run by hand</h2>
+    <h2 class="sec-h" id="ep-s1"><span class="sec-n">01</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg> Eight stages, run by hand</h2>
     <p class="sec-lede">Eight stages carry a creator from proposal to verified post, messaged by the
     team throughout.</p>
 
@@ -2581,7 +2595,7 @@ footer a:hover { color: var(--text); }
       </figcaption>
     </figure>
 
-    <h2 class="sec-h" id="ep-s2"><span class="sec-n">02</span> Where a creator leaves</h2>
+    <h2 class="sec-h" id="ep-s2"><span class="sec-n">02</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg> Where a creator leaves</h2>
     <p class="sec-lede">Three points can end a creator's run, and each is recorded rather than
     quietly dropped.</p>
 
@@ -2691,7 +2705,7 @@ footer a:hover { color: var(--text); }
       </ul>
     </div>
 
-    <h2 class="sec-h" id="ag-s1"><span class="sec-n">01</span> The same eight stages</h2>
+    <h2 class="sec-h" id="ag-s1"><span class="sec-n">01</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg> The same eight stages</h2>
     <p class="sec-lede">The agent changed who did the messaging, not the shape of the pipeline
     underneath it.</p>
 
@@ -2736,7 +2750,7 @@ footer a:hover { color: var(--text); }
       </figcaption>
     </figure>
 
-    <h2 class="sec-h" id="ag-s2"><span class="sec-n">02</span> The confidence gate</h2>
+    <h2 class="sec-h" id="ag-s2"><span class="sec-n">02</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-agent"/></svg> The confidence gate</h2>
     <p class="sec-lede">When the model was unsure it escalated to a human control group rather than
     guessing.</p>
 
@@ -2836,7 +2850,7 @@ footer a:hover { color: var(--text); }
       </ul>
     </div>
 
-    <h2 class="sec-h" id="ct-s1"><span class="sec-n">01</span> Contracts assemble themselves</h2>
+    <h2 class="sec-h" id="ct-s1"><span class="sec-n">01</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sheet"/></svg> Contracts assemble themselves</h2>
     <p class="sec-lede">The document builds the moment the last required field lands &mdash; there is
     no generate step.</p>
 
@@ -2880,7 +2894,7 @@ footer a:hover { color: var(--text); }
       </figcaption>
     </figure>
 
-    <h2 class="sec-h" id="ct-s2"><span class="sec-n">02</span> Value decides the path</h2>
+    <h2 class="sec-h" id="ct-s2"><span class="sec-n">02</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg> Value decides the path</h2>
     <p class="sec-lede">Below Rp 5.000.000 the system prepares the contract; at or above it, the
     legal team does.</p>
 
@@ -2975,7 +2989,7 @@ footer a:hover { color: var(--text); }
       </ul>
     </div>
 
-    <h2 class="sec-h" id="ex-s1"><span class="sec-n">01</span> Metrics arrive, not typed</h2>
+    <h2 class="sec-h" id="ex-s1"><span class="sec-n">01</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-extract"/></svg> Metrics arrive, not typed</h2>
     <p class="sec-lede">Creator figures are pulled on a queue instead of being read off a dashboard
     and retyped.</p>
 
@@ -3018,7 +3032,7 @@ footer a:hover { color: var(--text); }
       </figcaption>
     </figure>
 
-    <h2 class="sec-h" id="ex-s2"><span class="sec-n">02</span> Two sources, one queue</h2>
+    <h2 class="sec-h" id="ex-s2"><span class="sec-n">02</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-extract"/></svg> Two sources, one queue</h2>
     <p class="sec-lede">Two independent sources feed one queue, and every run ends in a state the
     log can show.</p>
 
@@ -3127,7 +3141,7 @@ footer a:hover { color: var(--text); }
       </ul>
     </div>
 
-    <h2 class="sec-h" id="cr-s1"><span class="sec-n">01</span> One record per creator</h2>
+    <h2 class="sec-h" id="cr-s1"><span class="sec-n">01</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg> One record per creator</h2>
     <p class="sec-lede">Each creator is one record, filterable by the three attributes the pipeline
     actually uses.</p>
 
@@ -3171,7 +3185,7 @@ footer a:hover { color: var(--text); }
       </figcaption>
     </figure>
 
-    <h2 class="sec-h" id="cr-s2"><span class="sec-n">02</span> Tier reaches the paperwork</h2>
+    <h2 class="sec-h" id="cr-s2"><span class="sec-n">02</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sheet"/></svg> Tier reaches the paperwork</h2>
     <p class="sec-lede">A creator's commercial band is not decoration &mdash; it reaches forward into
     the contract path.</p>
 
@@ -3291,7 +3305,7 @@ footer a:hover { color: var(--text); }
       test declarations, settings from the schema contract.
     </p>
 
-    <h2 class="sec-h" id="w-s1"><span class="sec-n">01</span> The whole WA agent</h2>
+    <h2 class="sec-h" id="w-s1"><span class="sec-n">01</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-agent"/></svg> The whole WA agent</h2>
     <p class="sec-lede">One engine, three modes and a 16-tab Sheet &mdash; four agents run on it
     without a line of engine code differing.</p>
 
@@ -3427,7 +3441,7 @@ footer a:hover { color: var(--text); }
       </div>
     </details>
 
-    <h2 class="sec-h" id="w-s2"><span class="sec-n">02</span> The worker</h2>
+    <h2 class="sec-h" id="w-s2"><span class="sec-n">02</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-server"/></svg> The worker</h2>
     <p class="sec-lede">One Node process carries every client's WhatsApp session behind one router
     and one tunnel.</p>
 
@@ -3528,7 +3542,7 @@ footer a:hover { color: var(--text); }
       </div>
     </details>
 
-    <h2 class="sec-h" id="w-s3"><span class="sec-n">03</span> AfterDark</h2>
+    <h2 class="sec-h" id="w-s3"><span class="sec-n">03</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-blocks"/></svg> AfterDark</h2>
     <p class="sec-lede">The venue bot the whole engine was generalised out of &mdash; built specific,
     then rebuilt so the specifics were data.</p>
 
@@ -3583,7 +3597,7 @@ footer a:hover { color: var(--text); }
       </div>
     </details>
 
-    <h2 class="sec-h" id="w-s4"><span class="sec-n">04</span> jephie</h2>
+    <h2 class="sec-h" id="w-s4"><span class="sec-n">04</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-blocks"/></svg> jephie</h2>
     <p class="sec-lede">The property agent opens already knowing which development, because the ad
     pre-fills the catalogue code.</p>
 
@@ -3635,7 +3649,7 @@ footer a:hover { color: var(--text); }
       </div>
     </details>
 
-    <h2 class="sec-h" id="w-s5"><span class="sec-n">05</span> CPS</h2>
+    <h2 class="sec-h" id="w-s5"><span class="sec-n">05</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-blocks"/></svg> CPS</h2>
     <p class="sec-lede">Same engine, one setting changed: a good conversation here ends in a resolved
     question, not a booking.</p>
 
@@ -3689,7 +3703,7 @@ footer a:hover { color: var(--text); }
       </div>
     </details>
 
-    <h2 class="sec-h" id="w-s6"><span class="sec-n">06</span> post agent</h2>
+    <h2 class="sec-h" id="w-s6"><span class="sec-n">06</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-agent"/></svg> post agent</h2>
     <p class="sec-lede">The one that never speaks to a customer &mdash; it picks the photos and
     drafts the caption in a staff group.</p>
 
@@ -3773,7 +3787,7 @@ footer a:hover { color: var(--text); }
       </ul>
     </div>
 
-    <h2 class="sec-h" id="ad-s1"><span class="sec-n">01</span> What a lead is here</h2>
+    <h2 class="sec-h" id="ad-s1"><span class="sec-n">01</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-agent"/></svg> What a lead is here</h2>
     <p class="sec-lede">A lead here is a table booking &mdash; confirmed only once name, date and
     time are all present.</p>
 
@@ -3841,7 +3855,7 @@ footer a:hover { color: var(--text); }
       </div>
     </details>
 
-    <h2 class="sec-h" id="ad-s2"><span class="sec-n">02</span> Running on the venue's own sheet</h2>
+    <h2 class="sec-h" id="ad-s2"><span class="sec-n">02</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sheet"/></svg> Running on the venue's own sheet</h2>
     <p class="sec-lede">It runs on the venue's existing Bookings tabs, with no migration and no
     renaming.</p>
 
@@ -3920,7 +3934,7 @@ footer a:hover { color: var(--text); }
       </ul>
     </div>
 
-    <h2 class="sec-h" id="jp-s1"><span class="sec-n">01</span> What a lead is here</h2>
+    <h2 class="sec-h" id="jp-s1"><span class="sec-n">01</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-agent"/></svg> What a lead is here</h2>
     <p class="sec-lede">A lead here is a showroom visit, confirmed against an address read from the
     catalogue.</p>
 
@@ -3981,7 +3995,7 @@ footer a:hover { color: var(--text); }
       </div>
     </details>
 
-    <h2 class="sec-h" id="jp-s2"><span class="sec-n">02</span> Restraint is a persona setting</h2>
+    <h2 class="sec-h" id="jp-s2"><span class="sec-n">02</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-agent"/></svg> Restraint is a persona setting</h2>
     <p class="sec-lede">The agent stays on one development by persona, not by a lock in the
     engine.</p>
 
@@ -4065,7 +4079,7 @@ footer a:hover { color: var(--text); }
       </ul>
     </div>
 
-    <h2 class="sec-h" id="cp-s1"><span class="sec-n">01</span> A different definition of success</h2>
+    <h2 class="sec-h" id="cp-s1"><span class="sec-n">01</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg> A different definition of success</h2>
     <p class="sec-lede">One setting turns a sales agent into a support agent, with no change to
     transport or schema.</p>
 
@@ -4124,7 +4138,7 @@ footer a:hover { color: var(--text); }
       </div>
     </details>
 
-    <h2 class="sec-h" id="cp-s2"><span class="sec-n">02</span> The refusal rule matters more here</h2>
+    <h2 class="sec-h" id="cp-s2"><span class="sec-n">02</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-agent"/></svg> The refusal rule matters more here</h2>
     <p class="sec-lede">Anything not on file produces silence and a logged gap, never a plausible
     guess.</p>
 
@@ -4207,7 +4221,7 @@ footer a:hover { color: var(--text); }
       </ul>
     </div>
 
-    <h2 class="sec-h" id="pg-s1"><span class="sec-n">01</span> How it is used</h2>
+    <h2 class="sec-h" id="pg-s1"><span class="sec-n">01</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spark"/></svg> How it is used</h2>
     <p class="sec-lede">Someone types @a in the group and gets a photo set and a caption back, then
     edits it in place.</p>
 
@@ -4268,7 +4282,7 @@ footer a:hover { color: var(--text); }
       </div>
     </details>
 
-    <h2 class="sec-h" id="pg-s2"><span class="sec-n">02</span> Why it lives in the same engine</h2>
+    <h2 class="sec-h" id="pg-s2"><span class="sec-n">02</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-server"/></svg> Why it lives in the same engine</h2>
     <p class="sec-lede">A content assistant and a sales assistant share almost everything as
     software.</p>
 
@@ -4365,7 +4379,7 @@ footer a:hover { color: var(--text); }
       Every figure countable in the code or configuration, and recounted in the live sheets.
     </p>
 
-    <h2 class="sec-h" id="e-s1"><span class="sec-n">01</span> The problem</h2>
+    <h2 class="sec-h" id="e-s1"><span class="sec-n">01</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg> The problem</h2>
     <p class="sec-lede">Four parties needed the same record, and one creator's bank number was
     being typed into three of them.</p>
 
@@ -4414,7 +4428,7 @@ footer a:hover { color: var(--text); }
       </figure>
     </div>
 
-    <h2 class="sec-h" id="e-s2"><span class="sec-n">02</span> How it fits together</h2>
+    <h2 class="sec-h" id="e-s2"><span class="sec-n">02</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stack"/></svg> How it fits together</h2>
     <p class="sec-lede">48 brand clients get a live view of their own campaign &mdash; no web app,
     no login, nothing to host.</p>
 
@@ -4571,7 +4585,7 @@ footer a:hover { color: var(--text); }
       </div>
     </details>
 
-    <h2 class="sec-h" id="e-s3"><span class="sec-n">03</span> The client boundary</h2>
+    <h2 class="sec-h" id="e-s3"><span class="sec-n">03</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-key"/></svg> The client boundary</h2>
     <p class="sec-lede">A mis-shared link cannot leak the agency's margin, because those numbers
     were never in the client's file.</p>
 
@@ -4644,7 +4658,7 @@ footer a:hover { color: var(--text); }
       </div>
     </details>
 
-    <h2 class="sec-h" id="e-s4"><span class="sec-n">04</span> Key decisions</h2>
+    <h2 class="sec-h" id="e-s4"><span class="sec-n">04</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg> Key decisions</h2>
     <p class="sec-lede">Three choices that let 105 campaigns run on 35&nbsp;KB of script, edited by
     account managers rather than by me.</p>
 
@@ -4681,7 +4695,7 @@ footer a:hover { color: var(--text); }
       </div>
     </details>
 
-    <h2 class="sec-h" id="e-s5"><span class="sec-n">05</span> Under the hood</h2>
+    <h2 class="sec-h" id="e-s5"><span class="sec-n">05</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-server"/></svg> Under the hood</h2>
     <p class="sec-lede">Performance keeps updating for six months after a campaign ships, with
     nobody restarting jobs.</p>
 
@@ -4953,7 +4967,7 @@ footer a:hover { color: var(--text); }
     </dl>
     <p class="metrics-note">Every interval, cap and count read directly from source.</p>
 
-    <h2 class="sec-h" id="xtr-s1"><span class="sec-n">01</span> Two strategies, one queue</h2>
+    <h2 class="sec-h" id="xtr-s1"><span class="sec-n">01</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-extract"/></svg> Two strategies, one queue</h2>
     <p class="sec-lede">One extension carries two extraction strategies against a single task
     queue, chosen per source.</p>
 
@@ -5030,7 +5044,7 @@ footer a:hover { color: var(--text); }
       </div>
     </details>
 
-    <h2 class="sec-h" id="xtr-s2"><span class="sec-n">02</span> Scraping vs reverse engineering</h2>
+    <h2 class="sec-h" id="xtr-s2"><span class="sec-n">02</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-extract"/></svg> Scraping vs reverse engineering</h2>
     <p class="sec-lede">Calling the private JSON API directly replaced a 5&ndash;10 second page
     render with one HTTP round-trip.</p>
 
@@ -5235,7 +5249,7 @@ footer a:hover { color: var(--text); }
       Drawn from source files and a live query against the development database.
     </p>
 
-    <h2 class="sec-h" id="prop-s1"><span class="sec-n">01</span> Real travel time, not straight line</h2>
+    <h2 class="sec-h" id="prop-s1"><span class="sec-n">01</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-map"/></svg> Real travel time, not straight line</h2>
     <p class="sec-lede">Straight-line distance is only ever a prefilter; every number shown is
     real routed travel time.</p>
 
@@ -5310,7 +5324,7 @@ footer a:hover { color: var(--text); }
       </div>
     </details>
 
-    <h2 class="sec-h" id="prop-s2"><span class="sec-n">02</span> The swappable routing seam</h2>
+    <h2 class="sec-h" id="prop-s2"><span class="sec-n">02</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-map"/></svg> The swappable routing seam</h2>
     <p class="sec-lede">The routing engine changes in one line, and nothing in the app or the 11
     pipeline scripts depends on it.</p>
 
@@ -5521,7 +5535,7 @@ footer a:hover { color: var(--text); }
       Read directly from the repository on 28 July 2026.
     </p>
 
-    <h2 class="sec-h" id="fs-s1"><span class="sec-n">01</span> What decides the purchase</h2>
+    <h2 class="sec-h" id="fs-s1"><span class="sec-n">01</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg> What decides the purchase</h2>
     <p class="sec-lede">A portal listing is enough to shortlist and nothing to decide with; the
     deciding facts exist in no feed.</p>
 
@@ -5594,7 +5608,7 @@ footer a:hover { color: var(--text); }
       </div>
     </details>
 
-    <h2 class="sec-h" id="fs-s2"><span class="sec-n">02</span> Four candidates, side by side</h2>
+    <h2 class="sec-h" id="fs-s2"><span class="sec-n">02</span><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg> Four candidates, side by side</h2>
     <p class="sec-lede">Four shortlisted projects compared on the same hand-built fields, so the
     trade-offs are visible at once.</p>
 
