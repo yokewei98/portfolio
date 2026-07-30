@@ -492,6 +492,11 @@ body.routed .view.active { display: block; }
 }
 .shot-bar span { margin-left: 7px; letter-spacing: .04em; }
 .shot-frame img { width: 100%; height: auto; display: block; }
+/* Flowcharts are the repo's own rendered Graphviz SVG, inlined rather than
+   captured — scalable, selectable, and no image request. Their actor colours
+   are load-bearing (the legend reads them), so the chart keeps its own light
+   ground inside the frame instead of being re-themed. */
+.flowsvg { width: 100%; height: auto; display: block; background: #fff; }
 
 /* ─── icons ──────────────────────────────────────────────────── */
 .ico {
@@ -2828,8 +2833,709 @@ footer a:hover { color: var(--text); }
       <div class="layer2-body">
         <figure class="shot">
           <div class="shot-frame">
-            <div class="shot-bar"><i></i><i></i><i></i><span>erp-id.vercel.app/develop/endorse-flow/indonesia</span></div>
-            <img src="shots/erp-endorse-flow.webp" width="1165" height="4313" alt="The full endorsement pipeline flowchart: a legend of actors down the left, and a long vertical chain of eight stages with decision diamonds, drop-out nodes and branch paths.">
+            <div class="shot-bar"><span>creator-erp-id &middot; docs/develop/pipeline-flowchart-endorsement.dot</span></div>
+<svg class="flowsvg" role="img" aria-labelledby="epfT epfD"
+ viewBox="0.00 0.00 882.00 2924.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title id="epfT">The endorsement pipeline flowchart, rendered from the repository source</title>
+<desc id="epfD">The hand-run Indonesian pipeline. A legend of actors runs down the left, and eight stages descend the spine with decision forks, drop-out nodes and the legal route for contracts of five million rupiah and above.</desc>
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 2920.04)">
+<title>creator_pipeline_endorsement</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-2920.04 877.88,-2920.04 877.88,4 -4,4"/>
+<g id="clust1" class="cluster">
+<title>cluster_legend</title>
+<path fill="#f8fafc" stroke="#cbd5e1" d="M20,-2159.08C20,-2159.08 220,-2159.08 220,-2159.08 226,-2159.08 232,-2165.08 232,-2171.08 232,-2171.08 232,-2896.04 232,-2896.04 232,-2902.04 226,-2908.04 220,-2908.04 220,-2908.04 20,-2908.04 20,-2908.04 14,-2908.04 8,-2902.04 8,-2896.04 8,-2896.04 8,-2171.08 8,-2171.08 8,-2165.08 14,-2159.08 20,-2159.08"/>
+<text xml:space="preserve" text-anchor="middle" x="120" y="-2893.24" font-family="Arial" font-size="12.00" fill="#0f172a">Legend</text>
+</g>
+<!-- lg_pic -->
+<g id="node1" class="node">
+<title>lg_pic</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M150.08,-2877.64C150.08,-2877.64 89.92,-2877.64 89.92,-2877.64 83.92,-2877.64 77.92,-2871.64 77.92,-2865.64 77.92,-2865.64 77.92,-2853.64 77.92,-2853.64 77.92,-2847.64 83.92,-2841.64 89.92,-2841.64 89.92,-2841.64 150.08,-2841.64 150.08,-2841.64 156.08,-2841.64 162.08,-2847.64 162.08,-2853.64 162.08,-2853.64 162.08,-2865.64 162.08,-2865.64 162.08,-2871.64 156.08,-2877.64 150.08,-2877.64"/>
+<text xml:space="preserve" text-anchor="middle" x="120" y="-2856.64" font-family="Arial" font-size="10.00">👤 PIC / team</text>
+</g>
+<!-- lg_creator -->
+<g id="node2" class="node">
+<title>lg_creator</title>
+<path fill="#f3e8ff" stroke="#a855f7" stroke-width="1.5" d="M136.19,-2804.64C136.19,-2804.64 103.81,-2804.64 103.81,-2804.64 97.81,-2804.64 91.81,-2798.64 91.81,-2792.64 91.81,-2792.64 91.81,-2780.64 91.81,-2780.64 91.81,-2774.64 97.81,-2768.64 103.81,-2768.64 103.81,-2768.64 136.19,-2768.64 136.19,-2768.64 142.19,-2768.64 148.19,-2774.64 148.19,-2780.64 148.19,-2780.64 148.19,-2792.64 148.19,-2792.64 148.19,-2798.64 142.19,-2804.64 136.19,-2804.64"/>
+<text xml:space="preserve" text-anchor="middle" x="120" y="-2783.64" font-family="Arial" font-size="10.00">Creator</text>
+</g>
+<!-- lg_pic&#45;&gt;lg_creator -->
+<!-- lg_system -->
+<g id="node3" class="node">
+<title>lg_system</title>
+<path fill="#cffafe" stroke="#0891b2" stroke-width="1.5" d="M212.33,-2729.96C212.33,-2729.96 27.67,-2729.96 27.67,-2729.96 21.67,-2729.96 15.67,-2723.96 15.67,-2717.96 15.67,-2717.96 15.67,-2705.96 15.67,-2705.96 15.67,-2699.96 21.67,-2693.96 27.67,-2693.96 27.67,-2693.96 212.33,-2693.96 212.33,-2693.96 218.33,-2693.96 224.33,-2699.96 224.33,-2705.96 224.33,-2705.96 224.33,-2717.96 224.33,-2717.96 224.33,-2723.96 218.33,-2729.96 212.33,-2729.96"/>
+<text xml:space="preserve" text-anchor="middle" x="120" y="-2708.96" font-family="Arial" font-size="10.00">⚙️⚡ System (deterministic code · no AI)</text>
+</g>
+<!-- lg_creator&#45;&gt;lg_system -->
+<!-- lg_client -->
+<g id="node4" class="node">
+<title>lg_client</title>
+<path fill="#ffedd5" stroke="#ea580c" stroke-width="1.5" d="M135,-2653.6C135,-2653.6 105,-2653.6 105,-2653.6 99,-2653.6 93,-2647.6 93,-2641.6 93,-2641.6 93,-2629.6 93,-2629.6 93,-2623.6 99,-2617.6 105,-2617.6 105,-2617.6 135,-2617.6 135,-2617.6 141,-2617.6 147,-2623.6 147,-2629.6 147,-2629.6 147,-2641.6 147,-2641.6 147,-2647.6 141,-2653.6 135,-2653.6"/>
+<text xml:space="preserve" text-anchor="middle" x="120" y="-2632.6" font-family="Arial" font-size="10.00">Client</text>
+</g>
+<!-- lg_system&#45;&gt;lg_client -->
+<!-- lg_legal -->
+<g id="node5" class="node">
+<title>lg_legal</title>
+<path fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5" d="M188.16,-2557.56C188.16,-2557.56 51.84,-2557.56 51.84,-2557.56 45.84,-2557.56 39.84,-2551.56 39.84,-2545.56 39.84,-2545.56 39.84,-2533.56 39.84,-2533.56 39.84,-2527.56 45.84,-2521.56 51.84,-2521.56 51.84,-2521.56 188.16,-2521.56 188.16,-2521.56 194.16,-2521.56 200.16,-2527.56 200.16,-2533.56 200.16,-2533.56 200.16,-2545.56 200.16,-2545.56 200.16,-2551.56 194.16,-2557.56 188.16,-2557.56"/>
+<text xml:space="preserve" text-anchor="middle" x="120" y="-2536.56" font-family="Arial" font-size="10.00">⚖️ Legal (≥ Rp 5M contracts)</text>
+</g>
+<!-- lg_client&#45;&gt;lg_legal -->
+<!-- lg_decision -->
+<g id="node6" class="node">
+<title>lg_decision</title>
+<path fill="#f1f5f9" stroke="#475569" stroke-width="1.5" d="M108.43,-2445.25C108.43,-2445.25 65.88,-2433.59 65.88,-2433.59 60.09,-2432.01 60.09,-2428.83 65.88,-2427.25 65.88,-2427.25 108.43,-2415.59 108.43,-2415.59 114.21,-2414.01 125.79,-2414.01 131.57,-2415.59 131.57,-2415.59 174.12,-2427.25 174.12,-2427.25 179.91,-2428.83 179.91,-2432.01 174.12,-2433.59 174.12,-2433.59 131.57,-2445.25 131.57,-2445.25 125.79,-2446.83 114.21,-2446.83 108.43,-2445.25"/>
+<text xml:space="preserve" text-anchor="middle" x="120" y="-2427.42" font-family="Arial" font-size="10.00">Decision?</text>
+</g>
+<!-- lg_legal&#45;&gt;lg_decision -->
+<!-- lg_cc -->
+<g id="node7" class="node">
+<title>lg_cc</title>
+<path fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="5,2" d="M159.25,-2370.44C159.25,-2370.44 80.75,-2370.44 80.75,-2370.44 74.75,-2370.44 68.75,-2364.44 68.75,-2358.44 68.75,-2358.44 68.75,-2346.44 68.75,-2346.44 68.75,-2340.44 74.75,-2334.44 80.75,-2334.44 80.75,-2334.44 159.25,-2334.44 159.25,-2334.44 165.25,-2334.44 171.25,-2340.44 171.25,-2346.44 171.25,-2346.44 171.25,-2358.44 171.25,-2358.44 171.25,-2364.44 165.25,-2370.44 159.25,-2370.44"/>
+<text xml:space="preserve" text-anchor="middle" x="120" y="-2349.44" font-family="Arial" font-size="10.00">👁 CC (read&#45;only)</text>
+</g>
+<!-- lg_decision&#45;&gt;lg_cc -->
+<!-- lg_drop -->
+<g id="node8" class="node">
+<title>lg_drop</title>
+<path fill="#ffe4e6" stroke="#e11d48" stroke-width="1.5" d="M144.53,-2297.44C144.53,-2297.44 95.47,-2297.44 95.47,-2297.44 89.47,-2297.44 83.47,-2291.44 83.47,-2285.44 83.47,-2285.44 83.47,-2273.44 83.47,-2273.44 83.47,-2267.44 89.47,-2261.44 95.47,-2261.44 95.47,-2261.44 144.53,-2261.44 144.53,-2261.44 150.53,-2261.44 156.53,-2267.44 156.53,-2273.44 156.53,-2273.44 156.53,-2285.44 156.53,-2285.44 156.53,-2291.44 150.53,-2297.44 144.53,-2297.44"/>
+<text xml:space="preserve" text-anchor="middle" x="120" y="-2276.44" font-family="Arial" font-size="10.00">⛔ Drop&#45;out</text>
+</g>
+<!-- lg_cc&#45;&gt;lg_drop -->
+<!-- lg_final -->
+<g id="node9" class="node">
+<title>lg_final</title>
+<path fill="#d1fae5" stroke="#059669" stroke-width="2" d="M137.3,-2203.08C137.3,-2203.08 102.7,-2203.08 102.7,-2203.08 96.7,-2203.08 90.7,-2197.08 90.7,-2191.08 90.7,-2191.08 90.7,-2179.08 90.7,-2179.08 90.7,-2173.08 96.7,-2167.08 102.7,-2167.08 102.7,-2167.08 137.3,-2167.08 137.3,-2167.08 143.3,-2167.08 149.3,-2173.08 149.3,-2179.08 149.3,-2179.08 149.3,-2191.08 149.3,-2191.08 149.3,-2197.08 143.3,-2203.08 137.3,-2203.08"/>
+<text xml:space="preserve" text-anchor="middle" x="120" y="-2182.08" font-family="Arial" font-size="10.00">🏁 Final</text>
+</g>
+<!-- lg_drop&#45;&gt;lg_final -->
+<!-- start -->
+<g id="node10" class="node">
+<title>start</title>
+<path fill="#d1fae5" stroke="#059669" stroke-width="2" d="M576.94,-2877.64C576.94,-2877.64 403.06,-2877.64 403.06,-2877.64 397.06,-2877.64 391.06,-2871.64 391.06,-2865.64 391.06,-2865.64 391.06,-2853.64 391.06,-2853.64 391.06,-2847.64 397.06,-2841.64 403.06,-2841.64 403.06,-2841.64 576.94,-2841.64 576.94,-2841.64 582.94,-2841.64 588.94,-2847.64 588.94,-2853.64 588.94,-2853.64 588.94,-2865.64 588.94,-2865.64 588.94,-2871.64 582.94,-2877.64 576.94,-2877.64"/>
+<text xml:space="preserve" text-anchor="start" x="402.58" y="-2860.74" font-family="Arial" font-size="11.00">🚀 Project created — </text>
+<text xml:space="preserve" text-anchor="start" x="507.13" y="-2860.74" font-family="Arial" font-weight="bold" font-size="11.00">Endorsement</text>
+<text xml:space="preserve" text-anchor="start" x="414.45" y="-2851.54" font-family="Arial" font-size="9.00" fill="#047857">hand&#45;run · no WhatsApp agent, no AI</text>
+</g>
+<!-- s1_pic -->
+<g id="node11" class="node">
+<title>s1_pic</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M564.11,-2804.64C564.11,-2804.64 415.89,-2804.64 415.89,-2804.64 409.89,-2804.64 403.89,-2798.64 403.89,-2792.64 403.89,-2792.64 403.89,-2780.64 403.89,-2780.64 403.89,-2774.64 409.89,-2768.64 415.89,-2768.64 415.89,-2768.64 564.11,-2768.64 564.11,-2768.64 570.11,-2768.64 576.11,-2774.64 576.11,-2780.64 576.11,-2780.64 576.11,-2792.64 576.11,-2792.64 576.11,-2798.64 570.11,-2804.64 564.11,-2804.64"/>
+<text xml:space="preserve" text-anchor="start" x="445.99" y="-2788.74" font-family="Arial" font-weight="bold" font-size="11.00">S1 · PROPOSED</text>
+<text xml:space="preserve" text-anchor="start" x="415.41" y="-2777.74" font-family="Arial" font-size="11.00">PIC adds creator to the project</text>
+</g>
+<!-- start&#45;&gt;s1_pic -->
+<g id="edge9" class="edge">
+<title>start&#45;&gt;s1_pic</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-2840.72C490,-2833.52 490,-2825.03 490,-2816.97"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-2817.12 490,-2807.12 486.5,-2817.12 493.5,-2817.12"/>
+</g>
+<!-- s1_fill -->
+<g id="node12" class="node">
+<title>s1_fill</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M583.66,-2731.64C583.66,-2731.64 396.34,-2731.64 396.34,-2731.64 390.34,-2731.64 384.34,-2725.64 384.34,-2719.64 384.34,-2719.64 384.34,-2704.28 384.34,-2704.28 384.34,-2698.28 390.34,-2692.28 396.34,-2692.28 396.34,-2692.28 583.66,-2692.28 583.66,-2692.28 589.66,-2692.28 595.66,-2698.28 595.66,-2704.28 595.66,-2704.28 595.66,-2719.64 595.66,-2719.64 595.66,-2725.64 589.66,-2731.64 583.66,-2731.64"/>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-2715.26" font-family="Arial" font-size="11.00">👤 PIC fills · category, level, followers,</text>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-2702.06" font-family="Arial" font-size="11.00">engagement rate + deliverable type</text>
+</g>
+<!-- s1_pic&#45;&gt;s1_fill -->
+<g id="edge10" class="edge">
+<title>s1_pic&#45;&gt;s1_fill</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-2768.05C490,-2760.76 490,-2752.1 490,-2743.82"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-2743.99 490,-2733.99 486.5,-2743.99 493.5,-2743.99"/>
+</g>
+<!-- s1_cl -->
+<g id="node13" class="node">
+<title>s1_cl</title>
+<path fill="#ffedd5" stroke="#ea580c" stroke-width="1.5" d="M557.39,-2655.28C557.39,-2655.28 422.61,-2655.28 422.61,-2655.28 416.61,-2655.28 410.61,-2649.28 410.61,-2643.28 410.61,-2643.28 410.61,-2627.92 410.61,-2627.92 410.61,-2621.92 416.61,-2615.92 422.61,-2615.92 422.61,-2615.92 557.39,-2615.92 557.39,-2615.92 563.39,-2615.92 569.39,-2621.92 569.39,-2627.92 569.39,-2627.92 569.39,-2643.28 569.39,-2643.28 569.39,-2649.28 563.39,-2655.28 557.39,-2655.28"/>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-2638.9" font-family="Arial" font-size="11.00">Client reviews the proposed</text>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-2625.7" font-family="Arial" font-size="11.00">creator on /c/[id]</text>
+</g>
+<!-- s1_fill&#45;&gt;s1_cl -->
+<g id="edge11" class="edge">
+<title>s1_fill&#45;&gt;s1_cl</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-2691.81C490,-2684.41 490,-2675.75 490,-2667.51"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-2667.76 490,-2657.76 486.5,-2667.76 493.5,-2667.76"/>
+</g>
+<!-- d1 -->
+<g id="node14" class="node">
+<title>d1</title>
+<path fill="#f1f5f9" stroke="#475569" stroke-width="1.5" d="M479.39,-2573.31C479.39,-2573.31 426.2,-2545.17 426.2,-2545.17 420.89,-2542.37 420.89,-2536.75 426.2,-2533.95 426.2,-2533.95 479.39,-2505.81 479.39,-2505.81 484.7,-2503.01 495.3,-2503.01 500.61,-2505.81 500.61,-2505.81 553.8,-2533.95 553.8,-2533.95 559.11,-2536.75 559.11,-2542.37 553.8,-2545.17 553.8,-2545.17 500.61,-2573.31 500.61,-2573.31 495.3,-2576.11 484.7,-2576.11 479.39,-2573.31"/>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-2542.86" font-family="Arial" font-size="11.00">Client</text>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-2529.66" font-family="Arial" font-size="11.00">approves?</text>
+</g>
+<!-- s1_cl&#45;&gt;d1 -->
+<g id="edge12" class="edge">
+<title>s1_cl&#45;&gt;d1</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-2615.57C490,-2608.49 490,-2600.07 490,-2591.48"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-2591.58 490,-2581.58 486.5,-2591.58 493.5,-2591.58"/>
+</g>
+<!-- drop_s1 -->
+<g id="node15" class="node">
+<title>drop_s1</title>
+<path fill="#ffe4e6" stroke="#e11d48" stroke-width="1.5" d="M324.2,-2559.24C324.2,-2559.24 251.8,-2559.24 251.8,-2559.24 245.8,-2559.24 239.8,-2553.24 239.8,-2547.24 239.8,-2547.24 239.8,-2531.88 239.8,-2531.88 239.8,-2525.88 245.8,-2519.88 251.8,-2519.88 251.8,-2519.88 324.2,-2519.88 324.2,-2519.88 330.2,-2519.88 336.2,-2525.88 336.2,-2531.88 336.2,-2531.88 336.2,-2547.24 336.2,-2547.24 336.2,-2553.24 330.2,-2559.24 324.2,-2559.24"/>
+<text xml:space="preserve" text-anchor="middle" x="288" y="-2542.86" font-family="Arial" font-size="11.00">⛔ Not selected</text>
+<text xml:space="preserve" text-anchor="middle" x="288" y="-2529.66" font-family="Arial" font-size="11.00">S1 cancelled</text>
+</g>
+<!-- d1&#45;&gt;drop_s1 -->
+<g id="edge13" class="edge">
+<title>d1&#45;&gt;drop_s1</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M414.36,-2539.56C392.69,-2539.56 369.36,-2539.56 348.71,-2539.56"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="348.71,-2536.06 338.71,-2539.56 348.71,-2543.06 348.71,-2536.06"/>
+<text xml:space="preserve" text-anchor="middle" x="375.9" y="-2545.26" font-family="Arial" font-size="9.00"> ✕ Rejected </text>
+</g>
+<!-- s2_fill -->
+<g id="node16" class="node">
+<title>s2_fill</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M603.54,-2453.4C603.54,-2453.4 376.46,-2453.4 376.46,-2453.4 370.46,-2453.4 364.46,-2447.4 364.46,-2441.4 364.46,-2441.4 364.46,-2419.44 364.46,-2419.44 364.46,-2413.44 370.46,-2407.44 376.46,-2407.44 376.46,-2407.44 603.54,-2407.44 603.54,-2407.44 609.54,-2407.44 615.54,-2413.44 615.54,-2419.44 615.54,-2419.44 615.54,-2441.4 615.54,-2441.4 615.54,-2447.4 609.54,-2453.4 603.54,-2453.4"/>
+<text xml:space="preserve" text-anchor="start" x="435.6" y="-2438.02" font-family="Arial" font-size="11.00">👤 </text>
+<text xml:space="preserve" text-anchor="start" x="450.88" y="-2438.02" font-family="Arial" font-weight="bold" font-size="11.00">S2 · INVITE SENT</text>
+<text xml:space="preserve" text-anchor="start" x="375.98" y="-2427.02" font-family="Arial" font-size="11.00">PIC fills the deal terms · fee, video/live counts,</text>
+<text xml:space="preserve" text-anchor="start" x="399.95" y="-2416.02" font-family="Arial" font-size="11.00">draft + posting deadlines, contact no.</text>
+</g>
+<!-- d1&#45;&gt;s2_fill -->
+<g id="edge15" class="edge">
+<title>d1&#45;&gt;s2_fill</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-2499.58C490,-2488.45 490,-2476.41 490,-2465.59"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-2465.83 490,-2455.83 486.5,-2465.83 493.5,-2465.83"/>
+<text xml:space="preserve" text-anchor="middle" x="548.28" y="-2474.1" font-family="Arial" font-size="9.00"> ✓ Approved (auto&#45;advance) </text>
+</g>
+<!-- drop_s1&#45;&gt;d1 -->
+<!-- s2_pic -->
+<g id="node17" class="node">
+<title>s2_pic</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M647.85,-2370.44C647.85,-2370.44 332.15,-2370.44 332.15,-2370.44 326.15,-2370.44 320.15,-2364.44 320.15,-2358.44 320.15,-2358.44 320.15,-2346.44 320.15,-2346.44 320.15,-2340.44 326.15,-2334.44 332.15,-2334.44 332.15,-2334.44 647.85,-2334.44 647.85,-2334.44 653.85,-2334.44 659.85,-2340.44 659.85,-2346.44 659.85,-2346.44 659.85,-2358.44 659.85,-2358.44 659.85,-2364.44 653.85,-2370.44 647.85,-2370.44"/>
+<text xml:space="preserve" text-anchor="start" x="331.67" y="-2354.54" font-family="Arial" font-size="11.00">👤 PIC messages the creator directly (own WhatsApp / DM / call)</text>
+<text xml:space="preserve" text-anchor="start" x="340.53" y="-2343.54" font-family="Arial" font-size="11.00">and pitches the deal terms — </text>
+<text xml:space="preserve" text-anchor="start" x="484.83" y="-2343.54" font-family="Arial" font-weight="bold" font-size="11.00">nothing is sent by the system</text>
+</g>
+<!-- s2_fill&#45;&gt;s2_pic -->
+<g id="edge16" class="edge">
+<title>s2_fill&#45;&gt;s2_pic</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-2407.03C490,-2399.36 490,-2390.66 490,-2382.53"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-2382.66 490,-2372.66 486.5,-2382.66 493.5,-2382.66"/>
+</g>
+<!-- s2_cr -->
+<g id="node18" class="node">
+<title>s2_cr</title>
+<path fill="#f3e8ff" stroke="#a855f7" stroke-width="1.5" d="M525.59,-2297.44C525.59,-2297.44 454.41,-2297.44 454.41,-2297.44 448.41,-2297.44 442.41,-2291.44 442.41,-2285.44 442.41,-2285.44 442.41,-2273.44 442.41,-2273.44 442.41,-2267.44 448.41,-2261.44 454.41,-2261.44 454.41,-2261.44 525.59,-2261.44 525.59,-2261.44 531.59,-2261.44 537.59,-2267.44 537.59,-2273.44 537.59,-2273.44 537.59,-2285.44 537.59,-2285.44 537.59,-2291.44 531.59,-2297.44 525.59,-2297.44"/>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-2276.14" font-family="Arial" font-size="11.00">Creator replies</text>
+</g>
+<!-- s2_pic&#45;&gt;s2_cr -->
+<g id="edge17" class="edge">
+<title>s2_pic&#45;&gt;s2_cr</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-2333.89C490,-2326.5 490,-2317.69 490,-2309.38"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-2309.6 490,-2299.6 486.5,-2309.6 493.5,-2309.6"/>
+</g>
+<!-- d2 -->
+<g id="node19" class="node">
+<title>d2</title>
+<path fill="#f1f5f9" stroke="#475569" stroke-width="1.5" d="M479.65,-2218.37C479.65,-2218.37 433.28,-2191.15 433.28,-2191.15 428.11,-2188.12 428.11,-2182.04 433.28,-2179.01 433.28,-2179.01 479.65,-2151.79 479.65,-2151.79 484.83,-2148.76 495.17,-2148.76 500.35,-2151.79 500.35,-2151.79 546.72,-2179.01 546.72,-2179.01 551.89,-2182.04 551.89,-2188.12 546.72,-2191.15 546.72,-2191.15 500.35,-2218.37 500.35,-2218.37 495.17,-2221.4 484.83,-2221.4 479.65,-2218.37"/>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-2188.38" font-family="Arial" font-size="11.00">Creator</text>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-2175.18" font-family="Arial" font-size="11.00">accepts?</text>
+</g>
+<!-- s2_cr&#45;&gt;d2 -->
+<g id="edge18" class="edge">
+<title>s2_cr&#45;&gt;d2</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-2261.07C490,-2254.02 490,-2245.48 490,-2236.72"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-2237.01 490,-2227.01 486.5,-2237.01 493.5,-2237.01"/>
+</g>
+<!-- drop_s2 -->
+<g id="node20" class="node">
+<title>drop_s2</title>
+<path fill="#ffe4e6" stroke="#e11d48" stroke-width="1.5" d="M332.78,-2204.76C332.78,-2204.76 273.22,-2204.76 273.22,-2204.76 267.22,-2204.76 261.22,-2198.76 261.22,-2192.76 261.22,-2192.76 261.22,-2177.4 261.22,-2177.4 261.22,-2171.4 267.22,-2165.4 273.22,-2165.4 273.22,-2165.4 332.78,-2165.4 332.78,-2165.4 338.78,-2165.4 344.78,-2171.4 344.78,-2177.4 344.78,-2177.4 344.78,-2192.76 344.78,-2192.76 344.78,-2198.76 338.78,-2204.76 332.78,-2204.76"/>
+<text xml:space="preserve" text-anchor="middle" x="303" y="-2188.38" font-family="Arial" font-size="11.00">⛔ Declines /</text>
+<text xml:space="preserve" text-anchor="middle" x="303" y="-2175.18" font-family="Arial" font-size="11.00">no reply</text>
+</g>
+<!-- d2&#45;&gt;drop_s2 -->
+<g id="edge19" class="edge">
+<title>d2&#45;&gt;drop_s2</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M421.7,-2185.08C400.47,-2185.08 377.36,-2185.08 357.22,-2185.08"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="357.25,-2181.58 347.25,-2185.08 357.25,-2188.58 357.25,-2181.58"/>
+<text xml:space="preserve" text-anchor="middle" x="383.86" y="-2190.78" font-family="Arial" font-size="9.00"> ✕ Declines </text>
+</g>
+<!-- s2_mark -->
+<g id="node21" class="node">
+<title>s2_mark</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M581.23,-2098.92C581.23,-2098.92 398.77,-2098.92 398.77,-2098.92 392.77,-2098.92 386.77,-2092.92 386.77,-2086.92 386.77,-2086.92 386.77,-2071.56 386.77,-2071.56 386.77,-2065.56 392.77,-2059.56 398.77,-2059.56 398.77,-2059.56 581.23,-2059.56 581.23,-2059.56 587.23,-2059.56 593.23,-2065.56 593.23,-2071.56 593.23,-2071.56 593.23,-2086.92 593.23,-2086.92 593.23,-2092.92 587.23,-2098.92 581.23,-2098.92"/>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-2082.54" font-family="Arial" font-size="11.00">👤 PIC marks Accepted on the board,</text>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-2069.34" font-family="Arial" font-size="11.00">then clicks Advance</text>
+</g>
+<!-- d2&#45;&gt;s2_mark -->
+<g id="edge21" class="edge">
+<title>d2&#45;&gt;s2_mark</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-2145.12C490,-2133.95 490,-2121.93 490,-2111.3"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-2111.42 490,-2101.42 486.5,-2111.42 493.5,-2111.42"/>
+<text xml:space="preserve" text-anchor="middle" x="513.51" y="-2119.62" font-family="Arial" font-size="9.00"> ✓ Accepts </text>
+</g>
+<!-- drop_s2&#45;&gt;d2 -->
+<!-- s3_collect -->
+<g id="node22" class="node">
+<title>s3_collect</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M632.86,-2022.56C632.86,-2022.56 347.14,-2022.56 347.14,-2022.56 341.14,-2022.56 335.14,-2016.56 335.14,-2010.56 335.14,-2010.56 335.14,-1988.6 335.14,-1988.6 335.14,-1982.6 341.14,-1976.6 347.14,-1976.6 347.14,-1976.6 632.86,-1976.6 632.86,-1976.6 638.86,-1976.6 644.86,-1982.6 644.86,-1988.6 644.86,-1988.6 644.86,-2010.56 644.86,-2010.56 644.86,-2016.56 638.86,-2022.56 632.86,-2022.56"/>
+<text xml:space="preserve" text-anchor="start" x="438.66" y="-2007.18" font-family="Arial" font-size="11.00">👤 </text>
+<text xml:space="preserve" text-anchor="start" x="453.94" y="-2007.18" font-family="Arial" font-weight="bold" font-size="11.00">S3 · CONTRACT</text>
+<text xml:space="preserve" text-anchor="start" x="366.98" y="-1996.18" font-family="Arial" font-size="11.00">PIC collects the creator&#39;s details and types them in</text>
+<text xml:space="preserve" text-anchor="start" x="346.66" y="-1985.18" font-family="Arial" font-size="11.00">(name, address, bank, NIK) — </text>
+<text xml:space="preserve" text-anchor="start" x="496.44" y="-1985.18" font-family="Arial" font-weight="bold" font-size="11.00">flagged red until complete</text>
+</g>
+<!-- s2_mark&#45;&gt;s3_collect -->
+<g id="edge22" class="edge">
+<title>s2_mark&#45;&gt;s3_collect</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-2059.04C490,-2051.74 490,-2043.18 490,-2034.9"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-2034.95 490,-2024.95 486.5,-2034.95 493.5,-2034.95"/>
+</g>
+<!-- d3_value -->
+<g id="node23" class="node">
+<title>d3_value</title>
+<path fill="#f1f5f9" stroke="#475569" stroke-width="1.5" d="M479.75,-1933.36C479.75,-1933.36 435.64,-1906.48 435.64,-1906.48 430.51,-1903.36 430.51,-1897.12 435.64,-1894 435.64,-1894 479.75,-1867.12 479.75,-1867.12 484.88,-1864 495.12,-1864 500.25,-1867.12 500.25,-1867.12 544.36,-1894 544.36,-1894 549.49,-1897.12 549.49,-1903.36 544.36,-1906.48 544.36,-1906.48 500.25,-1933.36 500.25,-1933.36 495.12,-1936.48 484.88,-1936.48 479.75,-1933.36"/>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-1903.54" font-family="Arial" font-size="11.00">Contract</text>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-1890.34" font-family="Arial" font-size="11.00">value?</text>
+</g>
+<!-- s3_collect&#45;&gt;d3_value -->
+<g id="edge23" class="edge">
+<title>s3_collect&#45;&gt;d3_value</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-1976C490,-1968.67 490,-1960.21 490,-1951.68"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-1951.91 490,-1941.91 486.5,-1951.91 493.5,-1951.91"/>
+</g>
+<!-- s3_low -->
+<g id="node24" class="node">
+<title>s3_low</title>
+<path fill="#cffafe" stroke="#0891b2" stroke-width="1.5" d="M420.5,-1814.08C420.5,-1814.08 177.5,-1814.08 177.5,-1814.08 171.5,-1814.08 165.5,-1808.08 165.5,-1802.08 165.5,-1802.08 165.5,-1773.52 165.5,-1773.52 165.5,-1767.52 171.5,-1761.52 177.5,-1761.52 177.5,-1761.52 420.5,-1761.52 420.5,-1761.52 426.5,-1761.52 432.5,-1767.52 432.5,-1773.52 432.5,-1773.52 432.5,-1802.08 432.5,-1802.08 432.5,-1808.08 426.5,-1814.08 420.5,-1814.08"/>
+<text xml:space="preserve" text-anchor="middle" x="299" y="-1797.7" font-family="Arial" font-size="11.00">⚙️⚡ System auto&#45;generates the contract doc the</text>
+<text xml:space="preserve" text-anchor="middle" x="299" y="-1784.5" font-family="Arial" font-size="11.00">moment the last detail is filled + auto&#45;calculates</text>
+<text xml:space="preserve" text-anchor="middle" x="299" y="-1771.3" font-family="Arial" font-size="11.00">tax (PPh21 = 6% of fee)</text>
+</g>
+<!-- d3_value&#45;&gt;s3_low -->
+<g id="edge24" class="edge">
+<title>d3_value&#45;&gt;s3_low</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M457.17,-1880.25C428.84,-1863.88 387.36,-1839.89 353.98,-1820.59"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="355.89,-1817.65 345.48,-1815.67 352.38,-1823.71 355.89,-1817.65"/>
+<text xml:space="preserve" text-anchor="middle" x="408.41" y="-1834.78" font-family="Arial" font-size="9.00"> &lt; Rp 5M </text>
+</g>
+<!-- s3_legal -->
+<g id="node25" class="node">
+<title>s3_legal</title>
+<path fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5" d="M706.2,-1807.48C706.2,-1807.48 559.8,-1807.48 559.8,-1807.48 553.8,-1807.48 547.8,-1801.48 547.8,-1795.48 547.8,-1795.48 547.8,-1780.12 547.8,-1780.12 547.8,-1774.12 553.8,-1768.12 559.8,-1768.12 559.8,-1768.12 706.2,-1768.12 706.2,-1768.12 712.2,-1768.12 718.2,-1774.12 718.2,-1780.12 718.2,-1780.12 718.2,-1795.48 718.2,-1795.48 718.2,-1801.48 712.2,-1807.48 706.2,-1807.48"/>
+<text xml:space="preserve" text-anchor="middle" x="633" y="-1791.1" font-family="Arial" font-size="11.00">⚖️ Legal team uploads the</text>
+<text xml:space="preserve" text-anchor="middle" x="633" y="-1777.9" font-family="Arial" font-size="11.00">contract via the Legal platform</text>
+</g>
+<!-- d3_value&#45;&gt;s3_legal -->
+<g id="edge25" class="edge">
+<title>d3_value&#45;&gt;s3_legal</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M518.25,-1877.42C541.39,-1859.55 574.21,-1834.21 598.82,-1815.2"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="600.94,-1817.98 606.71,-1809.1 596.66,-1812.44 600.94,-1817.98"/>
+<text xml:space="preserve" text-anchor="middle" x="595.06" y="-1834.78" font-family="Arial" font-size="9.00"> ≥ Rp 5M </text>
+</g>
+<!-- s3_mid -->
+<!-- d3_value&#45;&gt;s3_mid -->
+<!-- s3_send -->
+<g id="node26" class="node">
+<title>s3_send</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M599.89,-1724.52C599.89,-1724.52 380.11,-1724.52 380.11,-1724.52 374.11,-1724.52 368.11,-1718.52 368.11,-1712.52 368.11,-1712.52 368.11,-1697.16 368.11,-1697.16 368.11,-1691.16 374.11,-1685.16 380.11,-1685.16 380.11,-1685.16 599.89,-1685.16 599.89,-1685.16 605.89,-1685.16 611.89,-1691.16 611.89,-1697.16 611.89,-1697.16 611.89,-1712.52 611.89,-1712.52 611.89,-1718.52 605.89,-1724.52 599.89,-1724.52"/>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-1708.14" font-family="Arial" font-size="11.00">👤 PIC copies the signing link off the board,</text>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-1694.94" font-family="Arial" font-size="11.00">sends it to the creator &amp; chases the signature</text>
+</g>
+<!-- s3_low&#45;&gt;s3_send -->
+<g id="edge27" class="edge">
+<title>s3_low&#45;&gt;s3_send</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M360.22,-1760.85C383.77,-1750.87 410.53,-1739.53 433.6,-1729.75"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="434.75,-1733.06 442.59,-1725.94 432.01,-1726.62 434.75,-1733.06"/>
+</g>
+<!-- s3_low&#45;&gt;s3_mid -->
+<!-- s3_legal&#45;&gt;s3_send -->
+<g id="edge28" class="edge">
+<title>s3_legal&#45;&gt;s3_send</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M598.75,-1767.41C579.38,-1756.44 554.95,-1742.61 534.16,-1730.84"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="535.98,-1727.85 525.55,-1725.97 532.53,-1733.94 535.98,-1727.85"/>
+</g>
+<!-- s3_cr -->
+<g id="node27" class="node">
+<title>s3_cr</title>
+<path fill="#f3e8ff" stroke="#a855f7" stroke-width="1.5" d="M552.49,-1648.16C552.49,-1648.16 427.51,-1648.16 427.51,-1648.16 421.51,-1648.16 415.51,-1642.16 415.51,-1636.16 415.51,-1636.16 415.51,-1624.16 415.51,-1624.16 415.51,-1618.16 421.51,-1612.16 427.51,-1612.16 427.51,-1612.16 552.49,-1612.16 552.49,-1612.16 558.49,-1612.16 564.49,-1618.16 564.49,-1624.16 564.49,-1624.16 564.49,-1636.16 564.49,-1636.16 564.49,-1642.16 558.49,-1648.16 552.49,-1648.16"/>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-1626.86" font-family="Arial" font-size="11.00">Creator signs the contract</text>
+</g>
+<!-- s3_send&#45;&gt;s3_cr -->
+<g id="edge32" class="edge">
+<title>s3_send&#45;&gt;s3_cr</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-1684.74C490,-1677.37 490,-1668.76 490,-1660.63"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-1660.7 490,-1650.7 486.5,-1660.7 493.5,-1660.7"/>
+</g>
+<!-- d3 -->
+<g id="node28" class="node">
+<title>d3</title>
+<path fill="#f1f5f9" stroke="#475569" stroke-width="1.5" d="M478.91,-1570.58C478.91,-1570.58 437.68,-1553.58 437.68,-1553.58 432.14,-1551.29 432.14,-1546.71 437.68,-1544.42 437.68,-1544.42 478.91,-1527.42 478.91,-1527.42 484.45,-1525.13 495.55,-1525.13 501.09,-1527.42 501.09,-1527.42 542.32,-1544.42 542.32,-1544.42 547.86,-1546.71 547.86,-1551.29 542.32,-1553.58 542.32,-1553.58 501.09,-1570.58 501.09,-1570.58 495.55,-1572.87 484.45,-1572.87 478.91,-1570.58"/>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-1545.7" font-family="Arial" font-size="11.00">Signed?</text>
+</g>
+<!-- s3_cr&#45;&gt;d3 -->
+<g id="edge33" class="edge">
+<title>s3_cr&#45;&gt;d3</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-1611.59C490,-1604.47 490,-1595.96 490,-1587.56"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-1587.75 490,-1577.75 486.5,-1587.75 493.5,-1587.75"/>
+</g>
+<!-- d3&#45;&gt;s3_send -->
+<g id="edge34" class="edge">
+<title>d3&#45;&gt;s3_send</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M521.63,-1562.75C542.05,-1572.84 566.98,-1589.1 579,-1612.16 586.4,-1626.35 586.75,-1634.16 579,-1648.16 572.17,-1660.49 561.34,-1670.45 549.56,-1678.35"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="547.75,-1675.36 541.05,-1683.56 551.4,-1681.33 547.75,-1675.36"/>
+<text xml:space="preserve" text-anchor="middle" x="636.95" y="-1627.46" font-family="Arial" font-size="9.00"> 🔁 Not yet → PIC chases </text>
+</g>
+<!-- drop_s3 -->
+<g id="node29" class="node">
+<title>drop_s3</title>
+<path fill="#ffe4e6" stroke="#e11d48" stroke-width="1.5" d="M299.78,-1568.68C299.78,-1568.68 240.22,-1568.68 240.22,-1568.68 234.22,-1568.68 228.22,-1562.68 228.22,-1556.68 228.22,-1556.68 228.22,-1541.32 228.22,-1541.32 228.22,-1535.32 234.22,-1529.32 240.22,-1529.32 240.22,-1529.32 299.78,-1529.32 299.78,-1529.32 305.78,-1529.32 311.78,-1535.32 311.78,-1541.32 311.78,-1541.32 311.78,-1556.68 311.78,-1556.68 311.78,-1562.68 305.78,-1568.68 299.78,-1568.68"/>
+<text xml:space="preserve" text-anchor="middle" x="270" y="-1552.3" font-family="Arial" font-size="11.00">⛔ Declines /</text>
+<text xml:space="preserve" text-anchor="middle" x="270" y="-1539.1" font-family="Arial" font-size="11.00">expires</text>
+</g>
+<!-- d3&#45;&gt;drop_s3 -->
+<g id="edge35" class="edge">
+<title>d3&#45;&gt;drop_s3</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M424.76,-1549C392.69,-1549 354.5,-1549 324.09,-1549"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="324.23,-1545.5 314.23,-1549 324.23,-1552.5 324.23,-1545.5"/>
+<text xml:space="preserve" text-anchor="middle" x="369.19" y="-1554.7" font-family="Arial" font-size="9.00"> ✕ Declines / expires </text>
+</g>
+<!-- s3_verify -->
+<g id="node30" class="node">
+<title>s3_verify</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M574.8,-1476.04C574.8,-1476.04 405.2,-1476.04 405.2,-1476.04 399.2,-1476.04 393.2,-1470.04 393.2,-1464.04 393.2,-1464.04 393.2,-1448.68 393.2,-1448.68 393.2,-1442.68 399.2,-1436.68 405.2,-1436.68 405.2,-1436.68 574.8,-1436.68 574.8,-1436.68 580.8,-1436.68 586.8,-1442.68 586.8,-1448.68 586.8,-1448.68 586.8,-1464.04 586.8,-1464.04 586.8,-1470.04 580.8,-1476.04 574.8,-1476.04"/>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-1459.66" font-family="Arial" font-size="11.00">👤 PIC reviews the details &amp; marks</text>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-1446.46" font-family="Arial" font-size="11.00">the contract verified</text>
+</g>
+<!-- d3&#45;&gt;s3_verify -->
+<g id="edge37" class="edge">
+<title>d3&#45;&gt;s3_verify</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-1522.27C490,-1511.7 490,-1499.36 490,-1488.31"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-1488.34 490,-1478.34 486.5,-1488.34 493.5,-1488.34"/>
+<text xml:space="preserve" text-anchor="middle" x="511.51" y="-1496.74" font-family="Arial" font-size="9.00"> ✓ Signed </text>
+</g>
+<!-- drop_s3&#45;&gt;d3 -->
+<!-- s4 -->
+<g id="node32" class="node">
+<title>s4</title>
+<path fill="#ffedd5" stroke="#ea580c" stroke-width="1.5" d="M591.17,-1379.08C591.17,-1379.08 388.83,-1379.08 388.83,-1379.08 382.83,-1379.08 376.83,-1373.08 376.83,-1367.08 376.83,-1367.08 376.83,-1345.12 376.83,-1345.12 376.83,-1339.12 382.83,-1333.12 388.83,-1333.12 388.83,-1333.12 591.17,-1333.12 591.17,-1333.12 597.17,-1333.12 603.17,-1339.12 603.17,-1345.12 603.17,-1345.12 603.17,-1367.08 603.17,-1367.08 603.17,-1373.08 597.17,-1379.08 591.17,-1379.08"/>
+<text xml:space="preserve" text-anchor="start" x="447.52" y="-1363.7" font-family="Arial" font-weight="bold" font-size="11.00">S4 · LOGISTICS</text>
+<text xml:space="preserve" text-anchor="start" x="408.68" y="-1352.7" font-family="Arial" font-size="11.00">Client ships the product &amp; fills the</text>
+<text xml:space="preserve" text-anchor="start" x="388.35" y="-1341.7" font-family="Arial" font-size="11.00">tracking number + dispatch date via /c/[id]</text>
+</g>
+<!-- s3_verify&#45;&gt;s4 -->
+<g id="edge38" class="edge">
+<title>s3_verify&#45;&gt;s4</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-1435.95C490,-1423.15 490,-1406.04 490,-1391.03"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-1391.38 490,-1381.38 486.5,-1391.38 493.5,-1391.38"/>
+<text xml:space="preserve" text-anchor="middle" x="567.3" y="-1410.58" font-family="Arial" font-size="9.00"> ⚡ Contract verified → shipment</text>
+<text xml:space="preserve" text-anchor="middle" x="567.3" y="-1399.78" font-family="Arial" font-size="9.00">revealed to the client · no team action </text>
+</g>
+<!-- s3_mid&#45;&gt;s3_legal -->
+<!-- s3_mid&#45;&gt;s3_send -->
+<!-- d4_type -->
+<g id="node33" class="node">
+<title>d4_type</title>
+<path fill="#f1f5f9" stroke="#475569" stroke-width="1.5" d="M479.28,-1270.12C479.28,-1270.12 422.65,-1241.56 422.65,-1241.56 417.29,-1238.86 417.29,-1233.46 422.65,-1230.76 422.65,-1230.76 479.28,-1202.2 479.28,-1202.2 484.64,-1199.5 495.36,-1199.5 500.72,-1202.2 500.72,-1202.2 557.35,-1230.76 557.35,-1230.76 562.71,-1233.46 562.71,-1238.86 557.35,-1241.56 557.35,-1241.56 500.72,-1270.12 500.72,-1270.12 495.36,-1272.82 484.64,-1272.82 479.28,-1270.12"/>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-1239.46" font-family="Arial" font-size="11.00">Deliverable</text>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-1226.26" font-family="Arial" font-size="11.00">type?</text>
+</g>
+<!-- s4&#45;&gt;d4_type -->
+<g id="edge39" class="edge">
+<title>s4&#45;&gt;d4_type</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-1332.64C490,-1319.96 490,-1303.58 490,-1287.97"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-1288.08 490,-1278.08 486.5,-1288.08 493.5,-1288.08"/>
+<text xml:space="preserve" text-anchor="middle" x="555.29" y="-1307.02" font-family="Arial" font-size="9.00"> Client marks shipped →</text>
+<text xml:space="preserve" text-anchor="middle" x="555.29" y="-1296.22" font-family="Arial" font-size="9.00">auto&#45;advances · no team action </text>
+</g>
+<!-- s5_link -->
+<g id="node34" class="node">
+<title>s5_link</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M582.76,-1145.02C582.76,-1145.02 397.24,-1145.02 397.24,-1145.02 391.24,-1145.02 385.24,-1139.02 385.24,-1133.02 385.24,-1133.02 385.24,-1121.02 385.24,-1121.02 385.24,-1115.02 391.24,-1109.02 397.24,-1109.02 397.24,-1109.02 582.76,-1109.02 582.76,-1109.02 588.76,-1109.02 594.76,-1115.02 594.76,-1121.02 594.76,-1121.02 594.76,-1133.02 594.76,-1133.02 594.76,-1139.02 588.76,-1145.02 582.76,-1145.02"/>
+<text xml:space="preserve" text-anchor="start" x="406.87" y="-1129.12" font-family="Arial" font-size="11.00">👤 </text>
+<text xml:space="preserve" text-anchor="start" x="422.15" y="-1129.12" font-family="Arial" font-weight="bold" font-size="11.00">S5 · DRAFT REVIEW</text>
+<text xml:space="preserve" text-anchor="start" x="531.55" y="-1129.12" font-family="Arial" font-size="11.00"> — video</text>
+<text xml:space="preserve" text-anchor="start" x="396.76" y="-1118.12" font-family="Arial" font-size="11.00">PIC sends the creator their upload link</text>
+</g>
+<!-- d4_type&#45;&gt;s5_link -->
+<g id="edge40" class="edge">
+<title>d4_type&#45;&gt;s5_link</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-1196.18C490,-1183.3 490,-1169.2 490,-1157.19"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-1157.38 490,-1147.38 486.5,-1157.38 493.5,-1157.38"/>
+<text xml:space="preserve" text-anchor="middle" x="504.01" y="-1170.7" font-family="Arial" font-size="9.00"> Video </text>
+</g>
+<!-- s5_live -->
+<g id="node40" class="node">
+<title>s5_live</title>
+<path fill="#f3e8ff" stroke="#a855f7" stroke-width="1.5" d="M861.88,-1150C861.88,-1150 664.12,-1150 664.12,-1150 658.12,-1150 652.12,-1144 652.12,-1138 652.12,-1138 652.12,-1116.04 652.12,-1116.04 652.12,-1110.04 658.12,-1104.04 664.12,-1104.04 664.12,-1104.04 861.88,-1104.04 861.88,-1104.04 867.88,-1104.04 873.88,-1110.04 873.88,-1116.04 873.88,-1116.04 873.88,-1138 873.88,-1138 873.88,-1144 867.88,-1150 861.88,-1150"/>
+<text xml:space="preserve" text-anchor="start" x="692.41" y="-1134.62" font-family="Arial" font-weight="bold" font-size="11.00">S5 · DRAFT REVIEW</text>
+<text xml:space="preserve" text-anchor="start" x="801.81" y="-1134.62" font-family="Arial" font-size="11.00"> — live</text>
+<text xml:space="preserve" text-anchor="start" x="663.64" y="-1123.62" font-family="Arial" font-size="11.00">Creator sends the end&#45;of&#45;live screenshot</text>
+<text xml:space="preserve" text-anchor="start" x="723.87" y="-1112.62" font-family="Arial" font-size="11.00">(no review loop)</text>
+</g>
+<!-- d4_type&#45;&gt;s5_live -->
+<g id="edge41" class="edge">
+<title>d4_type&#45;&gt;s5_live</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M533.56,-1218.06C576.9,-1201.06 644.03,-1174.71 694.51,-1154.9"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="695.61,-1158.23 703.64,-1151.31 693.06,-1151.71 695.61,-1158.23"/>
+<text xml:space="preserve" text-anchor="middle" x="669.74" y="-1170.7" font-family="Arial" font-size="9.00"> Live </text>
+</g>
+<!-- s5_vid -->
+<g id="node35" class="node">
+<title>s5_vid</title>
+<path fill="#f3e8ff" stroke="#a855f7" stroke-width="1.5" d="M565.04,-1067.04C565.04,-1067.04 414.96,-1067.04 414.96,-1067.04 408.96,-1067.04 402.96,-1061.04 402.96,-1055.04 402.96,-1055.04 402.96,-1043.04 402.96,-1043.04 402.96,-1037.04 408.96,-1031.04 414.96,-1031.04 414.96,-1031.04 565.04,-1031.04 565.04,-1031.04 571.04,-1031.04 577.04,-1037.04 577.04,-1043.04 577.04,-1043.04 577.04,-1055.04 577.04,-1055.04 577.04,-1061.04 571.04,-1067.04 565.04,-1067.04"/>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-1045.74" font-family="Arial" font-size="11.00">Creator uploads the draft video</text>
+</g>
+<!-- s5_link&#45;&gt;s5_vid -->
+<g id="edge43" class="edge">
+<title>s5_link&#45;&gt;s5_vid</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-1108.4C490,-1099.77 490,-1089.15 490,-1079.34"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-1079.38 490,-1069.38 486.5,-1079.38 493.5,-1079.38"/>
+</g>
+<!-- s5_link&#45;&gt;s5_live -->
+<!-- s5_team -->
+<g id="node36" class="node">
+<title>s5_team</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M567.17,-994.04C567.17,-994.04 412.83,-994.04 412.83,-994.04 406.83,-994.04 400.83,-988.04 400.83,-982.04 400.83,-982.04 400.83,-966.68 400.83,-966.68 400.83,-960.68 406.83,-954.68 412.83,-954.68 412.83,-954.68 567.17,-954.68 567.17,-954.68 573.17,-954.68 579.17,-960.68 579.17,-966.68 579.17,-966.68 579.17,-982.04 579.17,-982.04 579.17,-988.04 573.17,-994.04 567.17,-994.04"/>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-977.66" font-family="Arial" font-size="11.00">👤 1 · Team (PIC) reviews</text>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-964.46" font-family="Arial" font-size="11.00">approve · or · flag (with a note)</text>
+</g>
+<!-- s5_vid&#45;&gt;s5_team -->
+<g id="edge44" class="edge">
+<title>s5_vid&#45;&gt;s5_team</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-1030.45C490,-1023.16 490,-1014.5 490,-1006.22"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-1006.39 490,-996.39 486.5,-1006.39 493.5,-1006.39"/>
+</g>
+<!-- s5_client -->
+<g id="node37" class="node">
+<title>s5_client</title>
+<path fill="#ffedd5" stroke="#ea580c" stroke-width="1.5" d="M582.9,-907.88C582.9,-907.88 397.1,-907.88 397.1,-907.88 391.1,-907.88 385.1,-901.88 385.1,-895.88 385.1,-895.88 385.1,-880.52 385.1,-880.52 385.1,-874.52 391.1,-868.52 397.1,-868.52 397.1,-868.52 582.9,-868.52 582.9,-868.52 588.9,-868.52 594.9,-874.52 594.9,-880.52 594.9,-880.52 594.9,-895.88 594.9,-895.88 594.9,-901.88 588.9,-907.88 582.9,-907.88"/>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-891.5" font-family="Arial" font-size="11.00">👁 2 · Client reviews — always</text>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-878.3" font-family="Arial" font-size="11.00">sees the team&#39;s note · approve or flag</text>
+</g>
+<!-- s5_team&#45;&gt;s5_client -->
+<g id="edge45" class="edge">
+<title>s5_team&#45;&gt;s5_client</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-954.26C490,-944.22 490,-931.66 490,-920.25"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-920.33 490,-910.33 486.5,-920.33 493.5,-920.33"/>
+</g>
+<!-- d5 -->
+<g id="node38" class="node">
+<title>d5</title>
+<path fill="#f1f5f9" stroke="#475569" stroke-width="1.5" d="M479.37,-825.95C479.37,-825.95 425.6,-797.73 425.6,-797.73 420.29,-794.95 420.29,-789.37 425.6,-786.59 425.6,-786.59 479.37,-758.37 479.37,-758.37 484.69,-755.59 495.31,-755.59 500.63,-758.37 500.63,-758.37 554.4,-786.59 554.4,-786.59 559.71,-789.37 559.71,-794.95 554.4,-797.73 554.4,-797.73 500.63,-825.95 500.63,-825.95 495.31,-828.73 484.69,-828.73 479.37,-825.95"/>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-795.46" font-family="Arial" font-size="11.00">Both</text>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-782.26" font-family="Arial" font-size="11.00">approved?</text>
+</g>
+<!-- s5_client&#45;&gt;d5 -->
+<g id="edge46" class="edge">
+<title>s5_client&#45;&gt;d5</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-868.17C490,-861.09 490,-852.67 490,-844.08"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-844.18 490,-834.18 486.5,-844.18 493.5,-844.18"/>
+</g>
+<!-- d5_cap -->
+<g id="node39" class="node">
+<title>d5_cap</title>
+<path fill="#f1f5f9" stroke="#475569" stroke-width="1.5" d="M710.78,-814.06C710.78,-814.06 664.32,-796.42 664.32,-796.42 658.71,-794.29 658.71,-790.03 664.32,-787.9 664.32,-787.9 710.78,-770.26 710.78,-770.26 716.39,-768.13 727.61,-768.13 733.22,-770.26 733.22,-770.26 779.68,-787.9 779.68,-787.9 785.29,-790.03 785.29,-794.29 779.68,-796.42 779.68,-796.42 733.22,-814.06 733.22,-814.06 727.61,-816.19 716.39,-816.19 710.78,-814.06"/>
+<text xml:space="preserve" text-anchor="middle" x="722" y="-788.86" font-family="Arial" font-size="11.00">1st draft?</text>
+</g>
+<!-- d5&#45;&gt;d5_cap -->
+<g id="edge47" class="edge">
+<title>d5&#45;&gt;d5_cap</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M566.61,-792.16C590.09,-792.16 616.01,-792.16 639.84,-792.16"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="639.54,-795.66 649.54,-792.16 639.54,-788.66 639.54,-795.66"/>
+<text xml:space="preserve" text-anchor="middle" x="609.06" y="-797.86" font-family="Arial" font-size="9.00"> ✗ Either flags </text>
+</g>
+<!-- s6_ask -->
+<g id="node41" class="node">
+<title>s6_ask</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M597.91,-695.2C597.91,-695.2 382.09,-695.2 382.09,-695.2 376.09,-695.2 370.09,-689.2 370.09,-683.2 370.09,-683.2 370.09,-661.24 370.09,-661.24 370.09,-655.24 376.09,-649.24 382.09,-649.24 382.09,-649.24 597.91,-649.24 597.91,-649.24 603.91,-649.24 609.91,-655.24 609.91,-661.24 609.91,-661.24 609.91,-683.2 609.91,-683.2 609.91,-689.2 603.91,-695.2 597.91,-695.2"/>
+<text xml:space="preserve" text-anchor="start" x="389.45" y="-679.82" font-family="Arial" font-size="11.00">👤 </text>
+<text xml:space="preserve" text-anchor="start" x="404.73" y="-679.82" font-family="Arial" font-weight="bold" font-size="11.00">S6 · URL SUBMISSION</text>
+<text xml:space="preserve" text-anchor="start" x="525.74" y="-679.82" font-family="Arial" font-size="11.00"> — video only</text>
+<text xml:space="preserve" text-anchor="start" x="383" y="-668.82" font-family="Arial" font-size="11.00">PIC tells the creator to post, then submit the</text>
+<text xml:space="preserve" text-anchor="start" x="381.61" y="-657.82" font-family="Arial" font-size="11.00">post URL + ad code on the same upload link</text>
+</g>
+<!-- d5&#45;&gt;s6_ask -->
+<g id="edge50" class="edge">
+<title>d5&#45;&gt;s6_ask</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-752.22C490,-737.68 490,-721.31 490,-707.26"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-707.42 490,-697.42 486.5,-707.42 493.5,-707.42"/>
+<text xml:space="preserve" text-anchor="middle" x="539.03" y="-721.3" font-family="Arial" font-size="9.00"> ✓ Both approve → post </text>
+</g>
+<!-- d5_cap&#45;&gt;s5_vid -->
+<g id="edge48" class="edge">
+<title>d5_cap&#45;&gt;s5_vid</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M691.41,-807.31C673.09,-817.05 650.44,-831.47 635,-849.52 616.54,-871.1 629.81,-888.56 609,-907.88 591.68,-923.97 572.55,-906.54 558.95,-925.88 556.19,-929.81 556.45,-932.58 558.95,-936.68 568.08,-951.62 584.88,-939.74 594,-954.68 603.12,-969.61 603.08,-979.09 594,-994.04 586.05,-1007.13 573.77,-1017.2 560.41,-1024.88"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="558.88,-1021.73 551.64,-1029.46 562.12,-1027.93 558.88,-1021.73"/>
+<text xml:space="preserve" text-anchor="middle" x="605.48" y="-928.58" font-family="Arial" font-size="9.00"> 1st draft → one re&#45;edit </text>
+</g>
+<!-- d5_cap&#45;&gt;s6_ask -->
+<g id="edge49" class="edge">
+<title>d5_cap&#45;&gt;s6_ask</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M697.95,-774.52C672.97,-757.68 632.38,-731.59 595,-713.2 585.75,-708.65 575.83,-704.27 565.93,-700.19"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="567.49,-697.04 556.91,-696.56 564.88,-703.54 567.49,-697.04"/>
+<text xml:space="preserve" text-anchor="middle" x="687.13" y="-726.7" font-family="Arial" font-size="9.00"> 2nd draft → posts anyway</text>
+<text xml:space="preserve" text-anchor="middle" x="687.13" y="-715.9" font-family="Arial" font-size="9.00">(no feedback) </text>
+</g>
+<!-- s7 -->
+<g id="node46" class="node">
+<title>s7</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M553.1,-332.32C553.1,-332.32 426.9,-332.32 426.9,-332.32 420.9,-332.32 414.9,-326.32 414.9,-320.32 414.9,-320.32 414.9,-308.32 414.9,-308.32 414.9,-302.32 420.9,-296.32 426.9,-296.32 426.9,-296.32 553.1,-296.32 553.1,-296.32 559.1,-296.32 565.1,-302.32 565.1,-308.32 565.1,-308.32 565.1,-320.32 565.1,-320.32 565.1,-326.32 559.1,-332.32 553.1,-332.32"/>
+<text xml:space="preserve" text-anchor="start" x="444.46" y="-316.42" font-family="Arial" font-weight="bold" font-size="11.00">S7 · REPORTING</text>
+<text xml:space="preserve" text-anchor="start" x="426.42" y="-305.42" font-family="Arial" font-size="11.00">PIC confirms the numbers</text>
+</g>
+<!-- s5_live&#45;&gt;s7 -->
+<g id="edge58" class="edge">
+<title>s5_live&#45;&gt;s7</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M771.76,-1103.54C793.42,-1044.56 844.98,-881.03 805,-752.8 763.8,-620.65 748.36,-564.91 628,-496.52 521.3,-435.89 160.82,-549.16 77,-459.52 53.1,-433.97 52.67,-405.94 77,-380.8 119.29,-337.1 581.71,-406.5 624,-362.8 627.34,-359.35 626.91,-355.82 624,-352 617.37,-343.3 598.61,-336.17 577.16,-330.57"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="578.06,-327.19 567.52,-328.22 576.4,-333.99 578.06,-327.19"/>
+<text xml:space="preserve" text-anchor="middle" x="832.92" y="-726.7" font-family="Arial" font-size="9.00"> ✓ Screenshot in</text>
+<text xml:space="preserve" text-anchor="middle" x="832.92" y="-715.9" font-family="Arial" font-size="9.00">→ skips S6 </text>
+</g>
+<!-- s6_cr -->
+<g id="node42" class="node">
+<title>s6_cr</title>
+<path fill="#f3e8ff" stroke="#a855f7" stroke-width="1.5" d="M577.87,-612.24C577.87,-612.24 402.13,-612.24 402.13,-612.24 396.13,-612.24 390.13,-606.24 390.13,-600.24 390.13,-600.24 390.13,-584.88 390.13,-584.88 390.13,-578.88 396.13,-572.88 402.13,-572.88 402.13,-572.88 577.87,-572.88 577.87,-572.88 583.87,-572.88 589.87,-578.88 589.87,-584.88 589.87,-584.88 589.87,-600.24 589.87,-600.24 589.87,-606.24 583.87,-612.24 577.87,-612.24"/>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-595.86" font-family="Arial" font-size="11.00">Creator posts, then submits the post</text>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-582.66" font-family="Arial" font-size="11.00">URL + ad code on their upload link</text>
+</g>
+<!-- s6_ask&#45;&gt;s6_cr -->
+<g id="edge51" class="edge">
+<title>s6_ask&#45;&gt;s6_cr</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-648.76C490,-641.2 490,-632.63 490,-624.54"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-624.63 490,-614.63 486.5,-624.63 493.5,-624.63"/>
+</g>
+<!-- s6_rec -->
+<g id="node43" class="node">
+<title>s6_rec</title>
+<path fill="#cffafe" stroke="#0891b2" stroke-width="1.5" d="M601.25,-535.88C601.25,-535.88 378.75,-535.88 378.75,-535.88 372.75,-535.88 366.75,-529.88 366.75,-523.88 366.75,-523.88 366.75,-508.52 366.75,-508.52 366.75,-502.52 372.75,-496.52 378.75,-496.52 378.75,-496.52 601.25,-496.52 601.25,-496.52 607.25,-496.52 613.25,-502.52 613.25,-508.52 613.25,-508.52 613.25,-523.88 613.25,-523.88 613.25,-529.88 607.25,-535.88 601.25,-535.88"/>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-519.5" font-family="Arial" font-size="11.00">⚙️⚡ System records the URL + ad code and</text>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-506.3" font-family="Arial" font-size="11.00">pulls views + GMV from the link</text>
+</g>
+<!-- s6_cr&#45;&gt;s6_rec -->
+<g id="edge52" class="edge">
+<title>s6_cr&#45;&gt;s6_rec</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-572.41C490,-565.01 490,-556.35 490,-548.11"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-548.36 490,-538.36 486.5,-548.36 493.5,-548.36"/>
+</g>
+<!-- d6 -->
+<g id="node44" class="node">
+<title>d6</title>
+<path fill="#f1f5f9" stroke="#475569" stroke-width="1.5" d="M479.63,-453.49C479.63,-453.49 432.71,-426.19 432.71,-426.19 427.52,-423.18 427.52,-417.14 432.71,-414.13 432.71,-414.13 479.63,-386.83 479.63,-386.83 484.81,-383.82 495.19,-383.82 500.37,-386.83 500.37,-386.83 547.29,-414.13 547.29,-414.13 552.48,-417.14 552.48,-423.18 547.29,-426.19 547.29,-426.19 500.37,-453.49 500.37,-453.49 495.19,-456.5 484.81,-456.5 479.63,-453.49"/>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-423.46" font-family="Arial" font-size="11.00">Numbers</text>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-410.26" font-family="Arial" font-size="11.00">in?</text>
+</g>
+<!-- s6_rec&#45;&gt;d6 -->
+<g id="edge53" class="edge">
+<title>s6_rec&#45;&gt;d6</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-496.17C490,-489.09 490,-480.67 490,-472.08"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-472.18 490,-462.18 486.5,-472.18 493.5,-472.18"/>
+</g>
+<!-- s6_hold -->
+<g id="node45" class="node">
+<title>s6_hold</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M322.1,-439.84C322.1,-439.84 103.9,-439.84 103.9,-439.84 97.9,-439.84 91.9,-433.84 91.9,-427.84 91.9,-427.84 91.9,-412.48 91.9,-412.48 91.9,-406.48 97.9,-400.48 103.9,-400.48 103.9,-400.48 322.1,-400.48 322.1,-400.48 328.1,-400.48 334.1,-406.48 334.1,-412.48 334.1,-412.48 334.1,-427.84 334.1,-427.84 334.1,-433.84 328.1,-439.84 322.1,-439.84"/>
+<text xml:space="preserve" text-anchor="middle" x="213" y="-423.46" font-family="Arial" font-size="11.00">🚩 Held at Posting · row flagged red</text>
+<text xml:space="preserve" text-anchor="middle" x="213" y="-410.26" font-family="Arial" font-size="11.00">👤 PIC retries the pull, or types views + GMV</text>
+</g>
+<!-- d6&#45;&gt;s6_hold -->
+<g id="edge54" class="edge">
+<title>d6&#45;&gt;s6_hold</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M438.16,-410.36C427.32,-408.7 415.93,-407.23 405.23,-406.36 386.2,-404.82 366.11,-404.65 346.37,-405.32"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="346.46,-401.82 336.61,-405.73 346.75,-408.81 346.46,-401.82"/>
+<text xml:space="preserve" text-anchor="middle" x="378.22" y="-409.06" font-family="Arial" font-size="9.00"> ✗ Pull failed </text>
+</g>
+<!-- d6&#45;&gt;s7 -->
+<g id="edge57" class="edge">
+<title>d6&#45;&gt;s7</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-380.2C490,-368.41 490,-355.66 490,-344.62"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-344.83 490,-334.83 486.5,-344.83 493.5,-344.83"/>
+<text xml:space="preserve" text-anchor="middle" x="556.28" y="-354.7" font-family="Arial" font-size="9.00"> ✓ Numbers in → auto&#45;advances </text>
+</g>
+<!-- s6_hold&#45;&gt;d6 -->
+<g id="edge55" class="edge">
+<title>s6_hold&#45;&gt;d6</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M334.5,-420.16C359.86,-420.16 386.01,-420.16 409.45,-420.16"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="409.26,-423.66 419.26,-420.16 409.26,-416.66 409.26,-423.66"/>
+<text xml:space="preserve" text-anchor="middle" x="378.22" y="-425.86" font-family="Arial" font-size="9.00"> retried / typed </text>
+</g>
+<!-- s6_hold&#45;&gt;d6 -->
+<!-- d7_type -->
+<g id="node47" class="node">
+<title>d7_type</title>
+<path fill="#f1f5f9" stroke="#475569" stroke-width="1.5" d="M479.28,-252.24C479.28,-252.24 422.65,-223.68 422.65,-223.68 417.29,-220.98 417.29,-215.58 422.65,-212.88 422.65,-212.88 479.28,-184.32 479.28,-184.32 484.64,-181.62 495.36,-181.62 500.72,-184.32 500.72,-184.32 557.35,-212.88 557.35,-212.88 562.71,-215.58 562.71,-220.98 557.35,-223.68 557.35,-223.68 500.72,-252.24 500.72,-252.24 495.36,-254.94 484.64,-254.94 479.28,-252.24"/>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-221.58" font-family="Arial" font-size="11.00">Deliverable</text>
+<text xml:space="preserve" text-anchor="middle" x="490" y="-208.38" font-family="Arial" font-size="11.00">type?</text>
+</g>
+<!-- s7&#45;&gt;d7_type -->
+<g id="edge60" class="edge">
+<title>s7&#45;&gt;d7_type</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M490,-295.63C490,-288.22 490,-279.2 490,-269.99"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="493.5,-270.14 490,-260.14 486.5,-270.14 493.5,-270.14"/>
+</g>
+<!-- s7_cc -->
+<g id="node50" class="node">
+<title>s7_cc</title>
+<path fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="5,2" d="M747.67,-334C747.67,-334 634.33,-334 634.33,-334 628.33,-334 622.33,-328 622.33,-322 622.33,-322 622.33,-306.64 622.33,-306.64 622.33,-300.64 628.33,-294.64 634.33,-294.64 634.33,-294.64 747.67,-294.64 747.67,-294.64 753.67,-294.64 759.67,-300.64 759.67,-306.64 759.67,-306.64 759.67,-322 759.67,-322 759.67,-328 753.67,-334 747.67,-334"/>
+<text xml:space="preserve" text-anchor="middle" x="691" y="-317.62" font-family="Arial" font-size="11.00">👁 Client sees GMV &amp;</text>
+<text xml:space="preserve" text-anchor="middle" x="691" y="-304.42" font-family="Arial" font-size="11.00">metrics across all posts</text>
+</g>
+<!-- s7&#45;&gt;s7_cc -->
+<g id="edge59" class="edge">
+<title>s7&#45;&gt;s7_cc</title>
+<path fill="none" stroke="#ea580c" stroke-width="1.2" stroke-dasharray="5,2" d="M565.77,-314.32C580.71,-314.32 595.65,-314.32 610.6,-314.32"/>
+<polygon fill="#ea580c" stroke="#ea580c" stroke-width="1.2" points="610.21,-317.82 620.21,-314.32 610.21,-310.82 610.21,-317.82"/>
+</g>
+<!-- s7_vid -->
+<g id="node48" class="node">
+<title>s7_vid</title>
+<path fill="#cffafe" stroke="#0891b2" stroke-width="1.5" d="M420.36,-132.12C420.36,-132.12 247.64,-132.12 247.64,-132.12 241.64,-132.12 235.64,-126.12 235.64,-120.12 235.64,-120.12 235.64,-104.76 235.64,-104.76 235.64,-98.76 241.64,-92.76 247.64,-92.76 247.64,-92.76 420.36,-92.76 420.36,-92.76 426.36,-92.76 432.36,-98.76 432.36,-104.76 432.36,-104.76 432.36,-120.12 432.36,-120.12 432.36,-126.12 426.36,-132.12 420.36,-132.12"/>
+<text xml:space="preserve" text-anchor="middle" x="334" y="-115.74" font-family="Arial" font-size="11.00">✓ Video: views + GMV already</text>
+<text xml:space="preserve" text-anchor="middle" x="334" y="-102.54" font-family="Arial" font-size="11.00">captured at Posting — nothing to do</text>
+</g>
+<!-- d7_type&#45;&gt;s7_vid -->
+<g id="edge61" class="edge">
+<title>d7_type&#45;&gt;s7_vid</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M456.53,-195C431.95,-178.64 398.5,-156.37 372.76,-139.24"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="374.73,-136.35 364.47,-133.72 370.85,-142.17 374.73,-136.35"/>
+<text xml:space="preserve" text-anchor="middle" x="416.67" y="-152.82" font-family="Arial" font-size="9.00"> Video </text>
+</g>
+<!-- s7_live -->
+<g id="node49" class="node">
+<title>s7_live</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M720.37,-132.12C720.37,-132.12 559.63,-132.12 559.63,-132.12 553.63,-132.12 547.63,-126.12 547.63,-120.12 547.63,-120.12 547.63,-104.76 547.63,-104.76 547.63,-98.76 553.63,-92.76 559.63,-92.76 559.63,-92.76 720.37,-92.76 720.37,-92.76 726.37,-92.76 732.37,-98.76 732.37,-104.76 732.37,-104.76 732.37,-120.12 732.37,-120.12 732.37,-126.12 726.37,-132.12 720.37,-132.12"/>
+<text xml:space="preserve" text-anchor="middle" x="640" y="-115.74" font-family="Arial" font-size="11.00">👤 Live: PIC enters views + GMV</text>
+<text xml:space="preserve" text-anchor="middle" x="640" y="-102.54" font-family="Arial" font-size="11.00">by hand (no URL to pull)</text>
+</g>
+<!-- d7_type&#45;&gt;s7_live -->
+<g id="edge62" class="edge">
+<title>d7_type&#45;&gt;s7_live</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M522.55,-194.75C546.02,-178.5 577.78,-156.52 602.35,-139.51"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="604.33,-142.39 610.56,-133.82 600.35,-136.63 604.33,-142.39"/>
+<text xml:space="preserve" text-anchor="middle" x="593.6" y="-152.82" font-family="Arial" font-size="9.00"> Live </text>
+</g>
+<!-- s7_mid -->
+<!-- d7_type&#45;&gt;s7_mid -->
+<!-- s7_vid&#45;&gt;s7_mid -->
+<!-- s8 -->
+<g id="node52" class="node">
+<title>s8</title>
+<path fill="#d1fae5" stroke="#059669" stroke-width="2" d="M602.15,-45.96C602.15,-45.96 377.85,-45.96 377.85,-45.96 371.85,-45.96 365.85,-39.96 365.85,-33.96 365.85,-33.96 365.85,-12 365.85,-12 365.85,-6 371.85,0 377.85,0 377.85,0 602.15,0 602.15,0 608.15,0 614.15,-6 614.15,-12 614.15,-12 614.15,-33.96 614.15,-33.96 614.15,-39.96 608.15,-45.96 602.15,-45.96"/>
+<text xml:space="preserve" text-anchor="start" x="444.16" y="-30.58" font-family="Arial" font-size="11.00">🏁 </text>
+<text xml:space="preserve" text-anchor="start" x="459.44" y="-30.58" font-family="Arial" font-weight="bold" font-size="11.00">S8 · VERIFIED</text>
+<text xml:space="preserve" text-anchor="start" x="377.37" y="-19.58" font-family="Arial" font-size="11.00">Video: PIC&#39;s final pass/fail · Live: auto&#45;verifies</text>
+<text xml:space="preserve" text-anchor="start" x="378.42" y="-8.58" font-family="Arial" font-size="11.00">when Reporting is confirmed — item complete</text>
+</g>
+<!-- s7_vid&#45;&gt;s8 -->
+<g id="edge67" class="edge">
+<title>s7_vid&#45;&gt;s8</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M368.62,-92.03C389.25,-80.46 415.81,-65.57 438.83,-52.67"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="440.52,-55.73 447.53,-47.79 437.1,-49.63 440.52,-55.73"/>
+<text xml:space="preserve" text-anchor="middle" x="444.93" y="-66.66" font-family="Arial" font-size="9.00"> PIC confirms </text>
+</g>
+<!-- s7_live&#45;&gt;s8 -->
+<g id="edge68" class="edge">
+<title>s7_live&#45;&gt;s8</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M606.71,-92.03C586.96,-80.52 561.56,-65.71 539.5,-52.84"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="541.28,-49.83 530.88,-47.82 537.75,-55.88 541.28,-49.83"/>
+<text xml:space="preserve" text-anchor="middle" x="603.74" y="-66.66" font-family="Arial" font-size="9.00"> GMV typed in </text>
+</g>
+<!-- s7_mid&#45;&gt;s7_live -->
+<!-- s7_mid&#45;&gt;s8 -->
+</g>
+</svg>
           </div>
           <figcaption>Endorsement pipeline &middot; Develop portal &mdash; Indonesia</figcaption>
         </figure>
@@ -2986,8 +3692,681 @@ footer a:hover { color: var(--text); }
       <div class="layer2-body">
         <figure class="shot">
           <div class="shot-frame">
-            <div class="shot-bar"><i></i><i></i><i></i><span>erp-id.vercel.app/develop/agentic-flow/journey</span></div>
-            <img src="shots/erp-agentic-journey.webp" width="1165" height="4089" alt="The agentic journey page, headed by a retired-reference-only notice, with eight summary cards and a full flowchart in which an AI agent node and a WhatsApp control group appear alongside the team and creator.">
+            <div class="shot-bar"><span>creator-erp-id &middot; docs/develop/pipeline-flowchart-agentic.dot</span></div>
+<svg class="flowsvg" role="img" aria-labelledby="apfT apfD"
+ viewBox="0.00 0.00 873.00 2523.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title id="apfT">The agentic pipeline flowchart, rendered from the repository source</title>
+<desc id="apfD">The retired agent-run pipeline. The same eight stages as the hand-run chart, with an AI agent actor and two control-group escalation paths where the model was unsure.</desc>
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 2518.63)">
+<title>creator_pipeline_agentic</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-2518.63 869.21,-2518.63 869.21,4 -4,4"/>
+<g id="clust1" class="cluster">
+<title>cluster_legend</title>
+<path fill="#f8fafc" stroke="#cbd5e1" d="M20,-1519.78C20,-1519.78 192,-1519.78 192,-1519.78 198,-1519.78 204,-1525.78 204,-1531.78 204,-1531.78 204,-2494.63 204,-2494.63 204,-2500.63 198,-2506.63 192,-2506.63 192,-2506.63 20,-2506.63 20,-2506.63 14,-2506.63 8,-2500.63 8,-2494.63 8,-2494.63 8,-1531.78 8,-1531.78 8,-1525.78 14,-1519.78 20,-1519.78"/>
+<text xml:space="preserve" text-anchor="middle" x="106" y="-2491.23" font-family="Arial" font-size="12.00" fill="#0f172a">Legend</text>
+</g>
+<!-- lg_pic -->
+<g id="node1" class="node">
+<title>lg_pic</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M122.4,-2476.38C122.4,-2476.38 89.61,-2476.38 89.61,-2476.38 83.61,-2476.38 77.61,-2470.38 77.61,-2464.38 77.61,-2464.38 77.61,-2452.38 77.61,-2452.38 77.61,-2446.38 83.61,-2440.38 89.61,-2440.38 89.61,-2440.38 122.4,-2440.38 122.4,-2440.38 128.4,-2440.38 134.4,-2446.38 134.4,-2452.38 134.4,-2452.38 134.4,-2464.38 134.4,-2464.38 134.4,-2470.38 128.4,-2476.38 122.4,-2476.38"/>
+<text xml:space="preserve" text-anchor="middle" x="106" y="-2454.88" font-family="Arial" font-size="10.00">👤 PIC</text>
+</g>
+<!-- lg_creator -->
+<g id="node2" class="node">
+<title>lg_creator</title>
+<path fill="#f3e8ff" stroke="#a855f7" stroke-width="1.5" d="M121.65,-2403.38C121.65,-2403.38 90.35,-2403.38 90.35,-2403.38 84.35,-2403.38 78.35,-2397.38 78.35,-2391.38 78.35,-2391.38 78.35,-2379.38 78.35,-2379.38 78.35,-2373.38 84.35,-2367.38 90.35,-2367.38 90.35,-2367.38 121.65,-2367.38 121.65,-2367.38 127.65,-2367.38 133.65,-2373.38 133.65,-2379.38 133.65,-2379.38 133.65,-2391.38 133.65,-2391.38 133.65,-2397.38 127.65,-2403.38 121.65,-2403.38"/>
+<text xml:space="preserve" text-anchor="middle" x="106" y="-2381.88" font-family="Arial" font-size="10.00">Creator</text>
+</g>
+<!-- lg_pic&#45;&gt;lg_creator -->
+<!-- lg_ai -->
+<g id="node3" class="node">
+<title>lg_ai</title>
+<path fill="#d1fae5" stroke="#059669" stroke-width="1.5" d="M167.39,-2328.4C167.39,-2328.4 44.61,-2328.4 44.61,-2328.4 38.61,-2328.4 32.61,-2322.4 32.61,-2316.4 32.61,-2316.4 32.61,-2304.4 32.61,-2304.4 32.61,-2298.4 38.61,-2292.4 44.61,-2292.4 44.61,-2292.4 167.39,-2292.4 167.39,-2292.4 173.39,-2292.4 179.39,-2298.4 179.39,-2304.4 179.39,-2304.4 179.39,-2316.4 179.39,-2316.4 179.39,-2322.4 173.39,-2328.4 167.39,-2328.4"/>
+<text xml:space="preserve" text-anchor="middle" x="106" y="-2306.9" font-family="Arial" font-size="10.00">🤖⚡ AI Agent (LLM&#45;driven)</text>
+</g>
+<!-- lg_creator&#45;&gt;lg_ai -->
+<!-- lg_system -->
+<g id="node4" class="node">
+<title>lg_system</title>
+<path fill="#cffafe" stroke="#0891b2" stroke-width="1.5" d="M181.64,-2251.44C181.64,-2251.44 30.36,-2251.44 30.36,-2251.44 24.36,-2251.44 18.36,-2245.44 18.36,-2239.44 18.36,-2239.44 18.36,-2227.44 18.36,-2227.44 18.36,-2221.44 24.36,-2215.44 30.36,-2215.44 30.36,-2215.44 181.64,-2215.44 181.64,-2215.44 187.64,-2215.44 193.64,-2221.44 193.64,-2227.44 193.64,-2227.44 193.64,-2239.44 193.64,-2239.44 193.64,-2245.44 187.64,-2251.44 181.64,-2251.44"/>
+<text xml:space="preserve" text-anchor="middle" x="106" y="-2229.94" font-family="Arial" font-size="10.00">⚙️⚡ System (deterministic code)</text>
+</g>
+<!-- lg_ai&#45;&gt;lg_system -->
+<!-- lg_client -->
+<g id="node5" class="node">
+<title>lg_client</title>
+<path fill="#ffedd5" stroke="#ea580c" stroke-width="1.5" d="M121,-2154.5C121,-2154.5 91,-2154.5 91,-2154.5 85,-2154.5 79,-2148.5 79,-2142.5 79,-2142.5 79,-2130.5 79,-2130.5 79,-2124.5 85,-2118.5 91,-2118.5 91,-2118.5 121,-2118.5 121,-2118.5 127,-2118.5 133,-2124.5 133,-2130.5 133,-2130.5 133,-2142.5 133,-2142.5 133,-2148.5 127,-2154.5 121,-2154.5"/>
+<text xml:space="preserve" text-anchor="middle" x="106" y="-2133" font-family="Arial" font-size="10.00">Client</text>
+</g>
+<!-- lg_system&#45;&gt;lg_client -->
+<!-- lg_legal -->
+<g id="node6" class="node">
+<title>lg_legal</title>
+<path fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5" d="M170.39,-2047.31C170.39,-2047.31 41.61,-2047.31 41.61,-2047.31 35.61,-2047.31 29.61,-2041.31 29.61,-2035.31 29.61,-2035.31 29.61,-2023.31 29.61,-2023.31 29.61,-2017.31 35.61,-2011.31 41.61,-2011.31 41.61,-2011.31 170.39,-2011.31 170.39,-2011.31 176.39,-2011.31 182.39,-2017.31 182.39,-2023.31 182.39,-2023.31 182.39,-2035.31 182.39,-2035.31 182.39,-2041.31 176.39,-2047.31 170.39,-2047.31"/>
+<text xml:space="preserve" text-anchor="middle" x="106" y="-2025.81" font-family="Arial" font-size="10.00">⚖️ Legal (≥ Rp 5M contracts)</text>
+</g>
+<!-- lg_client&#45;&gt;lg_legal -->
+<!-- lg_control -->
+<g id="node7" class="node">
+<title>lg_control</title>
+<path fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="5,2" d="M183.89,-1961.85C183.89,-1961.85 28.11,-1961.85 28.11,-1961.85 22.11,-1961.85 16.11,-1955.85 16.11,-1949.85 16.11,-1949.85 16.11,-1937.85 16.11,-1937.85 16.11,-1931.85 22.11,-1925.85 28.11,-1925.85 28.11,-1925.85 183.89,-1925.85 183.89,-1925.85 189.89,-1925.85 195.89,-1931.85 195.89,-1937.85 195.89,-1937.85 195.89,-1949.85 195.89,-1949.85 195.89,-1955.85 189.89,-1961.85 183.89,-1961.85"/>
+<text xml:space="preserve" text-anchor="middle" x="106" y="-1940.35" font-family="Arial" font-size="10.00">📣 WhatsApp Control group → PIC</text>
+</g>
+<!-- lg_legal&#45;&gt;lg_control -->
+<!-- lg_decision -->
+<g id="node8" class="node">
+<title>lg_decision</title>
+<path fill="#f1f5f9" stroke="#475569" stroke-width="1.5" d="M94.43,-1875.18C94.43,-1875.18 52.28,-1863.56 52.28,-1863.56 46.49,-1861.96 46.49,-1858.78 52.28,-1857.18 52.28,-1857.18 94.43,-1845.56 94.43,-1845.56 100.22,-1843.96 111.78,-1843.96 117.57,-1845.56 117.57,-1845.56 159.72,-1857.18 159.72,-1857.18 165.51,-1858.78 165.51,-1861.96 159.72,-1863.56 159.72,-1863.56 117.57,-1875.18 117.57,-1875.18 111.78,-1876.78 100.22,-1876.78 94.43,-1875.18"/>
+<text xml:space="preserve" text-anchor="middle" x="106" y="-1856.87" font-family="Arial" font-size="10.00">Decision?</text>
+</g>
+<!-- lg_control&#45;&gt;lg_decision -->
+<!-- lg_cc -->
+<g id="node9" class="node">
+<title>lg_cc</title>
+<path fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="5,2" d="M149.77,-1773.91C149.77,-1773.91 62.23,-1773.91 62.23,-1773.91 56.23,-1773.91 50.23,-1767.91 50.23,-1761.91 50.23,-1761.91 50.23,-1749.91 50.23,-1749.91 50.23,-1743.91 56.23,-1737.91 62.23,-1737.91 62.23,-1737.91 149.77,-1737.91 149.77,-1737.91 155.77,-1737.91 161.77,-1743.91 161.77,-1749.91 161.77,-1749.91 161.77,-1761.91 161.77,-1761.91 161.77,-1767.91 155.77,-1773.91 149.77,-1773.91"/>
+<text xml:space="preserve" text-anchor="middle" x="106" y="-1752.41" font-family="Arial" font-size="10.00">👁 CC (read&#45;only)</text>
+</g>
+<!-- lg_decision&#45;&gt;lg_cc -->
+<!-- lg_drop -->
+<g id="node10" class="node">
+<title>lg_drop</title>
+<path fill="#ffe4e6" stroke="#e11d48" stroke-width="1.5" d="M132.52,-1663.72C132.52,-1663.72 79.48,-1663.72 79.48,-1663.72 73.48,-1663.72 67.48,-1657.72 67.48,-1651.72 67.48,-1651.72 67.48,-1639.72 67.48,-1639.72 67.48,-1633.72 73.48,-1627.72 79.48,-1627.72 79.48,-1627.72 132.52,-1627.72 132.52,-1627.72 138.52,-1627.72 144.52,-1633.72 144.52,-1639.72 144.52,-1639.72 144.52,-1651.72 144.52,-1651.72 144.52,-1657.72 138.52,-1663.72 132.52,-1663.72"/>
+<text xml:space="preserve" text-anchor="middle" x="106" y="-1642.22" font-family="Arial" font-size="10.00">⛔ Drop&#45;out</text>
+</g>
+<!-- lg_cc&#45;&gt;lg_drop -->
+<!-- lg_final -->
+<g id="node11" class="node">
+<title>lg_final</title>
+<path fill="#d1fae5" stroke="#059669" stroke-width="2" d="M124.27,-1563.78C124.27,-1563.78 87.73,-1563.78 87.73,-1563.78 81.73,-1563.78 75.73,-1557.78 75.73,-1551.78 75.73,-1551.78 75.73,-1539.78 75.73,-1539.78 75.73,-1533.78 81.73,-1527.78 87.73,-1527.78 87.73,-1527.78 124.27,-1527.78 124.27,-1527.78 130.27,-1527.78 136.27,-1533.78 136.27,-1539.78 136.27,-1539.78 136.27,-1551.78 136.27,-1551.78 136.27,-1557.78 130.27,-1563.78 124.27,-1563.78"/>
+<text xml:space="preserve" text-anchor="middle" x="106" y="-1542.28" font-family="Arial" font-size="10.00">🏁 Final</text>
+</g>
+<!-- lg_drop&#45;&gt;lg_final -->
+<!-- start -->
+<g id="node12" class="node">
+<title>start</title>
+<path fill="#d1fae5" stroke="#059669" stroke-width="2" d="M518.89,-2476.38C518.89,-2476.38 429.11,-2476.38 429.11,-2476.38 423.11,-2476.38 417.11,-2470.38 417.11,-2464.38 417.11,-2464.38 417.11,-2452.38 417.11,-2452.38 417.11,-2446.38 423.11,-2440.38 429.11,-2440.38 429.11,-2440.38 518.89,-2440.38 518.89,-2440.38 524.89,-2440.38 530.89,-2446.38 530.89,-2452.38 530.89,-2452.38 530.89,-2464.38 530.89,-2464.38 530.89,-2470.38 524.89,-2476.38 518.89,-2476.38"/>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-2454.68" font-family="Arial" font-size="11.00">🚀 Project created</text>
+</g>
+<!-- s1_pic -->
+<g id="node13" class="node">
+<title>s1_pic</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M547.02,-2403.38C547.02,-2403.38 400.98,-2403.38 400.98,-2403.38 394.98,-2403.38 388.98,-2397.38 388.98,-2391.38 388.98,-2391.38 388.98,-2379.38 388.98,-2379.38 388.98,-2373.38 394.98,-2367.38 400.98,-2367.38 400.98,-2367.38 547.02,-2367.38 547.02,-2367.38 553.02,-2367.38 559.02,-2373.38 559.02,-2379.38 559.02,-2379.38 559.02,-2391.38 559.02,-2391.38 559.02,-2397.38 553.02,-2403.38 547.02,-2403.38"/>
+<text xml:space="preserve" text-anchor="start" x="430.88" y="-2386.93" font-family="Arial" font-weight="bold" font-size="11.00">S1 · PROPOSED</text>
+<text xml:space="preserve" text-anchor="start" x="400.5" y="-2375.93" font-family="Arial" font-size="11.00">PIC adds creator to the project</text>
+</g>
+<!-- start&#45;&gt;s1_pic -->
+<g id="edge11" class="edge">
+<title>start&#45;&gt;s1_pic</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-2439.46C474,-2432.26 474,-2423.77 474,-2415.71"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-2415.86 474,-2405.86 470.5,-2415.86 477.5,-2415.86"/>
+</g>
+<!-- s1_fill -->
+<g id="node14" class="node">
+<title>s1_fill</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M565.77,-2330.38C565.77,-2330.38 382.23,-2330.38 382.23,-2330.38 376.23,-2330.38 370.23,-2324.38 370.23,-2318.38 370.23,-2318.38 370.23,-2302.42 370.23,-2302.42 370.23,-2296.42 376.23,-2290.42 382.23,-2290.42 382.23,-2290.42 565.77,-2290.42 565.77,-2290.42 571.77,-2290.42 577.77,-2296.42 577.77,-2302.42 577.77,-2302.42 577.77,-2318.38 577.77,-2318.38 577.77,-2324.38 571.77,-2330.38 565.77,-2330.38"/>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-2313.45" font-family="Arial" font-size="11.00">👤 PIC fills · category, level, followers,</text>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-2299.95" font-family="Arial" font-size="11.00">engagement rate + deliverable type</text>
+</g>
+<!-- s1_pic&#45;&gt;s1_fill -->
+<g id="edge12" class="edge">
+<title>s1_pic&#45;&gt;s1_fill</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-2366.71C474,-2359.46 474,-2350.83 474,-2342.58"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-2342.77 474,-2332.77 470.5,-2342.77 477.5,-2342.77"/>
+</g>
+<!-- s1_cl -->
+<g id="node15" class="node">
+<title>s1_cl</title>
+<path fill="#ffedd5" stroke="#ea580c" stroke-width="1.5" d="M540.27,-2253.42C540.27,-2253.42 407.73,-2253.42 407.73,-2253.42 401.73,-2253.42 395.73,-2247.42 395.73,-2241.42 395.73,-2241.42 395.73,-2225.46 395.73,-2225.46 395.73,-2219.46 401.73,-2213.46 407.73,-2213.46 407.73,-2213.46 540.27,-2213.46 540.27,-2213.46 546.27,-2213.46 552.27,-2219.46 552.27,-2225.46 552.27,-2225.46 552.27,-2241.42 552.27,-2241.42 552.27,-2247.42 546.27,-2253.42 540.27,-2253.42"/>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-2236.49" font-family="Arial" font-size="11.00">Client reviews the proposed</text>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-2222.99" font-family="Arial" font-size="11.00">creator on /c/[id]</text>
+</g>
+<!-- s1_fill&#45;&gt;s1_cl -->
+<g id="edge13" class="edge">
+<title>s1_fill&#45;&gt;s1_cl</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-2289.71C474,-2282.39 474,-2273.89 474,-2265.79"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-2265.82 474,-2255.82 470.5,-2265.82 477.5,-2265.82"/>
+</g>
+<!-- d1 -->
+<g id="node16" class="node">
+<title>d1</title>
+<path fill="#f1f5f9" stroke="#475569" stroke-width="1.5" d="M463.46,-2170.72C463.46,-2170.72 411.25,-2142.24 411.25,-2142.24 405.98,-2139.37 405.98,-2133.63 411.25,-2130.76 411.25,-2130.76 463.46,-2102.28 463.46,-2102.28 468.73,-2099.41 479.27,-2099.41 484.54,-2102.28 484.54,-2102.28 536.75,-2130.76 536.75,-2130.76 542.02,-2133.63 542.02,-2139.37 536.75,-2142.24 536.75,-2142.24 484.54,-2170.72 484.54,-2170.72 479.27,-2173.59 468.73,-2173.59 463.46,-2170.72"/>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-2139.55" font-family="Arial" font-size="11.00">Client</text>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-2126.05" font-family="Arial" font-size="11.00">approves?</text>
+</g>
+<!-- s1_cl&#45;&gt;d1 -->
+<g id="edge14" class="edge">
+<title>s1_cl&#45;&gt;d1</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-2212.77C474,-2205.67 474,-2197.3 474,-2188.76"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-2188.94 474,-2178.94 470.5,-2188.94 477.5,-2188.94"/>
+</g>
+<!-- drop_s1 -->
+<g id="node17" class="node">
+<title>drop_s1</title>
+<path fill="#ffe4e6" stroke="#e11d48" stroke-width="1.5" d="M301.52,-2156.48C301.52,-2156.48 224.48,-2156.48 224.48,-2156.48 218.48,-2156.48 212.48,-2150.48 212.48,-2144.48 212.48,-2144.48 212.48,-2128.52 212.48,-2128.52 212.48,-2122.52 218.48,-2116.52 224.48,-2116.52 224.48,-2116.52 301.52,-2116.52 301.52,-2116.52 307.52,-2116.52 313.52,-2122.52 313.52,-2128.52 313.52,-2128.52 313.52,-2144.48 313.52,-2144.48 313.52,-2150.48 307.52,-2156.48 301.52,-2156.48"/>
+<text xml:space="preserve" text-anchor="middle" x="263" y="-2139.55" font-family="Arial" font-size="11.00">⛔ Not selected</text>
+<text xml:space="preserve" text-anchor="middle" x="263" y="-2126.05" font-family="Arial" font-size="11.00">S1 cancelled</text>
+</g>
+<!-- d1&#45;&gt;drop_s1 -->
+<g id="edge15" class="edge">
+<title>d1&#45;&gt;drop_s1</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M399.45,-2136.5C375.39,-2136.5 348.97,-2136.5 325.84,-2136.5"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="325.89,-2133 315.89,-2136.5 325.89,-2140 325.89,-2133"/>
+<text xml:space="preserve" text-anchor="middle" x="357.12" y="-2142.2" font-family="Arial" font-size="9.00"> ✕ Rejected </text>
+</g>
+<!-- s2_fill -->
+<g id="node18" class="node">
+<title>s2_fill</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M592.77,-2049.29C592.77,-2049.29 355.23,-2049.29 355.23,-2049.29 349.23,-2049.29 343.23,-2043.29 343.23,-2037.29 343.23,-2037.29 343.23,-2021.33 343.23,-2021.33 343.23,-2015.33 349.23,-2009.33 355.23,-2009.33 355.23,-2009.33 592.77,-2009.33 592.77,-2009.33 598.77,-2009.33 604.77,-2015.33 604.77,-2021.33 604.77,-2021.33 604.77,-2037.29 604.77,-2037.29 604.77,-2043.29 598.77,-2049.29 592.77,-2049.29"/>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-2032.36" font-family="Arial" font-size="11.00">👤 PIC fills the deal terms · fee, video/live counts,</text>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-2018.86" font-family="Arial" font-size="11.00">draft + posting deadlines, contact no.</text>
+</g>
+<!-- d1&#45;&gt;s2_fill -->
+<g id="edge17" class="edge">
+<title>d1&#45;&gt;s2_fill</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-2095.73C474,-2084.44 474,-2072.31 474,-2061.6"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-2061.63 474,-2051.63 470.5,-2061.63 477.5,-2061.63"/>
+<text xml:space="preserve" text-anchor="middle" x="537.38" y="-2069.99" font-family="Arial" font-size="9.00"> ✓ Approved (auto&#45;advance) </text>
+</g>
+<!-- drop_s1&#45;&gt;d1 -->
+<!-- s2_agent -->
+<g id="node19" class="node">
+<title>s2_agent</title>
+<path fill="#d1fae5" stroke="#059669" stroke-width="1.5" d="M595.02,-1972.33C595.02,-1972.33 352.98,-1972.33 352.98,-1972.33 346.98,-1972.33 340.98,-1966.33 340.98,-1960.33 340.98,-1960.33 340.98,-1927.37 340.98,-1927.37 340.98,-1921.37 346.98,-1915.37 352.98,-1915.37 352.98,-1915.37 595.02,-1915.37 595.02,-1915.37 601.02,-1915.37 607.02,-1921.37 607.02,-1927.37 607.02,-1927.37 607.02,-1960.33 607.02,-1960.33 607.02,-1966.33 601.02,-1972.33 595.02,-1972.33"/>
+<text xml:space="preserve" text-anchor="start" x="427.88" y="-1956.4" font-family="Arial" font-size="11.00">🤖⚡ </text>
+<text xml:space="preserve" text-anchor="start" x="460.88" y="-1956.4" font-family="Arial" font-weight="bold" font-size="11.00">S2 · INVITE</text>
+<text xml:space="preserve" text-anchor="start" x="354" y="-1945.4" font-family="Arial" font-size="11.00">AI Agent opens on WhatsApp: a short teaser, then</text>
+<text xml:space="preserve" text-anchor="start" x="352.5" y="-1934.4" font-family="Arial" font-size="11.00">(on interest) reveals the full brief + files and pitches</text>
+<text xml:space="preserve" text-anchor="start" x="353.25" y="-1923.4" font-family="Arial" font-size="11.00">the deal terms — fee, videos/lives, deadlines + link</text>
+</g>
+<!-- s2_fill&#45;&gt;s2_agent -->
+<g id="edge18" class="edge">
+<title>s2_fill&#45;&gt;s2_agent</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-2008.95C474,-2001.69 474,-1993.14 474,-1984.69"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-1984.78 474,-1974.78 470.5,-1984.78 477.5,-1984.78"/>
+</g>
+<!-- s2_cr -->
+<g id="node20" class="node">
+<title>s2_cr</title>
+<path fill="#f3e8ff" stroke="#a855f7" stroke-width="1.5" d="M509.14,-1878.37C509.14,-1878.37 438.86,-1878.37 438.86,-1878.37 432.86,-1878.37 426.86,-1872.37 426.86,-1866.37 426.86,-1866.37 426.86,-1854.37 426.86,-1854.37 426.86,-1848.37 432.86,-1842.37 438.86,-1842.37 438.86,-1842.37 509.14,-1842.37 509.14,-1842.37 515.14,-1842.37 521.14,-1848.37 521.14,-1854.37 521.14,-1854.37 521.14,-1866.37 521.14,-1866.37 521.14,-1872.37 515.14,-1878.37 509.14,-1878.37"/>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-1856.67" font-family="Arial" font-size="11.00">Creator replies</text>
+</g>
+<!-- s2_agent&#45;&gt;s2_cr -->
+<g id="edge19" class="edge">
+<title>s2_agent&#45;&gt;s2_cr</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-1914.81C474,-1906.95 474,-1898.4 474,-1890.49"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-1890.58 474,-1880.58 470.5,-1890.58 477.5,-1890.58"/>
+</g>
+<!-- d2 -->
+<g id="node21" class="node">
+<title>d2</title>
+<path fill="#f1f5f9" stroke="#475569" stroke-width="1.5" d="M463.24,-1790.55C463.24,-1790.55 403.97,-1761.23 403.97,-1761.23 398.59,-1758.57 398.59,-1753.25 403.97,-1750.59 403.97,-1750.59 463.24,-1721.27 463.24,-1721.27 468.62,-1718.61 479.38,-1718.61 484.76,-1721.27 484.76,-1721.27 544.03,-1750.59 544.03,-1750.59 549.41,-1753.25 549.41,-1758.57 544.03,-1761.23 544.03,-1761.23 484.76,-1790.55 484.76,-1790.55 479.38,-1793.21 468.62,-1793.21 463.24,-1790.55"/>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-1758.96" font-family="Arial" font-size="11.00">AI</text>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-1745.46" font-family="Arial" font-size="11.00">confidence?</text>
+</g>
+<!-- s2_cr&#45;&gt;d2 -->
+<g id="edge20" class="edge">
+<title>s2_cr&#45;&gt;d2</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-1841.99C474,-1832.56 474,-1820.35 474,-1808.15"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-1808.36 474,-1798.36 470.5,-1808.36 477.5,-1808.36"/>
+</g>
+<!-- drop_s2 -->
+<g id="node22" class="node">
+<title>drop_s2</title>
+<path fill="#ffe4e6" stroke="#e11d48" stroke-width="1.5" d="M294.14,-1775.89C294.14,-1775.89 229.86,-1775.89 229.86,-1775.89 223.86,-1775.89 217.86,-1769.89 217.86,-1763.89 217.86,-1763.89 217.86,-1747.93 217.86,-1747.93 217.86,-1741.93 223.86,-1735.93 229.86,-1735.93 229.86,-1735.93 294.14,-1735.93 294.14,-1735.93 300.14,-1735.93 306.14,-1741.93 306.14,-1747.93 306.14,-1747.93 306.14,-1763.89 306.14,-1763.89 306.14,-1769.89 300.14,-1775.89 294.14,-1775.89"/>
+<text xml:space="preserve" text-anchor="middle" x="262" y="-1758.96" font-family="Arial" font-size="11.00">⛔ Declines /</text>
+<text xml:space="preserve" text-anchor="middle" x="262" y="-1745.46" font-family="Arial" font-size="11.00">no reply</text>
+</g>
+<!-- d2&#45;&gt;drop_s2 -->
+<g id="edge21" class="edge">
+<title>d2&#45;&gt;drop_s2</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M391.69,-1755.91C367.17,-1755.91 340.87,-1755.91 318.41,-1755.91"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="318.52,-1752.41 308.52,-1755.91 318.52,-1759.41 318.52,-1752.41"/>
+<text xml:space="preserve" text-anchor="middle" x="349.68" y="-1761.61" font-family="Arial" font-size="9.00"> ✕ Declines </text>
+</g>
+<!-- esc_s2 -->
+<g id="node23" class="node">
+<title>esc_s2</title>
+<path fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="5,2" d="M707.39,-1775.89C707.39,-1775.89 644.61,-1775.89 644.61,-1775.89 638.61,-1775.89 632.61,-1769.89 632.61,-1763.89 632.61,-1763.89 632.61,-1747.93 632.61,-1747.93 632.61,-1741.93 638.61,-1735.93 644.61,-1735.93 644.61,-1735.93 707.39,-1735.93 707.39,-1735.93 713.39,-1735.93 719.39,-1741.93 719.39,-1747.93 719.39,-1747.93 719.39,-1763.89 719.39,-1763.89 719.39,-1769.89 713.39,-1775.89 707.39,-1775.89"/>
+<text xml:space="preserve" text-anchor="middle" x="676" y="-1758.96" font-family="Arial" font-size="11.00">📣 Control</text>
+<text xml:space="preserve" text-anchor="middle" x="676" y="-1745.46" font-family="Arial" font-size="11.00">group → PIC</text>
+</g>
+<!-- d2&#45;&gt;esc_s2 -->
+<g id="edge22" class="edge">
+<title>d2&#45;&gt;esc_s2</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M556.45,-1755.91C577.96,-1755.91 600.64,-1755.91 620.39,-1755.91"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="620.14,-1759.41 630.14,-1755.91 620.14,-1752.41 620.14,-1759.41"/>
+<text xml:space="preserve" text-anchor="middle" x="593.7" y="-1760.86" font-family="Arial" font-size="9.00"> 🤔 Unsure </text>
+</g>
+<!-- d2&#45;&gt;esc_s2 -->
+<!-- s3_collect -->
+<g id="node24" class="node">
+<title>s3_collect</title>
+<path fill="#d1fae5" stroke="#059669" stroke-width="1.5" d="M607.02,-1668.7C607.02,-1668.7 340.98,-1668.7 340.98,-1668.7 334.98,-1668.7 328.98,-1662.7 328.98,-1656.7 328.98,-1656.7 328.98,-1634.74 328.98,-1634.74 328.98,-1628.74 334.98,-1622.74 340.98,-1622.74 340.98,-1622.74 607.02,-1622.74 607.02,-1622.74 613.02,-1622.74 619.02,-1628.74 619.02,-1634.74 619.02,-1634.74 619.02,-1656.7 619.02,-1656.7 619.02,-1662.7 613.02,-1668.7 607.02,-1668.7"/>
+<text xml:space="preserve" text-anchor="start" x="414.38" y="-1652.77" font-family="Arial" font-size="11.00">🤖⚡ </text>
+<text xml:space="preserve" text-anchor="start" x="447.38" y="-1652.77" font-family="Arial" font-weight="bold" font-size="11.00">S3 · CONTRACT</text>
+<text xml:space="preserve" text-anchor="start" x="366.38" y="-1641.77" font-family="Arial" font-size="11.00">AI Agent collects the creator&#39;s details up front</text>
+<text xml:space="preserve" text-anchor="start" x="340.5" y="-1630.77" font-family="Arial" font-size="11.00">(name, address, bank, NIK) — asks only what&#39;s missing</text>
+</g>
+<!-- d2&#45;&gt;s3_collect -->
+<g id="edge26" class="edge">
+<title>d2&#45;&gt;s3_collect</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-1715.24C474,-1704.02 474,-1691.91 474,-1681.04"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-1681.22 474,-1671.22 470.5,-1681.22 477.5,-1681.22"/>
+<text xml:space="preserve" text-anchor="middle" x="501.38" y="-1689.4" font-family="Arial" font-size="9.00"> ✓ Accepts </text>
+</g>
+<!-- drop_s2&#45;&gt;d2 -->
+<!-- esc_s2&#45;&gt;s2_cr -->
+<g id="edge23" class="edge">
+<title>esc_s2&#45;&gt;s2_cr</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M637.25,-1776.56C603.42,-1793.72 554.33,-1818.63 518.82,-1836.64"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="517.68,-1833.29 510.34,-1840.93 520.85,-1839.53 517.68,-1833.29"/>
+<text xml:space="preserve" text-anchor="middle" x="583.91" y="-1815.82" font-family="Arial" font-size="9.00"> PIC reply </text>
+</g>
+<!-- d3_value -->
+<g id="node25" class="node">
+<title>d3_value</title>
+<path fill="#f1f5f9" stroke="#475569" stroke-width="1.5" d="M463.81,-1579.41C463.81,-1579.41 419.9,-1552.11 419.9,-1552.11 414.81,-1548.95 414.81,-1542.61 419.9,-1539.45 419.9,-1539.45 463.81,-1512.15 463.81,-1512.15 468.9,-1508.99 479.1,-1508.99 484.19,-1512.15 484.19,-1512.15 528.1,-1539.45 528.1,-1539.45 533.19,-1542.61 533.19,-1548.95 528.1,-1552.11 528.1,-1552.11 484.19,-1579.41 484.19,-1579.41 479.1,-1582.57 468.9,-1582.57 463.81,-1579.41"/>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-1548.83" font-family="Arial" font-size="11.00">Contract</text>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-1535.33" font-family="Arial" font-size="11.00">value?</text>
+</g>
+<!-- s3_collect&#45;&gt;d3_value -->
+<g id="edge27" class="edge">
+<title>s3_collect&#45;&gt;d3_value</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-1622C474,-1614.7 474,-1606.29 474,-1597.8"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-1598.08 474,-1588.08 470.5,-1598.08 477.5,-1598.08"/>
+</g>
+<!-- s3_low -->
+<g id="node26" class="node">
+<title>s3_low</title>
+<path fill="#cffafe" stroke="#0891b2" stroke-width="1.5" d="M403.64,-1459.32C403.64,-1459.32 180.36,-1459.32 180.36,-1459.32 174.36,-1459.32 168.36,-1453.32 168.36,-1447.32 168.36,-1447.32 168.36,-1431.36 168.36,-1431.36 168.36,-1425.36 174.36,-1419.36 180.36,-1419.36 180.36,-1419.36 403.64,-1419.36 403.64,-1419.36 409.64,-1419.36 415.64,-1425.36 415.64,-1431.36 415.64,-1431.36 415.64,-1447.32 415.64,-1447.32 415.64,-1453.32 409.64,-1459.32 403.64,-1459.32"/>
+<text xml:space="preserve" text-anchor="middle" x="292" y="-1442.39" font-family="Arial" font-size="11.00">⚙️⚡ System auto&#45;generates the contract doc</text>
+<text xml:space="preserve" text-anchor="middle" x="292" y="-1428.89" font-family="Arial" font-size="11.00">+ auto&#45;calculates tax (PPh21 = 6% of fee)</text>
+</g>
+<!-- d3_value&#45;&gt;s3_low -->
+<g id="edge28" class="edge">
+<title>d3_value&#45;&gt;s3_low</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M441.04,-1525.87C411.74,-1509.05 368.66,-1484.33 336.34,-1465.79"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="338.25,-1462.84 327.83,-1460.9 334.77,-1468.92 338.25,-1462.84"/>
+<text xml:space="preserve" text-anchor="middle" x="391.6" y="-1479.27" font-family="Arial" font-size="9.00"> &lt; Rp 5M </text>
+</g>
+<!-- s3_legal -->
+<g id="node27" class="node">
+<title>s3_legal</title>
+<path fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5" d="M686.52,-1459.32C686.52,-1459.32 543.48,-1459.32 543.48,-1459.32 537.48,-1459.32 531.48,-1453.32 531.48,-1447.32 531.48,-1447.32 531.48,-1431.36 531.48,-1431.36 531.48,-1425.36 537.48,-1419.36 543.48,-1419.36 543.48,-1419.36 686.52,-1419.36 686.52,-1419.36 692.52,-1419.36 698.52,-1425.36 698.52,-1431.36 698.52,-1431.36 698.52,-1447.32 698.52,-1447.32 698.52,-1453.32 692.52,-1459.32 686.52,-1459.32"/>
+<text xml:space="preserve" text-anchor="middle" x="615" y="-1442.39" font-family="Arial" font-size="11.00">⚖️ Legal team uploads the</text>
+<text xml:space="preserve" text-anchor="middle" x="615" y="-1428.89" font-family="Arial" font-size="11.00">contract via the Legal platform</text>
+</g>
+<!-- d3_value&#45;&gt;s3_legal -->
+<g id="edge29" class="edge">
+<title>d3_value&#45;&gt;s3_legal</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M503.22,-1523.14C525.33,-1506.76 555.83,-1484.17 579.38,-1466.73"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="581.26,-1469.68 587.22,-1460.92 577.1,-1464.06 581.26,-1469.68"/>
+<text xml:space="preserve" text-anchor="middle" x="580.78" y="-1479.27" font-family="Arial" font-size="9.00"> ≥ Rp 5M </text>
+</g>
+<!-- s3_mid -->
+<!-- d3_value&#45;&gt;s3_mid -->
+<!-- s3_send -->
+<g id="node28" class="node">
+<title>s3_send</title>
+<path fill="#d1fae5" stroke="#059669" stroke-width="1.5" d="M565.77,-1382.36C565.77,-1382.36 382.23,-1382.36 382.23,-1382.36 376.23,-1382.36 370.23,-1376.36 370.23,-1370.36 370.23,-1370.36 370.23,-1354.4 370.23,-1354.4 370.23,-1348.4 376.23,-1342.4 382.23,-1342.4 382.23,-1342.4 565.77,-1342.4 565.77,-1342.4 571.77,-1342.4 577.77,-1348.4 577.77,-1354.4 577.77,-1354.4 577.77,-1370.36 577.77,-1370.36 577.77,-1376.36 571.77,-1382.36 565.77,-1382.36"/>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-1365.43" font-family="Arial" font-size="11.00">🤖⚡ AI Agent auto&#45;sends the signing</text>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-1351.93" font-family="Arial" font-size="11.00">link and chases gentle reminders</text>
+</g>
+<!-- s3_low&#45;&gt;s3_send -->
+<g id="edge31" class="edge">
+<title>s3_low&#45;&gt;s3_send</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M339.82,-1418.65C363.03,-1409.09 391.12,-1397.52 415.59,-1387.44"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="416.59,-1390.81 424.51,-1383.77 413.93,-1384.34 416.59,-1390.81"/>
+</g>
+<!-- s3_low&#45;&gt;s3_mid -->
+<!-- s3_legal&#45;&gt;s3_send -->
+<g id="edge32" class="edge">
+<title>s3_legal&#45;&gt;s3_send</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M577.95,-1418.65C560.55,-1409.39 539.6,-1398.26 521.09,-1388.41"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="522.88,-1385.4 512.4,-1383.8 519.59,-1391.58 522.88,-1385.4"/>
+</g>
+<!-- s3_cr -->
+<g id="node29" class="node">
+<title>s3_cr</title>
+<path fill="#f3e8ff" stroke="#a855f7" stroke-width="1.5" d="M535.39,-1305.4C535.39,-1305.4 412.61,-1305.4 412.61,-1305.4 406.61,-1305.4 400.61,-1299.4 400.61,-1293.4 400.61,-1293.4 400.61,-1281.4 400.61,-1281.4 400.61,-1275.4 406.61,-1269.4 412.61,-1269.4 412.61,-1269.4 535.39,-1269.4 535.39,-1269.4 541.39,-1269.4 547.39,-1275.4 547.39,-1281.4 547.39,-1281.4 547.39,-1293.4 547.39,-1293.4 547.39,-1299.4 541.39,-1305.4 535.39,-1305.4"/>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-1283.7" font-family="Arial" font-size="11.00">Creator signs the contract</text>
+</g>
+<!-- s3_send&#45;&gt;s3_cr -->
+<g id="edge36" class="edge">
+<title>s3_send&#45;&gt;s3_cr</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-1341.82C474,-1334.42 474,-1325.82 474,-1317.72"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-1317.83 474,-1307.83 470.5,-1317.83 477.5,-1317.83"/>
+</g>
+<!-- d3 -->
+<g id="node30" class="node">
+<title>d3</title>
+<path fill="#f1f5f9" stroke="#475569" stroke-width="1.5" d="M462.94,-1218.24C462.94,-1218.24 422.27,-1201.1 422.27,-1201.1 416.74,-1198.77 416.74,-1194.11 422.27,-1191.78 422.27,-1191.78 462.94,-1174.64 462.94,-1174.64 468.47,-1172.31 479.53,-1172.31 485.06,-1174.64 485.06,-1174.64 525.73,-1191.78 525.73,-1191.78 531.26,-1194.11 531.26,-1198.77 525.73,-1201.1 525.73,-1201.1 485.06,-1218.24 485.06,-1218.24 479.53,-1220.57 468.47,-1220.57 462.94,-1218.24"/>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-1192.74" font-family="Arial" font-size="11.00">Signed?</text>
+</g>
+<!-- s3_cr&#45;&gt;d3 -->
+<g id="edge37" class="edge">
+<title>s3_cr&#45;&gt;d3</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-1268.82C474,-1259.2 474,-1246.89 474,-1235.21"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-1235.23 474,-1225.23 470.5,-1235.23 477.5,-1235.23"/>
+</g>
+<!-- d3&#45;&gt;s3_send -->
+<g id="edge38" class="edge">
+<title>d3&#45;&gt;s3_send</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M520.31,-1204.09C542.6,-1209.88 567.4,-1220.69 581,-1240.9 604.88,-1276.37 562.1,-1312.43 523.75,-1335.73"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="522.05,-1332.67 515.19,-1340.75 525.59,-1338.71 522.05,-1332.67"/>
+<text xml:space="preserve" text-anchor="middle" x="629.71" y="-1284.1" font-family="Arial" font-size="9.00"> 🔁 Not yet → chase </text>
+</g>
+<!-- drop_s3 -->
+<g id="node31" class="node">
+<title>drop_s3</title>
+<path fill="#ffe4e6" stroke="#e11d48" stroke-width="1.5" d="M276.14,-1216.42C276.14,-1216.42 211.86,-1216.42 211.86,-1216.42 205.86,-1216.42 199.86,-1210.42 199.86,-1204.42 199.86,-1204.42 199.86,-1188.46 199.86,-1188.46 199.86,-1182.46 205.86,-1176.46 211.86,-1176.46 211.86,-1176.46 276.14,-1176.46 276.14,-1176.46 282.14,-1176.46 288.14,-1182.46 288.14,-1188.46 288.14,-1188.46 288.14,-1204.42 288.14,-1204.42 288.14,-1210.42 282.14,-1216.42 276.14,-1216.42"/>
+<text xml:space="preserve" text-anchor="middle" x="244" y="-1199.49" font-family="Arial" font-size="11.00">⛔ Declines /</text>
+<text xml:space="preserve" text-anchor="middle" x="244" y="-1185.99" font-family="Arial" font-size="11.00">expires</text>
+</g>
+<!-- d3&#45;&gt;drop_s3 -->
+<g id="edge39" class="edge">
+<title>d3&#45;&gt;drop_s3</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M409.64,-1196.44C375.38,-1196.44 333.64,-1196.44 300.63,-1196.44"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="300.71,-1192.94 290.71,-1196.44 300.71,-1199.94 300.71,-1192.94"/>
+<text xml:space="preserve" text-anchor="middle" x="349.68" y="-1202.14" font-family="Arial" font-size="9.00"> ✕ Declines / expires </text>
+</g>
+<!-- esc_s3 -->
+<g id="node32" class="node">
+<title>esc_s3</title>
+<path fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="5,2" d="M696.39,-1216.42C696.39,-1216.42 633.61,-1216.42 633.61,-1216.42 627.61,-1216.42 621.61,-1210.42 621.61,-1204.42 621.61,-1204.42 621.61,-1188.46 621.61,-1188.46 621.61,-1182.46 627.61,-1176.46 633.61,-1176.46 633.61,-1176.46 696.39,-1176.46 696.39,-1176.46 702.39,-1176.46 708.39,-1182.46 708.39,-1188.46 708.39,-1188.46 708.39,-1204.42 708.39,-1204.42 708.39,-1210.42 702.39,-1216.42 696.39,-1216.42"/>
+<text xml:space="preserve" text-anchor="middle" x="665" y="-1199.49" font-family="Arial" font-size="11.00">📣 Control</text>
+<text xml:space="preserve" text-anchor="middle" x="665" y="-1185.99" font-family="Arial" font-size="11.00">group → PIC</text>
+</g>
+<!-- d3&#45;&gt;esc_s3 -->
+<g id="edge40" class="edge">
+<title>d3&#45;&gt;esc_s3</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M538.66,-1196.44C561.6,-1196.44 587.19,-1196.44 609.31,-1196.44"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="609.05,-1199.94 619.05,-1196.44 609.05,-1192.94 609.05,-1199.94"/>
+<text xml:space="preserve" text-anchor="middle" x="579.2" y="-1201.39" font-family="Arial" font-size="9.00"> 🤔 Question </text>
+</g>
+<!-- d3&#45;&gt;esc_s3 -->
+<!-- s3_verify -->
+<g id="node33" class="node">
+<title>s3_verify</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M559.02,-1122.73C559.02,-1122.73 388.98,-1122.73 388.98,-1122.73 382.98,-1122.73 376.98,-1116.73 376.98,-1110.73 376.98,-1110.73 376.98,-1094.77 376.98,-1094.77 376.98,-1088.77 382.98,-1082.77 388.98,-1082.77 388.98,-1082.77 559.02,-1082.77 559.02,-1082.77 565.02,-1082.77 571.02,-1088.77 571.02,-1094.77 571.02,-1094.77 571.02,-1110.73 571.02,-1110.73 571.02,-1116.73 565.02,-1122.73 559.02,-1122.73"/>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-1105.8" font-family="Arial" font-size="11.00">👤 PIC reviews the details &amp; marks</text>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-1092.3" font-family="Arial" font-size="11.00">the contract verified</text>
+</g>
+<!-- d3&#45;&gt;s3_verify -->
+<g id="edge44" class="edge">
+<title>d3&#45;&gt;s3_verify</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-1169.41C474,-1158.68 474,-1146.15 474,-1134.94"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-1135.24 474,-1125.24 470.5,-1135.24 477.5,-1135.24"/>
+<text xml:space="preserve" text-anchor="middle" x="499.88" y="-1143.43" font-family="Arial" font-size="9.00"> ✓ Signed </text>
+</g>
+<!-- drop_s3&#45;&gt;d3 -->
+<!-- esc_s3&#45;&gt;s3_cr -->
+<g id="edge41" class="edge">
+<title>esc_s3&#45;&gt;s3_cr</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M622.69,-1217.15C592.99,-1230.98 553.22,-1249.5 522.28,-1263.91"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="520.97,-1260.66 513.38,-1268.06 523.92,-1267.01 520.97,-1260.66"/>
+<text xml:space="preserve" text-anchor="middle" x="590.5" y="-1242.85" font-family="Arial" font-size="9.00"> PIC reply </text>
+</g>
+<!-- s4 -->
+<g id="node35" class="node">
+<title>s4</title>
+<path fill="#ffedd5" stroke="#ea580c" stroke-width="1.5" d="M572.89,-1045.77C572.89,-1045.77 375.11,-1045.77 375.11,-1045.77 369.11,-1045.77 363.11,-1039.77 363.11,-1033.77 363.11,-1033.77 363.11,-1011.81 363.11,-1011.81 363.11,-1005.81 369.11,-999.81 375.11,-999.81 375.11,-999.81 572.89,-999.81 572.89,-999.81 578.89,-999.81 584.89,-1005.81 584.89,-1011.81 584.89,-1011.81 584.89,-1033.77 584.89,-1033.77 584.89,-1039.77 578.89,-1045.77 572.89,-1045.77"/>
+<text xml:space="preserve" text-anchor="start" x="432.75" y="-1029.84" font-family="Arial" font-weight="bold" font-size="11.00">S4 · LOGISTICS</text>
+<text xml:space="preserve" text-anchor="start" x="394.5" y="-1018.84" font-family="Arial" font-size="11.00">Client ships the product &amp; fills the</text>
+<text xml:space="preserve" text-anchor="start" x="374.62" y="-1007.84" font-family="Arial" font-size="11.00">tracking number + dispatch date via /c/[id]</text>
+</g>
+<!-- s3_verify&#45;&gt;s4 -->
+<g id="edge45" class="edge">
+<title>s3_verify&#45;&gt;s4</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-1082.08C474,-1074.8 474,-1066.33 474,-1058.13"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-1058.31 474,-1048.31 470.5,-1058.31 477.5,-1058.31"/>
+</g>
+<!-- s3_mid&#45;&gt;s3_legal -->
+<!-- s3_mid&#45;&gt;s3_send -->
+<!-- d4_type -->
+<g id="node36" class="node">
+<title>d4_type</title>
+<path fill="#f1f5f9" stroke="#475569" stroke-width="1.5" d="M463.35,-937.28C463.35,-937.28 407.61,-908.38 407.61,-908.38 402.29,-905.61 402.29,-900.09 407.61,-897.32 407.61,-897.32 463.35,-868.42 463.35,-868.42 468.67,-865.65 479.33,-865.65 484.65,-868.42 484.65,-868.42 540.39,-897.32 540.39,-897.32 545.71,-900.09 545.71,-905.61 540.39,-908.38 540.39,-908.38 484.65,-937.28 484.65,-937.28 479.33,-940.05 468.67,-940.05 463.35,-937.28"/>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-905.9" font-family="Arial" font-size="11.00">Deliverable</text>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-892.4" font-family="Arial" font-size="11.00">type?</text>
+</g>
+<!-- s4&#45;&gt;d4_type -->
+<g id="edge46" class="edge">
+<title>s4&#45;&gt;d4_type</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-999.33C474,-986.76 474,-970.54 474,-955.05"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-955.24 474,-945.24 470.5,-955.24 477.5,-955.24"/>
+<text xml:space="preserve" text-anchor="middle" x="539.25" y="-973.26" font-family="Arial" font-size="9.00"> Client marks shipped →</text>
+<text xml:space="preserve" text-anchor="middle" x="539.25" y="-962.76" font-family="Arial" font-size="9.00">auto&#45;advances · no team action </text>
+</g>
+<!-- s5_vid -->
+<g id="node37" class="node">
+<title>s5_vid</title>
+<path fill="#f3e8ff" stroke="#a855f7" stroke-width="1.5" d="M549.27,-811.41C549.27,-811.41 398.73,-811.41 398.73,-811.41 392.73,-811.41 386.73,-805.41 386.73,-799.41 386.73,-799.41 386.73,-787.41 386.73,-787.41 386.73,-781.41 392.73,-775.41 398.73,-775.41 398.73,-775.41 549.27,-775.41 549.27,-775.41 555.27,-775.41 561.27,-781.41 561.27,-787.41 561.27,-787.41 561.27,-799.41 561.27,-799.41 561.27,-805.41 555.27,-811.41 549.27,-811.41"/>
+<text xml:space="preserve" text-anchor="start" x="398.25" y="-794.96" font-family="Arial" font-weight="bold" font-size="11.00">S5 · DRAFT REVIEW</text>
+<text xml:space="preserve" text-anchor="start" x="507" y="-794.96" font-family="Arial" font-size="11.00"> — video</text>
+<text xml:space="preserve" text-anchor="start" x="399.75" y="-783.96" font-family="Arial" font-size="11.00">Creator uploads the draft video</text>
+</g>
+<!-- d4_type&#45;&gt;s5_vid -->
+<g id="edge47" class="edge">
+<title>d4_type&#45;&gt;s5_vid</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-862.15C474,-849.37 474,-835.46 474,-823.58"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-823.89 474,-813.89 470.5,-823.89 477.5,-823.89"/>
+<text xml:space="preserve" text-anchor="middle" x="488.25" y="-836.34" font-family="Arial" font-size="9.00"> Video </text>
+</g>
+<!-- s5_live -->
+<g id="node42" class="node">
+<title>s5_live</title>
+<path fill="#f3e8ff" stroke="#a855f7" stroke-width="1.5" d="M833.52,-816.39C833.52,-816.39 630.48,-816.39 630.48,-816.39 624.48,-816.39 618.48,-810.39 618.48,-804.39 618.48,-804.39 618.48,-782.43 618.48,-782.43 618.48,-776.43 624.48,-770.43 630.48,-770.43 630.48,-770.43 833.52,-770.43 833.52,-770.43 839.52,-770.43 845.52,-776.43 845.52,-782.43 845.52,-782.43 845.52,-804.39 845.52,-804.39 845.52,-810.39 839.52,-816.39 833.52,-816.39"/>
+<text xml:space="preserve" text-anchor="start" x="661.12" y="-800.46" font-family="Arial" font-weight="bold" font-size="11.00">S5 · DRAFT REVIEW</text>
+<text xml:space="preserve" text-anchor="start" x="769.88" y="-800.46" font-family="Arial" font-size="11.00"> — live</text>
+<text xml:space="preserve" text-anchor="start" x="630" y="-789.46" font-family="Arial" font-size="11.00">Creator uploads the end&#45;of&#45;live screenshot</text>
+<text xml:space="preserve" text-anchor="start" x="693.38" y="-778.46" font-family="Arial" font-size="11.00">(no review loop)</text>
+</g>
+<!-- d4_type&#45;&gt;s5_live -->
+<g id="edge48" class="edge">
+<title>d4_type&#45;&gt;s5_live</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M516.31,-884.23C557.16,-867.22 619.6,-841.22 666.8,-821.56"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="667.97,-824.87 675.86,-817.79 665.28,-818.4 667.97,-824.87"/>
+<text xml:space="preserve" text-anchor="middle" x="644.57" y="-836.34" font-family="Arial" font-size="9.00"> Live </text>
+</g>
+<!-- s5_team -->
+<g id="node38" class="node">
+<title>s5_team</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M547.77,-733.43C547.77,-733.43 400.23,-733.43 400.23,-733.43 394.23,-733.43 388.23,-727.43 388.23,-721.43 388.23,-721.43 388.23,-705.47 388.23,-705.47 388.23,-699.47 394.23,-693.47 400.23,-693.47 400.23,-693.47 547.77,-693.47 547.77,-693.47 553.77,-693.47 559.77,-699.47 559.77,-705.47 559.77,-705.47 559.77,-721.43 559.77,-721.43 559.77,-727.43 553.77,-733.43 547.77,-733.43"/>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-716.5" font-family="Arial" font-size="11.00">👤 1 · Team (PIC) reviews</text>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-703" font-family="Arial" font-size="11.00">approve · or · flag (with a note)</text>
+</g>
+<!-- s5_vid&#45;&gt;s5_team -->
+<g id="edge50" class="edge">
+<title>s5_vid&#45;&gt;s5_team</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-774.72C474,-766.1 474,-755.47 474,-745.55"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-745.8 474,-735.8 470.5,-745.8 477.5,-745.8"/>
+</g>
+<!-- s5_vid&#45;&gt;s5_live -->
+<!-- s5_client -->
+<g id="node39" class="node">
+<title>s5_client</title>
+<path fill="#ffedd5" stroke="#ea580c" stroke-width="1.5" d="M563.89,-646.97C563.89,-646.97 384.11,-646.97 384.11,-646.97 378.11,-646.97 372.11,-640.97 372.11,-634.97 372.11,-634.97 372.11,-619.01 372.11,-619.01 372.11,-613.01 378.11,-607.01 384.11,-607.01 384.11,-607.01 563.89,-607.01 563.89,-607.01 569.89,-607.01 575.89,-613.01 575.89,-619.01 575.89,-619.01 575.89,-634.97 575.89,-634.97 575.89,-640.97 569.89,-646.97 563.89,-646.97"/>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-630.04" font-family="Arial" font-size="11.00">👁 2 · Client reviews — always</text>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-616.54" font-family="Arial" font-size="11.00">sees the team&#39;s note · approve or flag</text>
+</g>
+<!-- s5_team&#45;&gt;s5_client -->
+<g id="edge51" class="edge">
+<title>s5_team&#45;&gt;s5_client</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-692.86C474,-682.84 474,-670.41 474,-659.11"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-659.29 474,-649.29 470.5,-659.29 477.5,-659.29"/>
+</g>
+<!-- d5 -->
+<g id="node40" class="node">
+<title>d5</title>
+<path fill="#f1f5f9" stroke="#475569" stroke-width="1.5" d="M463.44,-564.31C463.44,-564.31 410.52,-535.75 410.52,-535.75 405.24,-532.9 405.24,-527.2 410.52,-524.35 410.52,-524.35 463.44,-495.79 463.44,-495.79 468.72,-492.94 479.28,-492.94 484.56,-495.79 484.56,-495.79 537.48,-524.35 537.48,-524.35 542.76,-527.2 542.76,-532.9 537.48,-535.75 537.48,-535.75 484.56,-564.31 484.56,-564.31 479.28,-567.16 468.72,-567.16 463.44,-564.31"/>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-533.1" font-family="Arial" font-size="11.00">Both</text>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-519.6" font-family="Arial" font-size="11.00">approved?</text>
+</g>
+<!-- s5_client&#45;&gt;d5 -->
+<g id="edge52" class="edge">
+<title>s5_client&#45;&gt;d5</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-606.32C474,-599.22 474,-590.85 474,-582.31"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-582.49 474,-572.49 470.5,-582.49 477.5,-582.49"/>
+</g>
+<!-- d5_cap -->
+<g id="node41" class="node">
+<title>d5_cap</title>
+<path fill="#f1f5f9" stroke="#475569" stroke-width="1.5" d="M701.82,-552.16C701.82,-552.16 656.14,-534.4 656.14,-534.4 650.55,-532.22 650.55,-527.88 656.14,-525.7 656.14,-525.7 701.82,-507.94 701.82,-507.94 707.41,-505.76 718.59,-505.76 724.18,-507.94 724.18,-507.94 769.86,-525.7 769.86,-525.7 775.45,-527.88 775.45,-532.22 769.86,-534.4 769.86,-534.4 724.18,-552.16 724.18,-552.16 718.59,-554.34 707.41,-554.34 701.82,-552.16"/>
+<text xml:space="preserve" text-anchor="middle" x="713" y="-526.35" font-family="Arial" font-size="11.00">1st draft?</text>
+</g>
+<!-- d5&#45;&gt;d5_cap -->
+<g id="edge53" class="edge">
+<title>d5&#45;&gt;d5_cap</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M549.29,-530.05C575.4,-530.05 604.77,-530.05 631.36,-530.05"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="631.15,-533.55 641.15,-530.05 631.15,-526.55 631.15,-533.55"/>
+<text xml:space="preserve" text-anchor="middle" x="596.5" y="-535.75" font-family="Arial" font-size="9.00"> ✗ Either flags </text>
+</g>
+<!-- s6_ask -->
+<g id="node43" class="node">
+<title>s6_ask</title>
+<path fill="#d1fae5" stroke="#059669" stroke-width="1.5" d="M582.64,-432.34C582.64,-432.34 365.36,-432.34 365.36,-432.34 359.36,-432.34 353.36,-426.34 353.36,-420.34 353.36,-420.34 353.36,-408.34 353.36,-408.34 353.36,-402.34 359.36,-396.34 365.36,-396.34 365.36,-396.34 582.64,-396.34 582.64,-396.34 588.64,-396.34 594.64,-402.34 594.64,-408.34 594.64,-408.34 594.64,-420.34 594.64,-420.34 594.64,-426.34 588.64,-432.34 582.64,-432.34"/>
+<text xml:space="preserve" text-anchor="start" x="364.88" y="-415.89" font-family="Arial" font-size="11.00">🤖⚡ </text>
+<text xml:space="preserve" text-anchor="start" x="397.88" y="-415.89" font-family="Arial" font-weight="bold" font-size="11.00">S6 · URL SUBMISSION</text>
+<text xml:space="preserve" text-anchor="start" x="517.88" y="-415.89" font-family="Arial" font-size="11.00"> — video only</text>
+<text xml:space="preserve" text-anchor="start" x="374.25" y="-404.89" font-family="Arial" font-size="11.00">AI Agent asks for the post URL + ad code</text>
+</g>
+<!-- d5&#45;&gt;s6_ask -->
+<g id="edge56" class="edge">
+<title>d5&#45;&gt;s6_ask</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-489.28C474,-474.57 474,-458.18 474,-444.57"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-444.81 474,-434.81 470.5,-444.81 477.5,-444.81"/>
+<text xml:space="preserve" text-anchor="middle" x="528" y="-458.29" font-family="Arial" font-size="9.00"> ✓ Both approve → post </text>
+</g>
+<!-- d5_cap&#45;&gt;s5_vid -->
+<g id="edge54" class="edge">
+<title>d5_cap&#45;&gt;s5_vid</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M680.2,-544.37C659.85,-554 634.36,-568.7 617,-588.01 597.73,-609.44 611.25,-627.5 590,-646.97 572.43,-663.07 553.23,-645.5 539.5,-664.97 536.81,-668.78 537.08,-671.48 539.5,-675.47 548.47,-690.26 565.03,-678.68 574,-693.47 583.21,-708.66 582.81,-718.01 574,-733.43 565.23,-748.79 550.71,-760.55 535.43,-769.38"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="534.11,-766.12 526.93,-773.91 537.4,-772.29 534.11,-766.12"/>
+<text xml:space="preserve" text-anchor="middle" x="586.75" y="-666.92" font-family="Arial" font-size="9.00"> 1st draft → one re&#45;edit </text>
+</g>
+<!-- d5_cap&#45;&gt;s6_ask -->
+<g id="edge55" class="edge">
+<title>d5_cap&#45;&gt;s6_ask</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M690.31,-511.98C666.22,-494.52 626.54,-467.58 589,-450.34 577.89,-445.24 565.85,-440.64 553.88,-436.58"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="555.25,-433.35 544.66,-433.57 553.08,-440 555.25,-433.35"/>
+<text xml:space="preserve" text-anchor="middle" x="681.81" y="-463.17" font-family="Arial" font-size="9.00"> 2nd draft → posts anyway</text>
+<text xml:space="preserve" text-anchor="middle" x="681.81" y="-452.67" font-family="Arial" font-size="9.00">(no feedback) </text>
+</g>
+<!-- s7 -->
+<g id="node46" class="node">
+<title>s7</title>
+<path fill="#cffafe" stroke="#0891b2" stroke-width="1.5" d="M518.14,-207.4C518.14,-207.4 429.86,-207.4 429.86,-207.4 423.86,-207.4 417.86,-201.4 417.86,-195.4 417.86,-195.4 417.86,-183.4 417.86,-183.4 417.86,-177.4 423.86,-171.4 429.86,-171.4 429.86,-171.4 518.14,-171.4 518.14,-171.4 524.14,-171.4 530.14,-177.4 530.14,-183.4 530.14,-183.4 530.14,-195.4 530.14,-195.4 530.14,-201.4 524.14,-207.4 518.14,-207.4"/>
+<text xml:space="preserve" text-anchor="start" x="429.38" y="-186.7" font-family="Arial" font-weight="bold" font-size="11.00">S7 · REPORTING</text>
+</g>
+<!-- s5_live&#45;&gt;s7 -->
+<g id="edge60" class="edge">
+<title>s5_live&#45;&gt;s7</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M745.36,-769.72C773.74,-718.45 834.4,-590.28 796,-490.09 743.88,-354.11 691.3,-336.61 577,-246.38 560.84,-233.62 541.37,-222.21 523.73,-213.07"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="525.72,-210.15 515.22,-208.77 522.57,-216.4 525.72,-210.15"/>
+<text xml:space="preserve" text-anchor="middle" x="826.96" y="-463.54" font-family="Arial" font-size="9.00"> ✓ Screenshot in</text>
+<text xml:space="preserve" text-anchor="middle" x="826.96" y="-452.29" font-family="Arial" font-size="9.00">→ skips S6 </text>
+</g>
+<!-- s6_cr -->
+<g id="node44" class="node">
+<title>s6_cr</title>
+<path fill="#f3e8ff" stroke="#a855f7" stroke-width="1.5" d="M554.89,-359.34C554.89,-359.34 393.11,-359.34 393.11,-359.34 387.11,-359.34 381.11,-353.34 381.11,-347.34 381.11,-347.34 381.11,-335.34 381.11,-335.34 381.11,-329.34 387.11,-323.34 393.11,-323.34 393.11,-323.34 554.89,-323.34 554.89,-323.34 560.89,-323.34 566.89,-329.34 566.89,-335.34 566.89,-335.34 566.89,-347.34 566.89,-347.34 566.89,-353.34 560.89,-359.34 554.89,-359.34"/>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-337.64" font-family="Arial" font-size="11.00">Creator sends the URL + ad code</text>
+</g>
+<!-- s6_ask&#45;&gt;s6_cr -->
+<g id="edge57" class="edge">
+<title>s6_ask&#45;&gt;s6_cr</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-395.79C474,-388.4 474,-379.59 474,-371.28"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-371.5 474,-361.5 470.5,-371.5 477.5,-371.5"/>
+</g>
+<!-- s6_pic -->
+<g id="node45" class="node">
+<title>s6_pic</title>
+<path fill="#cffafe" stroke="#0891b2" stroke-width="1.5" d="M550.39,-286.34C550.39,-286.34 397.61,-286.34 397.61,-286.34 391.61,-286.34 385.61,-280.34 385.61,-274.34 385.61,-274.34 385.61,-258.38 385.61,-258.38 385.61,-252.38 391.61,-246.38 397.61,-246.38 397.61,-246.38 550.39,-246.38 550.39,-246.38 556.39,-246.38 562.39,-252.38 562.39,-258.38 562.39,-258.38 562.39,-274.34 562.39,-274.34 562.39,-280.34 556.39,-286.34 550.39,-286.34"/>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-269.41" font-family="Arial" font-size="11.00">⚙️⚡ System fills the fields;</text>
+<text xml:space="preserve" text-anchor="middle" x="474" y="-255.91" font-family="Arial" font-size="11.00">👤 PIC commits the submission</text>
+</g>
+<!-- s6_cr&#45;&gt;s6_pic -->
+<g id="edge58" class="edge">
+<title>s6_cr&#45;&gt;s6_pic</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-322.67C474,-315.42 474,-306.79 474,-298.54"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-298.73 474,-288.73 470.5,-298.73 477.5,-298.73"/>
+</g>
+<!-- s6_pic&#45;&gt;s7 -->
+<g id="edge59" class="edge">
+<title>s6_pic&#45;&gt;s7</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M474,-245.67C474,-237.7 474,-228.35 474,-219.62"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="477.5,-219.73 474,-209.73 470.5,-219.73 477.5,-219.73"/>
+</g>
+<!-- s7_vid -->
+<g id="node47" class="node">
+<title>s7_vid</title>
+<path fill="#cffafe" stroke="#0891b2" stroke-width="1.5" d="M404.39,-132.42C404.39,-132.42 239.61,-132.42 239.61,-132.42 233.61,-132.42 227.61,-126.42 227.61,-120.42 227.61,-120.42 227.61,-104.46 227.61,-104.46 227.61,-98.46 233.61,-92.46 239.61,-92.46 239.61,-92.46 404.39,-92.46 404.39,-92.46 410.39,-92.46 416.39,-98.46 416.39,-104.46 416.39,-104.46 416.39,-120.42 416.39,-120.42 416.39,-126.42 410.39,-132.42 404.39,-132.42"/>
+<text xml:space="preserve" text-anchor="middle" x="322" y="-115.49" font-family="Arial" font-size="11.00">⚙️⚡ Video: system auto&#45;extracts</text>
+<text xml:space="preserve" text-anchor="middle" x="322" y="-101.99" font-family="Arial" font-size="11.00">views + GMV from the TikTok URL</text>
+</g>
+<!-- s7&#45;&gt;s7_vid -->
+<g id="edge62" class="edge">
+<title>s7&#45;&gt;s7_vid</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M438.36,-170.83C418.68,-161.12 393.91,-148.9 372.29,-138.24"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="374.11,-135.24 363.59,-133.95 371.01,-141.51 374.11,-135.24"/>
+</g>
+<!-- s7_live -->
+<g id="node48" class="node">
+<title>s7_live</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M705.89,-132.42C705.89,-132.42 544.11,-132.42 544.11,-132.42 538.11,-132.42 532.11,-126.42 532.11,-120.42 532.11,-120.42 532.11,-104.46 532.11,-104.46 532.11,-98.46 538.11,-92.46 544.11,-92.46 544.11,-92.46 705.89,-92.46 705.89,-92.46 711.89,-92.46 717.89,-98.46 717.89,-104.46 717.89,-104.46 717.89,-120.42 717.89,-120.42 717.89,-126.42 711.89,-132.42 705.89,-132.42"/>
+<text xml:space="preserve" text-anchor="middle" x="625" y="-115.49" font-family="Arial" font-size="11.00">👤 Live: PIC enters views + GMV</text>
+<text xml:space="preserve" text-anchor="middle" x="625" y="-101.99" font-family="Arial" font-size="11.00">by hand (no URL to pull)</text>
+</g>
+<!-- s7&#45;&gt;s7_live -->
+<g id="edge63" class="edge">
+<title>s7&#45;&gt;s7_live</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M509.4,-170.83C528.87,-161.16 553.34,-149.02 574.75,-138.39"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="576.27,-141.54 583.67,-133.96 573.16,-135.27 576.27,-141.54"/>
+</g>
+<!-- s7_cc -->
+<g id="node49" class="node">
+<title>s7_cc</title>
+<path fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="5,2" d="M714.64,-209.38C714.64,-209.38 599.36,-209.38 599.36,-209.38 593.36,-209.38 587.36,-203.38 587.36,-197.38 587.36,-197.38 587.36,-181.42 587.36,-181.42 587.36,-175.42 593.36,-169.42 599.36,-169.42 599.36,-169.42 714.64,-169.42 714.64,-169.42 720.64,-169.42 726.64,-175.42 726.64,-181.42 726.64,-181.42 726.64,-197.38 726.64,-197.38 726.64,-203.38 720.64,-209.38 714.64,-209.38"/>
+<text xml:space="preserve" text-anchor="middle" x="657" y="-192.45" font-family="Arial" font-size="11.00">👁 Client sees GMV &amp;</text>
+<text xml:space="preserve" text-anchor="middle" x="657" y="-178.95" font-family="Arial" font-size="11.00">metrics across all posts</text>
+</g>
+<!-- s7&#45;&gt;s7_cc -->
+<g id="edge61" class="edge">
+<title>s7&#45;&gt;s7_cc</title>
+<path fill="none" stroke="#ea580c" stroke-width="1.2" stroke-dasharray="5,2" d="M530.83,-189.4C545.75,-189.4 560.68,-189.4 575.6,-189.4"/>
+<polygon fill="#ea580c" stroke="#ea580c" stroke-width="1.2" points="575.2,-192.9 585.2,-189.4 575.2,-185.9 575.2,-192.9"/>
+</g>
+<!-- s7_mid -->
+<!-- s7&#45;&gt;s7_mid -->
+<!-- s7_vid&#45;&gt;s7_mid -->
+<!-- s8 -->
+<g id="node51" class="node">
+<title>s8</title>
+<path fill="#d1fae5" stroke="#059669" stroke-width="2" d="M584.14,-45.96C584.14,-45.96 363.86,-45.96 363.86,-45.96 357.86,-45.96 351.86,-39.96 351.86,-33.96 351.86,-33.96 351.86,-12 351.86,-12 351.86,-6 357.86,0 363.86,0 363.86,0 584.14,0 584.14,0 590.14,0 596.14,-6 596.14,-12 596.14,-12 596.14,-33.96 596.14,-33.96 596.14,-39.96 590.14,-45.96 584.14,-45.96"/>
+<text xml:space="preserve" text-anchor="start" x="427.5" y="-30.03" font-family="Arial" font-size="11.00">🏁 </text>
+<text xml:space="preserve" text-anchor="start" x="445.5" y="-30.03" font-family="Arial" font-weight="bold" font-size="11.00">S8 · VERIFIED</text>
+<text xml:space="preserve" text-anchor="start" x="364.88" y="-19.03" font-family="Arial" font-size="11.00">Video: PIC&#39;s final pass/fail · Live: auto&#45;verifies</text>
+<text xml:space="preserve" text-anchor="start" x="363.38" y="-8.03" font-family="Arial" font-size="11.00">when Reporting is confirmed — item complete</text>
+</g>
+<!-- s7_vid&#45;&gt;s8 -->
+<g id="edge68" class="edge">
+<title>s7_vid&#45;&gt;s8</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M355.89,-91.76C370.65,-83.2 388.17,-73.06 404,-63.96 410.52,-60.21 417.39,-56.27 424.17,-52.39"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="425.48,-55.68 432.42,-47.67 422,-49.6 425.48,-55.68"/>
+<text xml:space="preserve" text-anchor="middle" x="435.5" y="-65.91" font-family="Arial" font-size="9.00"> GMV captured </text>
+</g>
+<!-- s7_live&#45;&gt;s8 -->
+<g id="edge69" class="edge">
+<title>s7_live&#45;&gt;s8</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M591.11,-91.81C571.3,-80.33 545.92,-65.63 523.85,-52.85"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="525.63,-49.84 515.23,-47.86 522.13,-55.9 525.63,-49.84"/>
+<text xml:space="preserve" text-anchor="middle" x="590.04" y="-65.91" font-family="Arial" font-size="9.00"> GMV captured </text>
+</g>
+<!-- s7_mid&#45;&gt;s7_live -->
+<!-- s7_mid&#45;&gt;s8 -->
+</g>
+</svg>
           </div>
           <figcaption>Agentic journey &middot; Develop portal &mdash; retired, kept as reference</figcaption>
         </figure>
