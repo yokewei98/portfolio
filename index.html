@@ -417,14 +417,16 @@ body.routed .view.active { display: block; }
    things that aren't products — schedulers, locks, "no build step" —
    get a neutral stroke glyph instead of a borrowed logo (.chip-ico.mono). */
 .chip-ico { width: 14px; height: 14px; flex: none; display: block; }
+/* Anything without a real product logo — schedulers, locks, "no build
+   step", capability tags — takes the brass accent rather than inheriting
+   the muted grey. Grey glyphs at 12-14px disappeared into the panel. */
 .chip-ico.mono {
-  stroke: currentColor; fill: none;
+  stroke: var(--brass); fill: none;
   stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
-  opacity: .82;
 }
 .tag-ico {
   width: 12px; height: 12px; flex: none; display: block;
-  stroke: currentColor; fill: none;
+  stroke: var(--brass); fill: none;
   stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
 }
 
