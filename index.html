@@ -416,6 +416,48 @@ body.routed .view.active { display: block; }
 /* Chip marks. Real products carry their own brand colours (.chip-ico);
    things that aren't products — schedulers, locks, "no build step" —
    get a neutral stroke glyph instead of a borrowed logo (.chip-ico.mono). */
+/* ─── project head: copy left, emblem right ──────────────────
+   The head's children stay flat siblings — the emblem is placed
+   explicitly into column 2 and the rest are pinned to column 1,
+   so no markup restructuring is needed across 18 pages. */
+.proj-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 52px;
+}
+.proj-head > .back { grid-column: 1 / -1; }
+.proj-head > .proj-ico,
+.proj-head > .eyebrow,
+.proj-head > h1,
+.proj-head > .proj-purpose,
+.proj-head > .proj-tags,
+.proj-head > .stack { grid-column: 1; }
+.proj-emblem {
+  grid-column: 2;
+  grid-row: 2 / -1;
+  align-self: center;
+  margin: 0;
+  min-width: 0;
+}
+.proj-emblem svg { width: 100%; height: auto; display: block; }
+.em-ln   { stroke: var(--brass); stroke-width: 1.6; fill: none;
+           stroke-linecap: round; stroke-linejoin: round; }
+.em-dim  { stroke: var(--rule-lt); stroke-width: 1.4; fill: none;
+           stroke-linecap: round; stroke-linejoin: round; }
+.em-fill { fill: var(--brass-bg); stroke: var(--brass-br); stroke-width: 1.2; }
+.em-box  { fill: none; stroke: var(--rule-lt); stroke-width: 1.3; }
+.em-dot  { fill: var(--brass); }
+.em-t    { fill: var(--muted); font-family: var(--mono); font-size: 9px; }
+@media (max-width: 820px) {
+  .proj-head { grid-template-columns: 1fr; }
+  .proj-head > .proj-ico, .proj-head > .eyebrow, .proj-head > h1,
+  .proj-head > .proj-purpose, .proj-head > .proj-tags,
+  .proj-head > .stack { grid-column: 1; }
+  /* Emblem drops below the copy rather than squeezing beside it. */
+  .proj-emblem { grid-column: 1; grid-row: auto; max-width: 320px; margin-top: 30px; }
+}
+@media print { .proj-emblem { display: none; } }
+
 .chip-ico { width: 14px; height: 14px; flex: none; display: block; }
 /* Anything without a real product logo — schedulers, locks, "no build
    step", capability tags — takes the brass accent rather than inheriting
@@ -1791,6 +1833,7 @@ footer a:hover { color: var(--text); }
         <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-next"/></svg>Next.js 16</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-react"/></svg>React 19</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-ts"/></svg>TypeScript</li>
         <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-supabase"/></svg>Supabase / PostgreSQL</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-tailwind"/></svg>Tailwind v4</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-vitest"/></svg>Vitest</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-vercel"/></svg>Vercel</li>
       </ul>
+      <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><rect class="em-box" x="6"   y="10" width="38" height="18" rx="2"/><rect class="em-box" x="54"  y="10" width="38" height="18" rx="2"/><rect class="em-box" x="102" y="10" width="38" height="18" rx="2"/><rect class="em-box" x="150" y="10" width="38" height="18" rx="2"/><path class="em-dim" d="M25 28v14M73 28v14M121 28v14M169 28v14M25 42h144"/><path class="em-ln"  d="M97 42v12"/><rect class="em-box"  x="28" y="56" width="144" height="22" rx="2"/><rect class="em-fill" x="28" y="84" width="144" height="22" rx="2"/><rect class="em-box"  x="28" y="112" width="144" height="22" rx="2"/></svg></figure>
     </div>
 
     <dl class="metrics reveal" style="--d:.3s">
@@ -2180,6 +2223,7 @@ footer a:hover { color: var(--text); }
         <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-blocks"/></svg>6 portals</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-next"/></svg>one Next.js app</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-supabase"/></svg>one schema</li>
         <li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-route"/></svg>proxy.ts guard</li>
       </ul>
+      <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><rect class="em-box" x="8"   y="14" width="26" height="20" rx="2"/><rect class="em-box" x="38"  y="14" width="26" height="20" rx="2"/><rect class="em-box" x="76"  y="14" width="26" height="20" rx="2"/><rect class="em-box" x="106" y="14" width="26" height="20" rx="2"/><rect class="em-box" x="144" y="14" width="26" height="20" rx="2"/><rect class="em-box" x="174" y="14" width="20" height="20" rx="2"/><path class="em-dim" d="M36 42h28M104 42h28M172 42h22"/><path class="em-dim" d="M21 34v8M51 34v8M89 34v8M119 34v8M157 34v8M184 34v8"/><path class="em-ln"  d="M100 50v18"/><rect class="em-fill" x="20" y="70" width="160" height="30" rx="2"/></svg></figure>
     </div>
 
     <div class="sec-head">
@@ -2349,6 +2393,7 @@ footer a:hover { color: var(--text); }
         <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg>5 role groups</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-key"/></svg>app_metadata.role</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-lock"/></svg>240 RLS policies</li>
         <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-supabase"/></svg>Supabase Auth</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-globe"/></svg>6 portals</li>
       </ul>
+      <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><rect class="em-fill" x="66" y="10" width="68" height="24" rx="2"/><path class="em-dim" d="M100 34v14"/><path class="em-dim" d="M100 48h-84v18M100 48h-50v18M100 48h-16v18M100 48h16v18M100 48h50v18M100 48h84v18"/><rect class="em-box"  x="6"   y="68" width="20" height="20" rx="2"/><rect class="em-box"  x="40"  y="68" width="20" height="20" rx="2"/><rect class="em-fill" x="74"  y="68" width="20" height="20" rx="2"/><rect class="em-box"  x="106" y="68" width="20" height="20" rx="2"/><rect class="em-box"  x="140" y="68" width="20" height="20" rx="2"/><rect class="em-box"  x="174" y="68" width="20" height="20" rx="2"/></svg></figure>
     </div>
 
     <div class="sec-head">
@@ -2538,6 +2583,7 @@ footer a:hover { color: var(--text); }
       <ul class="stack reveal" style="--d:.24s">
         <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-globe"/></svg>ID &middot; MY &middot; VN</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-config"/></svg>lib/country/types.ts</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-check"/></svg>PPh21 computed</li>
       </ul>
+      <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><rect class="em-fill" x="68" y="12" width="64" height="24" rx="2"/><path class="em-dim" d="M100 36v12"/><path class="em-ln"  d="M100 48h-62v22"/><path class="em-dim" d="M100 48v22M100 48h62v22"/><rect class="em-fill" x="12"  y="70" width="52" height="26" rx="2"/><rect class="em-box"  x="74"  y="70" width="52" height="26" rx="2"/><rect class="em-box"  x="136" y="70" width="52" height="26" rx="2"/></svg></figure>
     </div>
 
     <div class="sec-head">
@@ -2695,6 +2741,7 @@ footer a:hover { color: var(--text); }
       <ul class="stack reveal" style="--d:.24s">
         <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-board"/></svg>8 stages</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-none"/></svg>no AI in path</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>3 drop-out points</li>
       </ul>
+      <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><path class="em-dim" d="M14 62h172"/><circle class="em-box" cx="14"  cy="62" r="6"/><circle class="em-box" cx="38"  cy="62" r="6"/><circle class="em-box" cx="63"  cy="62" r="6"/><circle class="em-fill" cx="88" cy="62" r="8"/><circle class="em-box" cx="113" cy="62" r="6"/><circle class="em-box" cx="138" cy="62" r="6"/><circle class="em-box" cx="162" cy="62" r="6"/><circle class="em-box" cx="186" cy="62" r="6"/><path class="em-ln" d="M14 62h74"/><path class="em-ln" d="M88 84v14"/></svg></figure>
     </div>
 
     <div class="sec-head">
@@ -3585,6 +3632,7 @@ footer a:hover { color: var(--text); }
       <ul class="stack reveal" style="--d:.24s">
         <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gemini"/></svg>LLM-driven</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-none"/></svg>retired, preserved</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>confidence gate</li>
       </ul>
+      <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><path class="em-dim" d="M12 44h176" stroke-dasharray="5 5"/><rect class="em-box" x="12"  y="34" width="30" height="20" rx="2"/><rect class="em-box" x="66"  y="34" width="30" height="20" rx="2"/><rect class="em-box" x="120" y="34" width="30" height="20" rx="2"/><rect class="em-box" x="162" y="34" width="26" height="20" rx="2"/><path class="em-ln" d="M12 100h176"/><rect class="em-fill" x="12"  y="90" width="52" height="20" rx="2"/><rect class="em-fill" x="88"  y="90" width="52" height="20" rx="2"/><rect class="em-fill" x="160" y="90" width="28" height="20" rx="2"/></svg></figure>
     </div>
 
     <div class="sec-head">
@@ -4415,6 +4463,7 @@ footer a:hover { color: var(--text); }
       <ul class="stack reveal" style="--d:.24s">
         <li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-cog"/></svg>auto-generated</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-key"/></svg>tokenised signing</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-check"/></svg>PPh21 computed</li>
       </ul>
+      <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><rect class="em-box" x="8"  y="52" width="26" height="20" rx="2"/><rect class="em-box" x="36" y="52" width="26" height="20" rx="2"/><rect class="em-fill" x="64" y="52" width="26" height="20" rx="2"/><path class="em-ln" d="M92 62h22"/><circle class="em-dot" cx="114" cy="62" r="2.6"/><rect class="em-box" x="122" y="24" width="64" height="82" rx="2"/><path class="em-dim" d="M134 44h40M134 58h40M134 72h28M134 86h40"/></svg></figure>
     </div>
 
     <div class="sec-head">
@@ -4566,6 +4615,7 @@ footer a:hover { color: var(--text); }
       <ul class="stack reveal" style="--d:.24s">
         <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-extract"/></svg>queued refresh</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-server"/></svg>FastMoss &middot; RapidAPI</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg>results log</li>
       </ul>
+      <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><rect class="em-box"  x="10" y="28" width="86" height="16" rx="2"/><rect class="em-fill" x="10" y="50" width="86" height="16" rx="2"/><rect class="em-box"  x="10" y="72" width="86" height="16" rx="2"/><rect class="em-box"  x="10" y="94" width="86" height="16" rx="2"/><path class="em-ln" d="M152 42a28 28 0 1 1-26 18"/><path class="em-ln" d="M144 34l10 8-10 8"/><path class="em-dim" d="M96 58h20"/></svg></figure>
     </div>
 
     <div class="sec-head">
@@ -4730,6 +4780,7 @@ footer a:hover { color: var(--text); }
       <ul class="stack reveal" style="--d:.24s">
         <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg>one record each</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg>category &middot; level &middot; tier</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stack"/></svg>shared pool</li>
       </ul>
+      <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><rect class="em-box" x="44" y="14" width="112" height="120" rx="3"/><circle class="em-fill" cx="70" cy="40" r="12"/><path class="em-dim" d="M92 34h48M92 46h32"/><path class="em-dim" d="M58 70h84M58 86h84M58 102h56"/><path class="em-ln"  d="M58 118h40"/></svg></figure>
     </div>
 
     <div class="sec-head">
@@ -4894,6 +4945,7 @@ footer a:hover { color: var(--text); }
         <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-sqlite"/></svg>better-sqlite3</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-appsscript"/></svg>Google Apps Script</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gemini"/></svg>Gemini 2.5 Flash</li>
         <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-cloudflare"/></svg>Cloudflare Tunnel</li>
       </ul>
+      <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><rect class="em-box"  x="6"   y="38" width="52" height="28" rx="2"/><rect class="em-fill" x="74"  y="38" width="52" height="28" rx="2"/><rect class="em-box"  x="142" y="38" width="52" height="28" rx="2"/><path class="em-ln"  d="M58 52h14"/><path class="em-ln"  d="M126 52h14"/><path class="em-ln"  d="M168 66v22H32V66"/><circle class="em-dot" cx="32" cy="66" r="2.6"/><rect class="em-box" x="74" y="106" width="52" height="24" rx="2"/><path class="em-dim" d="M100 66v40"/></svg></figure>
     </div>
 
     <dl class="metrics reveal" style="--d:.3s">
@@ -5424,6 +5476,7 @@ footer a:hover { color: var(--text); }
         <li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-config"/></svg>venue preset</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>lead_capture</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gsheets"/></svg>Bookings tab</li>
         <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gsheets"/></svg>MediaSets</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gemini"/></svg>Gemini 2.5 Flash</li>
       </ul>
+      <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><rect class="em-box"  x="14" y="26" width="86" height="18" rx="2"/><rect class="em-box"  x="14" y="54" width="86" height="18" rx="2"/><rect class="em-fill" x="14" y="82" width="86" height="18" rx="2"/><path class="em-dim" d="M100 35h24M100 63h24M100 91h24"/><circle class="em-box" cx="152" cy="63" r="26"/><path class="em-ln" d="M140 63l8 9 17-19"/></svg></figure>
     </div>
 
     <div class="sec-head">
@@ -5583,6 +5636,7 @@ footer a:hover { color: var(--text); }
         <li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-config"/></svg>property preset</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>lead_capture</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-config"/></svg>showroom_address</li>
         <li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-config"/></svg>brochure</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gsheets"/></svg>MediaSets</li>
       </ul>
+      <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><rect class="em-box" x="14" y="22" width="172" height="106" rx="2"/><path class="em-dim" d="M14 46h172M57 22v106M100 22v106M143 22v106"/><rect class="em-fill" x="57" y="46" width="43" height="82"/><path class="em-ln" d="M57 46h43v82H57z"/><circle class="em-dot" cx="78" cy="14" r="3.5"/></svg></figure>
     </div>
 
     <div class="sec-head">
@@ -5740,6 +5794,7 @@ footer a:hover { color: var(--text); }
         <li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg>answer_handoff</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gsheets"/></svg>KnowledgeBase</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-route"/></svg>category routing</li>
         <li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-config"/></svg>reference codes</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-check"/></svg>ticket close</li>
       </ul>
+      <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><rect class="em-fill" x="70" y="12" width="60" height="24" rx="2"/><path class="em-ln"  d="M100 36v16H46v20"/><path class="em-dim" d="M100 36v16h54v20"/><rect class="em-box" x="10"  y="72" width="72" height="30" rx="2"/><rect class="em-box" x="118" y="72" width="72" height="30" rx="2"/><path class="em-ln"  d="M22 114h48"/><path class="em-dim" d="M130 114h48"/></svg></figure>
     </div>
 
     <div class="sec-head">
@@ -5894,6 +5949,7 @@ footer a:hover { color: var(--text); }
         <li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spark"/></svg>content_prep</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bolt"/></svg>@a trigger</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gemini"/></svg>Gemini vision</li>
         <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gsheets"/></svg>MediaSets</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-tools"/></svg>in-chat rewrite</li>
       </ul>
+      <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><path class="em-ln" d="M30 44v32M14 60h32M20 48l20 24M40 48L20 72"/><path class="em-ln" d="M58 60h22"/><circle class="em-dot" cx="80" cy="60" r="2.6"/><rect class="em-box"  x="90" y="20" width="96" height="80" rx="2"/><rect class="em-fill" x="100" y="30" width="76" height="34" rx="2"/><path class="em-dim" d="M100 76h76M100 88h48"/></svg></figure>
     </div>
 
     <div class="sec-head">
@@ -6053,6 +6109,7 @@ footer a:hover { color: var(--text); }
         <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-appsscript"/></svg>Google Apps Script (V8)</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gsheets"/></svg>Google Sheets</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gdocs"/></svg>Docs API</li>
         <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-gdrive"/></svg>Drive API</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-lock"/></svg>LockService</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-clock"/></svg>Time-based triggers</li>
       </ul>
+      <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><rect class="em-box"  x="8"   y="22" width="30" height="24" rx="2"/><rect class="em-box"  x="40"  y="22" width="30" height="24" rx="2"/><rect class="em-box"  x="72"  y="22" width="30" height="24" rx="2"/><rect class="em-box"  x="104" y="22" width="30" height="24" rx="2"/><rect class="em-fill" x="136" y="22" width="30" height="24" rx="2"/><rect class="em-fill" x="168" y="22" width="24" height="24" rx="2"/><path class="em-ln" d="M100 50v28"/><circle class="em-dot" cx="100" cy="78" r="2.6"/><rect class="em-box" x="8"   y="86" width="30" height="24" rx="2"/><rect class="em-box" x="40"  y="86" width="30" height="24" rx="2"/><rect class="em-box" x="72"  y="86" width="30" height="24" rx="2"/><rect class="em-box" x="104" y="86" width="30" height="24" rx="2"/><rect class="em-dim" x="136" y="86" width="56" height="24" rx="2" stroke-dasharray="4 4"/></svg></figure>
     </div>
 
     <dl class="metrics reveal" style="--d:.3s">
@@ -6673,6 +6730,7 @@ footer a:hover { color: var(--text); }
         <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-chrome"/></svg>Chrome Extension MV3</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-cog"/></svg>Service workers</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-code"/></svg>Content scripts</li>
         <li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-clock"/></svg>chrome.alarms</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-appsscript"/></svg>Google Apps Script</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-js"/></svg>Vanilla JS</li>
       </ul>
+      <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><rect class="em-fill" x="70" y="10" width="60" height="26" rx="2"/><path class="em-dim" d="M100 36v18H40v20"/><path class="em-ln"  d="M100 36v18h60v20"/><rect class="em-box" x="6"   y="76" width="68" height="28" rx="2"/><rect class="em-box" x="126" y="76" width="68" height="28" rx="2"/><path class="em-dim" d="M14 116h52"/><path class="em-ln"  d="M134 116h52"/></svg></figure>
     </div>
 
     <dl class="metrics reveal" style="--d:.3s">
@@ -6965,6 +7023,7 @@ footer a:hover { color: var(--text); }
         Personal project &mdash; single-user and local-only by design. No auth, no cloud deployment,
         no user base.
       </p>
+      <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><path class="em-dim" d="M28 116L172 34" stroke-dasharray="5 5"/><path class="em-ln"  d="M28 116h34V74h58V34h52"/><circle class="em-dot" cx="28"  cy="116" r="5"/><circle class="em-dot" cx="172" cy="34"  r="5"/><circle class="em-box" cx="62"  cy="74"  r="3.5"/><circle class="em-box" cx="120" cy="34"  r="3.5"/></svg></figure>
     </div>
 
     <dl class="metrics reveal" style="--d:.32s">
@@ -7263,6 +7322,7 @@ footer a:hover { color: var(--text); }
         Personal project &mdash; one buyer, one decision, four candidates. Deployed publicly, but
         built for an audience of one.
       </p>
+      <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><path class="em-dim" d="M12 128h176"/><rect class="em-box"  x="24"  y="66"  width="30" height="62" rx="2"/><rect class="em-box"  x="66"  y="46"  width="30" height="82" rx="2"/><rect class="em-fill" x="108" y="26"  width="30" height="102" rx="2"/><rect class="em-box"  x="150" y="82"  width="30" height="46" rx="2"/><circle class="em-dot" cx="123" cy="14" r="4"/></svg></figure>
     </div>
 
     <dl class="metrics reveal" style="--d:.32s">
