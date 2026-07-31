@@ -434,7 +434,10 @@ body.routed .view.active { display: block; }
 .proj-head > .stack { grid-column: 1; }
 .proj-emblem {
   grid-column: 2;
-  grid-row: 2 / -1;
+  /* `2 / -1` would resolve -1 against the EXPLICIT grid, which has no rows
+     declared — it collapses to row 1 and the emblem jumps above the copy.
+     An explicit span covers the implicit rows the text creates. */
+  grid-row: 2 / span 20;
   align-self: center;
   margin: 0;
   min-width: 0;
