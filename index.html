@@ -112,8 +112,8 @@ p { max-width: var(--measure); }
 .wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
 
 /* Monospace is the voice of measured fact — labels, figures, chrome */
-.tag-label, .eyebrow, .metric dt, .stack li, .chip, .card-idx,
-.masthead, .pager, .back, .filter-status, .metric dd {
+.tag-label, .eyebrow, .stack li, .chip, .card-idx,
+.masthead, .pager, .back, .filter-status {
   font-family: var(--mono);
 }
 
@@ -476,30 +476,15 @@ body.routed .view.active { display: block; }
 }
 
 /* Verified figures — a rule-bound data band, the argument of the page */
+/* §3d — project bands now share home's `.stats` structure exactly: plain
+   divs, icon → figure → label, four cells. `.metrics` survives only as a
+   modifier carrying the brass rule that marks a project band apart from
+   home's. The old <dl>/<dt>/<dd> + column-reverse construction is gone;
+   it could not take an icon without invalid markup. */
 .metrics {
-  display: grid; grid-template-columns: repeat(5, 1fr);
+  border-top-color: var(--brass-br);
+  border-bottom-color: var(--brass-br);
   margin: 46px 0 14px;
-  border-top: 1px solid var(--brass-br);
-  border-bottom: 1px solid var(--brass-br);
-}
-.metrics > div {
-  padding: 26px 16px 24px 0;
-  border-right: 1px solid var(--rule);
-}
-.metrics > div:last-child { border-right: 0; }
-.metrics > div + div { padding-left: 16px; }
-/* Source order is dt-then-dd, as the spec requires. Reversed here so the
-   figure reads above its label. */
-.metric { display: flex; flex-direction: column-reverse; }
-.metric dd {
-  font-size: clamp(1.5rem, 3.4vw, 2rem);
-  font-weight: 500; color: var(--brass);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.035em; line-height: 1;
-}
-.metric dt {
-  font-size: .625rem; text-transform: uppercase; letter-spacing: .085em;
-  color: var(--muted); margin-top: 11px; line-height: 1.4;
 }
 .metrics-note {
   font-size: .875rem; color: var(--muted);
@@ -898,15 +883,6 @@ details.layer2 > summary:focus-visible { outline: 2px solid var(--brass); outlin
 }
 
 /* ─── masthead position indicator ────────────────────────────── */
-.mh-where {
-  font-family: var(--mono); font-size: .625rem; letter-spacing: .09em;
-  text-transform: uppercase; color: var(--muted);
-  margin-top: 7px; padding-top: 6px;
-  border-top: 1px solid var(--rule);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.mh-where b { color: var(--brass); font-weight: 500; }
-@media print { .mh-where { display: none; } }
 
 details.deeper { margin: 46px 0; border-top: 1px solid var(--rule); }
 details.deeper > summary {
@@ -997,8 +973,8 @@ footer a:hover { color: var(--text); }
 
 /* ─── responsive ─────────────────────────────────────────────── */
 @media (max-width: 900px) {
-  .metrics { grid-template-columns: repeat(3, 1fr); }
-  .metrics > div:nth-child(3) { border-right: 0; }
+  /* .metrics no longer needs its own breakpoints — it is a `.stats` band
+     now, four cells wide, and folds 2×2 on the `.stats` rules below. */
   .skills { grid-template-columns: 1fr; gap: 24px; }
 }
 @media (max-width: 680px) {
@@ -1012,11 +988,6 @@ footer a:hover { color: var(--text); }
   .stats > div:nth-child(4) { border-top: 1px solid var(--rule); }
   .stats > div:nth-child(odd) { padding-left: 0; }
   .stats > div:nth-child(even) { padding-left: 20px; }
-  .metrics { grid-template-columns: repeat(2, 1fr); }
-  .metrics > div { border-right: 1px solid var(--rule); }
-  .metrics > div:nth-child(even) { border-right: 0; }
-  .metrics > div:nth-child(n+3) { border-top: 1px solid var(--rule); }
-  .metrics > div:nth-child(odd) { padding-left: 0; }
   /* Drop the index number but keep the icon — it's the only visual
      anchor in the list at this width. */
   .card { grid-template-columns: 2.3rem 1fr; gap: 0 14px; }
@@ -1388,7 +1359,6 @@ footer a:hover { color: var(--text); }
       <a href="#property-finder" data-view="property-finder">Property Finder</a>
       <a href="#feng-shui"      data-view="feng-shui">Feng Shui</a>
     </nav>
-    <div class="mh-where" aria-live="polite" hidden></div>
   </div>
 </div>
 
@@ -1838,13 +1808,24 @@ footer a:hover { color: var(--text); }
       <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><rect class="em-dim" x="28" y="6" width="96" height="44" rx="4"/><path class="em-dim" d="M28 17h96"/><circle class="em-dim" cx="35" cy="11.5" r="1.6"/><rect class="em-dim" x="44" y="20" width="96" height="44" rx="4"/><path class="em-dim" d="M44 31h96"/><circle class="em-dim" cx="51" cy="25.5" r="1.6"/><rect class="em-ln" x="60" y="34" width="96" height="44" rx="4"/><path class="em-dim" d="M60 45h96"/><circle class="em-dim" cx="67" cy="39.5" r="1.6"/><path class="em-dim" d="M70 56h50M70 66h34"/><ellipse class="em-fill" cx="100" cy="104" rx="46" ry="9"/><path class="em-ln" d="M54 104v22c0 5 41.4 9 46 9s46 -4 46 -9V104"/><path class="em-dim" d="M54 115c0 5 41.4 9 46 9s46 -4 46 -9"/></svg></figure>
     </div>
 
-    <dl class="metrics reveal" style="--d:.3s">
-      <div class="metric"><dt>RLS policies</dt><dd>240</dd></div>
-      <div class="metric"><dt>Tests in ~5s</dt><dd>796</dd></div>
-      <div class="metric"><dt>SQL migrations</dt><dd>190</dd></div>
-      <div class="metric"><dt>Server Actions</dt><dd>158</dd></div>
-      <div class="metric"><dt>Tables &amp; views</dt><dd>40</dd></div>
-    </dl>
+    <div class="stats metrics reveal" style="--d:.3s">
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-key"/></svg>
+          <div class="stat-n">240</div><div class="stat-l">RLS policies</div>
+        </div>
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>
+          <div class="stat-n">796</div><div class="stat-l">Tests in ~5s</div>
+        </div>
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-server"/></svg>
+          <div class="stat-n">190</div><div class="stat-l">SQL migrations</div>
+        </div>
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-blocks"/></svg>
+          <div class="stat-n">40</div><div class="stat-l">Tables &amp; views</div>
+        </div>
+      </div>
     <p class="metrics-note">
       Measured directly from the repository &mdash; file counts, migration counts, a live test run,
       and the generated database type definitions.
@@ -4979,13 +4960,24 @@ footer a:hover { color: var(--text); }
       <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><rect class="em-ln" x="54" y="6" width="92" height="136" rx="13"/><path class="em-dim" d="M88 14h24"/><rect class="em-dim"  x="64" y="26" width="46" height="15" rx="7.5"/><rect class="em-fill" x="90" y="47" width="46" height="15" rx="7.5"/><rect class="em-dim"  x="64" y="68" width="54" height="15" rx="7.5"/><rect class="em-fill" x="64" y="92" width="72" height="34" rx="4"/><path class="em-ln"  d="M72 102h30M72 112h44"/><path class="em-ln"  d="M118 100l4 4 7-8"/></svg></figure>
     </div>
 
-    <dl class="metrics reveal" style="--d:.3s">
-      <div class="metric"><dt>TypeScript files</dt><dd>253</dd></div>
-      <div class="metric"><dt>Lines of source</dt><dd>44,300</dd></div>
-      <div class="metric"><dt>Test cases</dt><dd>706</dd></div>
-      <div class="metric"><dt>Sheet-tab schema</dt><dd>16</dd></div>
-      <div class="metric"><dt>Agent modes</dt><dd>3</dd></div>
-    </dl>
+    <div class="stats metrics reveal" style="--d:.3s">
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-code"/></svg>
+          <div class="stat-n">44,300</div><div class="stat-l">Lines of source</div>
+        </div>
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>
+          <div class="stat-n">706</div><div class="stat-l">Test cases</div>
+        </div>
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sheet"/></svg>
+          <div class="stat-n">16</div><div class="stat-l">Sheet-tab schema</div>
+        </div>
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-agent"/></svg>
+          <div class="stat-n">3</div><div class="stat-l">Agent modes</div>
+        </div>
+      </div>
     <p class="metrics-note">
       Read directly from source &mdash; line and file counts from the working tree, test counts from
       test declarations, settings from the schema contract.
@@ -6152,13 +6144,24 @@ footer a:hover { color: var(--text); }
       <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><rect class="em-dim" x="10" y="18" width="76" height="56" rx="3"/><rect class="em-dim" x="18" y="30" width="76" height="56" rx="3"/><rect class="em-ln"  x="26" y="42" width="76" height="56" rx="3"/><path class="em-dim" d="M26 56h76M52 42v56M78 42v56"/><path class="em-ln" d="M108 70h20"/><circle class="em-dot" cx="128" cy="70" r="2.6"/><path class="em-ln" d="M136 22h38l14 14v92h-52z"/><path class="em-dim" d="M174 22v14h14"/><path class="em-dim" d="M146 56h30M146 70h30M146 84h20"/><path class="em-ln" d="M146 104c6-6 10 6 16 0s10 6 16 0"/></svg></figure>
     </div>
 
-    <dl class="metrics reveal" style="--d:.3s">
-      <div class="metric"><dt>Pipeline stages</dt><dd>12</dd></div>
-      <div class="metric"><dt>Columns per campaign</dt><dd>74</dd></div>
-      <div class="metric"><dt>Concurrent campaigns</dt><dd>49</dd></div>
-      <div class="metric"><dt>Client portals</dt><dd>48</dd></div>
-      <div class="metric"><dt>Script modules</dt><dd>5</dd></div>
-    </dl>
+    <div class="stats metrics reveal" style="--d:.3s">
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>
+          <div class="stat-n">12</div><div class="stat-l">Pipeline stages</div>
+        </div>
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sheet"/></svg>
+          <div class="stat-n">74</div><div class="stat-l">Columns per campaign</div>
+        </div>
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-board"/></svg>
+          <div class="stat-n">49</div><div class="stat-l">Concurrent campaigns</div>
+        </div>
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg>
+          <div class="stat-n">48</div><div class="stat-l">Client portals</div>
+        </div>
+      </div>
     <p class="metrics-note">
       Every figure countable in the code or configuration, and recounted in the live sheets.
     </p>
@@ -6768,13 +6771,24 @@ footer a:hover { color: var(--text); }
       <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><rect class="em-ln" x="6" y="22" width="84" height="62" rx="4"/><path class="em-dim" d="M6 33h84"/><circle class="em-dim" cx="13" cy="27.5" r="1.6"/><path class="em-dim" d="M16 46h64M16 58h44M16 70h54"/><path class="em-ln" d="M94 54h22"/><circle class="em-dot" cx="102" cy="46" r="2.4"/><circle class="em-dot" cx="110" cy="62" r="2.4"/><rect class="em-fill" x="120" y="22" width="74" height="62" rx="3"/><path class="em-ln" d="M120 36h74M145 22v62M170 22v62"/><path class="em-dim" d="M120 50h74M120 64h74"/></svg></figure>
     </div>
 
-    <dl class="metrics reveal" style="--d:.3s">
-      <div class="metric"><dt>Extraction strategies</dt><dd>2</dd></div>
-      <div class="metric"><dt>Hand-written files</dt><dd>16</dd></div>
-      <div class="metric"><dt>Selector fallback depth</dt><dd>7</dd></div>
-      <div class="metric"><dt>Bundles analysed</dt><dd>127</dd></div>
-      <div class="metric"><dt>Per-task timeout</dt><dd>45s</dd></div>
-    </dl>
+    <div class="stats metrics reveal" style="--d:.3s">
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>
+          <div class="stat-n">2</div><div class="stat-l">Extraction strategies</div>
+        </div>
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg>
+          <div class="stat-n">127</div><div class="stat-l">Bundles analysed</div>
+        </div>
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stack"/></svg>
+          <div class="stat-n">7</div><div class="stat-l">Selector fallback depth</div>
+        </div>
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-code"/></svg>
+          <div class="stat-n">16</div><div class="stat-l">Hand-written files</div>
+        </div>
+      </div>
     <p class="metrics-note">Every interval, cap and count read directly from source.</p>
 
     <div class="sec-head">
@@ -7059,13 +7073,24 @@ footer a:hover { color: var(--text); }
       <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><rect class="em-ln" x="10" y="12" width="180" height="126" rx="4"/><path class="em-dim" d="M10 52l52-18 60 22 68-20M10 104l44-14 62 20 74-18"/><path class="em-dim" d="M30 138l30-52 50 16 36-52"/><path class="em-ln" d="M52 116h30V86h40V56h30" stroke-dasharray="0"/><circle class="em-fill" cx="82" cy="86" r="5"/><circle class="em-fill" cx="122" cy="56" r="5"/><path class="em-ln" d="M152 34c9 0 16 7 16 16 0 12-16 26-16 26s-16-14-16-26c0-9 7-16 16-16z"/><circle class="em-dot" cx="152" cy="50" r="4"/><circle class="em-dot" cx="52" cy="116" r="4"/></svg></figure>
     </div>
 
-    <dl class="metrics reveal" style="--d:.32s">
-      <div class="metric"><dt>MB OSM extract</dt><dd>246</dd></div>
-      <div class="metric"><dt>Routing calls per run</dt><dd>426</dd></div>
-      <div class="metric"><dt>Stations mapped</dt><dd>147</dd></div>
-      <div class="metric"><dt>Pipeline scripts</dt><dd>10</dd></div>
-      <div class="metric"><dt>Prisma models</dt><dd>3</dd></div>
-    </dl>
+    <div class="stats metrics reveal" style="--d:.32s">
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-globe"/></svg>
+          <div class="stat-n">246</div><div class="stat-l">MB OSM extract</div>
+        </div>
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>
+          <div class="stat-n">426</div><div class="stat-l">Routing calls per run</div>
+        </div>
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-map"/></svg>
+          <div class="stat-n">147</div><div class="stat-l">Stations mapped</div>
+        </div>
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-tools"/></svg>
+          <div class="stat-n">10</div><div class="stat-l">Pipeline scripts</div>
+        </div>
+      </div>
     <p class="metrics-note">
       Drawn from source files and a live query against the development database.
     </p>
@@ -7355,13 +7380,24 @@ footer a:hover { color: var(--text); }
       <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><circle class="em-ln" cx="100" cy="26" r="17"/><path class="em-ln" d="M93 33l5-14 9 5z"/><rect class="em-dim"  x="10"  y="58" width="40" height="80" rx="3"/><rect class="em-dim"  x="58"  y="58" width="40" height="80" rx="3"/><rect class="em-fill" x="106" y="52" width="40" height="86" rx="3"/><rect class="em-dim"  x="154" y="58" width="36" height="80" rx="3"/><path class="em-dim" d="M18 76h24M18 88h16M66 76h24M66 88h16M162 76h20M162 88h14"/><path class="em-ln"  d="M114 70h24M114 82h18M114 94h24"/></svg></figure>
     </div>
 
-    <dl class="metrics reveal" style="--d:.32s">
-      <div class="metric"><dt>Projects compared</dt><dd>4</dd></div>
-      <div class="metric"><dt>Unit types</dt><dd>7</dd></div>
-      <div class="metric"><dt>Lines of code</dt><dd>1,520</dd></div>
-      <div class="metric"><dt>Dependencies</dt><dd>0</dd></div>
-      <div class="metric"><dt>Build steps</dt><dd>0</dd></div>
-    </dl>
+    <div class="stats metrics reveal" style="--d:.32s">
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg>
+          <div class="stat-n">4</div><div class="stat-l">Projects compared</div>
+        </div>
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-blocks"/></svg>
+          <div class="stat-n">7</div><div class="stat-l">Unit types</div>
+        </div>
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-code"/></svg>
+          <div class="stat-n">1,520</div><div class="stat-l">Lines of code</div>
+        </div>
+        <div>
+          <svg class="ico stat-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stack"/></svg>
+          <div class="stat-n">0</div><div class="stat-l">Dependencies</div>
+        </div>
+      </div>
     <p class="metrics-note">
       Read directly from the repository on 28 July 2026.
     </p>
@@ -7719,56 +7755,6 @@ footer a:hover { color: var(--text); }
 
   applyFilter("all");
 
-  // ── masthead position indicator ────────────────────────────
-  // A project view is several screens tall, so the h1 is long gone by
-  // the time you are reading. Echo the current project and section in
-  // the sticky bar. Degrades silently on views that have no h2 tier.
-  var where = document.querySelector(".mh-where");
-
-  function activeView() {
-    var views = document.querySelectorAll("section.view");
-    for (var i = 0; i < views.length; i++) {
-      if (views[i].offsetHeight > 0) return views[i];
-    }
-    return null;
-  }
-
-  function updateWhere() {
-    if (!where) return;
-    var view = activeView();
-    var h1 = view && view.querySelector("h1");
-    var secs = view ? view.querySelectorAll(".sec-h") : [];
-    if (!h1 || !secs.length) { where.hidden = true; return; }
-
-    // The last heading whose top has passed under the masthead wins.
-    var current = null;
-    for (var j = 0; j < secs.length; j++) {
-      if (secs[j].getBoundingClientRect().top <= 118) current = secs[j];
-    }
-    if (!current) { where.hidden = true; return; }
-
-    where.textContent = "";
-    var name = document.createElement("b");
-    name.textContent = h1.textContent.trim();
-    where.appendChild(name);
-    where.appendChild(
-      document.createTextNode("  ·  " + current.textContent.replace(/\s+/g, " ").trim())
-    );
-    where.hidden = false;
-  }
-
-  // Time throttle rather than requestAnimationFrame: rAF is paused whenever
-  // the page is not compositing, and the work here is five getBoundingClientRect
-  // calls, so there is nothing to gain from frame alignment.
-  var lastRun = 0, pending = null;
-  window.addEventListener("scroll", function () {
-    var now = +new Date();
-    if (now - lastRun >= 80) { lastRun = now; updateWhere(); return; }
-    clearTimeout(pending);
-    pending = setTimeout(function () { lastRun = +new Date(); updateWhere(); }, 80);
-  }, { passive: true });
-  window.addEventListener("hashchange", function () { setTimeout(updateWhere, 0); });
-  updateWhere();
 })();
 </script>
 </body>
