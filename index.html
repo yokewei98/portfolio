@@ -5706,62 +5706,81 @@ body.lb-open { overflow: hidden; }
     <div class="sec-head">
       <div class="sec-n">06</div>
       <div class="sec-body">
-        <p class="eyebrow">AGENT DESIGN</p>
-    <h2 class="sec-h" id="w-s6"><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-agent"/></svg> Post Agent</h2>
-    <p class="sec-lede">Staff get a finished caption and the right image size in one step</p>
+        <p class="eyebrow">DEPLOYMENT</p>
+    <h2 class="sec-h" id="w-s6"><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spark"/></svg> Social Post Agent</h2>
+    <p class="sec-lede">A folder of photos becomes a ready-to-post set with a caption, without anyone leaving the group chat</p>
       </div>
     </div>
 
     <figure class="figure">
-      <svg class="dgm" viewBox="0 0 700 228" role="img" aria-labelledby="pgT pgD">
-        <title id="pgT">Two sizes of the same image</title>
-        <desc id="pgD">Up to thirty candidate images are downscaled to 1024 pixel thumbnails for the
-          vision call, while the full-resolution originals are what get delivered to WhatsApp.</desc>
+      <svg class="dgm" viewBox="0 0 700 240" role="img" aria-labelledby="pgT pgD">
+        <title id="pgT">From a folder of photos to a finished post</title>
+        <desc id="pgD">Photos are uploaded to a cloud media library. Someone in the staff group asks
+          for a post; the agent draws candidates from that library, picks a varied set and drafts a
+          caption, and returns both to the thread where the wording can be reworked in place.</desc>
 
-        <rect class="dgm-box" x="20" y="76" width="150" height="52" rx="2"/>
-        <text class="dgm-t" x="34" y="100">MediaLibrary</text>
-        <text class="dgm-s" x="34" y="117">up to 30 candidates</text>
+        <text class="dgm-n" x="20" y="18">UPLOADED ONCE, TO THE CLOUD</text>
+        <rect class="dgm-box" x="20" y="26" width="180" height="58" rx="2"/>
+        <text class="dgm-t" x="34" y="50">Media library</text>
+        <text class="dgm-s" x="34" y="68">Google Drive + Sheet</text>
 
-        <path class="dgm-ln" d="M172 92 L200 92 L200 44 L234 44" marker-end="url(#ah)"/>
-        <path class="dgm-ln" d="M172 112 L200 112 L200 160 L234 160" marker-end="url(#ah)"/>
+        <rect class="dgm-box" x="20" y="126" width="180" height="58" rx="2"/>
+        <text class="dgm-t" x="34" y="150">Staff group</text>
+        <text class="dgm-s" x="34" y="168">someone asks for a post</text>
 
-        <rect class="dgm-box" x="236" y="18" width="196" height="52" rx="2"/>
-        <text class="dgm-t" x="250" y="42">1024px thumbnails</text>
-        <text class="dgm-s" x="250" y="59">fits the vision budget</text>
+        <path class="dgm-ln" d="M202 55 L230 55 L230 95 L256 95" marker-end="url(#ah)"/>
+        <path class="dgm-ln" d="M202 155 L230 155 L230 115 L256 115" marker-end="url(#ah)"/>
 
-        <rect class="dgm-box" x="236" y="134" width="196" height="52" rx="2"/>
-        <text class="dgm-t" x="250" y="158">Full resolution</text>
-        <text class="dgm-s" x="250" y="175">untouched originals</text>
+        <rect class="dgm-box-a" x="258" y="76" width="182" height="58" rx="3"/>
+        <text class="dgm-t" x="272" y="100">The agent</text>
+        <text class="dgm-s" x="272" y="118">picks a varied set</text>
 
-        <line class="dgm-ln-a" x1="434" y1="44"  x2="468" y2="44"  marker-end="url(#aha)"/>
-        <line class="dgm-ln"   x1="434" y1="160" x2="468" y2="160" marker-end="url(#ah)"/>
+        <line class="dgm-ln-a" x1="442" y1="105" x2="496" y2="105" marker-end="url(#aha)"/>
 
-        <rect class="dgm-box-a" x="470" y="18" width="210" height="52" rx="3"/>
-        <text class="dgm-t" x="484" y="42">Gemini selects</text>
-        <text class="dgm-s" x="484" y="59">varied, no near-duplicates</text>
+        <rect class="dgm-box" x="498" y="76" width="182" height="58" rx="2"/>
+        <text class="dgm-t" x="512" y="100">Photos + caption</text>
+        <text class="dgm-s" x="512" y="118">back in the thread</text>
 
-        <rect class="dgm-box" x="470" y="134" width="210" height="52" rx="2"/>
-        <text class="dgm-t" x="484" y="158">WhatsApp</text>
-        <text class="dgm-s" x="484" y="175">the post itself</text>
+        <path class="dgm-ln-a" d="M589 136 L589 176 L349 176 L349 138" marker-end="url(#aha)"/>
+        <text class="dgm-a" x="469" y="196" text-anchor="middle">REWORDED IN THE THREAD, NOT REGENERATED</text>
 
-        <text class="dgm-n" x="350" y="214" text-anchor="middle">WHAT THE MODEL NEEDS TO SEE IS RARELY WHAT THE USER NEEDS TO RECEIVE</text>
+        <text class="dgm-n" x="350" y="226" text-anchor="middle">THE POINT IS TO FINISH A POST, NOT TO ADMIRE A FIRST DRAFT</text>
       </svg>
       <figcaption>
-        <b>Thumbnails to the model, originals to WhatsApp.</b> What the model sees is not what the
-        user receives.
+        <b>Photos come from the library, not the phone.</b> Upload once to Drive; the agent picks the
+        set and writes the caption.
       </figcaption>
     </figure>
 
     <details class="layer2">
-      <summary>Internal &middot; content_prep &middot; not customer-facing</summary>
+      <summary>Built for a client, not yet delivered &middot; content_prep</summary>
       <div class="layer2-body">
         <div class="block">
           <p>
-            Sits in a staff group, selects photos on request and drafts the caption. Same relay, same
-            16-tab Sheet, same control group, same alerting &mdash; one setting points it at a
+            <b>Status.</b> This one is built and not yet delivered, so unlike Maya and the Creator
+            Helpdesk agent there is no live deployment behind it. What it shows is that a third mode
+            fits the same engine without either bending.
+          </p>
+          <p>
+            <b>Where the images live.</b> Photos are uploaded to Google Drive and grouped into media
+            sets referenced from the Sheet, so the library is curated once and the agent draws from it
+            on every request. Nobody is hunting through a camera roll mid-conversation, and the same
+            set can be reused across posts.
+          </p>
+          <p>
+            <b>Two different sizes of the same image.</b> The vision call has a byte budget that the
+            deliverable does not. Candidates are downscaled to 1024px thumbnails for the model to look
+            at, while the full-resolution originals are what actually get sent. It is the difference
+            between the selection step working at thirty candidates and failing at eight. Most of the
+            useful engineering in an LLM feature is this &mdash; deciding what the model needs to see,
+            which is rarely what the user needs to receive.
+          </p>
+          <p>
+            <b>Same engine, one setting.</b> Same relay, same 16-tab Sheet, same control group, same
+            media library, same alerting &mdash; <code>content_prep</code> points the agent at a
             different goal. A content assistant and a sales assistant share almost everything as
             software.
-            <a href="#wa-post">Open the Post Agent deployment &rarr;</a>
+            <a href="#wa-post">Open the Social Post Agent deployment &rarr;</a>
           </p>
         </div>
       </div>
@@ -6251,23 +6270,24 @@ body.lb-open { overflow: hidden; }
 
     <nav class="pager" aria-label="Deployment navigation">
       <a href="#wa-jephie">&larr; Jephie</a>
-      <a href="#wa-post">Post Agent &rarr;</a>
+      <a href="#wa-post">Social Post Agent &rarr;</a>
     </nav>
   </div>
 </section>
 
 
 <!-- ═══════════════ VIEW · WA · POST AGENT ═══════════════ -->
-<section class="view" id="view-wa-post" aria-label="Post Agent deployment">
+<section class="view" id="view-wa-post" aria-label="Social Post Agent deployment">
   <div class="wrap">
     <div class="proj-head">
       <a class="back reveal" style="--d:.02s" href="#wa-agent">&larr; WA Agent</a>
       <svg class="ico proj-ico reveal" style="--d:.04s" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spark"/></svg>
       <p class="eyebrow reveal" style="--d:.06s"><span class="num">02.4</span> &nbsp;&middot;&nbsp; Deployment</p>
-      <h1 class="reveal" style="--d:.1s" tabindex="-1">Post Agent</h1>
+      <h1 class="reveal" style="--d:.1s" tabindex="-1">Social Post Agent</h1>
       <p class="proj-purpose reveal" style="--d:.16s">
-        The one that never speaks to a customer. It sits in a staff group and helps produce social
-        posts on request &mdash; choosing the photos and drafting the caption.
+        The one that never speaks to a customer. It sits in a staff group, draws photos from a cloud
+        library the team uploads to, and hands back a chosen set with the caption already written.
+        Built for a client, not yet delivered.
       </p>
       <div class="proj-tags reveal" style="--d:.2s">
         <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spark"/></svg>AI &amp; Agents</span>
@@ -6374,7 +6394,7 @@ body.lb-open { overflow: hidden; }
 
         <rect class="dgm-box-a" x="480" y="28" width="200" height="48" rx="3"/>
         <text class="dgm-t" x="494" y="50">Content agent</text>
-        <text class="dgm-s" x="494" y="67">Post Agent</text>
+        <text class="dgm-s" x="494" y="67">Social Post Agent</text>
 
         <line class="dgm-ln"   x1="120" y1="78" x2="120" y2="116" marker-end="url(#ah)"/>
         <line class="dgm-ln"   x1="350" y1="78" x2="350" y2="116" marker-end="url(#ah)"/>
@@ -7923,6 +7943,17 @@ body.lb-open { overflow: hidden; }
           media &mdash; unit layouts, annotated floor plates, site photographs and one
           developer brochure. The code is the small part, which is the correct ratio for a tool
           whose value is what it holds rather than the logic it runs.
+        </p>
+        <p>
+          <b>What it stops short of.</b> It does not work out a true net cost. Every unit carries
+          five fee-liability fields &mdash; who pays the memorandum of transfer, the loan stamp duty,
+          the SPA legal fees, the loan legal fees and the valuation &mdash; plus cashback and size.
+          All seven are stored for every unit and read by nothing.
+          <code>calculateMOT()</code>, a correct implementation of Malaysia's tiered stamp-duty
+          scale, and <code>calculateLoanStampDuty()</code> are both written and never called. The
+          data model was laid out for a net-cost calculator; the screen shows three figures and there
+          is no calculator behind them. Groundwork, not a shipped feature &mdash; and worth saying so
+          rather than letting the schema imply otherwise.
         </p>
       </div>
       </div>
