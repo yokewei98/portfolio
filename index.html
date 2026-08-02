@@ -2035,118 +2035,57 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>How the authorisation is built</summary>
       <div class="layer2-body">
-
-    
-
-    <div class="block">
-      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>The problem</h3>
-      <p>
-        Campaign coordination ran on spreadsheets and WhatsApp threads. Four parties &mdash; internal
-        operators, brand clients, creators and a contract-review function &mdash; each needed a
-        different slice of the same record, and every slice stayed current only because somebody was
-        re-typing it somewhere else.
-      </p>
-      <p>
-        Three markets made that worse rather than merely bigger. Indonesia, Malaysia and Vietnam each
-        carry their own currency, date locale, banking fields, national-ID requirement, contract
-        template and numbering sequence &mdash; so "the same process, three times" was never actually
-        the same process, and the differences lived in whoever happened to remember them.
-      </p>
-    </div>
-
-    <div class="block">
-      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>Key decisions</h3>
-      <ul class="decisions">
-        <li>
-          <h4>Authorisation enforced in the database, not the application</h4>
-          <p>
-            Permissions travel through database predicates &mdash; <code>can_access_project</code>,
-            <code>is_operator_elevated</code>, <code>user_role</code> &mdash; evaluated by 240
-            row-level-security policies and 40 database functions, rather than by checks written into
-            page code. The reasoning is blunt: application checks stay correct right up until someone
-            adds a page and forgets one. With the rule held in the database, a query written wrongly
-            returns nothing instead of returning another client's rows. It is more work up front, and
-            what it buys is that no single mistake in the application layer is enough to leak data.
-          </p>
-        </li>
-        <li>
-          <h4>Column-level protection via narrow views</h4>
-          <p>
-            Row-level security filters rows, not columns &mdash; a client whose rows are correctly
-            scoped can still read every column of them, and the base tables carry bearer tokens, fee
-            data and banking fields. So every client-facing read routes through a narrow view that
-            simply does not select those columns. It is the same principle the Google Workspace
-            system reached by a different road: the safest version of <em>they must not see this</em>
-            is that it was never in the result to begin with.
-          </p>
-        </li>
-        <li>
-          <h4>Country as a first-class dimension</h4>
-          <p>
-            Country is not a label on a record; it is an input to behaviour. <code>ID</code>,
-            <code>MY</code> and <code>VN</code> each determine currency, date locale, which banking
-            fields are required, whether a national ID is collected, which contract template is used
-            and which numbering sequence that contract draws from. Modelling it as a dimension rather
-            than as three forks of the same feature is what keeps a fourth market a configuration
-            exercise instead of a rewrite &mdash; and keeps the differences in the schema, where they
-            can be read, rather than in an operator's memory.
-          </p>
-        </li>
-        <li>
-          <h4>Taking the AI out without closing the door</h4>
-          <p>
-            An earlier LLM assistant billed tokens per conversation turn and leaned on an unofficial
-            WhatsApp client that carried real ban risk for the number. It worked. It came out of the
-            live path anyway, because what it cost and what it risked had stopped being worth what it
-            returned.
-          </p>
-          <p>
-            Taking it out was engineered rather than deleted: source frozen under a checksum-pinned
-            archive, a four-document restart runbook, the live path collapsed to a single branch, and
-            the whole thing reversible without a database migration. That is why the third version is
-            a reconnection rather than a rebuild &mdash; the eight stages never belonged to the agent.
-            <a href="#erp-agentic">See V3 &mdash; the Agentic Journey &rarr;</a>
-          </p>
-        </li>
-      </ul>
-    </div>
-
-      <div class="deeper-body">
         <p>
-          <b>Shape of the codebase.</b> Roughly 51,000 lines of TypeScript across 299 source files:
-          108 React components, 27 page routes, 12 API routes and 158 exported Server Actions spread
-          over 51 modules, against a schema of 40 tables and views built by 190 migrations. 796 tests
-          across 44 files run in about five seconds &mdash; which is the number that actually matters,
-          because a suite that fast gets run, and it gates a build-test-deploy pipeline that ships on
-          merge. 860 commits over roughly two and a half months.
+          <b>Permissions live in the database, not in page code.</b> Access travels through
+          predicates &mdash; <code>can_access_project</code>, <code>is_operator_elevated</code>,
+          <code>user_role</code> &mdash; evaluated by 240 row-level-security policies and 40 database
+          functions rather than by checks written into each page. Application checks stay correct
+          right up until someone adds a page and forgets one; with the rule held in the database, a
+          query written wrongly returns nothing instead of another client's rows. Row-level security
+          filters rows but not columns, so every client-facing read additionally routes through a
+          narrow view that does not select the bearer tokens, fee data and banking fields the base
+          tables carry &mdash; the safest version of <em>they must not see this</em> is that it was
+          never in the result. Country behaves the same way, as an input rather than a label:
+          <code>ID</code>, <code>MY</code> and <code>VN</code> each decide the currency, the date
+          locale, which banking fields are required, whether a national ID is collected, which
+          contract template is used and which numbering sequence it draws from &mdash; which is what
+          keeps a fourth market a configuration exercise instead of a rewrite.
         </p>
         <p>
-          <b>What the system does instead of a person.</b> Contracts assemble themselves the moment
-          the last required field lands, from either the board or the product tab, with no operator
-          "generate" step. Statutory withholding is computed at document-build time rather than
-          typed. Contract numbers are sequenced per country. Deliverables spawn from the contracted
-          quantities when a creator crosses into production. Shipment release is triggered by contract
-          verification rather than by someone remembering to flip a flag. Role changes take effect
-          immediately, including revoking live sessions.
+          <b>What that buys is work nobody has to remember to do.</b> Contracts assemble themselves
+          the moment the last required field lands, from either the board or the product tab, with no
+          operator "generate" step; statutory withholding is computed at document-build time rather
+          than typed; contract numbers sequence per country; deliverables spawn from the contracted
+          quantities when a creator crosses into production; shipment release is triggered by
+          contract verification rather than by someone flipping a flag; and role changes take effect
+          immediately, including revoking live sessions. The party given the least friction is
+          deliberately the one hardest to chase &mdash; creators never authenticate at all, signing
+          contracts, submitting drafts and uploading video through tokenised links without an account
+          ever existing, with uploads going straight to storage through signed URLs that bypass the
+          serverless request-body ceiling. Before any of it, four parties each needed a different
+          slice of the same record, and every slice stayed current only because somebody was
+          re-typing it somewhere else.
         </p>
         <p>
-          <b>The slowest party gets the least friction.</b> Creators never authenticate at all &mdash;
-          tokenised links let them sign contracts, submit drafts and upload video without an account
-          ever existing, and uploads go straight to storage through signed URLs, bypassing the
-          serverless request-body ceiling. Removing account creation from the external party who is
-          hardest to chase does more for cycle time than any internal optimisation.
+          <b>The decision worth naming is what came out.</b> An earlier LLM assistant billed tokens
+          per conversation turn and leaned on an unofficial WhatsApp client that carried real ban risk
+          for the number. It worked, and it left the live path anyway, because what it cost and what
+          it risked had stopped being worth what it returned &mdash; but it was engineered out rather
+          than deleted: source frozen under a checksum-pinned archive, a four-document restart
+          runbook, the live path collapsed to a single branch, and the whole thing reversible without
+          a database migration. The WhatsApp worker sits outside the web app as a separate 72-file
+          Node process, which is precisely what made pulling it a contained decision rather than a
+          refactor, and what lets a different messaging route go back in the same way.
+          <a href="#erp-agentic">See V3 &mdash; the Agentic Journey &rarr;</a> What remains is roughly
+          51,000 lines of TypeScript across 299 source files &mdash; 108 React components, 27 page
+          routes, 12 API routes and 158 exported Server Actions over 51 modules, against 40 tables and
+          views built by 190 migrations &mdash; with 796 tests across 44 files running in about five
+          seconds, which is the figure that actually matters, because a suite that fast gets run. The
+          executive reporting surface is bilingual, English and Simplified Chinese, with an automated
+          test that fails the build when a translation is missing. 860 commits over roughly two and a
+          half months.
         </p>
-        <p>
-          <b>Two details worth naming.</b> The executive reporting surface is bilingual, English and
-          Simplified Chinese, with an automated test that fails the build when a translation is
-          missing or left untranslated &mdash; the kind of thing that otherwise rots quietly for
-          months. And the WhatsApp worker is a separate 72-file Node process held architecturally
-          outside the web app, which is precisely what made pulling it a contained decision rather
-          than a refactor &mdash; and what lets a different messaging route go back in the same way.
-        </p>
-      </div>
-
-      </div>
+</div>
     </details>
 
     <div class="sec-head">
@@ -6696,13 +6635,6 @@ body.lb-open { overflow: hidden; }
         filled.
       </figcaption>
     </figure>
-
-    <details class="layer2">
-      <summary>How the pipeline is laid out</summary>
-      <div class="layer2-body">
-
-      </div>
-    </details>
 
     <div class="sec-head">
       <div class="sec-n">03</div>
