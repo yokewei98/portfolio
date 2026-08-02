@@ -3002,11 +3002,7 @@ body.lb-open { overflow: hidden; }
       </figcaption>
     </figure>
 
-    <details class="layer2">
-      <summary>The full flowchart, as the team reads it</summary>
-      <div class="layer2-body">
-        
-        <figure class="shot">
+    <figure class="shot">
           <div class="shot-frame">
             <div class="shot-bar"><span>creator-erp-id &middot; docs/develop/pipeline-flowchart-endorsement.dot</span></div>
 <svg class="flowsvg" role="img" aria-labelledby="epfT epfD"
@@ -3714,6 +3710,10 @@ body.lb-open { overflow: hidden; }
           </div>
           <figcaption>Endorsement Pipeline &middot; Develop Portal &mdash; Indonesia</figcaption>
         </figure>
+
+    <details class="layer2">
+      <summary>The full flowchart, as the team reads it</summary>
+      <div class="layer2-body">
         <div class="block">
           <p>
             The published flowchart colours every node by who acts: the team, the creator, the
@@ -3867,10 +3867,7 @@ body.lb-open { overflow: hidden; }
       </figcaption>
     </figure>
 
-    <details class="layer2">
-      <summary>The agent journey, stage by stage</summary>
-      <div class="layer2-body">
-        <figure class="shot">
+    <figure class="shot">
           <div class="shot-frame">
             <div class="shot-bar"><span>creator-erp-id &middot; docs/develop/pipeline-flowchart-agentic.dot</span></div>
 <svg class="flowsvg" role="img" aria-labelledby="apfT apfD"
@@ -4550,6 +4547,10 @@ body.lb-open { overflow: hidden; }
           </div>
           <figcaption>Agentic Journey &middot; Develop Portal &mdash; V3, in build</figcaption>
         </figure>
+
+    <details class="layer2">
+      <summary>The agent journey, stage by stage</summary>
+      <div class="layer2-body">
         <div class="block">
           <p>
             The journey is specified before it is switched on: every stage, every decision point and
@@ -6613,10 +6614,6 @@ body.lb-open { overflow: hidden; }
       </figcaption>
     </figure>
 
-    <details class="layer2">
-      <summary>How the pipeline is laid out</summary>
-      <div class="layer2-body">
-
     <figure class="figure">
       <svg class="dgm" viewBox="0 0 700 216" role="img" aria-labelledby="stgT stgD">
         <title id="stgT">The 12-stage pipeline expressed as horizontal position</title>
@@ -6699,6 +6696,10 @@ body.lb-open { overflow: hidden; }
         filled.
       </figcaption>
     </figure>
+
+    <details class="layer2">
+      <summary>How the pipeline is laid out</summary>
+      <div class="layer2-body">
 
       </div>
     </details>
@@ -6872,10 +6873,6 @@ body.lb-open { overflow: hidden; }
       </figcaption>
     </figure>
 
-    <details class="layer2">
-      <summary>How it is wired, and what runs it</summary>
-      <div class="layer2-body">
-
     <figure class="figure">
       <svg class="dgm" viewBox="0 0 700 240" role="img" aria-labelledby="cpT cpD">
         <title id="cpT">Rows 1 to 3 are the control plane</title>
@@ -6913,48 +6910,7 @@ body.lb-open { overflow: hidden; }
       </figcaption>
     </figure>
 
-    <div class="block">
-      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bolt"/></svg>The Apps Script layer</h3>
-      <p>Nine files, ~35&nbsp;KB, one menu.</p>
-      <div class="spec-wrap">
-        <table class="spec">
-          <thead>
-            <tr><th scope="col">Module</th><th scope="col">What it does</th><th scope="col">Trigger</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Sheet Setup</td>
-              <td>Applies the protection map &mdash; 12 ranges, 4 editors.</td>
-              <td class="tg">Menu</td>
-            </tr>
-            <tr>
-              <td>Contract</td>
-              <td>Merges 15 fields into a Docs template, writes the PDF URL back.</td>
-              <td class="tg">Menu</td>
-            </tr>
-            <tr>
-              <td>RapidAPI Extractor</td>
-              <td>Weekly engagement pull, checkpointed across the 6-minute cap.</td>
-              <td class="tg">Monday</td>
-            </tr>
-            <tr>
-              <td>Sheet Name Lister</td>
-              <td>Roster tab, also <code>=GET_SHEET_NAMES()</code>.</td>
-              <td class="tg">Menu / formula</td>
-            </tr>
-            <tr>
-              <td>Unprotect BK</td>
-              <td>Splits protections around a column, across all tabs at once.</td>
-              <td class="tg">Editor</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="block">
-      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sheet"/></svg>Formula work carrying the load</h3>
-      <figure class="figure">
+    <figure class="figure">
         <svg class="dgm" viewBox="0 0 700 190" role="img" aria-labelledby="impT impD">
           <title id="impT">Nine IMPORTRANGE blocks and the four gaps between them</title>
           <desc id="impD">The client sheet's 43 columns are assembled from nine separate
@@ -6997,6 +6953,52 @@ body.lb-open { overflow: hidden; }
           is the write surface.
         </figcaption>
       </figure>
+
+    <details class="layer2">
+      <summary>How it is wired, and what runs it</summary>
+      <div class="layer2-body">
+
+    <div class="block">
+      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bolt"/></svg>The Apps Script layer</h3>
+      <p>Nine files, ~35&nbsp;KB, one menu.</p>
+      <div class="spec-wrap">
+        <table class="spec">
+          <thead>
+            <tr><th scope="col">Module</th><th scope="col">What it does</th><th scope="col">Trigger</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sheet Setup</td>
+              <td>Applies the protection map &mdash; 12 ranges, 4 editors.</td>
+              <td class="tg">Menu</td>
+            </tr>
+            <tr>
+              <td>Contract</td>
+              <td>Merges 15 fields into a Docs template, writes the PDF URL back.</td>
+              <td class="tg">Menu</td>
+            </tr>
+            <tr>
+              <td>RapidAPI Extractor</td>
+              <td>Weekly engagement pull, checkpointed across the 6-minute cap.</td>
+              <td class="tg">Monday</td>
+            </tr>
+            <tr>
+              <td>Sheet Name Lister</td>
+              <td>Roster tab, also <code>=GET_SHEET_NAMES()</code>.</td>
+              <td class="tg">Menu / formula</td>
+            </tr>
+            <tr>
+              <td>Unprotect BK</td>
+              <td>Splits protections around a column, across all tabs at once.</td>
+              <td class="tg">Editor</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sheet"/></svg>Formula work carrying the load</h3>
       <ul class="fx">
         <li>
           <b>The boundary is where a range stops</b>
