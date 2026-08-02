@@ -575,6 +575,40 @@ body.routed .view.active { display: block; }
 /* Marks I can't reproduce faithfully ship as a name-only chip. */
 .tool.no-mark { padding-left: 10px; }
 
+/* ─── live agent buttons ─────────────────────────────────────── */
+/* WA Agent has no screenshot: a working thing to poke beats a picture
+   of one, so the head slot carries the numbers instead. */
+.try-live {
+  display: flex; flex-wrap: wrap; gap: 12px;
+  margin: 34px 0 6px;
+}
+.try-btn {
+  display: flex; flex-direction: column; gap: 3px;
+  border: 1px solid var(--rule-lt);
+  border-left: 2px solid #25D366;
+  background: var(--ink-2);
+  padding: 14px 20px 13px 17px;
+  min-width: 232px;
+  transition: border-color .16s, background .16s, transform .16s;
+}
+.try-btn:hover, .try-btn:focus-visible {
+  background: var(--ink-3); border-color: #25D366;
+  transform: translateY(-1px); text-decoration: none;
+}
+.try-btn .try-top {
+  display: flex; align-items: center; gap: 9px;
+  font-family: var(--mono); font-size: .8125rem; color: var(--text);
+}
+.try-btn svg { width: 16px; height: 16px; flex: none; }
+.try-btn .try-sub {
+  font-size: .8125rem; color: var(--muted); padding-left: 25px;
+}
+.try-btn .try-num {
+  font-family: var(--mono); font-size: .6875rem; letter-spacing: .04em;
+  color: var(--brass-dk); padding-left: 25px; margin-top: 2px;
+}
+@media (max-width: 560px) { .try-btn { min-width: 0; flex: 1 1 100%; } }
+
 /* Headings lead with an icon. */
 .section-head h2 { display: flex; align-items: center; gap: 13px; }
 .head-ico { width: 25px; height: 25px; color: var(--brass); flex: none; }
@@ -984,6 +1018,50 @@ footer .foot-row { display: flex; justify-content: space-between; gap: 24px; fle
 footer a { color: var(--brass); }
 footer a:hover { color: var(--text); }
 
+/* ─── lightbox ───────────────────────────────────────────────────
+   Screenshots are 1440px native but render at ~1016px in the content
+   column, so opening one at true size is a real detail gain. The image
+   is never upscaled: width:auto with viewport caps means a 1440px shot
+   shows at 1440px and an 820px shot shows at 820px — always its own
+   pixels, never a blurry enlargement. */
+figure img { cursor: zoom-in; }
+.portrait img { cursor: default; }          /* decorative, nothing to gain */
+
+.lightbox {
+  position: fixed; inset: 0; z-index: 90;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 16px; padding: 4vh 4vw;
+  background: rgba(6, 7, 5, .94);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+.lightbox[hidden] { display: none; }
+.lightbox img {
+  width: auto; max-width: 95vw; max-height: 88vh;
+  display: block; border: 1px solid var(--rule-lt);
+  box-shadow: 0 30px 80px rgba(0,0,0,.6);
+  cursor: zoom-out;
+}
+.lb-cap {
+  font-family: var(--mono); font-size: .7rem; color: var(--muted);
+  text-align: center; max-width: 70ch; letter-spacing: .04em; margin: 0;
+}
+.lb-close {
+  position: absolute; top: 18px; right: 22px;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--ink-2); color: var(--text-2);
+  border: 1px solid var(--rule-lt);
+  font: inherit; font-size: 1rem; line-height: 1; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: color .15s, border-color .15s;
+}
+.lb-close:hover { color: var(--brass); border-color: var(--brass-br); }
+.lb-hint {
+  font-family: var(--mono); font-size: .625rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--rule-lt); margin: 0;
+}
+body.lb-open { overflow: hidden; }
+
 /* ─── responsive ─────────────────────────────────────────────── */
 @media (max-width: 900px) {
   /* .metrics no longer needs its own breakpoints — it is a `.stats` band
@@ -1043,6 +1121,10 @@ footer a:hover { color: var(--text); }
   .figure { overflow: visible; margin-left: 0; margin-right: 0; padding: 0; }
   .dgm { min-width: 0; max-width: 100%; }
   .portrait img { mix-blend-mode: normal; -webkit-mask-image: none; mask-image: none; }
+  /* If someone prints while an image is open, the overlay must not paper
+     over the page. figure img also loses its zoom cursor on paper. */
+  .lightbox { display: none !important; }
+  figure img { cursor: default; }
   /* Several brand marks are white-filled (Vercel, Notion, Next.js) and would
      be invisible on paper. Drop the marks; the chip still carries the name. */
   .tool svg { display: none; }
@@ -1182,6 +1264,11 @@ footer a:hover { color: var(--text); }
         <path d="M69.2652 101.47L119.823 50.9117C129.196 41.5391 144.392 41.5391 153.765 50.9117L154.118 51.2652C163.491 60.6378 163.491 75.8338 154.118 85.2063L92.7248 146.6C89.6006 149.724 89.6006 154.789 92.7248 157.913L105.331 170.52"/>
         <path d="M102.853 33.9411L52.6482 84.1457C43.2756 93.5183 43.2756 108.714 52.6482 118.087V118.087C62.0208 127.459 77.2167 127.459 86.5893 118.087L136.794 67.8822"/>
       </g>
+    </symbol>
+
+    <!-- WhatsApp mark, verbatim from simple-icons (CC0), in the brand green. -->
+    <symbol id="l-whatsapp" viewBox="0 0 24 24">
+      <path fill="#25D366" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
     </symbol>
 
     <!-- Google AI marks. Paths taken verbatim from simple-icons (CC0), which
@@ -7879,6 +7966,14 @@ footer a:hover { color: var(--text); }
   </div>
 </footer>
 
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true"
+     aria-label="Enlarged image" hidden>
+  <button class="lb-close" type="button" aria-label="Close enlarged image">&#10005;</button>
+  <img alt="">
+  <p class="lb-cap"></p>
+  <p class="lb-hint">Click anywhere or press Esc to close</p>
+</div>
+
 <script>
 (function () {
   "use strict";
@@ -7966,6 +8061,63 @@ footer a:hover { color: var(--text); }
   });
 
   applyFilter("all");
+
+  // ── lightbox ───────────────────────────────────────────────
+  // Figure images open at their own native resolution. Delegated, so
+  // it covers images added later without rewiring.
+  var lb      = document.getElementById("lightbox");
+  var lbImg   = lb.querySelector("img");
+  var lbCap   = lb.querySelector(".lb-cap");
+  var lbClose = lb.querySelector(".lb-close");
+  var opener  = null;
+
+  function zoomable(el) {
+    return el && el.tagName === "IMG"
+      && el.closest("figure")
+      && !el.closest(".portrait");   // decorative, no detail to reveal
+  }
+
+  function openLb(img) {
+    opener = img;
+    lbImg.src = img.currentSrc || img.src;
+    lbImg.alt = img.getAttribute("alt") || "";
+    var fig = img.closest("figure");
+    var cap = fig && fig.querySelector("figcaption");
+    lbCap.textContent = cap
+      ? cap.textContent.replace(/\s+/g, " ").trim()
+      : (img.naturalWidth + " × " + img.naturalHeight);
+    lb.hidden = false;
+    document.body.classList.add("lb-open");
+    lbClose.focus();
+  }
+
+  function closeLb() {
+    lb.hidden = true;
+    document.body.classList.remove("lb-open");
+    lbImg.removeAttribute("src");
+    if (opener) { opener.focus({ preventScroll: true }); opener = null; }
+  }
+
+  document.addEventListener("click", function (e) {
+    if (zoomable(e.target)) { openLb(e.target); return; }
+    // backdrop, the image itself, or the close button all dismiss
+    if (!lb.hidden && (e.target === lb || e.target === lbImg || e.target === lbClose)) closeLb();
+  });
+
+  // Keyboard: figures are not focusable by default, so give the zoomable
+  // ones a tabindex and let Enter/Space open them.
+  Array.prototype.forEach.call(document.querySelectorAll("figure img"), function (img) {
+    if (!zoomable(img)) return;
+    img.setAttribute("tabindex", "0");
+    img.setAttribute("role", "button");
+    img.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLb(img); }
+    });
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !lb.hidden) closeLb();
+  });
 
 })();
 </script>
