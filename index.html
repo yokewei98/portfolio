@@ -155,7 +155,17 @@ p { max-width: var(--measure); }
   white-space: nowrap; margin-left: 28px;
 }
 .mh-nav::-webkit-scrollbar { display: none; }
-.mh-nav a { padding: 4px 0; border-bottom: 1px solid transparent; }
+.mh-nav a { padding: 4px 0; border-bottom: 1px solid transparent; position: relative; }
+/* Brass rule between tabs. Sits in the middle of the flex gap via a
+   pseudo-element rather than a border, so the underline on the active
+   tab stays a separate mark and nothing shifts when it appears. */
+.mh-nav a + a::before {
+  content: "";
+  position: absolute; left: -12px; top: 50%;
+  transform: translateY(-50%);
+  width: 1px; height: 11px;
+  background: var(--brass-dk);
+}
 .mh-nav a[aria-current="page"] {
   color: var(--brass); border-bottom-color: var(--brass);
 }
@@ -1462,9 +1472,9 @@ footer a:hover { color: var(--text); }
                   coordination with one system of record across Indonesia, Malaysia and Vietnam.
                 </p>
                 <div class="card-metrics">
-                  <span><b>240</b> RLS policies</span>
-                  <span><b>796</b> tests</span>
-                  <span><b>40</b> tables</span>
+                  <span><b>500–2,000</b> Campaigns monthly</span>
+                  <span><b>6</b> Portals</span>
+                  <span><b>7</b> User roles</span>
                 </div>
                 <div class="card-tags">
                   <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-blocks"/></svg>ERP</span>
@@ -1485,9 +1495,9 @@ footer a:hover { color: var(--text); }
                   trilingually from an operator-controlled knowledge base and captures structured leads.
                 </p>
                 <div class="card-metrics">
-                  <span><b>253</b> TS files</span>
-                  <span><b>706</b> tests</span>
-                  <span><b>3</b> agent modes</span>
+                  <span><b>2</b> Live client deployments</span>
+                  <span><b>3</b> Languages handled</span>
+                  <span><b>16</b> Sheet-tab schema</span>
                 </div>
                 <div class="card-tags">
                   <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spark"/></svg>AI &amp; Agents</span>
@@ -1508,9 +1518,9 @@ footer a:hover { color: var(--text); }
                   being enough.
                 </p>
                 <div class="card-metrics">
-                  <span><b>12</b>-stage pipeline</span>
-                  <span><b>49</b> campaigns</span>
-                  <span><b>48</b> client portals</span>
+                  <span><b>49</b> Concurrent campaigns</span>
+                  <span><b>48</b> Client-facing sheets</span>
+                  <span><b>12</b> Pipeline stages</span>
                 </div>
                 <div class="card-tags">
                   <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bolt"/></svg>Automation</span>
@@ -1530,9 +1540,9 @@ footer a:hover { color: var(--text); }
                   routes &mdash; DOM scraping with fallback chains, and a reverse-engineered signed API.
                 </p>
                 <div class="card-metrics">
-                  <span><b>2</b> extensions</span>
-                  <span><b>7</b>-deep fallback chain</span>
-                  <span><b>127</b> bundles analysed</span>
+                  <span><b>7,000</b> Profiles refreshed monthly</span>
+                  <span><b>2</b> Analytics platforms</span>
+                  <span><b>10</b> Per batch</span>
                 </div>
                 <div class="card-tags">
                   <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg>Data</span>
@@ -1553,9 +1563,9 @@ footer a:hover { color: var(--text); }
                   single-user and local-only by design.
                 </p>
                 <div class="card-metrics">
-                  <span><b>246</b> MB OSM extract</span>
-                  <span><b>426</b> routing calls</span>
-                  <span><b>147</b> stations</span>
+                  <span><b>71</b> Projects in dataset</span>
+                  <span><b>147</b> Stations mapped</span>
+                  <span><b>7</b> Rail lines</span>
                 </div>
                 <div class="card-tags">
                   <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stack"/></svg>Full-Stack</span>
@@ -1575,9 +1585,9 @@ footer a:hover { color: var(--text); }
                   developers' incompatible incentive packages side by side, with photographs of the disqualifying facts no listing portal carries.
                 </p>
                 <div class="card-metrics">
-                  <span><b>0</b> dependencies</span>
-                  <span><b>4</b> projects compared</span>
-                  <span><b>1,520</b> lines</span>
+                  <span><b>4</b> Projects compared</span>
+                  <span><b>7</b> Unit types</span>
+                  <span><b>0</b> Dependencies</span>
                 </div>
                 <div class="card-tags">
                   <span class="tag-label"><svg class="tag-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg>Data</span>
