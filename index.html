@@ -6766,41 +6766,50 @@ body.lb-open { overflow: hidden; }
       <div class="sec-body">
         <p class="eyebrow">PERSONA</p>
     <h2 class="sec-h" id="jp-s2"><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-agent"/></svg> Staying on topic is a setting, not code</h2>
-    <p class="sec-lede">It stays on topic because the operator wrote the rule, not a developer</p>
+    <p class="sec-lede">It stays on the development you asked about, and still answers if you ask what else there is</p>
       </div>
     </div>
 
     <figure class="figure">
-      <svg class="dgm" viewBox="0 0 700 170" role="img" aria-labelledby="jprT jprD">
-        <title id="jprT">Focus is a line in the persona, not a rule in the code</title>
-        <desc id="jprD">The whole active catalogue is injected on every turn. What keeps the agent
-          on one development is a single line in the persona, which an operator can soften or
-          remove. There is no per-contact lock anywhere in the engine.</desc>
+      <svg class="dgm" viewBox="0 0 700 240" role="img" aria-labelledby="jprT jprD">
+        <title id="jprT">Two dials: a lock in the engine, a line in the persona</title>
+        <desc id="jprD">Each contact carries an active_project lock, set from the advertising
+          reference code. The locked project's fields are injected in full, while every other active
+          project is reduced to a single line, capped at eight. A separate line in the persona,
+          editable by the operator, decides whether the agent volunteers those alternatives.</desc>
 
-        <text class="dgm-n" x="20" y="20">ON EVERY SINGLE TURN</text>
-        <rect class="dgm-box" x="20" y="28" width="200" height="56" rx="2"/>
-        <text class="dgm-t" x="34" y="52">Whole catalogue</text>
-        <text class="dgm-s" x="34" y="70">injected into the prompt</text>
+        <text class="dgm-n" x="20" y="18">ENGINE &middot; PER CONTACT</text>
+        <rect class="dgm-box-a" x="20" y="26" width="200" height="56" rx="3"/>
+        <text class="dgm-t" x="34" y="50">active_project</text>
+        <text class="dgm-s" x="34" y="68">set from the ad code</text>
 
-        <line class="dgm-ln" x1="222" y1="56" x2="266" y2="56" marker-end="url(#ah)"/>
+        <path class="dgm-ln-a" d="M222 54 L246 54 L246 40 L276 40" marker-end="url(#aha)"/>
+        <path class="dgm-ln-a" d="M222 54 L246 54 L246 100 L276 100" marker-end="url(#aha)"/>
 
-        <rect class="dgm-box-a" x="268" y="28" width="200" height="56" rx="3"/>
-        <text class="dgm-t" x="282" y="52">One persona line</text>
-        <text class="dgm-s" x="282" y="70">stay on their project</text>
+        <rect class="dgm-box" x="278" y="18" width="402" height="44" rx="2"/>
+        <text class="dgm-t" x="292" y="38">Locked project</text>
+        <text class="dgm-s" x="292" y="54">every field, in full</text>
 
-        <line class="dgm-ln-a" x1="470" y1="56" x2="514" y2="56" marker-end="url(#aha)"/>
+        <rect class="dgm-box" x="278" y="78" width="402" height="44" rx="2"/>
+        <text class="dgm-t" x="292" y="98">Every other project</text>
+        <text class="dgm-s" x="292" y="114">one line each, capped at eight</text>
 
-        <rect class="dgm-box" x="516" y="28" width="164" height="56" rx="2"/>
-        <text class="dgm-t" x="530" y="52">Stays focused</text>
-        <text class="dgm-s" x="530" y="70">until asked otherwise</text>
+        <text class="dgm-n" x="20" y="150">OPERATOR &middot; EDITABLE IN THE SHEET</text>
+        <rect class="dgm-box" x="20" y="158" width="200" height="44" rx="2"/>
+        <text class="dgm-t" x="34" y="178">Persona line</text>
+        <text class="dgm-s" x="34" y="194">stay on their project</text>
 
-        <text class="dgm-n" x="350" y="118" text-anchor="middle">THERE IS NO PER-CONTACT LOCK IN THE ENGINE</text>
-        <text class="dgm-n" x="350" y="136" text-anchor="middle">THE MOMENT A CUSTOMER ASKS WHAT ELSE IS AVAILABLE, IT HELPS ACROSS ALL OF IT</text>
-        <text class="dgm-n" x="350" y="154" text-anchor="middle">SALES DISCIPLINE BELONGS TO THE BUSINESS &mdash; A SETTING, NOT A RULE I WROTE</text>
+        <line class="dgm-ln" x1="222" y1="180" x2="272" y2="180" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box" x="278" y="158" width="402" height="44" rx="2"/>
+        <text class="dgm-t" x="292" y="178">Whether it volunteers alternatives</text>
+        <text class="dgm-s" x="292" y="194">not whether it is able to discuss them</text>
+
+        <text class="dgm-n" x="350" y="228" text-anchor="middle">THE LOCK DECIDES WHAT IT HAS DETAIL ON; THE PERSONA DECIDES WHAT IT OFFERS</text>
       </svg>
       <figcaption>
-        <b>Focus is a persona line, not a lock.</b> An operator can soften it; the engine never
-        enforces it.
+        <b>Two dials, two owners.</b> The lock sets what it knows in detail; the persona sets what
+        it offers unasked.
       </figcaption>
     </figure>
 
