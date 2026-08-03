@@ -3959,6 +3959,360 @@ body.lb-open { overflow: hidden; }
       </figcaption>
     </figure>
 
+    <figure class="shot">
+      <div class="shot-frame">
+        <div class="shot-bar"><span>creator-erp-id &middot; docs/develop/pipeline-flowchart-cps.dot</span></div>
+<svg class="flowsvg" role="img" aria-labelledby="cpsfT cpsfD" viewBox="0.00 0.00 845.00 1353.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title id="cpsfT">The CPS pipeline flowchart, rendered from the repository source</title>
+<desc id="cpsfD">The five-step bulk-video pipeline. Colour marks who acts at each node: the operator runs almost all of it, the client only approves a proposed creator, and the creator is never contacted by the system.</desc>
+<g class="graph" transform="scale(1 1) rotate(0) translate(4 1349.22)">
+<title>creator_pipeline_cps</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-1349.22 840.64,-1349.22 840.64,4 -4,4"/>
+<g class="cluster">
+<title>cluster_legend</title>
+<path fill="#f8fafc" stroke="#cbd5e1" d="M20,-697.8C20,-697.8 218,-697.8 218,-697.8 224,-697.8 230,-703.8 230,-709.8 230,-709.8 230,-1325.22 230,-1325.22 230,-1331.22 224,-1337.22 218,-1337.22 218,-1337.22 20,-1337.22 20,-1337.22 14,-1337.22 8,-1331.22 8,-1325.22 8,-1325.22 8,-709.8 8,-709.8 8,-703.8 14,-697.8 20,-697.8"/>
+<text xml:space="preserve" text-anchor="middle" x="119" y="-1321.82" font-family="Arial" font-size="12.00" fill="#0f172a">Legend</text>
+</g>
+<!-- lg_pic -->
+<g class="node">
+<title>lg_pic</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M150.77,-1306.97C150.77,-1306.97 87.23,-1306.97 87.23,-1306.97 81.23,-1306.97 75.23,-1300.97 75.23,-1294.97 75.23,-1294.97 75.23,-1282.97 75.23,-1282.97 75.23,-1276.97 81.23,-1270.97 87.23,-1270.97 87.23,-1270.97 150.77,-1270.97 150.77,-1270.97 156.77,-1270.97 162.77,-1276.97 162.77,-1282.97 162.77,-1282.97 162.77,-1294.97 162.77,-1294.97 162.77,-1300.97 156.77,-1306.97 150.77,-1306.97"/>
+<text xml:space="preserve" text-anchor="middle" x="119" y="-1285.47" font-family="Arial" font-size="10.00">👤 PIC / team</text>
+</g>
+<!-- lg_creator -->
+<g class="node">
+<title>lg_creator</title>
+<path fill="#f3e8ff" stroke="#a855f7" stroke-width="1.5" d="M206.64,-1233.97C206.64,-1233.97 31.36,-1233.97 31.36,-1233.97 25.36,-1233.97 19.36,-1227.97 19.36,-1221.97 19.36,-1221.97 19.36,-1209.97 19.36,-1209.97 19.36,-1203.97 25.36,-1197.97 31.36,-1197.97 31.36,-1197.97 206.64,-1197.97 206.64,-1197.97 212.64,-1197.97 218.64,-1203.97 218.64,-1209.97 218.64,-1209.97 218.64,-1221.97 218.64,-1221.97 218.64,-1227.97 212.64,-1233.97 206.64,-1233.97"/>
+<text xml:space="preserve" text-anchor="middle" x="119" y="-1212.47" font-family="Arial" font-size="10.00">Creator (never contacted by the system)</text>
+</g>
+<!-- lg_pic&#45;&gt;lg_creator -->
+<!-- lg_system -->
+<g class="node">
+<title>lg_system</title>
+<path fill="#cffafe" stroke="#0891b2" stroke-width="1.5" d="M210.39,-1160.97C210.39,-1160.97 27.61,-1160.97 27.61,-1160.97 21.61,-1160.97 15.61,-1154.97 15.61,-1148.97 15.61,-1148.97 15.61,-1136.97 15.61,-1136.97 15.61,-1130.97 21.61,-1124.97 27.61,-1124.97 27.61,-1124.97 210.39,-1124.97 210.39,-1124.97 216.39,-1124.97 222.39,-1130.97 222.39,-1136.97 222.39,-1136.97 222.39,-1148.97 222.39,-1148.97 222.39,-1154.97 216.39,-1160.97 210.39,-1160.97"/>
+<text xml:space="preserve" text-anchor="middle" x="119" y="-1139.47" font-family="Arial" font-size="10.00">⚙️⚡ System (deterministic code · no AI)</text>
+</g>
+<!-- lg_creator&#45;&gt;lg_system -->
+<!-- lg_client -->
+<g class="node">
+<title>lg_client</title>
+<path fill="#ffedd5" stroke="#ea580c" stroke-width="1.5" d="M134,-1087.97C134,-1087.97 104,-1087.97 104,-1087.97 98,-1087.97 92,-1081.97 92,-1075.97 92,-1075.97 92,-1063.97 92,-1063.97 92,-1057.97 98,-1051.97 104,-1051.97 104,-1051.97 134,-1051.97 134,-1051.97 140,-1051.97 146,-1057.97 146,-1063.97 146,-1063.97 146,-1075.97 146,-1075.97 146,-1081.97 140,-1087.97 134,-1087.97"/>
+<text xml:space="preserve" text-anchor="middle" x="119" y="-1066.47" font-family="Arial" font-size="10.00">Client</text>
+</g>
+<!-- lg_system&#45;&gt;lg_client -->
+<!-- lg_decision -->
+<g class="node">
+<title>lg_decision</title>
+<path fill="#f1f5f9" stroke="#475569" stroke-width="1.5" d="M107.43,-989.82C107.43,-989.82 65.28,-978.2 65.28,-978.2 59.49,-976.6 59.49,-973.42 65.28,-971.82 65.28,-971.82 107.43,-960.2 107.43,-960.2 113.22,-958.6 124.78,-958.6 130.57,-960.2 130.57,-960.2 172.72,-971.82 172.72,-971.82 178.51,-973.42 178.51,-976.6 172.72,-978.2 172.72,-978.2 130.57,-989.82 130.57,-989.82 124.78,-991.42 113.22,-991.42 107.43,-989.82"/>
+<text xml:space="preserve" text-anchor="middle" x="119" y="-971.51" font-family="Arial" font-size="10.00">Decision?</text>
+</g>
+<!-- lg_client&#45;&gt;lg_decision -->
+<!-- lg_cc -->
+<g class="node">
+<title>lg_cc</title>
+<path fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="5,2" d="M153.02,-887.8C153.02,-887.8 84.98,-887.8 84.98,-887.8 78.98,-887.8 72.98,-881.8 72.98,-875.8 72.98,-875.8 72.98,-863.8 72.98,-863.8 72.98,-857.8 78.98,-851.8 84.98,-851.8 84.98,-851.8 153.02,-851.8 153.02,-851.8 159.02,-851.8 165.02,-857.8 165.02,-863.8 165.02,-863.8 165.02,-875.8 165.02,-875.8 165.02,-881.8 159.02,-887.8 153.02,-887.8"/>
+<text xml:space="preserve" text-anchor="middle" x="119" y="-866.68" font-family="Arial" font-size="10.00">👁 Read&#45;only</text>
+</g>
+<!-- lg_decision&#45;&gt;lg_cc -->
+<!-- lg_drop -->
+<g class="node">
+<title>lg_drop</title>
+<path fill="#ffe4e6" stroke="#e11d48" stroke-width="1.5" d="M145.52,-814.8C145.52,-814.8 92.48,-814.8 92.48,-814.8 86.48,-814.8 80.48,-808.8 80.48,-802.8 80.48,-802.8 80.48,-790.8 80.48,-790.8 80.48,-784.8 86.48,-778.8 92.48,-778.8 92.48,-778.8 145.52,-778.8 145.52,-778.8 151.52,-778.8 157.52,-784.8 157.52,-790.8 157.52,-790.8 157.52,-802.8 157.52,-802.8 157.52,-808.8 151.52,-814.8 145.52,-814.8"/>
+<text xml:space="preserve" text-anchor="middle" x="119" y="-793.3" font-family="Arial" font-size="10.00">⛔ Drop&#45;out</text>
+</g>
+<!-- lg_cc&#45;&gt;lg_drop -->
+<!-- lg_final -->
+<g class="node">
+<title>lg_final</title>
+<path fill="#d1fae5" stroke="#059669" stroke-width="2" d="M137.27,-741.8C137.27,-741.8 100.73,-741.8 100.73,-741.8 94.73,-741.8 88.73,-735.8 88.73,-729.8 88.73,-729.8 88.73,-717.8 88.73,-717.8 88.73,-711.8 94.73,-705.8 100.73,-705.8 100.73,-705.8 137.27,-705.8 137.27,-705.8 143.27,-705.8 149.27,-711.8 149.27,-717.8 149.27,-717.8 149.27,-729.8 149.27,-729.8 149.27,-735.8 143.27,-741.8 137.27,-741.8"/>
+<text xml:space="preserve" text-anchor="middle" x="119" y="-720.3" font-family="Arial" font-size="10.00">🏁 Final</text>
+</g>
+<!-- lg_drop&#45;&gt;lg_final -->
+<!-- start -->
+<g class="node">
+<title>start</title>
+<path fill="#d1fae5" stroke="#059669" stroke-width="2" d="M568.14,-1306.97C568.14,-1306.97 437.86,-1306.97 437.86,-1306.97 431.86,-1306.97 425.86,-1300.97 425.86,-1294.97 425.86,-1294.97 425.86,-1282.97 425.86,-1282.97 425.86,-1276.97 431.86,-1270.97 437.86,-1270.97 437.86,-1270.97 568.14,-1270.97 568.14,-1270.97 574.14,-1270.97 580.14,-1276.97 580.14,-1282.97 580.14,-1282.97 580.14,-1294.97 580.14,-1294.97 580.14,-1300.97 574.14,-1306.97 568.14,-1306.97"/>
+<text xml:space="preserve" text-anchor="start" x="437.38" y="-1286.27" font-family="Arial" font-size="11.00">🚀 Project created — </text>
+<text xml:space="preserve" text-anchor="start" x="545.38" y="-1286.27" font-family="Arial" font-weight="bold" font-size="11.00">CPS</text>
+</g>
+<!-- s1_pic -->
+<g class="node">
+<title>s1_pic</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M585.02,-1233.97C585.02,-1233.97 420.98,-1233.97 420.98,-1233.97 414.98,-1233.97 408.98,-1227.97 408.98,-1221.97 408.98,-1221.97 408.98,-1209.97 408.98,-1209.97 408.98,-1203.97 414.98,-1197.97 420.98,-1197.97 420.98,-1197.97 585.02,-1197.97 585.02,-1197.97 591.02,-1197.97 597.02,-1203.97 597.02,-1209.97 597.02,-1209.97 597.02,-1221.97 597.02,-1221.97 597.02,-1227.97 591.02,-1233.97 585.02,-1233.97"/>
+<text xml:space="preserve" text-anchor="start" x="459.88" y="-1217.52" font-family="Arial" font-weight="bold" font-size="11.00">S1 · PROPOSED</text>
+<text xml:space="preserve" text-anchor="start" x="420.5" y="-1206.52" font-family="Arial" font-size="11.00">PIC adds the creator to the project</text>
+</g>
+<!-- start&#45;&gt;s1_pic -->
+<g class="edge">
+<title>start&#45;&gt;s1_pic</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M503,-1270.05C503,-1262.85 503,-1254.36 503,-1246.3"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="506.5,-1246.45 503,-1236.45 499.5,-1246.45 506.5,-1246.45"/>
+</g>
+<!-- s1_fill -->
+<g class="node">
+<title>s1_fill</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M582.77,-1160.97C582.77,-1160.97 423.23,-1160.97 423.23,-1160.97 417.23,-1160.97 411.23,-1154.97 411.23,-1148.97 411.23,-1148.97 411.23,-1136.97 411.23,-1136.97 411.23,-1130.97 417.23,-1124.97 423.23,-1124.97 423.23,-1124.97 582.77,-1124.97 582.77,-1124.97 588.77,-1124.97 594.77,-1130.97 594.77,-1136.97 594.77,-1136.97 594.77,-1148.97 594.77,-1148.97 594.77,-1154.97 588.77,-1160.97 582.77,-1160.97"/>
+<text xml:space="preserve" text-anchor="middle" x="503" y="-1139.27" font-family="Arial" font-size="11.00">👤 PIC fills in the creator&#39;s profile</text>
+</g>
+<!-- s1_pic&#45;&gt;s1_fill -->
+<g class="edge">
+<title>s1_pic&#45;&gt;s1_fill</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M503,-1197.42C503,-1190.03 503,-1181.22 503,-1172.91"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="506.5,-1173.13 503,-1163.13 499.5,-1173.13 506.5,-1173.13"/>
+</g>
+<!-- s1_cl -->
+<g class="node">
+<title>s1_cl</title>
+<path fill="#ffedd5" stroke="#ea580c" stroke-width="1.5" d="M587.64,-1087.97C587.64,-1087.97 418.36,-1087.97 418.36,-1087.97 412.36,-1087.97 406.36,-1081.97 406.36,-1075.97 406.36,-1075.97 406.36,-1063.97 406.36,-1063.97 406.36,-1057.97 412.36,-1051.97 418.36,-1051.97 418.36,-1051.97 587.64,-1051.97 587.64,-1051.97 593.64,-1051.97 599.64,-1057.97 599.64,-1063.97 599.64,-1063.97 599.64,-1075.97 599.64,-1075.97 599.64,-1081.97 593.64,-1087.97 587.64,-1087.97"/>
+<text xml:space="preserve" text-anchor="middle" x="503" y="-1066.27" font-family="Arial" font-size="11.00">Client reviews the proposed creator</text>
+</g>
+<!-- s1_fill&#45;&gt;s1_cl -->
+<g class="edge">
+<title>s1_fill&#45;&gt;s1_cl</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M503,-1124.42C503,-1117.03 503,-1108.22 503,-1099.91"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="506.5,-1100.13 503,-1090.13 499.5,-1100.13 506.5,-1100.13"/>
+</g>
+<!-- d1 -->
+<g class="node">
+<title>d1</title>
+<path fill="#f1f5f9" stroke="#475569" stroke-width="1.5" d="M492.46,-1009.23C492.46,-1009.23 440.25,-980.75 440.25,-980.75 434.98,-977.88 434.98,-972.14 440.25,-969.27 440.25,-969.27 492.46,-940.79 492.46,-940.79 497.73,-937.92 508.27,-937.92 513.54,-940.79 513.54,-940.79 565.75,-969.27 565.75,-969.27 571.02,-972.14 571.02,-977.88 565.75,-980.75 565.75,-980.75 513.54,-1009.23 513.54,-1009.23 508.27,-1012.1 497.73,-1012.1 492.46,-1009.23"/>
+<text xml:space="preserve" text-anchor="middle" x="503" y="-978.06" font-family="Arial" font-size="11.00">Client</text>
+<text xml:space="preserve" text-anchor="middle" x="503" y="-964.56" font-family="Arial" font-size="11.00">approves?</text>
+</g>
+<!-- s1_cl&#45;&gt;d1 -->
+<g class="edge">
+<title>s1_cl&#45;&gt;d1</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M503,-1051.48C503,-1044.54 503,-1036.16 503,-1027.55"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="506.5,-1027.59 503,-1017.59 499.5,-1027.59 506.5,-1027.59"/>
+</g>
+<!-- drop_s1 -->
+<g class="node">
+<title>drop_s1</title>
+<path fill="#ffe4e6" stroke="#e11d48" stroke-width="1.5" d="M328.27,-994.99C328.27,-994.99 249.73,-994.99 249.73,-994.99 243.73,-994.99 237.73,-988.99 237.73,-982.99 237.73,-982.99 237.73,-967.03 237.73,-967.03 237.73,-961.03 243.73,-955.03 249.73,-955.03 249.73,-955.03 328.27,-955.03 328.27,-955.03 334.27,-955.03 340.27,-961.03 340.27,-967.03 340.27,-967.03 340.27,-982.99 340.27,-982.99 340.27,-988.99 334.27,-994.99 328.27,-994.99"/>
+<text xml:space="preserve" text-anchor="middle" x="289" y="-978.06" font-family="Arial" font-size="11.00">⛔ Not selected</text>
+<text xml:space="preserve" text-anchor="middle" x="289" y="-964.56" font-family="Arial" font-size="11.00">Step 1 cancelled</text>
+</g>
+<!-- d1&#45;&gt;drop_s1 -->
+<g class="edge">
+<title>d1&#45;&gt;drop_s1</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M428.21,-975.01C403.52,-975.01 376.3,-975.01 352.53,-975.01"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="352.62,-971.51 342.62,-975.01 352.62,-978.51 352.62,-971.51"/>
+<text xml:space="preserve" text-anchor="middle" x="384.99" y="-980.71" font-family="Arial" font-size="9.00"> ✕ Rejected </text>
+</g>
+<!-- s2_appr -->
+<g class="node">
+<title>s2_appr</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M645.77,-887.8C645.77,-887.8 360.23,-887.8 360.23,-887.8 354.23,-887.8 348.23,-881.8 348.23,-875.8 348.23,-875.8 348.23,-863.8 348.23,-863.8 348.23,-857.8 354.23,-851.8 360.23,-851.8 360.23,-851.8 645.77,-851.8 645.77,-851.8 651.77,-851.8 657.77,-857.8 657.77,-863.8 657.77,-863.8 657.77,-875.8 657.77,-875.8 657.77,-881.8 651.77,-887.8 645.77,-887.8"/>
+<text xml:space="preserve" text-anchor="start" x="452.75" y="-871.35" font-family="Arial" font-size="11.00">👤 </text>
+<text xml:space="preserve" text-anchor="start" x="470.75" y="-871.35" font-family="Arial" font-weight="bold" font-size="11.00">S2 · LOGISTICS</text>
+<text xml:space="preserve" text-anchor="start" x="359.75" y="-860.35" font-family="Arial" font-size="11.00">The team approves the sample request outside this platform</text>
+</g>
+<!-- d1&#45;&gt;s2_appr -->
+<g class="edge">
+<title>d1&#45;&gt;s2_appr</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M503,-934.4C503,-922.96 503,-910.69 503,-900"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="506.5,-900.15 503,-890.15 499.5,-900.15 506.5,-900.15"/>
+<text xml:space="preserve" text-anchor="middle" x="567.12" y="-908.5" font-family="Arial" font-size="9.00"> ✓ Approved (auto&#45;advance) </text>
+</g>
+<!-- drop_s1&#45;&gt;d1 -->
+<!-- s2_log -->
+<g class="node">
+<title>s2_log</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M635.27,-814.8C635.27,-814.8 370.73,-814.8 370.73,-814.8 364.73,-814.8 358.73,-808.8 358.73,-802.8 358.73,-802.8 358.73,-790.8 358.73,-790.8 358.73,-784.8 364.73,-778.8 370.73,-778.8 370.73,-778.8 635.27,-778.8 635.27,-778.8 641.27,-778.8 647.27,-784.8 647.27,-790.8 647.27,-790.8 647.27,-802.8 647.27,-802.8 647.27,-808.8 641.27,-814.8 635.27,-814.8"/>
+<text xml:space="preserve" text-anchor="start" x="370.25" y="-794.1" font-family="Arial" font-size="11.00">👤 The team records it on the board: </text>
+<text xml:space="preserve" text-anchor="start" x="551" y="-794.1" font-family="Arial" font-weight="bold" font-size="11.00">a tick and a date</text>
+</g>
+<!-- s2_appr&#45;&gt;s2_log -->
+<g class="edge">
+<title>s2_appr&#45;&gt;s2_log</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M503,-851.25C503,-843.86 503,-835.05 503,-826.74"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="506.5,-826.96 503,-816.96 499.5,-826.96 506.5,-826.96"/>
+</g>
+<!-- s2_cl -->
+<g class="node">
+<title>s2_cl</title>
+<path fill="#ffedd5" stroke="#ea580c" stroke-width="1.5" d="M560.64,-741.8C560.64,-741.8 445.36,-741.8 445.36,-741.8 439.36,-741.8 433.36,-735.8 433.36,-729.8 433.36,-729.8 433.36,-717.8 433.36,-717.8 433.36,-711.8 439.36,-705.8 445.36,-705.8 445.36,-705.8 560.64,-705.8 560.64,-705.8 566.64,-705.8 572.64,-711.8 572.64,-717.8 572.64,-717.8 572.64,-729.8 572.64,-729.8 572.64,-735.8 566.64,-741.8 560.64,-741.8"/>
+<text xml:space="preserve" text-anchor="middle" x="503" y="-720.1" font-family="Arial" font-size="11.00">Client sends the product</text>
+</g>
+<!-- s2_log&#45;&gt;s2_cl -->
+<g class="edge">
+<title>s2_log&#45;&gt;s2_cl</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M503,-778.25C503,-770.86 503,-762.05 503,-753.74"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="506.5,-753.96 503,-743.96 499.5,-753.96 506.5,-753.96"/>
+</g>
+<!-- s2_stay -->
+<g class="node">
+<title>s2_stay</title>
+<path fill="#f3e8ff" stroke="#a855f7" stroke-width="1.5" d="M658.52,-668.8C658.52,-668.8 347.48,-668.8 347.48,-668.8 341.48,-668.8 335.48,-662.8 335.48,-656.8 335.48,-656.8 335.48,-644.8 335.48,-644.8 335.48,-638.8 341.48,-632.8 347.48,-632.8 347.48,-632.8 658.52,-632.8 658.52,-632.8 664.52,-632.8 670.52,-638.8 670.52,-644.8 670.52,-644.8 670.52,-656.8 670.52,-656.8 670.52,-662.8 664.52,-668.8 658.52,-668.8"/>
+<text xml:space="preserve" text-anchor="start" x="376.62" y="-651.35" font-family="Arial" font-size="11.00">The creator </text>
+<text xml:space="preserve" text-anchor="start" x="435.12" y="-651.35" font-family="Arial" font-weight="bold" font-size="11.00">stays on step 2</text>
+<text xml:space="preserve" text-anchor="start" x="513.88" y="-651.35" font-family="Arial" font-size="11.00"> for the life of the project</text>
+<text xml:space="preserve" text-anchor="start" x="347" y="-642.25" font-family="Arial" font-size="9.00">nothing records how many videos they owe, so no rule can call them finished</text>
+</g>
+<!-- s2_cl&#45;&gt;s2_stay -->
+<g class="edge">
+<title>s2_cl&#45;&gt;s2_stay</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M503,-705.25C503,-697.86 503,-689.05 503,-680.74"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="506.5,-680.96 503,-670.96 499.5,-680.96 506.5,-680.96"/>
+</g>
+<!-- s3_rec -->
+<g class="node">
+<title>s3_rec</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M621.02,-586.3C621.02,-586.3 384.98,-586.3 384.98,-586.3 378.98,-586.3 372.98,-580.3 372.98,-574.3 372.98,-574.3 372.98,-562.3 372.98,-562.3 372.98,-556.3 378.98,-550.3 384.98,-550.3 384.98,-550.3 621.02,-550.3 621.02,-550.3 627.02,-550.3 633.02,-556.3 633.02,-562.3 633.02,-562.3 633.02,-574.3 633.02,-574.3 633.02,-580.3 627.02,-586.3 621.02,-586.3"/>
+<text xml:space="preserve" text-anchor="start" x="411.12" y="-569.85" font-family="Arial" font-size="11.00">👤 </text>
+<text xml:space="preserve" text-anchor="start" x="429.12" y="-569.85" font-family="Arial" font-weight="bold" font-size="11.00">S3 · LINK SUBMISSION</text>
+<text xml:space="preserve" text-anchor="start" x="552.12" y="-569.85" font-family="Arial" font-size="11.00"> — video</text>
+<text xml:space="preserve" text-anchor="start" x="384.5" y="-558.85" font-family="Arial" font-size="11.00">PIC records a video the creator already published</text>
+</g>
+<!-- s2_stay&#45;&gt;s3_rec -->
+<g class="edge">
+<title>s2_stay&#45;&gt;s3_rec</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M503,-632.33C503,-622.48 503,-609.92 503,-598.61"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="506.5,-598.83 503,-588.83 499.5,-598.83 506.5,-598.83"/>
+<text xml:space="preserve" text-anchor="start" x="503" y="-607.25" font-family="Arial" font-size="9.00">⛔ </text>
+<text xml:space="preserve" text-anchor="start" x="517.25" y="-607.25" font-family="Arial" font-weight="bold" font-size="9.00">no video can be recorded until the sample tick is on the board</text>
+</g>
+<!-- s3_sys -->
+<g class="node">
+<title>s3_sys</title>
+<path fill="#cffafe" stroke="#0891b2" stroke-width="1.5" d="M625.14,-513.3C625.14,-513.3 380.86,-513.3 380.86,-513.3 374.86,-513.3 368.86,-507.3 368.86,-501.3 368.86,-501.3 368.86,-489.3 368.86,-489.3 368.86,-483.3 374.86,-477.3 380.86,-477.3 380.86,-477.3 625.14,-477.3 625.14,-477.3 631.14,-477.3 637.14,-483.3 637.14,-489.3 637.14,-489.3 637.14,-501.3 637.14,-501.3 637.14,-507.3 631.14,-513.3 625.14,-513.3"/>
+<text xml:space="preserve" text-anchor="middle" x="503" y="-491.6" font-family="Arial" font-size="11.00">⚙️⚡ System stores it and pulls what figures it can</text>
+</g>
+<!-- s3_rec&#45;&gt;s3_sys -->
+<g class="edge">
+<title>s3_rec&#45;&gt;s3_sys</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M503,-549.75C503,-542.36 503,-533.55 503,-525.24"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="506.5,-525.46 503,-515.46 499.5,-525.46 506.5,-525.46"/>
+</g>
+<!-- s3_chk -->
+<g class="node">
+<title>s3_chk</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M592.14,-440.3C592.14,-440.3 413.86,-440.3 413.86,-440.3 407.86,-440.3 401.86,-434.3 401.86,-428.3 401.86,-428.3 401.86,-416.3 401.86,-416.3 401.86,-410.3 407.86,-404.3 413.86,-404.3 413.86,-404.3 592.14,-404.3 592.14,-404.3 598.14,-404.3 604.14,-410.3 604.14,-416.3 604.14,-416.3 604.14,-428.3 604.14,-428.3 604.14,-434.3 598.14,-440.3 592.14,-440.3"/>
+<text xml:space="preserve" text-anchor="middle" x="503" y="-418.6" font-family="Arial" font-size="11.00">👤 PIC checks the right post went up</text>
+</g>
+<!-- s3_sys&#45;&gt;s3_chk -->
+<g class="edge">
+<title>s3_sys&#45;&gt;s3_chk</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M503,-476.75C503,-469.36 503,-460.55 503,-452.24"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="506.5,-452.46 503,-442.46 499.5,-452.46 506.5,-452.46"/>
+</g>
+<!-- d3 -->
+<g class="node">
+<title>d3</title>
+<path fill="#f1f5f9" stroke="#475569" stroke-width="1.5" d="M492.26,-361.94C492.26,-361.94 433.7,-332.7 433.7,-332.7 428.33,-330.02 428.33,-324.66 433.7,-321.98 433.7,-321.98 492.26,-292.74 492.26,-292.74 497.63,-290.06 508.37,-290.06 513.74,-292.74 513.74,-292.74 572.3,-321.98 572.3,-321.98 577.67,-324.66 577.67,-330.02 572.3,-332.7 572.3,-332.7 513.74,-361.94 513.74,-361.94 508.37,-364.62 497.63,-364.62 492.26,-361.94"/>
+<text xml:space="preserve" text-anchor="middle" x="503" y="-330.39" font-family="Arial" font-size="11.00">Post</text>
+<text xml:space="preserve" text-anchor="middle" x="503" y="-316.89" font-family="Arial" font-size="11.00">checks out?</text>
+</g>
+<!-- s3_chk&#45;&gt;d3 -->
+<g class="edge">
+<title>s3_chk&#45;&gt;d3</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M503,-403.81C503,-396.87 503,-388.49 503,-379.88"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="506.5,-379.92 503,-369.92 499.5,-379.92 506.5,-379.92"/>
+</g>
+<!-- s3_hold -->
+<g class="node">
+<title>s3_hold</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M339.27,-347.32C339.27,-347.32 164.73,-347.32 164.73,-347.32 158.73,-347.32 152.73,-341.32 152.73,-335.32 152.73,-335.32 152.73,-319.36 152.73,-319.36 152.73,-313.36 158.73,-307.36 164.73,-307.36 164.73,-307.36 339.27,-307.36 339.27,-307.36 345.27,-307.36 351.27,-313.36 351.27,-319.36 351.27,-319.36 351.27,-335.32 351.27,-335.32 351.27,-341.32 345.27,-347.32 339.27,-347.32"/>
+<text xml:space="preserve" text-anchor="middle" x="252" y="-330.39" font-family="Arial" font-size="11.00">🚩 Wrong link · the video holds here</text>
+<text xml:space="preserve" text-anchor="middle" x="252" y="-316.89" font-family="Arial" font-size="11.00">👤 PIC corrects it</text>
+</g>
+<!-- d3&#45;&gt;s3_hold -->
+<g class="edge">
+<title>d3&#45;&gt;s3_hold</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M421.54,-327.34C403.07,-327.34 383.13,-327.34 363.65,-327.34"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="363.74,-323.84 353.74,-327.34 363.74,-330.84 363.74,-323.84"/>
+<text xml:space="preserve" text-anchor="middle" x="387.12" y="-333.04" font-family="Arial" font-size="9.00"> ✕ Not right </text>
+</g>
+<!-- s4 -->
+<g class="node">
+<title>s4</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M555.39,-238.15C555.39,-238.15 450.61,-238.15 450.61,-238.15 444.61,-238.15 438.61,-232.15 438.61,-226.15 438.61,-226.15 438.61,-214.15 438.61,-214.15 438.61,-208.15 444.61,-202.15 450.61,-202.15 450.61,-202.15 555.39,-202.15 555.39,-202.15 561.39,-202.15 567.39,-208.15 567.39,-214.15 567.39,-214.15 567.39,-226.15 567.39,-226.15 567.39,-232.15 561.39,-238.15 555.39,-238.15"/>
+<text xml:space="preserve" text-anchor="start" x="458.38" y="-221.7" font-family="Arial" font-weight="bold" font-size="11.00">S4 · REPORTING</text>
+<text xml:space="preserve" text-anchor="start" x="450.12" y="-210.7" font-family="Arial" font-size="11.00">All six figures required</text>
+</g>
+<!-- d3&#45;&gt;s4 -->
+<g class="edge">
+<title>d3&#45;&gt;s4</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M503,-286.57C503,-274.57 503,-261.61 503,-250.42"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="506.5,-250.5 503,-240.5 499.5,-250.5 506.5,-250.5"/>
+<text xml:space="preserve" text-anchor="middle" x="565.25" y="-260.83" font-family="Arial" font-size="9.00"> ✓ PIC verifies → Reporting </text>
+</g>
+<!-- s3_hold&#45;&gt;d3 -->
+<g class="edge">
+<title>s3_hold&#45;&gt;d3</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M351.72,-314.04C370.57,-312.86 390.13,-312.54 408.49,-313.84 415.46,-314.34 422.69,-315.03 429.92,-315.85"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="429.47,-319.32 439.82,-317.06 430.32,-312.38 429.47,-319.32"/>
+<text xml:space="preserve" text-anchor="middle" x="387.12" y="-315.79" font-family="Arial" font-size="9.00"> corrected </text>
+</g>
+<!-- s3_hold&#45;&gt;d3 -->
+<!-- d4 -->
+<g class="node">
+<title>d4</title>
+<path fill="#f1f5f9" stroke="#475569" stroke-width="1.5" d="M492.49,-157.38C492.49,-157.38 440.97,-129 440.97,-129 435.72,-126.11 435.72,-120.31 440.97,-117.42 440.97,-117.42 492.49,-89.04 492.49,-89.04 497.74,-86.15 508.26,-86.15 513.51,-89.04 513.51,-89.04 565.03,-117.42 565.03,-117.42 570.28,-120.31 570.28,-126.11 565.03,-129 565.03,-129 513.51,-157.38 513.51,-157.38 508.26,-160.27 497.74,-160.27 492.49,-157.38"/>
+<text xml:space="preserve" text-anchor="middle" x="503" y="-126.26" font-family="Arial" font-size="11.00">All six</text>
+<text xml:space="preserve" text-anchor="middle" x="503" y="-112.76" font-family="Arial" font-size="11.00">figures in?</text>
+</g>
+<!-- s4&#45;&gt;d4 -->
+<g class="edge">
+<title>s4&#45;&gt;d4</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M503,-201.74C503,-194.2 503,-184.95 503,-175.49"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="506.5,-175.78 503,-165.78 499.5,-175.78 506.5,-175.78"/>
+</g>
+<!-- s4_cc -->
+<g class="node">
+<title>s4_cc</title>
+<path fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="5,2" d="M824.64,-240.13C824.64,-240.13 637.36,-240.13 637.36,-240.13 631.36,-240.13 625.36,-234.13 625.36,-228.13 625.36,-228.13 625.36,-212.17 625.36,-212.17 625.36,-206.17 631.36,-200.17 637.36,-200.17 637.36,-200.17 824.64,-200.17 824.64,-200.17 830.64,-200.17 836.64,-206.17 836.64,-212.17 836.64,-212.17 836.64,-228.13 836.64,-228.13 836.64,-234.13 830.64,-240.13 824.64,-240.13"/>
+<text xml:space="preserve" text-anchor="middle" x="731" y="-223.2" font-family="Arial" font-size="11.00">👁 Client sees every video the team</text>
+<text xml:space="preserve" text-anchor="middle" x="731" y="-209.7" font-family="Arial" font-size="11.00">records, from the moment it is recorded</text>
+</g>
+<!-- s4&#45;&gt;s4_cc -->
+<g class="edge">
+<title>s4&#45;&gt;s4_cc</title>
+<path fill="none" stroke="#ea580c" stroke-width="1.2" stroke-dasharray="5,2" d="M568.02,-220.15C583.07,-220.15 598.12,-220.15 613.17,-220.15"/>
+<polygon fill="#ea580c" stroke="#ea580c" stroke-width="1.2" points="612.86,-223.65 622.86,-220.15 612.86,-216.65 612.86,-223.65"/>
+</g>
+<!-- s4_hold -->
+<g class="node">
+<title>s4_hold</title>
+<path fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5" d="M352.52,-141.21C352.52,-141.21 143.48,-141.21 143.48,-141.21 137.48,-141.21 131.48,-135.21 131.48,-129.21 131.48,-129.21 131.48,-117.21 131.48,-117.21 131.48,-111.21 137.48,-105.21 143.48,-105.21 143.48,-105.21 352.52,-105.21 352.52,-105.21 358.52,-105.21 364.52,-111.21 364.52,-117.21 364.52,-117.21 364.52,-129.21 364.52,-129.21 364.52,-135.21 358.52,-141.21 352.52,-141.21"/>
+<text xml:space="preserve" text-anchor="middle" x="248" y="-119.51" font-family="Arial" font-size="11.00">🚩 A figure is missing · the video holds here</text>
+</g>
+<!-- d4&#45;&gt;s4_hold -->
+<g class="edge">
+<title>d4&#45;&gt;s4_hold</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M428.93,-123.21C412.52,-123.21 394.67,-123.21 376.79,-123.21"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="376.87,-119.71 366.87,-123.21 376.87,-126.71 376.87,-119.71"/>
+<text xml:space="preserve" text-anchor="middle" x="397.49" y="-128.91" font-family="Arial" font-size="9.00"> ✕ Something missing </text>
+</g>
+<!-- s5 -->
+<g class="node">
+<title>s5</title>
+<path fill="#d1fae5" stroke="#059669" stroke-width="2" d="M598.52,-36C598.52,-36 407.48,-36 407.48,-36 401.48,-36 395.48,-30 395.48,-24 395.48,-24 395.48,-12 395.48,-12 395.48,-6 401.48,0 407.48,0 407.48,0 598.52,0 598.52,0 604.52,0 610.52,-6 610.52,-12 610.52,-12 610.52,-24 610.52,-24 610.52,-30 604.52,-36 598.52,-36"/>
+<text xml:space="preserve" text-anchor="start" x="456.5" y="-19.55" font-family="Arial" font-size="11.00">🏁 </text>
+<text xml:space="preserve" text-anchor="start" x="474.5" y="-19.55" font-family="Arial" font-weight="bold" font-size="11.00">S5 · VERIFIED</text>
+<text xml:space="preserve" text-anchor="start" x="407" y="-8.55" font-family="Arial" font-size="11.00">PIC&#39;s final pass — the video is complete</text>
+</g>
+<!-- d4&#45;&gt;s5 -->
+<g class="edge">
+<title>d4&#45;&gt;s5</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M503,-82.6C503,-71.24 503,-59.06 503,-48.43"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="506.5,-48.62 503,-38.62 499.5,-48.62 506.5,-48.62"/>
+<text xml:space="preserve" text-anchor="middle" x="564.5" y="-56.7" font-family="Arial" font-size="9.00"> ✓ All six in → PIC confirms </text>
+</g>
+<!-- s4_hold&#45;&gt;d4 -->
+<g class="edge">
+<title>s4_hold&#45;&gt;d4</title>
+<path fill="none" stroke="#94a3b8" stroke-width="1.2" d="M364.94,-109.08C382.02,-108.39 399.39,-108.44 415.87,-109.71 422.42,-110.21 429.22,-110.93 436.01,-111.77"/>
+<polygon fill="#94a3b8" stroke="#94a3b8" stroke-width="1.2" points="435.19,-115.19 445.57,-113.05 436.12,-108.25 435.19,-115.19"/>
+<text xml:space="preserve" text-anchor="middle" x="397.49" y="-111.66" font-family="Arial" font-size="9.00"> typed in </text>
+</g>
+<!-- s4_hold&#45;&gt;d4 -->
+</g>
+</svg>
+      </div>
+      <figcaption>CPS Pipeline &middot; Develop Portal &mdash; Indonesia</figcaption>
+    </figure>
+
     <details class="layer2">
       <summary>The rules that bite, and who can open it</summary>
       <div class="layer2-body">
