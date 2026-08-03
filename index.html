@@ -168,11 +168,15 @@ p { max-width: var(--measure); }
 .mh-nav[data-ovf="end"]   { --mh-fade: linear-gradient(to right, #000 calc(100% - 34px), transparent); }
 .mh-nav[data-ovf="start"] { --mh-fade: linear-gradient(to left,  #000 calc(100% - 34px), transparent); }
 .mh-nav[data-ovf="both"]  { --mh-fade: linear-gradient(to right, transparent, #000 34px, #000 calc(100% - 34px), transparent); }
-.mh-nav a { padding: 4px 0; border-bottom: 1px solid transparent; position: relative; }
+.mh-nav a { padding: 4px 0; border-bottom: 1px solid transparent; }
+/* A tab is a link plus, where the project has deeper pages, a disclosure
+   button beside it — so the link still navigates and the panel is its own
+   target. The divider therefore hangs off the wrapper, not the link. */
+.mh-item { display: inline-flex; align-items: center; gap: 4px; position: relative; }
 /* Brass rule between tabs. Sits in the middle of the flex gap via a
    pseudo-element rather than a border, so the underline on the active
    tab stays a separate mark and nothing shifts when it appears. */
-.mh-nav a + a::before {
+.mh-item + .mh-item::before {
   content: "";
   position: absolute; left: -12px; top: 50%;
   transform: translateY(-50%);
@@ -182,6 +186,57 @@ p { max-width: var(--measure); }
 .mh-nav a[aria-current="page"] {
   color: var(--brass); border-bottom-color: var(--brass);
 }
+
+/* ─── masthead sub-page panels ───────────────────────────────── */
+/* Three of the five projects carry deeper pages — 9, 4 and 2 of them. The
+   only index of those used to be the last section of the parent page, so a
+   reader who moved around by the bar never learned the depth was there.
+   Click-only, never hover: a hover menu is unusable on a phone, and the
+   caret has to be a real button so Enter and Space reach it. */
+.mh-more {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; margin: -4px -6px -4px -2px;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  color: var(--brass-dk); flex: none;
+}
+.mh-more:hover { color: var(--brass); }
+.mh-more[aria-expanded="true"] { color: var(--brass); }
+.mh-more svg {
+  width: 9px; height: 9px;
+  fill: none; stroke: currentColor; stroke-width: 2.4;
+  stroke-linecap: round; stroke-linejoin: round;
+  transition: transform .18s;
+}
+.mh-more[aria-expanded="true"] svg { transform: rotate(180deg); }
+
+/* Full width rather than anchored under its tab: the bar scrolls sideways
+   on a narrow screen, and anything positioned inside that scroller is
+   clipped by it. */
+.mh-sub {
+  position: absolute; top: 100%; left: 0; right: 0; z-index: 5;
+  background: rgba(12,13,11,.97);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--rule);
+}
+.mh-sub-in { max-width: 1080px; margin: 0 auto; padding: 17px 32px 20px; }
+.mh-sub-h {
+  font-family: var(--mono); font-size: .625rem; text-transform: uppercase;
+  letter-spacing: .12em; color: var(--muted); margin: 0 0 11px;
+}
+.mh-sub-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+  gap: 0 26px;
+}
+.mh-sub-grid a {
+  display: flex; align-items: baseline; gap: 9px;
+  padding: 8px 0; border-bottom: 1px solid var(--rule);
+  font-family: var(--sans); font-size: .8125rem;
+  text-transform: none; letter-spacing: 0; color: var(--text-2);
+}
+.mh-sub-grid a:hover { color: var(--brass); }
+.mh-sub-n { font-family: var(--mono); font-size: .625rem; color: var(--brass-dk); flex: none; }
+@media (max-width: 560px) { .mh-sub-in { padding: 14px 20px 16px; } }
+@media print { .mh-more, .mh-sub { display: none !important; } }
 
 /* ─── view routing ───────────────────────────────────────────── */
 .view { display: block; }
@@ -1494,12 +1549,48 @@ body.lb-open { overflow: hidden; }
   <div class="wrap">
     <a href="#" class="mh-name">Xavier Tan</a>
     <nav class="mh-nav" aria-label="Projects">
-      <a href="#creator-erp"    data-view="creator-erp">Creator ERP</a>
-      <a href="#wa-agent"       data-view="wa-agent">WA Agent</a>
-      <a href="#endorsement"    data-view="endorsement">Endorsement Platform</a>
-      <a href="#extractors"     data-view="extractors">Extractor / Scraper</a>
-      <a href="#property-tooling" data-view="property-tooling">Property Tooling</a>
+      <span class="mh-item"><a href="#creator-erp" data-view="creator-erp">Creator ERP</a><button type="button" class="mh-more" aria-expanded="false" aria-controls="mh-sub-creator-erp" aria-label="Show the nine areas inside Creator ERP"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button></span>
+      <span class="mh-item"><a href="#wa-agent" data-view="wa-agent">WA Agent</a><button type="button" class="mh-more" aria-expanded="false" aria-controls="mh-sub-wa-agent" aria-label="Show the four deployments inside WA Agent"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button></span>
+      <span class="mh-item"><a href="#endorsement" data-view="endorsement">Endorsement Platform</a></span>
+      <span class="mh-item"><a href="#extractors" data-view="extractors">Extractor / Scraper</a></span>
+      <span class="mh-item"><a href="#property-tooling" data-view="property-tooling">Property Tooling</a><button type="button" class="mh-more" aria-expanded="false" aria-controls="mh-sub-property-tooling" aria-label="Show the two tools inside Property Tooling"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button></span>
     </nav>
+  </div>
+  <div class="mh-sub" id="mh-sub-creator-erp" hidden>
+    <div class="mh-sub-in">
+      <p class="mh-sub-h">Creator ERP &middot; nine areas</p>
+      <div class="mh-sub-grid">
+        <a href="#erp-platforms"><span class="mh-sub-n">01.1</span>Portals</a>
+        <a href="#erp-roles"><span class="mh-sub-n">01.2</span>User &amp; Role</a>
+        <a href="#erp-country"><span class="mh-sub-n">01.3</span>Multiple Country</a>
+        <a href="#erp-endorse"><span class="mh-sub-n">01.4</span>Endorsement Pipeline</a>
+        <a href="#erp-cps"><span class="mh-sub-n">01.5</span>CPS Pipeline</a>
+        <a href="#erp-agentic"><span class="mh-sub-n">01.6</span>Agentic Journey</a>
+        <a href="#erp-contract"><span class="mh-sub-n">01.7</span>Contract</a>
+        <a href="#erp-extractor"><span class="mh-sub-n">01.8</span>Extractor</a>
+        <a href="#erp-creators"><span class="mh-sub-n">01.9</span>Creator Profile</a>
+      </div>
+    </div>
+  </div>
+  <div class="mh-sub" id="mh-sub-wa-agent" hidden>
+    <div class="mh-sub-in">
+      <p class="mh-sub-h">WA Agent &middot; four deployments</p>
+      <div class="mh-sub-grid">
+        <a href="#wa-afterdark"><span class="mh-sub-n">02.1</span>Maya &mdash; The Bar Agent</a>
+        <a href="#wa-jephie"><span class="mh-sub-n">02.2</span>Jephie &mdash; The Property Assistant</a>
+        <a href="#wa-cps"><span class="mh-sub-n">02.3</span>Creator Helpdesk Agent</a>
+        <a href="#wa-post"><span class="mh-sub-n">02.4</span>Social Post Agent</a>
+      </div>
+    </div>
+  </div>
+  <div class="mh-sub" id="mh-sub-property-tooling" hidden>
+    <div class="mh-sub-in">
+      <p class="mh-sub-h">Property Tooling &middot; two tools</p>
+      <div class="mh-sub-grid">
+        <a href="#property-finder"><span class="mh-sub-n">05.1</span>Property Finder</a>
+        <a href="#property-analysis"><span class="mh-sub-n">05.2</span>Property Analysis</a>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -9418,6 +9509,17 @@ body.lb-open { overflow: hidden; }
   // readable document rather than a blank screen.
   document.body.classList.add("routed");
 
+  var PARENT = {
+    "erp-platforms": "creator-erp", "erp-roles":     "creator-erp",
+    "erp-country":   "creator-erp", "erp-endorse":   "creator-erp",
+    "erp-cps":       "creator-erp", "erp-agentic":   "creator-erp",
+    "erp-contract":  "creator-erp", "erp-extractor": "creator-erp",
+    "erp-creators":  "creator-erp",
+    "wa-afterdark":  "wa-agent",    "wa-jephie":     "wa-agent",
+    "wa-cps":        "wa-agent",    "wa-post":       "wa-agent",
+    "property-finder": "property-tooling", "property-analysis": "property-tooling"
+  };
+
   function viewEl(name) { return document.getElementById("view-" + name); }
 
   // ── masthead nav overflow ───────────────────────────────────
@@ -9439,7 +9541,56 @@ body.lb-open { overflow: hidden; }
     window.addEventListener("resize", navOverflow);
   }
 
+  // ── masthead sub-page panels ────────────────────────────────
+  // Three of the five projects carry deeper pages. Click-only, never hover:
+  // a hover menu cannot be dismissed on a phone, and the caret is a real
+  // button so Enter and Space open it.
+  var subs  = Array.prototype.slice.call(document.querySelectorAll(".mh-sub"));
+  var mores = Array.prototype.slice.call(document.querySelectorAll(".mh-more"));
+
+  function openSub() {
+    for (var i = 0; i < mores.length; i++) {
+      if (mores[i].getAttribute("aria-expanded") === "true") return mores[i];
+    }
+    return null;
+  }
+
+  function closeSubs(refocus) {
+    mores.forEach(function (b) { b.setAttribute("aria-expanded", "false"); });
+    subs.forEach(function (panel) { panel.hidden = true; });
+    if (refocus) refocus.focus();
+  }
+
+  mores.forEach(function (btn) {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      var panel = document.getElementById(btn.getAttribute("aria-controls"));
+      var wasOpen = btn.getAttribute("aria-expanded") === "true";
+      closeSubs(null);
+      if (!wasOpen && panel) {
+        btn.setAttribute("aria-expanded", "true");
+        panel.hidden = false;
+      }
+    });
+  });
+
+  // A click anywhere else dismisses. Clicks inside a panel are left alone —
+  // following one of its links changes the hash, and route() closes it.
+  document.addEventListener("click", function (e) {
+    var t = e.target;
+    if (t && t.closest && (t.closest(".mh-sub") || t.closest(".mh-more"))) return;
+    closeSubs(null);
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    var btn = openSub();
+    if (btn) closeSubs(btn);
+  });
+
   function route() {
+    closeSubs(null);
+
     var name = (location.hash || "").replace(/^#/, "");
     if (VIEWS.indexOf(name) === -1) name = "home";
 
@@ -9462,9 +9613,11 @@ body.lb-open { overflow: hidden; }
       if (h) h.focus({ preventScroll: true });
     }
 
-    // Mark the current project in the masthead nav. A deployment sub-page has no
-    // nav entry of its own, so it lights up its parent project instead.
-    var navName = (name.indexOf("wa-") === 0 && name !== "wa-agent") ? "wa-agent" : name;
+    // Mark the current project in the masthead nav. A sub-page has no nav entry
+    // of its own, so it lights up its parent project instead. Note erp-cps and
+    // wa-cps are different pages under different parents — a prefix test on
+    // "wa-" alone used to leave all nine ERP areas lighting nothing.
+    var navName = PARENT[name] || name;
     Array.prototype.forEach.call(
       document.querySelectorAll(".mh-nav a"),
       function (a) {
