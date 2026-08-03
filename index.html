@@ -1000,6 +1000,18 @@ details.layer2[open] > summary::before { content: "\2212"; }
 details.layer2 > summary:hover { background: var(--brass-bg); border-color: var(--brass); }
 details.layer2 > summary:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
 .layer2-body { padding-top: 8px; }
+/* Each of the three points opens with a titled line and its own icon, so the
+   argument can be read from the titles alone without touching the prose.
+   h3 is the correct level here: the toggle sits directly under the section's
+   h2 with nothing between, and 15px is the block-icon size already in use. */
+.l2-h {
+  display: flex; align-items: center; gap: 9px;
+  margin: 26px 0 8px; padding: 0;
+  font-family: var(--sans); font-size: .9375rem; font-weight: 600;
+  letter-spacing: -.005em; color: var(--text); text-transform: none;
+}
+.l2-h .blk-ico { color: var(--brass-dk); }
+.layer2-body > .l2-h:first-child { margin-top: 2px; }
 
 /* Figure numbering covers layer 1 only. A collapsed <details> generates no
    boxes, so counting inside it would renumber every later figure the moment
@@ -2136,57 +2148,43 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>How the authorisation is built</summary>
       <div class="layer2-body">
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-key"/></svg>Permissions live in the database</h3>
         <p>
-          <b>Permissions live in the database, not in page code.</b> Access travels through
-          predicates &mdash; <code>can_access_project</code>, <code>is_operator_elevated</code>,
-          <code>user_role</code> &mdash; evaluated by 240 row-level-security policies and 40 database
-          functions rather than by checks written into each page. Application checks stay correct
-          right up until someone adds a page and forgets one; with the rule held in the database, a
-          query written wrongly returns nothing instead of another client's rows. Row-level security
-          filters rows but not columns, so every client-facing read additionally routes through a
-          narrow view that does not select the bearer tokens, fee data and banking fields the base
-          tables carry &mdash; the safest version of <em>they must not see this</em> is that it was
-          never in the result. Country behaves the same way, as an input rather than a label:
-          <code>ID</code>, <code>MY</code> and <code>VN</code> each decide the currency, the date
-          locale, which banking fields are required, whether a national ID is collected, which
-          contract template is used and which numbering sequence it draws from &mdash; which is what
-          keeps a fourth market a configuration exercise instead of a rewrite.
+          Access travels through predicates &mdash; <code>can_access_project</code>,
+          <code>is_operator_elevated</code>, <code>user_role</code> &mdash; evaluated by 240
+          row-level-security policies and 40 database functions rather than by checks written into
+          each page. A check written into a page stays correct right up until someone adds a page and
+          forgets one, whereas a rule held in the database means a query written wrongly returns
+          nothing instead of another client's rows. Row-level security filters rows but not columns,
+          so every client-facing read also routes through a narrow view that never selects the bearer
+          tokens, fee data and banking fields the base tables carry.
         </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bolt"/></svg>Work nobody has to remember to do</h3>
         <p>
-          <b>What that buys is work nobody has to remember to do.</b> Contracts assemble themselves
-          the moment the last required field lands, from either the board or the product tab, with no
-          operator "generate" step; statutory withholding is computed at document-build time rather
-          than typed; contract numbers sequence per country; deliverables spawn from the contracted
-          quantities when a creator crosses into production; shipment release is triggered by
-          contract verification rather than by someone flipping a flag; and role changes take effect
-          immediately, including revoking live sessions. The party given the least friction is
-          deliberately the one hardest to chase &mdash; creators never authenticate at all, signing
-          contracts, submitting drafts and uploading video through tokenised links without an account
-          ever existing, with uploads going straight to storage through signed URLs that bypass the
-          serverless request-body ceiling. Before any of it, four parties each needed a different
-          slice of the same record, and every slice stayed current only because somebody was
-          re-typing it somewhere else.
+          Contracts assemble themselves the moment the last required field lands, with statutory
+          withholding computed at document-build time rather than typed, contract numbers sequencing
+          per country, and deliverables spawning from the contracted quantities when a creator crosses
+          into production. Shipment release is triggered by contract verification rather than by
+          someone flipping a flag, and a role change takes effect immediately, including revoking live
+          sessions. The party given the least friction is deliberately the one hardest to chase
+          &mdash; creators never authenticate at all, signing contracts and uploading video through
+          tokenised links whose signed URLs bypass the serverless request-body ceiling, without an
+          account ever existing.
         </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>The assistant that was engineered out</h3>
         <p>
-          <b>The decision worth naming is what came out.</b> An earlier LLM assistant billed tokens
-          per conversation turn and leaned on an unofficial WhatsApp client that carried real ban risk
-          for the number. It worked, and it left the live path anyway, because what it cost and what
-          it risked had stopped being worth what it returned &mdash; but it was engineered out rather
-          than deleted: source frozen under a checksum-pinned archive, a four-document restart
-          runbook, the live path collapsed to a single branch, and the whole thing reversible without
-          a database migration. The WhatsApp worker sits outside the web app as a separate 72-file
-          Node process, which is precisely what made pulling it a contained decision rather than a
-          refactor, and what lets a different messaging route go back in the same way.
-          <a href="#erp-agentic">See V3 &mdash; the Agentic Journey &rarr;</a> What remains is roughly
-          51,000 lines of TypeScript across 299 source files &mdash; 108 React components, 27 page
-          routes, 12 API routes and 158 exported Server Actions over 51 modules, against 40 tables and
-          views built by 190 migrations &mdash; with 796 tests across 44 files running in about five
-          seconds, which is the figure that actually matters, because a suite that fast gets run. The
-          executive reporting surface is bilingual, English and Simplified Chinese, with an automated
-          test that fails the build when a translation is missing. 860 commits over roughly two and a
-          half months.
+          An earlier LLM assistant billed tokens per conversation turn and leaned on an unofficial
+          WhatsApp client that carried real ban risk for the number, so it left the live path even
+          though it worked. It was engineered out rather than deleted &mdash; source frozen under a
+          checksum-pinned archive, a four-document restart runbook, the live path collapsed to a
+          single branch, and the whole thing reversible without a database migration. That stayed a
+          contained decision only because the WhatsApp worker sits outside the web app as a separate
+          72-file Node process, which is also what lets a different messaging route go back in the
+          same way. <a href="#erp-agentic">See V3 &mdash; the Agentic Journey &rarr;</a>
         </p>
-</div>
+      </div>
     </details>
 
     <div class="sec-head">
