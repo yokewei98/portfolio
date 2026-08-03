@@ -1437,6 +1437,20 @@ body.lb-open { overflow: hidden; }
       <path d="M7.4 7.6h9.2l-.2 2.2H9.8l.15 2.2h6.3l-.55 5.6L12 18.6l-3.7-1v-2.3h1.8v1l1.9.5 1.9-.5.2-2H8.2L7.4 7.6Z" fill="#fff"/>
     </symbol>
 
+    <!-- Wix mark, verbatim from simple-icons (CC0). Wix ships it black, which
+         would vanish on this background, so it takes the reversed treatment. -->
+    <symbol id="l-wix" viewBox="0 0 24 24">
+      <path fill="#fff" d="m0 7.354 2.113 9.292h.801a1.54 1.54 0 0 0 1.506-1.218l1.351-6.34a.171.171 0 0 1 .167-.137c.08 0 .15.058.167.137l1.352 6.34a1.54 1.54 0 0 0 1.506 1.218h.805l2.113-9.292h-.565c-.62 0-1.159.43-1.296 1.035l-1.26 5.545-1.106-5.176a1.76 1.76 0 0 0-2.19-1.324c-.639.176-1.113.716-1.251 1.365l-1.094 5.127-1.26-5.537A1.33 1.33 0 0 0 .563 7.354H0zm13.992 0a.951.951 0 0 0-.951.95v8.342h.635a.952.952 0 0 0 .951-.95V7.353h-.635zm1.778 0 3.158 4.66-3.14 4.632h1.325c.368 0 .712-.181.918-.486l1.756-2.59a.12.12 0 0 1 .197 0l1.754 2.59c.206.305.55.486.918.486h1.326l-3.14-4.632L24 7.354h-1.326c-.368 0-.712.181-.918.486l-1.772 2.617a.12.12 0 0 1-.197 0L18.014 7.84a1.108 1.108 0 0 0-.918-.486H15.77z"/>
+    </symbol>
+    <!-- Google "G", verbatim from Google's own 48dp button asset. Its native
+         grid is 120, not 24, so the chip that uses it matches that viewBox. -->
+    <symbol id="l-google" viewBox="0 0 120 120">
+      <path fill="#4285F4" d="M117.6,61.3636364 C117.6,57.1090909 117.218182,53.0181818 116.509091,49.0909091 L60,49.0909091 L60,72.3 L92.2909091,72.3 C90.9,79.8 86.6727273,86.1545455 80.3181818,90.4090909 L80.3181818,105.463636 L99.7090909,105.463636 C111.054545,95.0181818 117.6,79.6363636 117.6,61.3636364 L117.6,61.3636364 Z"/>
+      <path fill="#34A853" d="M60,120 C76.2,120 89.7818182,114.627273 99.7090909,105.463636 L80.3181818,90.4090909 C74.9454545,94.0090909 68.0727273,96.1363636 60,96.1363636 C44.3727273,96.1363636 31.1454545,85.5818182 26.4272727,71.4 L6.38181818,71.4 L6.38181818,86.9454545 C16.2545455,106.554545 36.5454545,120 60,120 L60,120 Z"/>
+      <path fill="#FBBC05" d="M26.4272727,71.4 C25.2272727,67.8 24.5454545,63.9545455 24.5454545,60 C24.5454545,56.0454545 25.2272727,52.2 26.4272727,48.6 L26.4272727,33.0545455 L6.38181818,33.0545455 C2.31818182,41.1545455 0,50.3181818 0,60 C0,69.6818182 2.31818182,78.8454545 6.38181818,86.9454545 L26.4272727,71.4 L26.4272727,71.4 Z"/>
+      <path fill="#EA4335" d="M60,23.8636364 C68.8090909,23.8636364 76.7181818,26.8909091 82.9363636,32.8363636 L100.145455,15.6272727 C89.7545455,5.94545455 76.1727273,0 60,0 C36.5454545,0 16.2545455,13.4454545 6.38181818,33.0545455 L26.4272727,48.6 C31.1454545,34.4181818 44.3727273,23.8636364 60,23.8636364 L60,23.8636364 Z"/>
+    </symbol>
+
     <!-- ── category glyphs: monochrome stroke, for things that are not
          products and therefore have no logo to borrow ── -->
     <symbol id="g-lock" viewBox="0 0 24 24">
@@ -1865,6 +1879,16 @@ body.lb-open { overflow: hidden; }
               <div class="tools">
                 <span class="tool"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#l-vercel"/></svg>Vercel</span>
                 <span class="tool"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#l-node"/></svg>Node.js</span>
+              </div>
+            </li>
+            <li>
+              <b><svg class="ico skill-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-globe"/></svg>Company web &amp; email setup</b>
+              <span>Getting a company online and its mail working: domain registration and DNS, Google Workspace accounts and routing, shared cPanel hosting.</span>
+              <div class="tools">
+                <span class="tool"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-route"/></svg>Domains &amp; DNS</span>
+                <span class="tool"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#l-wix"/></svg>Wix</span>
+                <span class="tool"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#l-google"/></svg>Google Workspace</span>
+                <span class="tool"><img src="data:image/png;base64,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" alt="" width="15" height="15">Jagoan Hosting</span>
               </div>
             </li>
           </ul>
