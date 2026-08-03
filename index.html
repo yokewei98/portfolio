@@ -153,8 +153,21 @@ p { max-width: var(--measure); }
   display: flex; gap: 22px; align-items: center;
   overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;
   white-space: nowrap; margin-left: 28px;
+  scroll-behavior: smooth;
 }
 .mh-nav::-webkit-scrollbar { display: none; }
+/* Six tabs stop fitting below roughly 950px. The bar already scrolled, but
+   with the scrollbar hidden there was nothing to say so — the tabs past the
+   edge simply read as absent. Fade whichever side still has tabs beyond it.
+   A mask rather than a background gradient, so the masthead's blur shows
+   through instead of a flat block of colour sitting on top of it. */
+.mh-nav[data-ovf] {
+  -webkit-mask-image: var(--mh-fade);
+          mask-image: var(--mh-fade);
+}
+.mh-nav[data-ovf="end"]   { --mh-fade: linear-gradient(to right, #000 calc(100% - 34px), transparent); }
+.mh-nav[data-ovf="start"] { --mh-fade: linear-gradient(to left,  #000 calc(100% - 34px), transparent); }
+.mh-nav[data-ovf="both"]  { --mh-fade: linear-gradient(to right, transparent, #000 34px, #000 calc(100% - 34px), transparent); }
 .mh-nav a { padding: 4px 0; border-bottom: 1px solid transparent; position: relative; }
 /* Brass rule between tabs. Sits in the middle of the flex gap via a
    pseudo-element rather than a border, so the underline on the active
@@ -184,6 +197,7 @@ body.routed .view.active { display: block; }
 @media (prefers-reduced-motion: reduce) {
   .view.in .reveal { animation: none; }
   * { transition: none !important; }
+  .mh-nav { scroll-behavior: auto; }
 }
 
 /* ═══ OVERVIEW ═══════════════════════════════════════════════ */
@@ -7641,7 +7655,7 @@ body.lb-open { overflow: hidden; }
 
 <figure class="shot">
       <img src="shots/feng-shui-floorplan.webp" width="1440" height="962" alt="The Property Analysis dashboard on one shortlisted project: developer, tenure, density, maintenance fee and shuttle van at the top, a financing summary with the estimated monthly instalment, and beneath them the unit layout and the building floor plan showing where the unit sits.">
-      <figcaption>Figure 06 &mdash; the comparison table, all four projects side by side.</figcaption>
+      <figcaption>One candidate in full &mdash; the financing summary, the unit layout, and where it sits on the floor plate.</figcaption>
     </figure>
 
     <div class="stats metrics reveal" style="--d:.32s">
@@ -7809,6 +7823,17 @@ body.lb-open { overflow: hidden; }
       </figcaption>
     </figure>
 
+    <figure class="shot">
+      <div class="shot-frame">
+        <div class="shot-bar"><i></i><i></i><i></i><span>yokewei98.github.io/feng-shui-property</span></div>
+        <img src="shots/property-analysis-comparison.webp" width="1368" height="580" alt="The comparison table with the four shortlisted projects as rows — Mulberi Residences, LSH Cheras, JRK Convena and PSV 1 Residences — across columns for tenure, nearest transit hub, shuttle van, price range, key disadvantage and key benefit. JRK Convena's disadvantage reads balcony faces graveyard, slow lift, only 3 for the whole building; PSV 1's reads balcony faces mosque.">
+      </div>
+      <figcaption>
+        <b>The same four rows the decision was actually made on.</b> Freehold against leasehold,
+        RM 479k to RM 631k &mdash; and the two entries in red that no listing carries.
+      </figcaption>
+    </figure>
+
     <details class="layer2">
       <summary>How the comparison is built</summary>
       <div class="layer2-body">
@@ -7944,6 +7969,25 @@ body.lb-open { overflow: hidden; }
 
   function viewEl(name) { return document.getElementById("view-" + name); }
 
+  // ── masthead nav overflow ───────────────────────────────────
+  // Below roughly 950px the six tabs exceed the bar. Mark which edge still
+  // has tabs past it so the CSS can fade that side; without the cue a
+  // scrolled-away tab is indistinguishable from one that does not exist.
+  var mhNav = document.querySelector(".mh-nav");
+
+  function navOverflow() {
+    if (!mhNav) return;
+    var max = mhNav.scrollWidth - mhNav.clientWidth;
+    if (max <= 1) { mhNav.removeAttribute("data-ovf"); return; }
+    var x = mhNav.scrollLeft;
+    mhNav.setAttribute("data-ovf", x <= 1 ? "end" : (x >= max - 1 ? "start" : "both"));
+  }
+
+  if (mhNav) {
+    mhNav.addEventListener("scroll", navOverflow, { passive: true });
+    window.addEventListener("resize", navOverflow);
+  }
+
   function route() {
     var name = (location.hash || "").replace(/^#/, "");
     if (VIEWS.indexOf(name) === -1) name = "home";
@@ -7977,6 +8021,12 @@ body.lb-open { overflow: hidden; }
         else a.removeAttribute("aria-current");
       }
     );
+
+    // Pull the current tab into view. On a narrow bar it can sit past the
+    // edge, which is exactly how a working tab reads as a broken one.
+    var cur = mhNav && mhNav.querySelector('a[aria-current="page"]');
+    if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: "nearest", inline: "nearest" });
+    navOverflow();
 
     window.scrollTo(0, 0);
   }
