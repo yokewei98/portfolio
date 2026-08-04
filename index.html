@@ -691,6 +691,10 @@ body.routed .view.active { display: block; }
 .try-btn.try-web { border-left-color: var(--brass); }
 .try-btn.try-web:hover, .try-btn.try-web:focus-visible { border-color: var(--brass); }
 .try-btn.try-web .try-go { color: var(--brass); }
+/* The glyph strokes with currentColor, which .try-top sets to --text. Set the
+   colour on the icon itself so it carries the accent like the WhatsApp mark
+   does on the green buttons, rather than sitting near-white beside it. */
+.try-btn.try-web .try-top .ico { color: var(--brass); }
 
 /* Headings lead with an icon. */
 .section-head h2 { display: flex; align-items: center; gap: 13px; }
