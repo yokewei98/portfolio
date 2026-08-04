@@ -692,6 +692,14 @@ body.routed .view.active { display: block; }
 }
 @media (max-width: 560px) { .try-btn { min-width: 0; flex: 1 1 100%; } }
 
+/* A deployed web app is not a WhatsApp agent. The green above is WhatsApp's
+   own brand colour and belongs only to the numbers you message; anything that
+   opens in a browser takes the page's single accent instead. */
+.try-tag.try-web { color: var(--brass); border-color: var(--brass); }
+.try-btn.try-web { border-left-color: var(--brass); }
+.try-btn.try-web:hover, .try-btn.try-web:focus-visible { border-color: var(--brass); }
+.try-btn.try-web .try-go { color: var(--brass); }
+
 /* Headings lead with an icon. */
 .section-head h2 { display: flex; align-items: center; gap: 13px; }
 .head-ico { width: 25px; height: 25px; color: var(--brass); flex: none; }
@@ -8684,10 +8692,27 @@ body.lb-open { overflow: hidden; }
         <li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-route"/></svg>GraphHopper</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-js"/></svg>Vanilla JavaScript</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>GitHub Pages</li>
       </ul>
       <p class="metrics-note reveal" style="--d:.26s; margin:22px 0 0">
-        Both are personal projects, built for one buyer and one decision. Neither has users,
-        revenue, or a production deployment, and neither claims any.
+        Both are personal projects, built for one buyer and one decision. Both are deployed so
+        anyone can open them, but neither has users or revenue, and neither claims any.
       </p>
       <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><circle class="em-dim" cx="12" cy="28" r="2"/><circle class="em-dim" cx="28" cy="28" r="2"/><circle class="em-dim" cx="44" cy="28" r="2"/><circle class="em-dim" cx="60" cy="28" r="2"/><circle class="em-dim" cx="12" cy="48" r="2"/><circle class="em-dim" cx="28" cy="48" r="2"/><circle class="em-dim" cx="44" cy="48" r="2"/><circle class="em-dim" cx="60" cy="48" r="2"/><circle class="em-dim" cx="12" cy="68" r="2"/><circle class="em-dim" cx="28" cy="68" r="2"/><circle class="em-dim" cx="44" cy="68" r="2"/><circle class="em-dim" cx="60" cy="68" r="2"/><circle class="em-dim" cx="12" cy="88" r="2"/><circle class="em-dim" cx="28" cy="88" r="2"/><circle class="em-dim" cx="44" cy="88" r="2"/><circle class="em-dim" cx="60" cy="88" r="2"/><circle class="em-dim" cx="12" cy="108" r="2"/><circle class="em-dim" cx="28" cy="108" r="2"/><circle class="em-dim" cx="44" cy="108" r="2"/><circle class="em-dim" cx="60" cy="108" r="2"/><path class="em-dim" d="M70 26 L102 74"/><path class="em-dim" d="M70 110 L102 74"/><path class="em-ln" d="M102 74 H132"/><rect class="em-dim" x="132" y="30" width="60" height="16" rx="2"/><rect class="em-dim" x="132" y="52" width="60" height="16" rx="2"/><rect class="em-fill" x="132" y="74" width="60" height="16" rx="2"/><rect class="em-dim" x="132" y="96" width="60" height="16" rx="2"/></svg></figure>
+    </div>
+
+    <div class="try-intro">
+      <span class="try-tag try-web">Try it live</span>
+      <p>Both tools are deployed and open to anyone. Search the seventy-one, then compare the four that survived.</p>
+    </div>
+    <div class="try-live">
+      <a class="try-btn try-web" href="https://property-finder-henna.vercel.app/" target="_blank" rel="noopener noreferrer">
+        <span class="try-top"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-map"/></svg>Open Property Finder</span>
+        <span class="try-sub">71 projects on a map, with walk and drive times routed along real streets</span>
+        <span class="try-go">Opens the live app &rarr;</span>
+      </a>
+      <a class="try-btn try-web" href="https://yokewei98.github.io/feng-shui-property-dashboard/" target="_blank" rel="noopener noreferrer">
+        <span class="try-top"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-compass"/></svg>Open Property Analysis</span>
+        <span class="try-sub">Four shortlisted projects side by side, with the photographs attached</span>
+        <span class="try-go">Opens the live dashboard &rarr;</span>
+      </a>
     </div>
 
     <div class="sec-head">
@@ -8878,7 +8903,7 @@ body.lb-open { overflow: hidden; }
 
         <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>Neither is production software</h3>
         <p>
-          Neither is production software: one user, one purchase, and no deployment beyond a static page. The claims made here are about judgement under a real constraint, not about scale. The sub-pages are written to be read that way, and neither counts a user it does not have.
+          Neither is production software: one user, one purchase, and a public deployment that exists so the work can be opened rather than because anyone depends on it. The claims made here are about judgement under a real constraint, not about scale. The sub-pages are written to be read that way, and neither counts a user it does not have.
         </p>
       </div>
     </details>
@@ -8900,7 +8925,7 @@ body.lb-open { overflow: hidden; }
       <p class="eyebrow reveal" style="--d:.06s"><span class="num">05.1</span> &nbsp;&middot;&nbsp; Property Tooling &middot; Search stage</p>
       <h1 class="reveal" style="--d:.1s" tabindex="-1">Property Finder</h1>
       <p class="proj-purpose reveal" style="--d:.16s">
-        A local-first geospatial decision-support tool for residential property search, built to
+        A geospatial decision-support tool for residential property search, built to
         solve one data-quality problem: property portals advertise straight-line or marketing
         distances to transit, which are unreliable.
       </p>
@@ -8913,10 +8938,23 @@ body.lb-open { overflow: hidden; }
         <li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-prisma"/></svg>Prisma 6.5 / SQLite</li><li><svg class="chip-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#l-leaflet"/></svg>Leaflet 1.9</li><li><svg class="chip-ico mono" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-route"/></svg>GraphHopper 10</li>
       </ul>
       <p class="metrics-note reveal" style="--d:.26s; margin:22px 0 0">
-        Personal project &mdash; single-user and local-only by design. No auth, no cloud deployment,
-        no user base.
+        Personal project &mdash; one user, no auth, no user base. The app is deployed and readable by
+        anyone; the enrichment pipeline behind it still runs locally, because the routing engine is a
+        local JAR against a 246&nbsp;MB extract.
       </p>
       <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><rect class="em-ln" x="10" y="12" width="180" height="126" rx="4"/><path class="em-dim" d="M10 52l52-18 60 22 68-20M10 104l44-14 62 20 74-18"/><path class="em-dim" d="M30 138l30-52 50 16 36-52"/><path class="em-ln" d="M52 116h30V86h40V56h30" stroke-dasharray="0"/><circle class="em-fill" cx="82" cy="86" r="5"/><circle class="em-fill" cx="122" cy="56" r="5"/><path class="em-ln" d="M152 34c9 0 16 7 16 16 0 12-16 26-16 26s-16-14-16-26c0-9 7-16 16-16z"/><circle class="em-dot" cx="152" cy="50" r="4"/><circle class="em-dot" cx="52" cy="116" r="4"/></svg></figure>
+    </div>
+
+    <div class="try-intro">
+      <span class="try-tag try-web">Try it live</span>
+      <p>The app is deployed and readable by anyone. Every walk and drive time on it was routed before it shipped.</p>
+    </div>
+    <div class="try-live">
+      <a class="try-btn try-web" href="https://property-finder-henna.vercel.app/" target="_blank" rel="noopener noreferrer">
+        <span class="try-top"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-map"/></svg>Open Property Finder</span>
+        <span class="try-sub">71 projects, 147 stations, and no advertised distance anywhere on screen</span>
+        <span class="try-go">Opens the live app &rarr;</span>
+      </a>
     </div>
 
 <figure class="shot">
@@ -9100,7 +9138,7 @@ body.lb-open { overflow: hidden; }
 
         <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-none"/></svg>It stops rather than guess</h3>
         <p>
-          The enrichment script pings the routing engine before it starts and exits non-zero if it cannot reach it, because the tempting alternative &mdash; falling back to straight-line distance whenever the engine is down &mdash; would have produced a complete-looking dataset that quietly broke the one guarantee the tool exists to make. The filters keep the same discipline: a numeric threshold excludes a listing only when the value is known and violates it, and <em>not yet routed</em> stays a different state from <em>routed, and beyond the 1,700&nbsp;m walkable cap</em>, so absent data never masquerades as a negative result. Two features are built end to end with no live data behind them &mdash; Google ratings are non-null on none of the 71 rows and brochure paths on none, though 35 PDFs sit in the repository &mdash; and a 14-point completeness score is what keeps gaps like that visible on a project that is single-user and local-only by written non-goal.
+          The enrichment script pings the routing engine before it starts and exits non-zero if it cannot reach it, because the tempting alternative &mdash; falling back to straight-line distance whenever the engine is down &mdash; would have produced a complete-looking dataset that quietly broke the one guarantee the tool exists to make. The filters keep the same discipline: a numeric threshold excludes a listing only when the value is known and violates it, and <em>not yet routed</em> stays a different state from <em>routed, and beyond the 1,700&nbsp;m walkable cap</em>, so absent data never masquerades as a negative result. Two features are built end to end with no live data behind them &mdash; Google ratings are non-null on none of the 71 rows and brochure paths on none, though 35 PDFs sit in the repository &mdash; and a 14-point completeness score is what keeps gaps like that visible on a project that has one user and no authentication, by written non-goal.
         </p>
       </div>
     </details>
@@ -9138,6 +9176,18 @@ body.lb-open { overflow: hidden; }
         built for an audience of one.
       </p>
       <figure class="proj-emblem reveal" style="--d:.22s"><svg viewBox="0 0 200 150" aria-hidden="true"><circle class="em-ln" cx="100" cy="26" r="17"/><path class="em-ln" d="M93 33l5-14 9 5z"/><rect class="em-dim"  x="10"  y="58" width="40" height="80" rx="3"/><rect class="em-dim"  x="58"  y="58" width="40" height="80" rx="3"/><rect class="em-fill" x="106" y="52" width="40" height="86" rx="3"/><rect class="em-dim"  x="154" y="58" width="36" height="80" rx="3"/><path class="em-dim" d="M18 76h24M18 88h16M66 76h24M66 88h16M162 76h20M162 88h14"/><path class="em-ln"  d="M114 70h24M114 82h18M114 94h24"/></svg></figure>
+    </div>
+
+    <div class="try-intro">
+      <span class="try-tag try-web">Try it live</span>
+      <p>The dashboard is public and self-contained. Open the comparison table and the photographs behind each disadvantage.</p>
+    </div>
+    <div class="try-live">
+      <a class="try-btn try-web" href="https://yokewei98.github.io/feng-shui-property-dashboard/" target="_blank" rel="noopener noreferrer">
+        <span class="try-top"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-compass"/></svg>Open Property Analysis</span>
+        <span class="try-sub">Four candidates, seven unit types, and the reasons three were ruled out</span>
+        <span class="try-go">Opens the live dashboard &rarr;</span>
+      </a>
     </div>
 
 <figure class="shot">
@@ -9238,7 +9288,7 @@ body.lb-open { overflow: hidden; }
 
     <figure class="shot">
       <div class="shot-frame">
-        <div class="shot-bar"><i></i><i></i><i></i><span>yokewei98.github.io/feng-shui-property</span></div>
+        <div class="shot-bar"><i></i><i></i><i></i><span>yokewei98.github.io/feng-shui-property-dashboard</span></div>
         <img src="shots/property-analysis-comparison.webp" width="1368" height="580" alt="The comparison table with the four shortlisted projects as rows — Mulberi Residences, LSH Cheras, JRK Convena and PSV 1 Residences — across columns for tenure, nearest transit hub, shuttle van, price range, key disadvantage and key benefit. JRK Convena's disadvantage reads balcony faces graveyard, slow lift, only 3 for the whole building; PSV 1's reads balcony faces mosque.">
       </div>
       <figcaption>
