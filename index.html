@@ -227,6 +227,9 @@ p { max-width: var(--measure); }
 }
 .mh-sub-grid a:hover { color: var(--brass); }
 .mh-sub-n { font-family: var(--mono); font-size: .625rem; color: var(--brass-dk); flex: none; }
+/* Splits the three pipelines from the remaining areas, which is why the
+   numbering jumps from 01.3 to 01.11. Spans every column of the grid. */
+.mh-sub-div { grid-column: 1 / -1; border-top: 1px solid var(--rule-lt); margin: 13px 0 3px; }
 @media (max-width: 560px) { .mh-sub-in { padding: 14px 20px 16px; } }
 @media print { .mh-more, .mh-sub { display: none !important; } }
 
@@ -1576,15 +1579,16 @@ body.lb-open { overflow: hidden; }
     <div class="mh-sub-in">
       <p class="mh-sub-h">Creator ERP &middot; nine areas</p>
       <div class="mh-sub-grid">
-        <a href="#erp-platforms"><span class="mh-sub-n">01.1</span>Portals</a>
-        <a href="#erp-roles"><span class="mh-sub-n">01.2</span>User &amp; Role</a>
-        <a href="#erp-country"><span class="mh-sub-n">01.3</span>Multiple Country</a>
-        <a href="#erp-endorse"><span class="mh-sub-n">01.4</span>Endorsement Pipeline</a>
-        <a href="#erp-cps"><span class="mh-sub-n">01.5</span>CPS Pipeline</a>
-        <a href="#erp-agentic"><span class="mh-sub-n">01.6</span>Agentic Journey</a>
-        <a href="#erp-contract"><span class="mh-sub-n">01.7</span>Contract</a>
-        <a href="#erp-extractor"><span class="mh-sub-n">01.8</span>Extractor</a>
-        <a href="#erp-creators"><span class="mh-sub-n">01.9</span>Creator Profile</a>
+        <a href="#erp-endorse"><span class="mh-sub-n">01.1</span>Endorsement Pipeline</a>
+        <a href="#erp-cps"><span class="mh-sub-n">01.2</span>CPS Pipeline</a>
+        <a href="#erp-agentic"><span class="mh-sub-n">01.3</span>Agentic Journey</a>
+        <div class="mh-sub-div"></div>
+        <a href="#erp-platforms"><span class="mh-sub-n">01.11</span>Portals</a>
+        <a href="#erp-roles"><span class="mh-sub-n">01.12</span>User &amp; Role</a>
+        <a href="#erp-country"><span class="mh-sub-n">01.13</span>Multiple Country</a>
+        <a href="#erp-contract"><span class="mh-sub-n">01.14</span>Contract</a>
+        <a href="#erp-extractor"><span class="mh-sub-n">01.15</span>Extractor</a>
+        <a href="#erp-creators"><span class="mh-sub-n">01.16</span>Creator Profile</a>
       </div>
     </div>
   </div>
@@ -2501,7 +2505,7 @@ body.lb-open { overflow: hidden; }
     <div class="proj-head">
       <a class="back reveal" style="--d:.02s" href="#creator-erp">&larr; Creator ERP</a>
       <svg class="ico proj-ico reveal" style="--d:.04s" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-key"/></svg>
-      <p class="eyebrow reveal" style="--d:.06s"><span class="num">01.1</span> &nbsp;&middot;&nbsp; ERP Area</p>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">01.11</span> &nbsp;&middot;&nbsp; ERP Area</p>
       <h1 class="reveal" style="--d:.1s" tabindex="-1">Portals</h1>
       <p class="proj-purpose reveal" style="--d:.16s">
         Six portals run off one codebase and one database. The masthead re-brands, the navigation
@@ -2697,7 +2701,7 @@ body.lb-open { overflow: hidden; }
     </details>
 
     <nav class="pager" aria-label="Area navigation">
-      <a href="#creator-erp">&larr; Creator ERP</a>
+      <a href="#erp-agentic">&larr; Agentic Journey</a>
       <a href="#erp-roles">User &amp; Role &rarr;</a>
     </nav>
   </div>
@@ -2710,7 +2714,7 @@ body.lb-open { overflow: hidden; }
     <div class="proj-head">
       <a class="back reveal" style="--d:.02s" href="#creator-erp">&larr; Creator ERP</a>
       <svg class="ico proj-ico reveal" style="--d:.04s" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg>
-      <p class="eyebrow reveal" style="--d:.06s"><span class="num">01.2</span> &nbsp;&middot;&nbsp; ERP Area</p>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">01.12</span> &nbsp;&middot;&nbsp; ERP Area</p>
       <h1 class="reveal" style="--d:.1s" tabindex="-1">User &amp; Role</h1>
       <p class="proj-purpose reveal" style="--d:.16s">
         Five role groups share one sign-in and land in five different places. Which portal a person
@@ -2939,7 +2943,7 @@ body.lb-open { overflow: hidden; }
     <div class="proj-head">
       <a class="back reveal" style="--d:.02s" href="#creator-erp">&larr; Creator ERP</a>
       <svg class="ico proj-ico reveal" style="--d:.04s" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-globe"/></svg>
-      <p class="eyebrow reveal" style="--d:.06s"><span class="num">01.3</span> &nbsp;&middot;&nbsp; ERP Area</p>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">01.13</span> &nbsp;&middot;&nbsp; ERP Area</p>
       <h1 class="reveal" style="--d:.1s" tabindex="-1">Multiple Country</h1>
       <p class="proj-purpose reveal" style="--d:.16s">
         One control moves the whole workspace between three markets. Country is modelled as a
@@ -3126,7 +3130,7 @@ body.lb-open { overflow: hidden; }
 
     <nav class="pager" aria-label="Area navigation">
       <a href="#erp-roles">&larr; User &amp; Role</a>
-      <a href="#erp-endorse">Endorsement Pipeline &rarr;</a>
+      <a href="#erp-contract">Contract &rarr;</a>
     </nav>
   </div>
 </section>
@@ -3138,7 +3142,7 @@ body.lb-open { overflow: hidden; }
     <div class="proj-head">
       <a class="back reveal" style="--d:.02s" href="#creator-erp">&larr; Creator ERP</a>
       <svg class="ico proj-ico reveal" style="--d:.04s" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>
-      <p class="eyebrow reveal" style="--d:.06s"><span class="num">01.4</span> &nbsp;&middot;&nbsp; ERP Area &middot; Develop Portal</p>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">01.1</span> &nbsp;&middot;&nbsp; ERP Area &middot; Develop Portal</p>
       <h1 class="reveal" style="--d:.1s" tabindex="-1">Endorsement Pipeline</h1>
       <p class="proj-purpose reveal" style="--d:.16s">
         The Indonesian pipeline as it runs today: eight stages from proposal to verified
@@ -4066,7 +4070,7 @@ body.lb-open { overflow: hidden; }
     </details>
 
     <nav class="pager" aria-label="Area navigation">
-      <a href="#erp-country">&larr; Multiple Country</a>
+      <a href="#creator-erp">&larr; Creator ERP</a>
       <a href="#erp-cps">CPS Pipeline &rarr;</a>
     </nav>
   </div>
@@ -4079,7 +4083,7 @@ body.lb-open { overflow: hidden; }
     <div class="proj-head">
       <a class="back reveal" style="--d:.02s" href="#creator-erp">&larr; Creator ERP</a>
       <svg class="ico proj-ico reveal" style="--d:.04s" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg>
-      <p class="eyebrow reveal" style="--d:.06s"><span class="num">01.5</span> &nbsp;&middot;&nbsp; ERP area</p>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">01.2</span> &nbsp;&middot;&nbsp; ERP area</p>
       <h1 class="reveal" style="--d:.1s" tabindex="-1">CPS Pipeline</h1>
       <p class="proj-purpose reveal" style="--d:.16s">
         The leaner of the two project types. Where an endorsement is a contracted deal with one creator, CPS is bulk video work at commission &mdash; many creators, and commercial terms settled outside the board.
@@ -4738,7 +4742,7 @@ body.lb-open { overflow: hidden; }
     <div class="proj-head">
       <a class="back reveal" style="--d:.02s" href="#creator-erp">&larr; Creator ERP</a>
       <svg class="ico proj-ico reveal" style="--d:.04s" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-agent"/></svg>
-      <p class="eyebrow reveal" style="--d:.06s"><span class="num">01.6</span> &nbsp;&middot;&nbsp; ERP Area &middot; Develop Portal</p>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">01.3</span> &nbsp;&middot;&nbsp; ERP Area &middot; Develop Portal</p>
       <h1 class="reveal" style="--d:.1s" tabindex="-1">Agentic Journey</h1>
       <p class="proj-purpose reveal" style="--d:.16s">
         The third version of the same system. V1 recorded the work after it happened, V2 moved the
@@ -5597,7 +5601,7 @@ body.lb-open { overflow: hidden; }
 
     <nav class="pager" aria-label="Area navigation">
       <a href="#erp-cps">&larr; CPS Pipeline</a>
-      <a href="#erp-contract">Contract &rarr;</a>
+      <a href="#erp-platforms">Portals &rarr;</a>
     </nav>
   </div>
 </section>
@@ -5609,7 +5613,7 @@ body.lb-open { overflow: hidden; }
     <div class="proj-head">
       <a class="back reveal" style="--d:.02s" href="#creator-erp">&larr; Creator ERP</a>
       <svg class="ico proj-ico reveal" style="--d:.04s" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sheet"/></svg>
-      <p class="eyebrow reveal" style="--d:.06s"><span class="num">01.7</span> &nbsp;&middot;&nbsp; ERP Area</p>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">01.14</span> &nbsp;&middot;&nbsp; ERP Area</p>
       <h1 class="reveal" style="--d:.1s" tabindex="-1">Contract</h1>
       <p class="proj-purpose reveal" style="--d:.16s">
         Creators sign online, by drawing on their phone through a single link with no account and no
@@ -5972,7 +5976,7 @@ body.lb-open { overflow: hidden; }
     </details>
 
     <nav class="pager" aria-label="Area navigation">
-      <a href="#erp-agentic">&larr; Agentic Journey</a>
+      <a href="#erp-country">&larr; Multiple Country</a>
       <a href="#erp-extractor">Extractor &rarr;</a>
     </nav>
   </div>
@@ -5985,7 +5989,7 @@ body.lb-open { overflow: hidden; }
     <div class="proj-head">
       <a class="back reveal" style="--d:.02s" href="#creator-erp">&larr; Creator ERP</a>
       <svg class="ico proj-ico reveal" style="--d:.04s" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-extract"/></svg>
-      <p class="eyebrow reveal" style="--d:.06s"><span class="num">01.8</span> &nbsp;&middot;&nbsp; ERP Area</p>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">01.15</span> &nbsp;&middot;&nbsp; ERP Area</p>
       <h1 class="reveal" style="--d:.1s" tabindex="-1">Extractor</h1>
       <p class="proj-purpose reveal" style="--d:.16s">
         The ERP side of creator metrics: a queue that refreshes profiles from two independent
@@ -6187,7 +6191,7 @@ body.lb-open { overflow: hidden; }
     <div class="proj-head">
       <a class="back reveal" style="--d:.02s" href="#creator-erp">&larr; Creator ERP</a>
       <svg class="ico proj-ico reveal" style="--d:.04s" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-board"/></svg>
-      <p class="eyebrow reveal" style="--d:.06s"><span class="num">01.9</span> &nbsp;&middot;&nbsp; ERP Area</p>
+      <p class="eyebrow reveal" style="--d:.06s"><span class="num">01.16</span> &nbsp;&middot;&nbsp; ERP Area</p>
       <h1 class="reveal" style="--d:.1s" tabindex="-1">Creator Profile</h1>
       <p class="proj-purpose reveal" style="--d:.16s">
         The talent CRM underneath every campaign. One record per creator, carrying the identity,
