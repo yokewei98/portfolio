@@ -7062,25 +7062,32 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>The venue preset, and where the engine came from</summary>
       <div class="layer2-body">
-        <div class="block">
-          <p>
-            The <code>venue</code> preset makes the default booking a table, points the document
-            keyword at <code>menu</code> so "what's on" sends the right PDF, and shapes the catalogue
-            around tables, areas and packages with capacity and minimum spend.
-          </p>
-          <p>
-            Maya was built first, as a single-domain venue bot &mdash; it knew about tables and
-            minimum spends because those things were written into it. The business-agnostic WA Agent
-            was then adapted out of it; the repository records the lineage in its own words, as a bot
-            "generalised from a single-domain bot into a configurable base".
-          </p>
-          <p>
-            Build the specific thing, discover from running it which parts were actually specific,
-            then rebuild so those parts are data. Standing up a fourth deployment on the result
-            needed no engine change &mdash; which is the only real test of whether the split was
-            drawn in the right place.
-          </p>
-        </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-check"/></svg>A booking is three fields and a derived number</h3>
+        <p>
+          The row stays pending until name, date and time are all present, and the agent asks only
+          for whichever of the three is still missing. The phone number is never asked for at all,
+          because it is taken from the WhatsApp identity rather than typed by the customer. When the
+          third field lands the booking flips to confirmed, a frozen snapshot row is written that
+          never changes afterwards, and the control group gets the alert the venue works from.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-compass"/></svg>This one came first, and the engine came out of it</h3>
+        <p>
+          Maya was built as a single-domain venue bot that knew about tables and minimum spends
+          because those things were written into it. The business-agnostic WA Agent was then adapted
+          out of it, and the repository records the lineage in its own words, as a bot generalised
+          from a single-domain bot into a configurable base. Everything the other three deployments
+          now configure was once hard-coded here.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>The fourth deployment is the only real test</h3>
+        <p>
+          Build the specific thing, discover from running it which parts were actually specific, then
+          rebuild so those parts are data. Standing up a fourth deployment on the result needed no
+          engine change, which is the only honest check on whether the split was drawn in the right
+          place. Doing it once could be luck, so the claim rests on the deployments that came after
+          rather than on this one.
+        </p>
       </div>
     </details>
 
