@@ -8649,25 +8649,20 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>What the extension has to survive</summary>
       <div class="layer2-body">
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>Neither source will give the data up in bulk</h3>
+        <p>
+          The operator keeps a roster of TikTok Shop creators in a spreadsheet and needs each one's commercial performance refreshed on a recurring basis, to make partnership, budget and outreach decisions. Neither TikTok Partner Center nor FastMoss will release that: both are search-one-creator-at-a-time interfaces with no CSV export and no public API for this dataset. So the work was a loop &mdash; type a username, wait for the page to render, read four to six figures off the screen, transcribe them into the right row, repeat &mdash; plus separately tracking who had already been done this month.
+        </p>
 
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-blocks"/></svg>A layout is not a contract</h3>
+        <p>
+          TikTok Partner Center ships obfuscated, hash-suffixed CSS classes that change without notice, so a selector written today is a selector broken next week. Strategy A answers that with a seven-deep fallback chain that degrades from a named class to attribute matches to a role selector to a text-density heuristic, which is why a layout change overnight costs a slower match rather than a dead run. Strategy B answers it by not depending on the layout at all, reconstructing the request the page itself makes so there is nothing left to break.
+        </p>
 
-    <div class="block">
-      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>The problem</h3>
-      <p>
-        The operator keeps a roster of TikTok Shop creators in a spreadsheet and needs each one's
-        commercial performance refreshed on a recurring basis to make partnership, budget and
-        outreach decisions. Neither source will give that up in bulk: TikTok Partner Center and
-        FastMoss are both search-one-creator-at-a-time interfaces with no CSV export and no public
-        API for this dataset.
-      </p>
-      <p>
-        So the work was a loop &mdash; type a username, wait for the page to render, read four to six
-        figures off the screen, transcribe them into the right row, repeat &mdash; and separately keep
-        track of who had already been done this month. It is the kind of task that is never urgent
-        enough to fix and never actually finished.
-      </p>
-    </div>
-
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-clock"/></svg>The task that is never urgent enough to fix</h3>
+        <p>
+          This replaces the kind of job that is never urgent enough to schedule and never actually finished, which is the shape of work that quietly consumes a person a few hours at a time. Both extensions run unattended against a live authenticated session, so the design assumes nobody is watching and treats a hang rather than a crash as the default failure. What it cannot survive is the operator being logged out &mdash; the browser session is the credential, and that is a deliberate trade rather than an oversight.
+        </p>
       </div>
     </details>
 
@@ -8732,107 +8727,21 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>How the two strategies differ</summary>
       <div class="layer2-body">
-        <div class="block">
-          <p>
-            Strategy A survives an obfuscated, hash-suffixed DOM through a 7-deep selector fallback
-            chain. Strategy B skips the interface entirely by reconstructing the request signature,
-            collapsing a full page render into a single call.
-          </p>
-        </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>Two opposite routes to the same data</h3>
+        <p>
+          The TikTok extractor drives the site's own search box and walks the results table through a seven-deep selector fallback chain &mdash; <code>.arco-table-tr</code>, then attribute matches, then <code>[role="row"]</code>, then a text-density heuristic. The FastMoss extractor skips the interface entirely by reconstructing the platform's own <code>fm-sign</code> scheme &mdash; sorted-parameter concatenation against a salt, an MD5 digest, then a fold-and-XOR transform &mdash; with MD5 re-implemented inline in about 150 lines so the extension carries no dependencies at all. Reading them side by side is the point: the first is what you build when you have to work through the interface, the second is what you build once you understand what the interface is doing.
+        </p>
 
-    <div class="block">
-      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>Key decisions</h3>
-      <ul class="decisions">
-        <li>
-          <h4>Two deliberately different strategies in one repository</h4>
-          <p>
-            The two extensions solve the same problem by opposite routes, and the repository keeps
-            both. The TikTok extractor drives the site's own search box and walks the results table
-            through a seven-deep cascading selector fallback chain &mdash;
-            <code>.arco-table-tr</code>, then attribute matches, then <code>[role="row"]</code>, then
-            a text-density heuristic &mdash; because the target ships obfuscated, hash-suffixed CSS
-            classes that change without notice. The FastMoss extractor skips the interface entirely.
-            Reading them side by side is the point: the first is what you build when you have to work
-            through the UI, the second is what you build once you understand what the UI is doing.
-          </p>
-        </li>
-        <li>
-          <h4>Reverse-engineered request signing</h4>
-          <p>
-            FastMoss signs its API requests with a scheme it calls <code>fm-sign</code>:
-            sorted-parameter concatenation against a salt, an MD5 digest, then a fold-and-XOR
-            transform over the result. Working that out meant reading the platform's own shipped
-            bundles and re-implementing MD5 inline, in about 150 lines, so the extension carries no
-            dependencies at all.
-          </p>
-          <p>
-            The payoff is architectural rather than clever. A lookup that previously required
-            rendering a full page and waiting five to ten seconds became a single HTTP round-trip
-            &mdash; which is the difference between an unattended batch over a long roster being
-            practical and being theoretical.
-          </p>
-        </li>
-        <li>
-          <h4>Session-riding instead of credential storage</h4>
-          <p>
-            Both extensions call their targets with <code>credentials: "include"</code>, riding the
-            operator's existing logged-in browser session. Nothing stores a password, an API key or
-            an OAuth token &mdash; which removes credential vaulting, token refresh and secrets
-            management from the system entirely, not by solving them but by never having them. The
-            browser is already the auth layer; the extension declines to build a second one.
-          </p>
-        </li>
-        <li>
-          <h4>Reliability engineering for unattended runs</h4>
-          <p>
-            An automation nobody is watching fails differently from one someone is watching: it does
-            not crash, it hangs, and you find out a week later. So every path carries a deadline
-            &mdash; 45-second per-task timeouts, and 15, 20 and 30-second fetch aborts via
-            <code>AbortController</code> &mdash; and every response carries a task-ID guard, so a slow
-            reply belonging to a previous task cannot be written into the current row. Tab closure
-            terminates the batch cleanly, Apps Script document locks stop a scheduled and a manual run
-            corrupting each other's writes, and failures are written back into the row with a failed
-            status. No record is silently dropped, and none is left sitting on
-            <code>Processing&hellip;</code> forever.
-          </p>
-        </li>
-      </ul>
-    </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-lock"/></svg>No password, no key, nothing to vault</h3>
+        <p>
+          Both extensions call their targets with <code>credentials: "include"</code>, riding the operator's existing logged-in browser session, so nothing stores a password, an API key or an OAuth token. That removes credential vaulting, token refresh and secrets management from the system entirely &mdash; not by solving them but by never having them, because the browser is already the auth layer. The signed route pays off the same way: a lookup that needed a full page render and five to ten seconds became a single HTTP round-trip, which is the difference between an unattended batch over a long roster being practical and being theoretical.
+        </p>
 
-      <div class="deeper-body">
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sheet"/></svg>The spreadsheet is the entire backend</h3>
         <p>
-          <b>The spreadsheet is the entire backend.</b> Google Sheets is simultaneously the job queue,
-          the state store, the results table and the operator console; an Apps Script web app is the
-          API. There is no server, no database and no hosting bill. It also makes a run resumable by
-          definition &mdash; the sheet holds the remaining work, so a crashed, closed or interrupted
-          batch recovers by relaunching from the menu, with nothing duplicated and nothing lost.
-        </p>
-        <p>
-          <b>Batches that continue themselves.</b> The Apps Script returns the next batch of unfilled
-          rows in the same response that acknowledges the write, so the extension chains straight on
-          without an operator between batches. Batches are capped at ten with a 2.5-second gap to keep
-          the target responsive; the TikTok side polls every 60 seconds and shuts itself down after
-          three idle cycles. Polling runs through <code>chrome.alarms</code> rather than recursive
-          fetches, and the comment in the source says exactly why: to avoid recursively hitting the
-          Apps Script quota.
-        </p>
-        <p>
-          <b>Deciding what needs doing.</b> Rows whose processed date falls outside the current month
-          are cleared and re-queued automatically, so "what is stale" stops being a judgement anyone
-          makes. Any tab flagged <code>K1 = "Extract"</code> is scanned and its pending usernames
-          pulled into the queue, so adding a new roster is a cell edit rather than a code change. The
-          FastMoss side captures 28-day windows for video GMV, video count, live GMV and live sessions.
-        </p>
-        <p>
-          <b>Sixteen source files, no build step.</b> Vanilla JavaScript &mdash; no framework,
-          no bundler, no dependencies &mdash; so there is no <code>npm install</code>, no CI, and no
-          supply-chain surface on a tool that runs against an authenticated session. The interface is
-          a native Sheets menu item, which is what makes it usable by someone who would never open a
-          terminal.
+          Google Sheets is simultaneously the job queue, the state store, the results table and the operator console, with an Apps Script web app as the API &mdash; no server, no database, no hosting bill, and a run that is resumable by definition because the sheet holds the remaining work. The reliability work assumes nobody is watching: 45-second per-task timeouts, fetch aborts at 15, 20 and 30 seconds, a task-ID guard so a slow reply from a previous task cannot land in the current row, document locks so a scheduled and a manual run cannot corrupt each other's writes, and failures written back as a status rather than left on <code>Processing&hellip;</code> forever. Where it stops is the same place it starts &mdash; batches cap at ten with a 2.5-second gap and polling runs through <code>chrome.alarms</code> rather than recursive fetches to stay inside the Apps Script quota, so the ceiling on throughput is the free tier the whole thing is built to live inside.
         </p>
       </div>
-      </div>
-
     </details>
 
     <nav class="pager" aria-label="Project navigation">
