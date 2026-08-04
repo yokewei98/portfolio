@@ -6488,56 +6488,41 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>The problem, and the four decisions that answer it</summary>
       <div class="layer2-body">
-        <div class="block">
-          <p>
-            <b> The business is data, not code. </b> Ad enquiries land on WhatsApp and go
-            unanswered overnight, get answered slowly, or get answered differently depending on
-            who picks up the phone &mdash; and whatever is agreed stays inside a chat thread, so
-            the name, the item, the date and the time never reach anything anyone can report on.
-            The fix had to work without a WhatsApp Business API contract, without a server to
-            maintain, and without a developer standing by every time a price changes, so the
-            engine ships neutral and knows nothing about any particular trade. Persona, catalogue,
-            fact base and the definition of a lead &mdash; including which fields must be filled
-            before something counts as one &mdash; all live in a Google Sheet, seeded by a <code>
-            BUSINESS_TYPE </code> preset: <code> property </code> , <code> venue </code> , <code>
-            services </code> , or a blank custom start, composed from the six building blocks the
-            onboarding notes document. A second, thinner line runs through the transport: the
-            relay on the operator's own PC pairs the phone, batches messages and forwards them,
-            holding no Gemini key, no database credentials and no business logic, while every
-            decision happens in Apps Script.
-          </p>
-          <p>
-            <b> What those two lines buy. </b> The operator owns the content instead of a
-            developer &mdash; a price edit in the catalogue tab is live in about sixty seconds,
-            with no build and no deployment &mdash; and the machine most likely to be left
-            unattended in a back office is the one with nothing worth taking, so the brain can be
-            rewritten, or another client added, without the transport changing at all. Two
-            behaviours fall out of the same arrangement. A ten-second per-contact debounce
-            collapses a burst of short messages into a single webhook and therefore a single model
-            call; it went in to hold token spend down, but the larger gain was that the agent
-            answers the whole thought rather than replying to the first fragment and then
-            contradicting itself twice. And because a blank cell means unknown, unknown means
-            silence: the agent says nothing on that point, logs a <code> KnowledgeGaps </code> row
-            and pings the control group, so a person answers that customer and the missing fact
-            gets written down once. One setting, <code> Settings.conversation_goal </code> , then
-            selects between <code> lead_capture </code> , <code> answer_handoff </code> and <code>
-            content_prep </code> &mdash; three products' worth of behaviour without three
-            codebases.
-          </p>
-          <p>
-            <b> What it costs. </b> Going around the Business API is what removes per-conversation
-            platform pricing, and it is also the sharpest edge in the design: the transport is an
-            unofficial WhatsApp Web client, so the number carries a ban risk no contract covers
-            and there is no official support to escalate to. The relay is Windows-first and has to
-            stay running &mdash; <code> start.bat </code> on a machine someone remembers to leave
-            on &mdash; so an unplugged PC is an outage, which is why a stale heartbeat pages a
-            separate channel rather than the one that just went quiet. And handing configuration
-            to the operator cuts both ways: the same edit that puts a corrected price live in
-            sixty seconds with no deployment puts a wrong one live in sixty seconds with no
-            review. The blank-cell rule guards against missing facts, not against confidently
-            wrong ones typed into the Sheet.
-          </p>
-        </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sheet"/></svg>The business lives in a spreadsheet, not the code</h3>
+        <p>
+          Persona, catalogue, fact base and the definition of a lead all live in a Google Sheet,
+          seeded by a <code> BUSINESS_TYPE </code> preset &mdash; <code> property </code> , <code>
+          venue </code> , <code> services </code> , or a blank custom start composed from six
+          documented building blocks. The relay on the operator's own PC pairs the phone, batches
+          messages and forwards them, holding no Gemini key, no database credentials and no
+          business logic, while every decision happens in Apps Script. Because the content is data
+          rather than code, a price edit in the catalogue tab is live in about sixty seconds with
+          no build and no deployment, and the operator owns it rather than a developer.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-none"/></svg>It would rather say nothing than guess</h3>
+        <p>
+          A ten-second per-contact debounce collapses a burst of short messages into one webhook
+          and one model call, so the agent answers the whole thought instead of replying to the
+          first fragment and then contradicting itself. A blank cell means the fact is unknown,
+          and unknown means silence on that point, a <code> KnowledgeGaps </code> row and a ping
+          to the control group so a person answers that customer. Handing a confidently wrong
+          price to a buyer costs more than a short pause, and the by-product is a standing queue
+          of what customers keep asking that the business has never written down.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>Going around the Business API is the sharpest edge</h3>
+        <p>
+          Skipping a WhatsApp Business API contract is what removes per-conversation platform
+          pricing, and it also means the transport is an unofficial WhatsApp Web client, so the
+          number carries a ban risk no contract covers. The relay is Windows-first and has to stay
+          running from <code> start.bat </code> , so an unplugged PC is an outage &mdash; which is
+          why ten minutes of silence pages a separate channel rather than the one that just went
+          quiet. Handing configuration to the operator cuts both ways, because the same edit that
+          puts a corrected price live in sixty seconds puts a wrong one live just as fast, and the
+          blank-cell rule guards against missing facts rather than against confidently wrong ones
+          typed into the Sheet.
+        </p>
       </div>
     </details>
 
@@ -6597,53 +6582,39 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>The command set, and what the transport does when things go wrong</summary>
       <div class="layer2-body">
-        <div class="block">
-          <p>
-            <b> Everything an operator does at runtime is a slash command in one group. </b>
-            <code> /b </code> and <code> /b50 </code> stage a broadcast and <code> /yes </code>
-            sends it, and the two must be back-to-back &mdash; any message in between cancels the
-            staged send rather than firing the wrong post at everyone. <code> /ignore </code> and
-            <code> /unignore </code> manage the opt-out list, writing an <code> IgnoreList </code>
-            row whose <code> reason </code> is <code> manual </code> , to distinguish it from a
-            keyword-triggered <code> opt-out </code> . <code> /status </code> reports relay
-            connection, heartbeat age, pending <code> SendQueue </code> depth and open <code>
-            KnowledgeGaps </code> , and <code> /help </code> prints the list. The brain reads only
-            that one designated group &mdash; no other group chat is read at all &mdash; and
-            ordinary conversation inside it is ignored, so only valid commands are processed.
-          </p>
-          <p>
-            <b> What happens when something is unreachable. </b> One Node process hosts every
-            client's session behind one multiplexed send router and one shared Cloudflare tunnel,
-            with isolated per-project auth stores and secrets; three sessions are registered in
-            the shared worker. A SQLite-backed retry queue with exponential backoff persists both
-            inbound webhooks and outbound sends when Google or WhatsApp is unreachable, message
-            IDs are deduplicated, and the relay suppresses its own echoes with a five-minute
-            self-sent TTL. Failed sends retry every minute, queue dispatch and a relay health
-            check run every five, and a daily 09:00 Drive backup keeps thirty days. The relay
-            writes its own tunnel URL back to <code> Settings.baileys_send_url </code> on startup,
-            so a restarted tunnel needs no manual repointing, and it posts a liveness heartbeat
-            roughly every four minutes into a Script Property &mdash; ten minutes of silence
-            triggers a Telegram alert, deliberately out of band, so the channel reporting the
-            outage is not the one that is down.
-          </p>
-          <p>
-            <b> Where the design chooses friction, and where it leaves a sharp edge. </b>
-            Broadcast is the one place the engine slows the operator down on purpose: sends
-            exclude opted-out contacts, enforce a three-day per-contact cooldown, stagger at
-            thirty-second spacing inside a 10:00&ndash;20:00 window, and require an explicit
-            preview confirmation before anything leaves &mdash; four separate ways to make
-            messaging everyone harder than messaging one person. The flexibility elsewhere carries
-            a matching cost. Reads and writes resolve by live header rather than fixed column
-            index, which is what lets the engine adopt a client's existing tab names and column
-            layout with no migration, and it also makes header text load-bearing: rename a column
-            in the Sheet and the engine stops seeing it, degrading to &ldquo;unknown&rdquo; rather
-            than erroring. Human takeover needs no command &mdash; a manual reply is logged with
-            <code> sender </code> set to <code> operator </code> and carried in the next turn's
-            history &mdash; which is convenient, and also means there is no explicit pause: short
-            of adding the contact to the ignore list, the agent keeps replying. It is trilingual
-            and multimodal throughout, and backed by 706 test cases across 73 files.
-          </p>
-        </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-tools"/></svg>Seven commands, in one group only</h3>
+        <p>
+          <code> /b </code> and <code> /b50 </code> stage a broadcast and <code> /yes </code>
+          sends it, and the two must be back-to-back so any message in between cancels the staged
+          send rather than firing the wrong post at everyone. <code> /ignore </code> and <code>
+          /unignore </code> manage the opt-out list, <code> /status </code> reports relay
+          connection, heartbeat age, pending <code> SendQueue </code> depth and open <code>
+          KnowledgeGaps </code> , and <code> /help </code> prints the list. The brain reads only
+          the one designated control group and ignores ordinary conversation inside it, so no
+          other group chat is read at all.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-server"/></svg>Nothing is lost while Google or WhatsApp is unreachable</h3>
+        <p>
+          A SQLite-backed retry queue with exponential backoff persists both inbound webhooks and
+          outbound sends, message IDs are deduplicated, and the relay suppresses its own echoes
+          with a five-minute self-sent TTL. Failed sends retry every minute, queue dispatch and a
+          relay health check run every five, and a daily 09:00 Drive backup keeps thirty days. The
+          relay posts a liveness heartbeat roughly every four minutes, and ten minutes of silence
+          triggers a Telegram alert deliberately out of band, so the channel reporting the outage
+          is not the one that is down.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-clock"/></svg>Broadcast is slowed down on purpose</h3>
+        <p>
+          Bulk sends exclude opted-out contacts, enforce a three-day per-contact cooldown, stagger
+          at thirty-second spacing inside a 10:00&ndash;20:00 window, and require an explicit
+          preview confirmation before anything leaves. Four separate brakes make messaging
+          everyone harder than messaging one person, which is the right way round on a channel
+          nobody opted into commercially. The matching sharp edge sits elsewhere, because reads
+          and writes resolve by live header rather than fixed column index, so renaming a column
+          in the Sheet does not error &mdash; the engine simply stops seeing it.
+        </p>
       </div>
     </details>
 
@@ -6708,43 +6679,38 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>Venue &middot; lead_capture &middot; a lead is a table</summary>
       <div class="layer2-body">
-        <div class="block">
-          <p>
-            <b> A preset is a seed, and it moves a short list of keys. </b> Choosing <code> venue
-            </code> writes five settings and nothing else of substance: <code>
-            default_meeting_type </code> becomes <code> table </code> , <code>
-            meeting_location_column </code> stays <code> location </code> , <code>
-            document_asset_name </code> becomes <code> menu </code> , <code> document_url_column
-            </code> points at the column holding that PDF, and <code> confirm_required_fields
-            </code> keeps its default of name, date and time. Alongside those it seeds a <code>
-            Catalogue </code> header shaped around tables, areas and packages, a starter persona
-            into <code> Settings.system_prompt </code> , blank <code> AgencyInfo </code> keys for
-            the operator to fill, and one sample row in <code> Agents </code> for the profile the
-            bot speaks as. Only <code> item_code </code> , <code> name </code> and <code> active
-            </code> are actually required columns &mdash; the engine reads whatever else happens
-            to exist.
-          </p>
-          <p>
-            <b> Everything not on that list is shared. </b> <code> DEFAULT_SETTINGS </code> fills
-            the remaining keys afterwards, and they are business-neutral: the debounce window, the
-            send window, the per-contact cooldown, the backup retention, the history depth and the
-            timezone are the same values every other deployment runs. The same 16 tabs are
-            created, the same control group receives the same alerts, and the phone is still
-            derived from the WhatsApp identity rather than asked for. A booking here is a table
-            rather than a viewing because of a handful of settings, not because anything was
-            forked.
-          </p>
-          <p>
-            <b> Where the seed stops being helpful. </b> A preset only writes where a key or tab
-            is still missing or empty, and re-running <code> setup </code> never overwrites an
-            operator's edits. That makes setup safe to repeat, which matters when a non-technical
-            operator is the one running it &mdash; and it also means you cannot change a business
-            type on a Sheet somebody has already filled in, because the new preset finds every key
-            occupied and declines to touch them. Switching trade after the fact is a fresh Sheet,
-            not a setting. That is the honest price of protecting the operator's work by default.
-            <a href="#wa-afterdark"> Open the Maya deployment &rarr; </a>
-          </p>
-        </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-cog"/></svg>A preset writes five settings and a header row</h3>
+        <p>
+          Choosing <code> venue </code> sets <code> default_meeting_type </code> to <code> table
+          </code> , leaves <code> meeting_location_column </code> as <code> location </code> ,
+          points <code> document_asset_name </code> at <code> menu </code> , and keeps <code>
+          confirm_required_fields </code> at name, date and time. It also seeds a <code> Catalogue
+          </code> header shaped around tables, areas and packages, a starter persona into <code>
+          Settings.system_prompt </code> , blank <code> AgencyInfo </code> keys and one sample
+          <code> Agents </code> row. Only <code> item_code </code> , <code> name </code> and
+          <code> active </code> are required columns, so the engine reads whatever else the
+          operator happens to keep.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stack"/></svg>Everything not on that list is shared</h3>
+        <p>
+          <code> DEFAULT_SETTINGS </code> fills the remaining keys afterwards and they are
+          business-neutral, so the debounce, the send window, the cooldown, the retention, the
+          history depth and the timezone match every other deployment. The same 16 tabs are
+          created, the same control group receives the same alerts, and the phone is still derived
+          from the WhatsApp identity rather than asked for. A lead here is a table rather than a
+          viewing because of a handful of settings, not because anything was forked.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-lock"/></svg>The seed only writes once</h3>
+        <p>
+          A preset writes only where a key or tab is still missing or empty, and re-running <code>
+          setup </code> never overwrites an operator's edits. That makes setup safe to repeat,
+          which matters when a non-technical operator is the one running it. It also means a
+          business type cannot be changed on a Sheet somebody has already filled in, so switching
+          trade after the fact is a fresh Sheet rather than a setting. <a href="#wa-afterdark">
+          Open the Maya deployment &rarr; </a>
+        </p>
       </div>
     </details>
 
@@ -6793,40 +6759,37 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>Property &middot; lead_capture &middot; a lead is a viewing</summary>
       <div class="layer2-body">
-        <div class="block">
-          <p>
-            <b> The one preset that moves the location column. </b> Of the four shipped business
-            types, <code> property </code> is the only one that repoints <code>
-            meeting_location_column </code> away from the generic <code> location </code> &mdash;
-            it reads <code> showroom_address </code> instead, a column that lives on the project's
-            own row in the catalogue. It also sets <code> default_meeting_type </code> to <code>
-            showroom </code> and <code> document_asset_name </code> to <code> brochure </code> .
-            Those three values are the whole difference between this deployment and a venue one at
-            the settings layer; the catalogue columns underneath them describe developments rather
-            than tables, but the engine treats both the same way.
-          </p>
-          <p>
-            <b> Which is why a confirmation names somewhere real. </b> Because the address is a
-            column on the project rather than a phrase in the persona, the value is copied onto
-            the booking record when a showroom visit is confirmed, and the same string goes into
-            the control-group alert the agent works from. A generic <code> location </code> would
-            have produced a confirmation naming the office; reading the project's own address
-            produces one naming the sales gallery the customer actually has to drive to. The
-            document keyword works the same way &mdash; <code> brochure </code> resolves to that
-            project's PDF, not a general one.
-          </p>
-          <p>
-            <b> What the derived phone number cannot always give you. </b> Not asking for a phone
-            number removes a question, a typing error and a place for the conversation to stall,
-            and what you get back depends on which identity WhatsApp hands over. A phone-number
-            identity yields a callable number. A privacy identity contains no number at all, so
-            the field is simply left blank and the agent follows up inside the chat instead. A
-            booking that goes quiet before it is confirmed expires after 72 hours rather than
-            sitting open indefinitely. Both are small, and both are the kind of thing that only
-            surfaces once real people are using it. <a href="#wa-jephie"> Open the Jephie
-            deployment &rarr; </a>
-          </p>
-        </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-map"/></svg>The only preset that moves the location column</h3>
+        <p>
+          Of the four shipped business types, <code> property </code> is the only one that
+          repoints <code> meeting_location_column </code> away from the generic <code> location
+          </code> to <code> showroom_address </code> , a column sitting on the project's own row.
+          It also sets <code> default_meeting_type </code> to <code> showroom </code> and <code>
+          document_asset_name </code> to <code> brochure </code> . Those three values are the
+          whole difference from a venue deployment at the settings layer.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-check"/></svg>A confirmation that names somewhere real</h3>
+        <p>
+          Because the address is a column on the project rather than a phrase in the persona, the
+          value is copied onto the booking record when a showroom visit is confirmed and into the
+          control-group alert the agent works from. A generic <code> location </code> would have
+          produced a confirmation naming the office, while reading the project's own address names
+          the sales gallery the customer has to drive to. The document keyword behaves the same
+          way, so <code> brochure </code> resolves to that project's PDF rather than a general
+          one.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-none"/></svg>The number is not always there to derive</h3>
+        <p>
+          Not asking for a phone number removes a question, a typing error and a place for the
+          conversation to stall, and what comes back depends on which identity WhatsApp hands
+          over. A phone-number identity yields a callable number, while a privacy identity
+          contains none at all, so the field is left blank and the agent follows up inside the
+          chat instead. A booking that goes quiet before it is confirmed expires after 72 hours
+          rather than sitting open indefinitely. <a href="#wa-jephie"> Open the Jephie deployment
+          &rarr; </a>
+        </p>
       </div>
     </details>
 
@@ -6889,38 +6852,35 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>Support &middot; answer_handoff &middot; a win is a resolved question</summary>
       <div class="layer2-body">
-        <div class="block">
-          <p>
-            <b> There are two dials, and this deployment moves the other one. </b> The
-            business-type preset decides what a booking is &mdash; its type, its location column,
-            its document keyword, its required fields. <code> Settings.conversation_goal </code>
-            is a separate setting that decides what the agent is trying to do at all, and it is
-            the one that moves here, from <code> lead_capture </code> to <code> answer_handoff
-            </code> . None of the four shipped presets is a support preset; there is no <code>
-            support </code> in the list. So this deployment is not a different business type with
-            a different catalogue &mdash; it is the neutral base with the mode changed, which is a
-            smaller edit than the other two deployments required.
-          </p>
-          <p>
-            <b> Because the dials are independent, nothing else had to be forked. </b> A support
-            agent inherits every business-neutral setting untouched: the same debounce, the same
-            send window and cooldown, the same opt-out keywords, the same backup retention, the
-            same health checking, the same control group and the same alerting. That is the real
-            consequence of keeping mode orthogonal to business type &mdash; a product with no
-            catalogue and no booking still runs on the same transport, the same schema and the
-            same operational tooling as the two that sell things.
-          </p>
-          <p>
-            <b> Orthogonality has a tidy-up cost. </b> <code> setup </code> creates all 16 tabs
-            whether or not a given deployment uses them, because the tab list is fixed and the
-            preset only decides what gets seeded into them. A support deployment therefore carries
-            catalogue and booking tabs it may never write a row to. That is deliberate &mdash; one
-            schema means one set of code paths, one backup shape and one thing to reason about
-            &mdash; but it does mean the Sheet an operator opens is not a minimal description of
-            their business. Some of it is scaffolding for a mode they are not running.
-            <a href="#wa-cps"> Open the Creator Helpdesk deployment &rarr; </a>
-          </p>
-        </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>Two dials, and this one moves the other</h3>
+        <p>
+          The business-type preset decides what a booking is &mdash; its type, its location
+          column, its document keyword, its required fields. <code> Settings.conversation_goal
+          </code> is a separate setting deciding what the agent is trying to do at all, and it is
+          the one that moves here, from <code> lead_capture </code> to <code> answer_handoff
+          </code> . None of the four shipped presets is a support preset, so this deployment is
+          the neutral base with the mode changed rather than a different business type.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stack"/></svg>Nothing else had to be forked</h3>
+        <p>
+          Because the dials are independent, a support agent inherits every business-neutral
+          setting untouched: the same debounce, send window, cooldown, opt-out keywords,
+          retention, health checking, control group and alerting. A product with no catalogue and
+          no booking still runs on the same transport, the same schema and the same operational
+          tooling as the two that sell things. That is what keeping mode orthogonal to business
+          type actually buys.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sheet"/></svg>Some of the Sheet is scaffolding</h3>
+        <p>
+          <code> setup </code> creates all 16 tabs whether or not a deployment uses them, because
+          the tab list is fixed and the preset only decides what gets seeded into them. A support
+          deployment therefore carries catalogue and booking tabs it may never write a row to.
+          That is deliberate, since one schema means one set of code paths and one backup shape,
+          but the Sheet an operator opens is not a minimal description of their business.
+          <a href="#wa-cps"> Open the Creator Helpdesk deployment &rarr; </a>
+        </p>
       </div>
     </details>
 
@@ -6976,39 +6936,37 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>Built for a client, not yet delivered &middot; content_prep</summary>
       <div class="layer2-body">
-        <div class="block">
-          <p>
-            <b> Where the images come from. </b> Photos are uploaded once to Google Drive and
-            registered in the Sheet: <code> MediaLibrary </code> holds one row per image keyed by
-            <code> asset_name </code> with its <code> drive_image_url </code> , and <code>
-            MediaSets </code> groups them as a <code> set_name </code> against an ordered CSV of
-            members. When the model returns a <code> send_media </code> action, <code>
-            buildActions </code> checks <code> MediaSets </code> first and expands a match into
-            one <code> send_image </code> per member in order, skipping any member that no longer
-            resolves, and otherwise falls back to the single-asset lookup. Nothing is uploaded
-            mid-conversation and nothing is fetched from a phone.
-          </p>
-          <p>
-            <b> The setup effort is front-loaded, on purpose. </b> Because the library is curated
-            once and referenced by name, the agent draws from a known, ordered, captioned set on
-            every request rather than from whatever happens to be to hand, and the same set can be
-            reused across posts without re-uploading. That also means the quality ceiling is set
-            before the agent is ever asked for anything: a thin library produces thin choices, and
-            no amount of prompting fixes it. The work moved from the moment of posting to the
-            moment of organising, which is the trade the whole design makes elsewhere too.
-          </p>
-          <p>
-            <b> No live deployment stands behind this one. </b> It is built for a client and not
-            yet delivered, so unlike Maya and the Creator Helpdesk agent there is nothing running
-            to point at &mdash; the metric band counts two live agents and this is deliberately
-            not one of them. What it settles is narrower than the other two: that a third goal
-            fits the same relay, the same 16-tab Sheet, the same control group, the same media
-            library and the same alerting, with <code> content_prep </code> as the only thing that
-            moves. Whether it survives contact with a staff group on a busy evening is not
-            something this page can claim yet. <a href="#wa-post"> Open the Social Post Agent
-            deployment &rarr; </a>
-          </p>
-        </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg>A media reference resolves into an ordered set</h3>
+        <p>
+          Photos are uploaded once to Google Drive and registered in the Sheet, with <code>
+          MediaLibrary </code> holding one row per image keyed by <code> asset_name </code> and
+          its <code> drive_image_url </code> . <code> MediaSets </code> groups them as a <code>
+          set_name </code> against an ordered CSV of members, and when the model returns a <code>
+          send_media </code> action <code> buildActions </code> checks <code> MediaSets </code>
+          first and expands a match into one <code> send_image </code> per member in order. Any
+          member that no longer resolves is skipped, and otherwise it falls back to the
+          single-asset lookup.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>The quality ceiling is set before anyone asks</h3>
+        <p>
+          Because the library is curated once and referenced by name, the agent draws from a
+          known, ordered set on every request rather than from whatever is to hand. A thin library
+          produces thin choices, and no amount of prompting fixes that. The work moved from the
+          moment of posting to the moment of organising, which is the trade the rest of the system
+          makes too.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-none"/></svg>Nothing is running behind this one</h3>
+        <p>
+          It is built for a client and not yet delivered, so unlike Maya and the Creator Helpdesk
+          agent there is no live deployment to point at. What it settles is narrower than the
+          other two: that a third goal fits the same relay, the same 16-tab Sheet, the same
+          control group, the same media library and the same alerting, with <code> content_prep
+          </code> the only thing that moves. Whether it survives contact with a staff group on a
+          busy evening is not something this page can claim yet. <a href="#wa-post"> Open the
+          Social Post Agent deployment &rarr; </a>
+        </p>
       </div>
     </details>
 
@@ -7163,38 +7121,35 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>Why this is the real test of the configuration layer</summary>
       <div class="layer2-body">
-        <div class="block">
-          <p>
-            <b> The engine is pointed at the client's tabs, not the other way round. </b> This
-            deployment does not use the default lead tabs. <code> lead_tab </code> and <code>
-            confirmed_lead_tab </code> are set to the venue's own <code> Bookings </code> and
-            <code> ConfirmedBookings </code> , and because every read and write resolves by live
-            header rather than fixed column index, the engine runs on the sheet layout the venue
-            already had. No migration, no renaming, and nobody being asked to adopt my schema so
-            my code can work.
-          </p>
-          <p>
-            <b> Two deployments already prove it in opposite directions. </b> The property
-            deployment's Sheet does not use the engine's default names either &mdash; its tabs are
-            <code> Projects </code> , <code> Meetups </code> and <code> ConfirmedMeetups </code> ,
-            and its booking rows carry <code> project_code </code> and <code> showroom_address
-            </code> columns that a bar has no use for. Same code, the same 16 tabs by count, two
-            entirely different vocabularies. If the layout settings did not genuinely work, one of
-            those two would have had to bend, and the way that failure shows up is not a red test
-            &mdash; it is a client being told to rename their spreadsheet.
-          </p>
-          <p>
-            <b> Header text becomes load-bearing. </b> Resolving by name is what makes an
-            arbitrary layout possible, and it moves the fragility into the header row. Only <code>
-            item_code </code> , <code> name </code> and <code> active </code> are required;
-            everything else is optional, which is exactly why any layout works, and it also means
-            a mistyped or renamed header is not an error. The column simply stops being seen, the
-            value behind it becomes another blank cell, and the blank-cell rule turns that into
-            &ldquo;unknown&rdquo; &mdash; so the agent defers politely on a fact that is sitting
-            right there in the Sheet. It fails quietly and in the safe direction, but it does fail
-            quietly, and the operator is the only person positioned to notice.
-          </p>
-        </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-cog"/></svg>The engine is pointed at the client's tabs</h3>
+        <p>
+          This deployment does not use the default lead tabs, because <code> lead_tab </code> and
+          <code> confirmed_lead_tab </code> are set to the venue's own <code> Bookings </code> and
+          <code> ConfirmedBookings </code> . Every read and write resolves by live header rather
+          than fixed column index, so the engine runs on the sheet layout the venue already had.
+          No migration, no renaming, and nobody asked to adopt my schema so my code can work.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg>Two deployments, two vocabularies, one codebase</h3>
+        <p>
+          The property deployment's Sheet does not use the engine's default names either, since
+          its tabs are <code> Projects </code> , <code> Meetups </code> and <code>
+          ConfirmedMeetups </code> , with booking rows carrying <code> project_code </code> and
+          <code> showroom_address </code> columns a bar has no use for. Same code, the same 16
+          tabs by count, two entirely different sets of names. If the layout settings did not
+          genuinely work one of those two would have had to bend, and that failure shows up as a
+          client being told to rename their spreadsheet rather than as a failing test.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>Header text becomes load-bearing</h3>
+        <p>
+          Resolving by name is what makes an arbitrary layout possible, and it moves the fragility
+          into the header row. Only <code> item_code </code> , <code> name </code> and <code>
+          active </code> are required, so a mistyped or renamed header is not an error &mdash; the
+          column simply stops being seen and the value behind it becomes another blank cell. The
+          blank-cell rule then turns that into unknown, so the agent defers politely on a fact
+          sitting right there in the Sheet, failing quietly and in the safe direction.
+        </p>
       </div>
     </details>
 
@@ -7276,38 +7231,38 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>The property preset, and how the ad does the routing</summary>
       <div class="layer2-body">
-        <div class="block">
-          <p>
-            <b> The catalogue is the routing table. </b> The <code> property </code> preset shapes
-            the catalogue as a <code> Projects </code> tab whose <code> project_code </code>
-            doubles as the advertising reference code, alongside the columns a buyer asks about
-            &mdash; tenure, price range, built-up, unit types, completion, facilities, <code>
-            showroom_hours </code> , <code> brochure_url </code> , <code> floorplan_url </code> .
-            A booking is a showroom visit, its address read from that project's <code>
-            showroom_address </code> , and its PDF from the <code> brochure </code> keyword. Name,
-            date and time confirm the viewing; the phone number comes from WhatsApp itself.
-          </p>
-          <p>
-            <b> So the routing is solved in the ad, before a word is composed. </b> The ad carries
-            a WhatsApp click-to-chat link that pre-fills the reference code, and the customer's
-            first message arrives already reading something like <code> Hi, I'm interested in
-            [SKY01] </code> . The brain matches that against <code> project_code </code> , locks
-            the chat, and composes an opening reply that is about the right development with the
-            right price and the right gallery address &mdash; no clarifying question, no wrong
-            first answer to apologise for. The hardest part of a sales conversation is knowing
-            what it is about, and here that arrives with the first message.
-          </p>
-          <p>
-            <b> And when the ad does not do its job. </b> Plenty of enquiries arrive without a
-            code &mdash; someone messages the number directly, or forwards it to a friend. The bot
-            then asks which project they mean and lists the active ones, locking to whichever they
-            name, so the lock is established either way and the ad is an optimisation rather than
-            a requirement. The lock persists on the contact's row afterwards, which is the trade
-            worth naming: a returning customer stays on the project they last enquired about until
-            they say otherwise, and a half-finished booking that goes quiet expires after 72 hours
-            rather than sitting open forever.
-          </p>
-        </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-board"/></svg>The catalogue is the routing table</h3>
+        <p>
+          The <code> property </code> preset shapes the catalogue as a <code> Projects </code> tab
+          whose <code> project_code </code> doubles as the advertising reference code, beside the
+          columns a buyer asks about &mdash; tenure, price range, built-up, unit types,
+          completion, facilities, <code> showroom_hours </code> , <code> brochure_url </code> and
+          <code> floorplan_url </code> . A booking is a showroom visit, its address read from that
+          project's <code> showroom_address </code> and its PDF from the <code> brochure </code>
+          keyword. Name, date and time confirm the viewing, and the phone number comes from
+          WhatsApp itself.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-compass"/></svg>The routing is solved in the ad</h3>
+        <p>
+          The ad carries a WhatsApp click-to-chat link that pre-fills the reference code, so the
+          customer's first message arrives already reading something like <code> Hi, I'm
+          interested in [SKY01] </code> . The brain matches that against <code> project_code
+          </code> and locks the chat before composing a word, so the opening reply is about the
+          right development with the right price and the right gallery address. The hardest part
+          of a sales conversation is knowing what it is about, and here that arrives with the
+          first message.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-blocks"/></svg>When the ad does not do its job</h3>
+        <p>
+          Plenty of enquiries arrive without a code, so the bot asks which project they mean,
+          lists the active ones and locks to whichever they name. The lock is established either
+          way, which makes the ad an optimisation rather than a requirement. It then persists on
+          the contact's row, so a returning customer stays on the project they last enquired about
+          until they say otherwise, and a half-finished booking that goes quiet expires after 72
+          hours.
+        </p>
       </div>
     </details>
 
@@ -7366,35 +7321,35 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>The precise version, which is the interesting part</summary>
       <div class="layer2-body">
-        <div class="block">
-          <p>
-            <b> The focus is structural, not just a matter of tone. </b> Each contact carries an
-            <code> active_project </code> lock, set either from the reference code in their first
-            message or from the project they name when asked. Once it is set, that project's
-            non-empty fields are injected into the prompt in full as <code>
-            &lt;current_project&gt; </code> , while every other active project gets a single line
-            in <code> &lt;other_projects&gt; </code> , capped at <code> other_projects_max </code>
-            &mdash; eight by default. The model is handed deep detail on one thing and a bare
-            index of the rest, which is why it does not drift into unrelated listings.
-          </p>
-          <p>
-            <b> Which is also why it can help the instant it is asked. </b> Because that index is
-            already in the prompt, &ldquo;what else do you have?&rdquo; needs no second lookup, no
-            re-query and no mode change &mdash; the agent answers across the range immediately and
-            then steers back toward arranging a viewing. The lock shapes what the agent
-            volunteers, not what it is capable of discussing, and that distinction is the
-            difference between an agent that stays on topic and one that has been hobbled.
-          </p>
-          <p>
-            <b> Two dials, owned by two different people. </b> Whether the agent offers
-            alternatives unprompted is a line in the persona, and an operator can soften or delete
-            it from the Sheet without anyone touching code. What the agent holds detail on is the
-            lock, and that is engine behaviour. Splitting it this way puts sales discipline with
-            the business rather than with me &mdash; and it also means an operator who rewrites
-            the persona can make the agent pushier than I would, with nothing in the way.
-            Configuration that is genuinely open is configuration you cannot also police.
-          </p>
-        </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-lock"/></svg>One project in full, the rest as an index</h3>
+        <p>
+          Each contact carries an <code> active_project </code> lock, set either from the
+          reference code in their first message or from the project they name when asked. That
+          project's non-empty fields go into the prompt in full as <code> &lt;current_project&gt;
+          </code> , while every other active project gets a single line in <code>
+          &lt;other_projects&gt; </code> , capped at <code> other_projects_max </code> and eight
+          by default. The model is handed deep detail on one thing and a bare index of the rest,
+          which is why it does not drift into unrelated listings.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spark"/></svg>It can still help the instant it is asked</h3>
+        <p>
+          Because that index is already in the prompt, a question about what else is available
+          needs no second lookup, no re-query and no mode change. The agent answers across the
+          range immediately and then steers back toward arranging a viewing. The lock shapes what
+          it volunteers rather than what it is able to discuss, which is the difference between
+          staying on topic and being hobbled.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg>Two dials, owned by two different people</h3>
+        <p>
+          Whether the agent offers alternatives unprompted is a line in the persona, and an
+          operator can soften or delete it from the Sheet without anyone touching code. What the
+          agent holds detail on is the lock, and that is engine behaviour. Splitting it this way
+          puts sales discipline with the business rather than with me, and it also means an
+          operator who rewrites the persona can make the agent pushier than I would with nothing
+          in the way.
+        </p>
       </div>
     </details>
 
@@ -7473,34 +7428,32 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>What changes, and what routing replaces</summary>
       <div class="layer2-body">
-        <div class="block">
-          <p>
-            <b> One setting, and what it changes. </b> For Maya and Jephie a conversation has gone
-            well when it ends in a booking. Here it has gone well when a question is resolved and
-            nobody had to chase it. That is <code> answer_handoff </code> in place of <code>
-            lead_capture </code> on the same engine, and it changes what the agent is looking for
-            in each turn, what it decides to escalate, and what it writes down afterwards &mdash;
-            without altering a line of the transport, the schema or the alerting.
-          </p>
-          <p>
-            <b> What the routing displaces. </b> An enquiry is matched to the category that owns
-            it and forwarded to that person with a reference code attached; their reply is relayed
-            back to the customer, and the ticket closes. What that replaces is the ordinary
-            arrangement &mdash; a shared inbox, somebody deciding manually who ought to take each
-            message, and no record afterwards of how long any of it took. The reference code is
-            the part that makes the round trip traceable rather than merely quick: without it you
-            have a fast forward and no way to tell, later, whether anything came back.
-          </p>
-          <p>
-            <b> The category map is data, like everything else here. </b> Which category owns what
-            is operator-maintained, exactly as the catalogue and the fact base are, and it carries
-            the same consequence: a wrong or missing category is a data error rather than a code
-            error. It sends a ticket quietly to the wrong person, and it is fixed by editing a row
-            rather than by a deployment. That is the trade the whole system makes, and it is worth
-            being plain about it here rather than presenting routing as though it removed human
-            judgement. It relocated it &mdash; from deciding every message to maintaining one map.
-          </p>
-        </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-branch"/></svg>One setting changes what the agent is for</h3>
+        <p>
+          For Maya and Jephie a conversation has gone well when it ends in a booking, while here
+          it has gone well when a question is resolved and nobody had to chase it. That is <code>
+          answer_handoff </code> in place of <code> lead_capture </code> on the same engine. It
+          changes what the agent looks for in each turn, what it escalates and what it writes
+          down, without altering a line of the transport, the schema or the alerting.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-route"/></svg>A reference code makes the round trip traceable</h3>
+        <p>
+          An enquiry is matched to the category that owns it and forwarded to that person with a
+          reference code attached, their reply is relayed back to the customer, and the ticket
+          closes. What that replaces is a shared inbox, somebody deciding manually who takes each
+          message, and no record afterwards of how long any of it took. Without the code you have
+          a fast forward and no way to tell later whether anything came back.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-cog"/></svg>The category map is data, like everything else</h3>
+        <p>
+          Which category owns what is operator-maintained, exactly as the catalogue and the fact
+          base are. A wrong or missing category is therefore a data error rather than a code
+          error, so it sends a ticket quietly to the wrong person and is fixed by editing a row
+          rather than by a deployment. Routing did not remove human judgement, it relocated it
+          &mdash; from deciding every message to maintaining one map.
+        </p>
       </div>
     </details>
 
@@ -7554,37 +7507,33 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>Why it is worth more on a support deployment</summary>
       <div class="layer2-body">
-        <div class="block">
-          <p>
-            <b> What the refusal actually does. </b> When the model flags a question as unknown,
-            the agent sends the customer nothing at all on that point. The question lands in
-            <code> KnowledgeGaps </code> with a status of <code> open </code> , and the control
-            group is pinged so a person can answer. There is no hedge, no &ldquo;I'll
-            check on that&rdquo; and no plausible-sounding filler &mdash; the customer gets a
-            slightly slower human answer instead of a fast wrong one, and the gap is recorded
-            whether or not anyone acts on it.
-          </p>
-          <p>
-            <b> The same rule earns more here than anywhere else. </b> On a sales deployment a
-            wrong answer costs a booking, and the conversation ends. On a support deployment a
-            wrong answer does not end anything &mdash; it comes back as a second ticket, from
-            somebody who now trusts the answers less than they did before they asked. The failure
-            compounds rather than closing, which is why the strictest behaviour in the engine pays
-            for itself most on the deployment where the agent is supposed to be the authority on
-            the thing being asked about.
-          </p>
-          <p>
-            <b> The cost is a queue that only a person can clear. </b> A gap moves through <code>
-            open </code> , then <code> answered </code> , then <code> promoted </code> , and
-            nothing promotes itself: an operator's reply to one customer starts feeding the bot
-            only once somebody copies it into <code> KnowledgeBase </code> . Choosing that over
-            automatic promotion means an answer typed in a hurry to one person never quietly
-            becomes doctrine for everyone &mdash; and it also means the backlog shrinks only when
-            someone works it. A support deployment left unattended does not get worse, but it
-            stops getting better, and that is a maintenance commitment rather than a one-off
-            setup.
-          </p>
-        </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-none"/></svg>Unknown means nothing is said</h3>
+        <p>
+          When the model flags a question as unknown, the agent sends the customer nothing at all
+          on that point. The question lands in <code> KnowledgeGaps </code> with a status of
+          <code> open </code> , and the control group is pinged so a person can answer. There is
+          no hedge and no plausible filler, so the customer gets a slightly slower human answer
+          instead of a fast wrong one.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>A wrong answer here compounds instead of closing</h3>
+        <p>
+          On a sales deployment a wrong answer costs a booking and the conversation ends. On a
+          support deployment it ends nothing, because it returns as a second ticket from somebody
+          who now trusts the answers less than before they asked. That is why the strictest
+          behaviour in the engine pays for itself most where the agent is meant to be the
+          authority.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-check"/></svg>Nothing promotes itself</h3>
+        <p>
+          A gap moves through <code> open </code> , then <code> answered </code> , then <code>
+          promoted </code> , and an operator's reply starts feeding the bot only once somebody
+          copies it into <code> KnowledgeBase </code> . Choosing that over automatic promotion
+          means an answer typed in a hurry to one person never quietly becomes doctrine for
+          everyone. It also means the backlog shrinks only when someone works it, so a support
+          deployment left unattended stops getting better even though it does not get worse.
+        </p>
       </div>
     </details>
 
@@ -7666,36 +7615,33 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>Two different sizes of the same image</summary>
       <div class="layer2-body">
-        <div class="block">
-          <p>
-            <b> How a request runs. </b> Someone types <code> @a </code> in the staff group. The
-            agent evaluates up to thirty candidate images from the registered library, selects a
-            varied subset without near-duplicates, and drafts a caption in the house voice. If the
-            caption is not right it is reworded in the same thread rather than regenerated from
-            nothing &mdash; the point is to finish a post, not to admire a first draft, and
-            starting over usually produces a different draft rather than a better one.
-          </p>
-          <p>
-            <b> Two different sizes of the same image. </b> The vision call has a byte budget that
-            the deliverable does not. So candidates are downscaled to 1024px thumbnails for the
-            model to look at, while the full-resolution originals are what actually get sent to
-            WhatsApp. It sounds like a detail, and it is the difference between the selection step
-            working at thirty candidates and failing at eight. Most of the useful engineering in a
-            feature like this is exactly that &mdash; deciding what the model needs to see, which
-            is rarely what the person needs to receive.
-          </p>
-          <p>
-            <b> What a thumbnail cannot show. </b> Thirty is a budget rather than a preference,
-            and the downscale is what buys it, which means the model is choosing on a reduced
-            view. That is enough to judge composition, subject and near-duplication; it is not
-            enough to judge fine detail &mdash; small text burned into an image, slightly soft
-            focus, a mark that only appears at full size. The choice is also bounded by the
-            library, since the agent can only pick from assets that have been registered, and an
-            unregistered photo does not exist as far as it is concerned. Both limits push the same
-            way: it is good at narrowing a curated set quickly, and it is not a judge of whether a
-            photograph is any good.
-          </p>
-        </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spark"/></svg>One message returns a set and a caption</h3>
+        <p>
+          Someone types <code> @a </code> in the staff group, and the agent evaluates up to thirty
+          candidate images from the registered library. It selects a varied subset without
+          near-duplicates and drafts a caption in the house voice. If the caption is not right it
+          is reworded in the same thread rather than regenerated from nothing, because the point
+          is to finish a post rather than admire a first draft.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-server"/></svg>The model sees a smaller file than the customer</h3>
+        <p>
+          The vision call has a byte budget the deliverable does not, so candidates are downscaled
+          to 1024px thumbnails for the model to look at while the full-resolution originals are
+          what get sent. It is the difference between the selection step working at thirty
+          candidates and failing at eight. Most of the useful engineering in a feature like this
+          is deciding what the model needs to see, which is rarely what the person needs to
+          receive.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-none"/></svg>What a thumbnail cannot show</h3>
+        <p>
+          Thirty is a budget rather than a preference and the downscale is what buys it, so the
+          model is choosing on a reduced view. That is enough to judge composition, subject and
+          near-duplication, and not enough to judge small text burned into an image, slightly soft
+          focus, or a mark that only appears at full size. The choice is also bounded by the
+          library, since an unregistered photo does not exist as far as the agent is concerned.
+        </p>
       </div>
     </details>
 
@@ -7747,35 +7693,33 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>Why the mode boundary is in the right place</summary>
       <div class="layer2-body">
-        <div class="block">
-          <p>
-            <b> What <code> content_prep </code> swaps, and what it leaves alone. </b> The mode
-            changes the goal and nothing beneath it. There are no booking fields to extract, no
-            in-progress booking row and no lead alert &mdash; but the machinery that turns a media
-            reference into an ordered set of images is the very same code that sends a brochure to
-            a customer on the property deployment. One relay, one 16-tab Sheet, one control group,
-            one media library and one alerting path sit underneath a group assistant and a sales
-            assistant alike.
-          </p>
-          <p>
-            <b> Which is a stronger claim than it first sounds. </b> A content assistant and a
-            sales assistant have almost nothing in common as products: different audience,
-            different definition of success, different output, different person on the other end.
-            That they share almost everything as software, and that neither had to bend to sit on
-            one engine, is what convinces me the line between what the engine does and what a
-            particular business wants was drawn in the right place. A boundary drawn wrongly shows
-            up as special cases, and there are none here.
-          </p>
-          <p>
-            <b> The caveat, and its flip side. </b> This deployment is built and not yet
-            delivered, so the boundary has been tested by construction rather than by daily use
-            &mdash; a fourth goal fitting without an engine change is a real result, and it is not
-            the same as a fourth client living with it for a month. And a shared substrate cuts
-            both ways: the reason a new mode is cheap to add is exactly the reason a change to the
-            relay, the schema or the alerting reaches all four deployments at once. Cheap to
-            extend and expensive to disturb are the same property, seen from two sides.
-          </p>
-        </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stack"/></svg>The mode changes the goal and nothing beneath it</h3>
+        <p>
+          There are no booking fields to extract, no in-progress booking row and no lead alert.
+          The machinery that turns a media reference into an ordered set of images is the same
+          code that sends a brochure to a customer on the property deployment. One relay, one
+          16-tab Sheet, one control group, one media library and one alerting path sit underneath
+          a group assistant and a sales assistant alike.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg>Different products, almost identical software</h3>
+        <p>
+          A content assistant and a sales assistant have almost nothing in common as products,
+          with a different audience, a different definition of success, a different output and a
+          different person on the other end. That they share almost everything as software, and
+          that neither had to bend to sit on one engine, is what convinces me the line between
+          what the engine does and what a business wants was drawn in the right place. A boundary
+          drawn wrongly shows up as special cases, and there are none here.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>Cheap to extend is the same thing as expensive to disturb</h3>
+        <p>
+          This deployment is built and not yet delivered, so the boundary has been tested by
+          construction rather than by daily use. A fourth goal fitting without an engine change is
+          a real result, and it is not the same as a fourth client living with it for a month. The
+          reason a new mode is cheap to add is exactly the reason a change to the relay, the
+          schema or the alerting reaches all four deployments at once.
+        </p>
       </div>
     </details>
 
@@ -8834,17 +8778,20 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>How seventy-one becomes four, and what the second tool inherits</summary>
       <div class="layer2-body">
-        <div class="block">
-          <p>
-            <b>Nothing connects the two tools but the person using them.</b> There is no export, no shared schema and no data path between them. Property Finder holds its 71 projects and 147 stations in a SQLite file behind a Prisma schema of three models; Property Analysis holds its four projects as a JavaScript object literal in the first 238 lines of <code>app.js</code>, with no <code>package.json</code> and nothing to import from. The shortlist crosses the gap the way any shortlist does &mdash; someone read the map, went to see the places, and typed what they found into the second tool.
-          </p>
-          <p>
-            <b>That gap is what lets each tool be shaped by its own size.</b> Because neither has to interoperate, neither had to compromise. The search stage can afford a local routing engine, a 246&nbsp;MB street-network extract and ten pipeline scripts, because that fixed cost is spread over 426 routing calls per run. The decide stage can afford to be three static files on GitHub Pages with no build step, because four projects do not need a database. A shared format between them would have forced the second tool to carry the first one's machinery for the sake of four projects and seven unit records.
-          </p>
-          <p>
-            <b>The cost is that the guarantee does not cross with the shortlist.</b> Property Finder exists because portal-advertised distances are straight lines, and it replaces them with times routed along real streets. Property Analysis records transit distance as a string quoted from developer marketing &mdash; <code>~500m walking distance</code>, <code>~2.5km, feeder bus T115</code> &mdash; which is the exact figure the first tool was built to distrust. The routed number is computed, then dropped at the handoff and re-entered as the marketing one. Nothing in either tool notices, because there is no join between them to notice it.
-          </p>
-        </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stack"/></svg>Two stores with no wire between them</h3>
+        <p>
+          There is no export, no shared schema and no data path between the two tools. Property Finder keeps its 71 projects and 147 stations in SQLite behind a Prisma schema of three models; Property Analysis keeps its four projects as a JavaScript object literal in the first 238 lines of <code>app.js</code>, with no <code>package.json</code> and nothing to import from. The shortlist crosses that gap the way any shortlist does &mdash; someone read the map, went to see the places, and entered what they found into the second tool.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-tools"/></svg>Each stage sized for its own numbers</h3>
+        <p>
+          Because neither has to interoperate, neither had to compromise. The search stage can afford a local routing engine, a 246&nbsp;MB street-network extract and ten pipeline scripts, because that fixed cost is spread across 426 routing calls per run; the decide stage can afford to be three static files on GitHub Pages with no build step, because four projects do not need a database. A shared format would have forced the second tool to carry the first one's machinery for the sake of four projects and seven unit records.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-none"/></svg>The routed number does not survive the handoff</h3>
+        <p>
+          Property Finder exists because portal-advertised distances are straight lines, and it replaces them with times routed along the street network. Property Analysis records transit distance as a string quoted from developer marketing &mdash; <code>~500m walking distance</code>, <code>~2.5km, feeder bus T115</code> &mdash; which is the exact kind of figure the first tool was built to distrust. The routed number is computed, dropped at the handoff and re-entered as the marketing one, and nothing notices because there is no join between them to notice it.
+        </p>
       </div>
     </details>
 
@@ -8906,17 +8853,20 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>What each method costs, and where the crossover sits</summary>
       <div class="layer2-body">
-        <div class="block">
-          <p>
-            <b>The two halves define "a value arriving" in opposite ways.</b> In the search stage a value arrives by machine: ten TypeScript entry points under <code>scripts/</code> scrape listings, geocode addresses through Nominatim, pull the rail network from OSM Overpass and write routed times into SQLite, with 12 of the project's 16 npm scripts existing to drive that. In the decide stage a value arrives manually: a person enters it into <code>propertyData</code>, one field at a time, and the entire logic half of <code>app.js</code> &mdash; everything from line 239 on &mdash; contains no fetch, no parser and no import of any kind.
-          </p>
-          <p>
-            <b>Automation has a fixed cost that only volume repays, and the deciding facts had no feed at any volume.</b> Building the scraper, standing up a routing engine and maintaining ten scripts is worth it across 71 projects, and pays for itself again every time the drive anchor changes and all 426 routes are recomputed. Across four it is not. More importantly, scaling the pipeline up would not have produced the facts that settled the purchase &mdash; that a balcony overlooks a graveyard, or that a tower has three lifts &mdash; because those are published in no structured form for four projects or for 71. The second tool is not a smaller version of the first; it collects a different kind of fact.
-          </p>
-          <p>
-            <b>This is one purchase reasoned about afterwards, not a rule.</b> The crossover between automating and typing depends on how dear each field is to obtain manually and how much of the pipeline already exists, and both were unusually favourable here &mdash; the pipeline was already built, and the fields were unobtainable by machine at any price. The manual side also assumes the shortlist stays small: at twenty candidates the object literal becomes a maintenance problem, and the comparison would need the pipeline after all. Nothing in the tool enforces that ceiling or warns when it is approached.
-          </p>
-        </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-extract"/></svg>What counts as a value arriving</h3>
+        <p>
+          In the search stage a value arrives by machine: ten TypeScript entry points under <code>scripts/</code> scrape listings, geocode through Nominatim, pull the rail network from OSM Overpass and write routed times into SQLite, with 12 of the project's 16 npm scripts existing to drive that. In the decide stage a value arrives manually, entered into <code>propertyData</code> one field at a time. The entire logic half of <code>app.js</code> &mdash; everything from line 239 on &mdash; contains no fetch, no parser and no import of any kind.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bolt"/></svg>Volume is what repays a pipeline</h3>
+        <p>
+          Building the scraper, standing up a routing engine and maintaining ten scripts is worth it across 71 projects, and repays itself again every time the drive anchor changes and all 426 routes are recomputed. Across four it is not. More to the point, scaling the pipeline up would not have produced the facts that settled the purchase &mdash; that a balcony overlooks a graveyard, or that a tower has three lifts &mdash; because those are published in no structured form at four projects or at 71.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>The crossover is a guess that holds at four</h3>
+        <p>
+          The crossover between automating and entering values depends on how dear each field is to obtain and how much of the pipeline already exists, and both were unusually favourable here &mdash; the pipeline was already built, and the fields were unobtainable by machine at any price. The manual side also assumes the shortlist stays small; at twenty candidates the object literal becomes a maintenance problem and the comparison would need the pipeline after all. Nothing in the tool enforces that ceiling or warns when it is approached.
+        </p>
       </div>
     </details>
 
@@ -8951,29 +8901,20 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>Why these are one project and not two</summary>
       <div class="layer2-body">
-        <div class="block">
-          <p>
-            <b>They were built weeks apart for the same purchase.</b> The first answered a question
-            the portals answer badly &mdash; how far is this really from a station &mdash; across
-            every new launch in two states. The second answered the question that comes after,
-            once the list is short enough to visit: which of these four do I actually want, and
-            why did I rule the others out.
-          </p>
-          <p>
-            <b>The interesting part is the seam between them.</b> Having built an automated
-            geospatial pipeline for this exact domain, the obvious move at shortlist stage was to
-            point it at the remaining four. That would have been wrong. Four rows do not repay the
-            cost of a scraper, and the facts that settled the decision &mdash; a balcony facing a
-            graveyard, three lifts serving forty floors &mdash; exist in no structured feed at any
-            scale. So the second tool has no pipeline at all, and that is the decision worth
-            defending rather than the pipeline itself.
-          </p>
-          <p>
-            <b>Neither is production software.</b> One user, one purchase, no deployment beyond a
-            static page. The engineering claims here are about judgment under a real constraint,
-            not about scale, and the sub-pages are written to be read that way.
-          </p>
-        </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-compass"/></svg>Two questions, weeks apart, one purchase</h3>
+        <p>
+          The two tools were built weeks apart for the same purchase. The first answered a question the portals answer badly &mdash; how far is this really from a station &mdash; across every new launch in two states. The second answered the question that comes after, once the list is short enough to visit: which of these four do I actually want, and why did I rule the others out.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-none"/></svg>The pipeline that was not reused</h3>
+        <p>
+          Having built an automated geospatial pipeline for this exact domain, the obvious move at shortlist stage was to point it at the remaining four. That would have been wrong: four rows do not repay the cost of a scraper, and the facts that settled the decision &mdash; a balcony facing a graveyard, three lifts for the whole tower &mdash; exist in no structured feed at any scale. So the second tool has no pipeline at all, and that refusal is the decision worth defending rather than the pipeline itself.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>Neither is production software</h3>
+        <p>
+          Neither is production software: one user, one purchase, and no deployment beyond a static page. The claims made here are about judgement under a real constraint, not about scale. The sub-pages are written to be read that way, and neither counts a user it does not have.
+        </p>
       </div>
     </details>
 
@@ -9110,17 +9051,20 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>Why the distinction matters</summary>
       <div class="layer2-body">
-        <div class="block">
-          <p>
-            Property portals advertise a distance to the nearest station, and that number is usually a straight line drawn on a map. A unit listed as 400&nbsp;m from an LRT station can be a fifteen-minute walk once a highway, a river or a missing footbridge is in the way &mdash; so shortlisting on the advertised figure means spending weekends visiting places that were never actually close.
-          </p>
-          <p>
-            The tool is built around one rule that follows from that: straight-line distance is only ever a prefilter, never a number shown to the user. Every walk and drive time on screen is routed along the real street network. That single constraint dictated most of the architecture.
-          </p>
-          <p>
-            <b>The rule holds for what is displayed, not for what is considered.</b> Straight-line distance still decides which stations get routed at all: <code>CANDIDATES = 5</code> in <code>scripts/route-enrich.ts</code> picks the five nearest stations as the crow flies, and only those five are walked. If the station that is genuinely closest on foot ranks sixth by straight line &mdash; which is exactly what a river or a rail corridor does to the ranking &mdash; it is never routed and never appears. The guarantee is that no advertised distance reaches the screen; it is not that the true nearest station is always found. Widening the prefilter would close the hole at a linear cost in routing calls, and it has not been widened.
-          </p>
-        </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-map"/></svg>A straight line is not a walk</h3>
+        <p>
+          Property portals advertise a distance to the nearest station, and that number is usually a straight line drawn on a map. A unit listed as 400&nbsp;m from an LRT station can be a fifteen-minute walk once a highway, a river or a missing footbridge is in the way. Shortlisting on the advertised figure means spending weekends visiting places that were never actually close.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-lock"/></svg>Prefilter only, never a displayed number</h3>
+        <p>
+          One rule follows from that: straight-line distance is only ever a prefilter, never a number shown to the user. Every walk and drive time on screen is routed along the real street network instead. That single constraint dictated most of the architecture, from the offline enrichment pipeline down to what the database stores.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>The prefilter can still hide the nearest station</h3>
+        <p>
+          The rule holds for what is displayed, not for what is considered: <code>CANDIDATES = 5</code> in <code>scripts/route-enrich.ts</code> picks the five nearest stations as the crow flies, and only those five are walked. If the station genuinely closest on foot ranks sixth by straight line &mdash; which is exactly what a river or a rail corridor does to the ranking &mdash; it is never routed and never appears. The guarantee is that no advertised distance reaches the screen, not that the true nearest station is always found, and widening the prefilter would close the hole at a linear cost in routing calls.
+        </p>
       </div>
     </details>
 
@@ -9179,17 +9123,20 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>How the seam is built, and what it cost</summary>
       <div class="layer2-body">
-        <div class="block">
-          <p>
-            <b>Routing sits behind a <code>RoutingProvider</code> interface, and the concrete engine is chosen in one line.</b> Nothing in the application or the ten pipeline scripts refers to GraphHopper directly. The design had specified OSRM running under Docker; Docker turned out not to be available on the machine, and GraphHopper went in instead as a local JAR &mdash; a one-line change, mid-build. That is worth saying plainly: the seam was not justified by a hypothetical future migration, it paid for itself during the build it was written for. The same separation governs when work happens. Nothing expensive runs while someone is waiting &mdash; scraping, geocoding, route enrichment and ratings are all offline pipeline scripts that write into SQLite, and the application only ever reads precomputed values. Filtering and sorting across eleven dimensions &mdash; region, category, scheme, status, price, price per square foot, bedrooms, distance to transit, rating, favourites and completion window &mdash; therefore happen client-side with no round-trip at all. Changing the personal drive anchor is the one action that triggers a re-route, and it re-routes everything, because a stale commute figure is worse than an absent one.
-          </p>
-          <p>
-            <b>Running the engine locally is what makes re-routing everything an affordable thing to do.</b> Each property takes five foot-routing calls &mdash; one per candidate station from a <code>CANDIDATES = 5</code> prefilter &mdash; plus one car-routing call to the personal anchor, so a complete run over the current dataset is 426 routing calls. Every one is free, because GraphHopper runs against a 246&nbsp;MB Malaysia, Singapore and Brunei OSM extract on the same machine. A commercial distance-matrix API bills per element; here the marginal cost of recomputing the whole dataset is time rather than money, which is precisely what makes the anchor freely changeable rather than a setting nobody dares touch. The transit network is read rather than typed on the same principle: line membership, interchange detection and the official Rapid KL line colours are all parsed from OSM route relation tags, with the script header explicit that the network is not written into the source &mdash; 147 stations across 7 lines with 17 interchanges, against 71 projects. Only one paid dependency survives all this. Google Places is the single API key in the project, called with a four-field mask and <code>maxResultCount: 1</code>, cached into SQLite with the place ID persisted so a repeat run costs nothing, and any 4xx breaks the loop immediately rather than burning quota against an auth or limit error, with queries built context-aware &mdash; an under-development project searched as its sales gallery, a completed one as itself.
-          </p>
-          <p>
-            <b>What the design refuses to do is more telling than what it does.</b> The enrichment script pings the routing engine before it starts and exits non-zero if it cannot reach it; the tempting alternative, falling back to straight-line distance whenever the engine is down, would have produced a complete-looking dataset that quietly broke the one guarantee the tool exists to make. A pipeline that stops is an inconvenience; one that silently substitutes a worse number is a tool you can no longer trust, and you would have no way of knowing when that started. The filters keep the same discipline: numeric thresholds exclude a listing only when the value is known <em>and</em> violates the threshold, so a project with no recorded price per square foot survives a PSF filter instead of vanishing from a search it might have belonged in, while categorical filters demand a positive match &mdash; and <em>not yet routed</em> stays a different state from <em>routed, and beyond the 1,700&nbsp;m walkable cap</em>, so absent data never masquerades as a negative result. Two features are built end to end with no live data behind them: Google ratings are non-null on none of the 71 rows and brochure paths are set on none, though 35 PDFs sit in the repository, and a 14-point completeness score is what keeps gaps like those visible rather than discovered at a viewing. The scope is stated rather than implied &mdash; single-user, local-only, no authentication and no deployment, by written non-goal rather than omission. The decisions stand on their own; the project has no users to claim, and none are claimed.
-          </p>
-        </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stack"/></svg>The engine is chosen in one line</h3>
+        <p>
+          Routing sits behind a <code>RoutingProvider</code> interface and the concrete engine is chosen in one line, so nothing in the application or the ten pipeline scripts refers to GraphHopper directly. The design had specified OSRM under Docker; Docker was not available on the machine, and GraphHopper went in instead as a local JAR &mdash; a one-line change, mid-build, which is the seam paying for itself during the build it was written for rather than in a hypothetical migration. The same separation decides when work happens: scraping, geocoding, route enrichment and ratings all run as offline scripts that write into SQLite, so the application only reads precomputed values and filtering across eleven dimensions &mdash; region, category, scheme, status, price, price per square foot, bedrooms, distance to transit, rating, favourites and completion window &mdash; happens client-side with no round-trip.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-map"/></svg>Free routing is what makes the anchor movable</h3>
+        <p>
+          Each property takes five foot-routing calls, one per candidate station from the <code>CANDIDATES = 5</code> prefilter, plus one car-routing call to the personal anchor, so a full run over the current dataset is 426 routing calls. Every one is free, because GraphHopper runs locally against a 246&nbsp;MB Malaysia, Singapore and Brunei OSM extract where a commercial distance-matrix API would bill per element &mdash; which is precisely what makes the drive anchor freely changeable rather than a setting nobody dares touch, since changing it re-routes everything. The one paid dependency is fenced to match: Google Places is the single API key, called with a four-field mask and <code>maxResultCount: 1</code>, cached into SQLite with the place ID persisted so a repeat run costs nothing, and any 4xx breaks the loop rather than burning quota.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-none"/></svg>It stops rather than guess</h3>
+        <p>
+          The enrichment script pings the routing engine before it starts and exits non-zero if it cannot reach it, because the tempting alternative &mdash; falling back to straight-line distance whenever the engine is down &mdash; would have produced a complete-looking dataset that quietly broke the one guarantee the tool exists to make. The filters keep the same discipline: a numeric threshold excludes a listing only when the value is known and violates it, and <em>not yet routed</em> stays a different state from <em>routed, and beyond the 1,700&nbsp;m walkable cap</em>, so absent data never masquerades as a negative result. Two features are built end to end with no live data behind them &mdash; Google ratings are non-null on none of the 71 rows and brochure paths on none, though 35 PDFs sit in the repository &mdash; and a 14-point completeness score is what keeps gaps like that visible on a project that is single-user and local-only by written non-goal.
+        </p>
       </div>
     </details>
 
@@ -9298,34 +9245,20 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>Where the data comes from</summary>
       <div class="layer2-body">
-        <div class="block">
-          <p>
-            The facts that ruled projects out here &mdash; a graveyard past the balcony, three lifts
-            for the whole tower &mdash; exist in no structured feed, which is precisely why this
-            dataset is entered manually.
-          </p>
-        </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg>The same five fields, four times over</h3>
+        <p>
+          By the time a search narrows to four candidates the portals have stopped being useful, because every listing shows the same five fields. Every developer's incentive package is shaped differently &mdash; one offers a ten per cent rebate, another absorbs the legal fees and adds air-conditioning &mdash; so the headline prices are not comparable at a glance. The facts that actually decide the purchase are not in any listing at all.
+        </p>
 
-    
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-board"/></svg>Somewhere to put what you saw</h3>
+        <p>
+          The things that ruled projects out here were a balcony facing a graveyard, a balcony facing a mosque, and three lifts serving an entire tower. You find those by visiting, and then you need somewhere to put them, because six weeks later you will not remember which project had the lift problem. Each of those is stored with the photograph that proves it, so the reason a project was dropped can still be shown to someone else.
+        </p>
 
-    <div class="block">
-      <h3><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>The problem</h3>
-      <p>
-        By the time a property search narrows to four candidates, the portals have stopped being
-        useful. Every listing shows the same five fields, every developer's incentive package is
-        shaped differently &mdash; one offers a ten per cent rebate, another absorbs the legal fees
-        and adds air-conditioning &mdash; and none of it is comparable at a glance. Meanwhile the
-        facts that actually decide the purchase are not in any listing at all.
-      </p>
-      <p>
-        The things that ruled projects out here were: a balcony facing a graveyard, a balcony facing
-        a mosque, and three lifts serving an entire tower. You find those by visiting, and then you
-        need somewhere to put them &mdash; because six weeks later you will not remember which
-        project had the lift problem, and you will not be able to show anyone why you walked away.
-        This tool is that somewhere.
-      </p>
-    </div>
-
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-none"/></svg>A record, not a recommendation</h3>
+        <p>
+          The tool records the decision rather than making it: there is no score, no ranking and no weighting between the four. Everything in it is something a person saw and entered, so it holds nothing that was not visited. That is the right shape for four candidates and the wrong shape for forty, and nothing in it pretends otherwise.
+        </p>
       </div>
     </details>
 
@@ -9352,17 +9285,20 @@ body.lb-open { overflow: hidden; }
     <details class="layer2">
       <summary>How the comparison is built</summary>
       <div class="layer2-body">
-        <div class="block">
-          <p>
-            <b>Every value is entered manually into a JavaScript object literal, and that was chosen rather than settled for.</b> The scraping, geocoding and routing pipeline built for Property Finder already existed and already covered this exact domain; it was not reused, because at four candidates the automation does not amortise and the deciding facts are not machine-readable &mdash; no feed will tell you a balcony overlooks a graveyard. What that leaves is three files and nothing else: 474 lines of JavaScript, 263 of HTML, 783 of CSS, no <code>package.json</code>, no bundler and no transpile step, with the data layer occupying the first 238 lines of <code>app.js</code> and <code>git push</code> to GitHub Pages as the entire deploy pipeline. Two derivations do the only computing. Each unit records a single number &mdash; the direction you face walking out of the front door &mdash; and the rear and view bearing is computed as its opposite, both labelled against an eight-point compass in code, so the two figures cannot silently contradict each other the way two stored fields would. The financing panel computes the loan against the SPA price while displaying the purchase price net of rebate, which looks inconsistent until you have sat through the paperwork: Malaysian banks margin against the transacted SPA value, not the discounted figure the buyer actually pays, and getting it the other way round understates the loan on every rebate-heavy unit, which is most of them.
-          </p>
-          <p>
-            <b>Manual entry is what makes room for the things a feed cannot carry.</b> A stated drawback with no photograph behind it decays into a vague misgiving within a fortnight, so every disadvantage in the dataset carries an image &mdash; the graveyard, the mosque &mdash; opened through a lightbox alongside the annotated floor plate showing which stack the unit sits in. That is also why roughly nineteen megabytes of the repository is media: unit layouts, annotated floor plates, site photographs and one developer brochure, against a code total in the low thousands of lines. The ratio is the right way round for a tool whose value is what it holds rather than the logic it runs, and for one whose useful life is a single purchase decision there is nothing here to patch, upgrade or pay for. The output is not a recommendation; it is a decision that can still be defended months later.
-          </p>
-          <p>
-            <b>It stops short of working out a true net cost, and the schema is what gives that away.</b> Every unit carries five fee-liability fields &mdash; who pays the memorandum of transfer, the loan stamp duty, the SPA legal fees, the loan legal fees and the valuation &mdash; plus cashback and size. All seven are stored for every unit and read by nothing. <code>calculateMOT()</code>, a correct implementation of Malaysia's tiered stamp-duty scale, and <code>calculateLoanStampDuty()</code> are both written and never called. The data model was laid out for a net-cost calculator; the screen shows three figures and there is no calculator behind them. That is groundwork rather than a shipped feature, and worth saying outright rather than letting a well-shaped schema imply a comparison the tool does not actually make.
-          </p>
-        </div>
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-code"/></svg>Three files, two derivations</h3>
+        <p>
+          The pipeline built for Property Finder already covered this exact domain and was not reused, because at four candidates the automation does not amortise and no feed will tell you a balcony overlooks a graveyard. What that leaves is three files &mdash; 474 lines of JavaScript, 263 of HTML, 783 of CSS &mdash; with no <code>package.json</code>, no bundler and no transpile step, the data layer occupying the first 238 lines of <code>app.js</code>, and <code>git push</code> to GitHub Pages as the entire deploy pipeline. Two derivations do the only computing: each unit stores a single bearing and the opposite rear-and-view bearing is computed from it against an eight-point compass, and the financing panel margins the loan on the SPA price while showing the purchase price net of rebate, which is how Malaysian banks actually lend.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spark"/></svg>The photograph is the point</h3>
+        <p>
+          Every disadvantage in the dataset carries the image that proves it, opened through a lightbox beside the annotated floor plate showing which stack the unit sits in. That is why roughly nineteen megabytes of the repository is media &mdash; unit layouts, floor plates, site photographs and one developer brochure &mdash; against a code total in the low thousands of lines. The ratio is the right way round for a tool whose value is what it holds rather than the logic it runs, and one whose useful life is a single purchase has nothing to patch, upgrade or pay for.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-none"/></svg>A calculator the schema expects and the screen does not have</h3>
+        <p>
+          Every unit carries five fee-liability fields &mdash; who pays the memorandum of transfer, the loan stamp duty, the SPA legal fees, the loan legal fees and the valuation &mdash; plus cashback and size, and all seven are stored and read by nothing. <code>calculateMOT()</code>, a correct implementation of Malaysia's tiered stamp-duty scale, and <code>calculateLoanStampDuty()</code> are both written and never called. The data model was laid out for a net-cost calculator, the screen shows three figures, and there is no calculator behind them &mdash; groundwork rather than a shipped feature, and worth saying outright rather than letting a well-shaped schema imply a comparison the tool does not make.
+        </p>
       </div>
     </details>
 
