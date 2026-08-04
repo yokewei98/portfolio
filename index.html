@@ -142,32 +142,24 @@ p { max-width: var(--measure); }
 }
 .masthead .wrap {
   display: flex; align-items: center; justify-content: space-between;
-  gap: 20px; height: 54px;
+  gap: 20px;
+  /* min-height, not height: the nav wraps rather than scrolls, so the bar
+     has to be free to grow to a second line on a narrow viewport. */
+  min-height: 54px; padding-top: 8px; padding-bottom: 8px;
   font-size: .6875rem; text-transform: uppercase; letter-spacing: .1em;
   color: var(--muted);
 }
 .masthead a:hover { color: var(--text); }
 .masthead .mh-name { color: var(--text-2); flex: none; }
 
+/* Every tab is always visible — the bar wraps to a second line rather than
+   scrolling. A hidden-scrollbar nav made tabs past the edge read as absent,
+   and no edge-fade cue fully solved that; showing them all does. */
 .mh-nav {
-  display: flex; gap: 22px; align-items: center;
-  overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;
-  white-space: nowrap; margin-left: 28px;
-  scroll-behavior: smooth;
+  display: flex; flex-wrap: wrap; gap: 6px 22px; align-items: center;
+  margin-left: 28px;
 }
-.mh-nav::-webkit-scrollbar { display: none; }
-/* Six tabs stop fitting below roughly 950px. The bar already scrolled, but
-   with the scrollbar hidden there was nothing to say so — the tabs past the
-   edge simply read as absent. Fade whichever side still has tabs beyond it.
-   A mask rather than a background gradient, so the masthead's blur shows
-   through instead of a flat block of colour sitting on top of it. */
-.mh-nav[data-ovf] {
-  -webkit-mask-image: var(--mh-fade);
-          mask-image: var(--mh-fade);
-}
-.mh-nav[data-ovf="end"]   { --mh-fade: linear-gradient(to right, #000 calc(100% - 34px), transparent); }
-.mh-nav[data-ovf="start"] { --mh-fade: linear-gradient(to left,  #000 calc(100% - 34px), transparent); }
-.mh-nav[data-ovf="both"]  { --mh-fade: linear-gradient(to right, transparent, #000 34px, #000 calc(100% - 34px), transparent); }
+.mh-nav a { white-space: nowrap; }
 .mh-nav a { padding: 4px 0; border-bottom: 1px solid transparent; }
 /* A tab is a link plus, where the project has deeper pages, a disclosure
    button beside it — so the link still navigates and the panel is its own
@@ -6639,8 +6631,97 @@ body.lb-open { overflow: hidden; }
     <div class="sec-head">
       <div class="sec-n">03</div>
       <div class="sec-body">
+        <p class="eyebrow">MULTI-TENANCY</p>
+    <h2 class="sec-h" id="w-s3"><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-server"/></svg> One process, four sessions</h2>
+    <p class="sec-lede">A new client costs nothing extra to run, because the same machine is already serving the others</p>
+      </div>
+    </div>
+
+    <figure class="figure">
+      <svg class="dgm" viewBox="0 0 700 240" role="img" aria-labelledby="mtT mtD">
+        <title id="mtT">What the worker shares, and what it keeps apart</title>
+        <desc id="mtD">Four deployments run on one Node process. The process, the send router and
+          the Cloudflare tunnel are shared between them, while the auth store, the secrets, the
+          Sheet and the Apps Script brain are separate for each project.</desc>
+
+        <text class="dgm-n" x="20" y="18">FOUR DEPLOYMENTS</text>
+        <rect class="dgm-box" x="20" y="26"  width="172" height="44" rx="2"/>
+        <text class="dgm-t" x="32" y="48">Maya</text>
+        <text class="dgm-s" x="32" y="64">venue</text>
+        <rect class="dgm-box" x="20" y="76"  width="172" height="44" rx="2"/>
+        <text class="dgm-t" x="32" y="98">Jephie</text>
+        <text class="dgm-s" x="32" y="114">property</text>
+        <rect class="dgm-box" x="20" y="126" width="172" height="44" rx="2"/>
+        <text class="dgm-t" x="32" y="148">Creator Helpdesk</text>
+        <text class="dgm-s" x="32" y="164">support</text>
+        <rect class="dgm-box" x="20" y="176" width="172" height="44" rx="2"/>
+        <text class="dgm-t" x="32" y="198">Social Post Agent</text>
+        <text class="dgm-s" x="32" y="214">internal, not delivered</text>
+
+        <path class="dgm-ln" d="M194 48 L214 48 L214 120"/>
+        <path class="dgm-ln" d="M194 98 L214 98"/>
+        <path class="dgm-ln" d="M194 148 L214 148"/>
+        <path class="dgm-ln" d="M194 198 L214 198 L214 120"/>
+        <path class="dgm-ln-a" d="M214 120 L214 88 L242 88" marker-end="url(#aha)"/>
+        <path class="dgm-ln" d="M214 120 L214 180 L242 180" marker-end="url(#ah)"/>
+
+        <rect class="dgm-box-a" x="244" y="54" width="436" height="68" rx="3"/>
+        <text class="dgm-n" x="260" y="74">SHARED</text>
+        <text class="dgm-s" x="260" y="94">one Node process &middot; one multiplexed /send router</text>
+        <text class="dgm-s" x="260" y="112">one Cloudflare tunnel, its URL written back on startup</text>
+
+        <rect class="dgm-box" x="244" y="146" width="436" height="68" rx="2"/>
+        <text class="dgm-n" x="260" y="166">ISOLATED, PER PROJECT</text>
+        <text class="dgm-s" x="260" y="186">auth store &middot; secrets &middot; Sheet &middot; Apps Script brain</text>
+        <text class="dgm-s" x="260" y="204">so one project's session cannot read another's</text>
+
+        <text class="dgm-n" x="350" y="234" text-anchor="middle">THREE SESSIONS REGISTERED TODAY &mdash; THE FOURTH IS BUILT AND NOT YET DELIVERED</text>
+      </svg>
+      <figcaption>
+        <b>One machine, four tenants.</b> What is shared makes it cheap; what is isolated is what
+        keeps the tenants apart.
+      </figcaption>
+    </figure>
+
+    <details class="layer2">
+      <summary>What the worker shares, and what it keeps apart</summary>
+      <div class="layer2-body">
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-server"/></svg>One process holds every session</h3>
+        <p>
+          A single Node process hosts every client's WhatsApp session, each with its own auth store
+          and its own secrets, so nothing one project holds is reachable from another. Outbound
+          messages leave through one multiplexed <code>/send</code> router that resolves which
+          session a message belongs to before it goes anywhere. Three sessions are registered in the
+          shared worker today against four deployments, because the fourth is built and not yet
+          delivered.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-route"/></svg>A new client costs a row in a registry</h3>
+        <p>
+          The alternative &mdash; one relay and one tunnel for every client &mdash; multiplies the
+          running cost by the client count for no benefit anyone could point at. Here a new
+          deployment is a registry entry and a Sheet, because the machine, the tunnel and the router
+          are already running. One shared Cloudflare quick tunnel gives all of them public
+          reachability, and the relay writes its current tunnel URL back to
+          <code>Settings.baileys_send_url</code> on startup so a restart needs no manual repointing.
+        </p>
+
+        <h3 class="l2-h"><svg class="ico blk-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-target"/></svg>One process is also one thing to lose</h3>
+        <p>
+          Consolidating onto a single process is what keeps the running cost flat, and it also means
+          every session shares a fate: if that machine is off, all of them are. The isolation is at
+          the auth store and the secret rather than at the process, so a crash is not contained the
+          way it would be with a relay each. That trade is only defensible at this size, and a fifth
+          live client is roughly where it stops being obviously right.
+        </p>
+      </div>
+    </details>
+
+    <div class="sec-head">
+      <div class="sec-n">04</div>
+      <div class="sec-body">
         <p class="eyebrow">DEPLOYMENT</p>
-    <h2 class="sec-h" id="w-s3"><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-blocks"/></svg> Maya &mdash; The Bar Agent</h2>
+    <h2 class="sec-h" id="w-s4"><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-blocks"/></svg> Maya &mdash; The Bar Agent</h2>
     <p class="sec-lede">Built for one business, then rebuilt so any business could use it</p>
       </div>
     </div>
@@ -6733,10 +6814,10 @@ body.lb-open { overflow: hidden; }
     </details>
 
     <div class="sec-head">
-      <div class="sec-n">04</div>
+      <div class="sec-n">05</div>
       <div class="sec-body">
         <p class="eyebrow">DEPLOYMENT</p>
-    <h2 class="sec-h" id="w-s4"><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-blocks"/></svg> Jephie &mdash; The Property Assistant</h2>
+    <h2 class="sec-h" id="w-s5"><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-blocks"/></svg> Jephie &mdash; The Property Assistant</h2>
     <p class="sec-lede">Buyers get the address without waiting for an agent to reply</p>
       </div>
     </div>
@@ -6812,10 +6893,10 @@ body.lb-open { overflow: hidden; }
     </details>
 
     <div class="sec-head">
-      <div class="sec-n">05</div>
+      <div class="sec-n">06</div>
       <div class="sec-body">
         <p class="eyebrow">DEPLOYMENT</p>
-    <h2 class="sec-h" id="w-s5"><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-blocks"/></svg> Creator Helpdesk Agent</h2>
+    <h2 class="sec-h" id="w-s6"><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-blocks"/></svg> Creator Helpdesk Agent</h2>
     <p class="sec-lede">Questions reach the right person instead of a shared inbox nobody owns</p>
       </div>
     </div>
@@ -6903,10 +6984,10 @@ body.lb-open { overflow: hidden; }
     </details>
 
     <div class="sec-head">
-      <div class="sec-n">06</div>
+      <div class="sec-n">07</div>
       <div class="sec-body">
         <p class="eyebrow">DEPLOYMENT</p>
-    <h2 class="sec-h" id="w-s6"><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spark"/></svg> Social Post Agent</h2>
+    <h2 class="sec-h" id="w-s7"><svg class="ico sec-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spark"/></svg> Social Post Agent</h2>
     <p class="sec-lede">A folder of photos becomes a ready-to-post set with a caption, without anyone leaving the group chat</p>
       </div>
     </div>
@@ -9380,25 +9461,6 @@ body.lb-open { overflow: hidden; }
 
   function viewEl(name) { return document.getElementById("view-" + name); }
 
-  // ── masthead nav overflow ───────────────────────────────────
-  // Below roughly 950px the six tabs exceed the bar. Mark which edge still
-  // has tabs past it so the CSS can fade that side; without the cue a
-  // scrolled-away tab is indistinguishable from one that does not exist.
-  var mhNav = document.querySelector(".mh-nav");
-
-  function navOverflow() {
-    if (!mhNav) return;
-    var max = mhNav.scrollWidth - mhNav.clientWidth;
-    if (max <= 1) { mhNav.removeAttribute("data-ovf"); return; }
-    var x = mhNav.scrollLeft;
-    mhNav.setAttribute("data-ovf", x <= 1 ? "end" : (x >= max - 1 ? "start" : "both"));
-  }
-
-  if (mhNav) {
-    mhNav.addEventListener("scroll", navOverflow, { passive: true });
-    window.addEventListener("resize", navOverflow);
-  }
-
   // ── masthead sub-page panels ────────────────────────────────
   // Three of the five projects carry deeper pages. Click-only, never hover:
   // a hover menu cannot be dismissed on a phone, and the caret is a real
@@ -9484,11 +9546,7 @@ body.lb-open { overflow: hidden; }
       }
     );
 
-    // Pull the current tab into view. On a narrow bar it can sit past the
-    // edge, which is exactly how a working tab reads as a broken one.
-    var cur = mhNav && mhNav.querySelector('a[aria-current="page"]');
-    if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: "nearest", inline: "nearest" });
-    navOverflow();
+    // No scroll-into-view needed: the bar wraps, so every tab is on screen.
 
     window.scrollTo(0, 0);
   }
